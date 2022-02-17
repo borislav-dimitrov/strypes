@@ -1,0 +1,18 @@
+{
+	"users": [
+		{
+			"users_id": 1,
+			"users_f_name": "Ivancho",
+			"users_l_name": "Ivanchev",
+			"users_cc_id": 1,
+			"users_status": "Active"
+		},
+		{
+			"users_id": 2,
+			"users_f_name": "Pencho",
+			"users_l_name": "Penchev",
+			"users_cc_id": 2,
+			"users_status": "Active"
+		}
+	]
+}

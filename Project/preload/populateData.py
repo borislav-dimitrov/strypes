@@ -1,9 +1,11 @@
 import helpers.dateHelpers as dh
+import helpers.objectHelpers as oh
 
 from objects.costCentre import CostCentre
 from objects.cartridge import Cartridge
 from objects.user import User
 from objects.printer import Printer
+from preload.loadFromJson import read_all_data
 
 all_cc = []
 all_crt = []
@@ -11,65 +13,75 @@ all_users = []
 all_prn = []
 
 
-def create_cc(cc_num, cc_name, cc_status="Active"):
-    curr_id = len(all_cc) + 1
-    new_cc = CostCentre(curr_id, cc_num, cc_name, cc_status)
+def create_cc(cc_id, cc_num, cc_name, cc_status):
+    new_cc = CostCentre(cc_id, cc_num, cc_name, cc_status)
     all_cc.append(new_cc)
 
 
-def create_crt(crt_type, serial_number, barcode, cost_centre, date_bought, date_scrap, remark, status="Normal"):
-    curr_id = len(all_crt) + 1
-    new_crt = Cartridge(curr_id, crt_type, serial_number, barcode, cost_centre, date_bought, date_scrap, remark, status)
+def create_crt(crt_id, crt_type, serial_number, barcode,
+               cost_centre, date_bought, date_scrap, remark, status):
+    new_crt = Cartridge(crt_id, crt_type, serial_number, barcode,
+                        cost_centre, date_bought, date_scrap, remark, status)
     all_crt.append(new_crt)
 
 
-def create_user(f_name, l_name, cost_centre, status="Active"):
-    curr_id = len(all_users) + 1
-    new_user = User(curr_id, f_name, l_name, cost_centre, status)
+def create_user(user_id, f_name, l_name, cost_centre, status):
+    new_user = User(user_id, f_name, l_name, cost_centre, status)
     all_users.append(new_user)
 
 
-def create_prn(prn_model, cost_centre, location, prn_ip, bk_counters=0,
-               clr_counters=0, status="Active", rent=True):
-    curr_id = len(all_prn) + 1
-    new_printer = Printer(curr_id, prn_model, cost_centre, location, prn_ip, bk_counters, clr_counters, status, rent)
+def create_prn(prn_id, prn_model, cost_centre, location, prn_ip, bk_counters,
+               clr_counters, status, rent):
+    new_printer = Printer(prn_id, prn_model, cost_centre, location, prn_ip, bk_counters, clr_counters, status, rent)
     all_prn.append(new_printer)
 
 
-def populate_cc():
-    create_cc(4311, "Supply Chain")
-    create_cc(5204, "Export")
-    create_cc(5210, "Finished Goods")
-    create_cc(4208, "Raw Materials")
-    create_cc(555, "test")
-    create_cc(444, "test")
-    create_cc(333, "test")
-    create_cc(111, "test")
-    create_cc(222, "test")
-    create_cc(777, "test")
-    create_cc(666, "test")
+def populate_cc(data):
+    for item in data:
+        create_cc(item["cost_centre_id"],
+                  item["cost_centre_num"],
+                  item["cost_centre_name"],
+                  item["cost_centre_status"])
 
 
-def populate_crt():
-    create_crt("Xerox 3215", "sn_000001", "bc_000001_someOtherInfo", all_cc[0], dh.get_today(), "", "")
-    create_crt("HP 85a", "sn_000002", "bc_000002_someOtherInfo", all_cc[1], dh.get_today(), "", "")
+def populate_crt(data):
+    for item in data:
+        create_crt(item["cartridge_id"],
+                   item["cartridge_type"],
+                   item["cartridge_serial"],
+                   item["cartridge_barcode"],
+                   oh.get_object_by_id(item["cartridge_cc_id"], all_cc),
+                   item["cartridge_created"],
+                   item["cartridge_scraped"],
+                   item["cartridge_remark"],
+                   item["cartridge_status"])
 
 
-def populate_users():
-    create_user("Ivancho", "Ivanchev", all_cc[0])
-    create_user("Pencho", "Penchev", all_cc[1])
+def populate_users(data):
+    for item in data:
+        create_user(item["users_id"],
+                    item["users_f_name"],
+                    item["users_l_name"],
+                    oh.get_object_by_id(item["users_cc_id"], all_cc),
+                    item["users_status"])
 
 
-def populate_prn():
-    create_prn("Lexmark 310", all_cc[0], "Administration", "192.168.0.50")
-    create_prn("Lexmark 410", all_cc[0], "Administration", "192.168.0.51")
-    create_prn("Xerox Workcentre 5210", all_cc[1], "some location", "192.168.0.52", 12345, 500)
+def populate_prn(data):
+    for item in data:
+        create_prn(item["printers_id"],
+                   item["printers_model"],
+                   oh.get_object_by_id(item["printers_cc_id"], all_cc),
+                   item["printers_location"],
+                   item["printers_ip"],
+                   item["printers_blk_counters"],
+                   item["printers_clr_counters"],
+                   item["printers_status"],
+                   item["printers_rent"])
 
 
 def populate_main():
-    populate_cc()
-    populate_crt()
-    populate_users()
-    populate_prn()
-
-    #return all_cc, all_crt, all_users, all_prn
+    cost_centres_data, cartridges_data, printers_data, users_data = read_all_data()
+    populate_cc(cost_centres_data)
+    populate_crt(cartridges_data)
+    populate_prn(printers_data)
+    populate_users(users_data)
