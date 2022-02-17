@@ -65,6 +65,24 @@
 			"cost_centre_num": 666,
 			"cost_centre_name": "test",
 			"cost_centre_status": "Active"
+		},
+		{
+			"cost_centre_id": 12,
+			"cost_centre_num": 667,
+			"cost_centre_name": "test",
+			"cost_centre_status": "Active"
+		},
+		{
+			"cost_centre_id": 13,
+			"cost_centre_num": 766,
+			"cost_centre_name": "test",
+			"cost_centre_status": "Active"
+		},
+		{
+			"cost_centre_id": 14,
+			"cost_centre_num": 656,
+			"cost_centre_name": "test",
+			"cost_centre_status": "Active"
 		}
 	]
 }
