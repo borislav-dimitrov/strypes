@@ -10,3 +10,17 @@ class Printer:
         self.prn_ip = prn_ip
         self.status = status
         self.rent = rent
+
+    def get_all_info(self):
+        print(
+            f"Printer Id: {self.asset_id} | " +
+            f"Printer Model: {self.prn_model} | " +
+            f"Cost Centre Id: {self.cost_centre.asset_id} | " +
+            f"Cost Centre Number: {self.cost_centre.number} | " +
+            f"Cost Centre Name: {self.cost_centre.name} | " +
+            f"Printer Location: {self.location} | " +
+            f"Printer Black Counters: {self.bk_counters} | " +
+            f"Printer Color Counters: {self.clr_counters} | " +
+            f"Printer Status: {self.status} | " +
+            f"Printer Rent: {self.rent}"
+        )
