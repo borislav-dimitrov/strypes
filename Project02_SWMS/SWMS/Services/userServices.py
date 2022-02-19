@@ -41,3 +41,11 @@ def get_id_for_new_user(all_users):
             highest_id = user.user_id
 
     return highest_id + 1
+
+
+def get_user_index_by_id(user_id, all_users):
+    for user in range(len(all_users)):
+        if all_users[user].user_id == int(user_id):
+            return user
+
+    return None

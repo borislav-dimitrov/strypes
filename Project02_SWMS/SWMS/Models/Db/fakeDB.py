@@ -3,6 +3,7 @@ from Models.Assets.user import User
 from Services.userServices import check_user_before_create
 
 login_users = []
+curr_user = None
 
 
 def create_users(data):

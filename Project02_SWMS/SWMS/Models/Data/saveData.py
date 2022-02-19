@@ -1,4 +1,4 @@
-from Models.Db.fakeDB import login_users
+import Models.Db.fakeDB as DB
 import json
 
 
@@ -12,7 +12,7 @@ def save_users():
     data = {
         "login_users": []
     }
-    for user in login_users:
+    for user in DB.login_users:
         data["login_users"].append({
             "user_id": user.user_id,
             "user_uname": user.user_name,

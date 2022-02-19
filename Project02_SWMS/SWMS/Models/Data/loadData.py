@@ -1,5 +1,5 @@
 import json
-from Services.tkinterServices import *
+import Services.tkinterServices as Tkserv
 
 
 def load_users():
@@ -15,7 +15,7 @@ def load_users():
     # if users file is empty create form for a new system user
     # else load all the users
     if data == "" or len(data["login_users"])<1:
-        tmp_user = create_system_user()
+        tmp_user = Tkserv.create_system_user()
         all_info.append(tmp_user)
     else:
         for line in data["login_users"]:

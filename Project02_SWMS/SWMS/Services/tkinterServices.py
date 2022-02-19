@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-from config import *
+import config as CFG
 from Services.userServices import encrypt_pwd
 
 
@@ -23,11 +23,11 @@ def register_btn(screen):
 def create_system_user():
     # create ui for new user
     screen = Tk()
-    x = (screen.winfo_screenwidth() / 2) - (REG_WIDTH / 2)
-    y = (screen.winfo_screenheight() / 2) - (REG_HEIGHT / 2)
-    screen.geometry(f"{REG_WIDTH}x{REG_HEIGHT}+{int(x)}+{int(y)}")
+    x = (screen.winfo_screenwidth() / 2) - (CFG.REG_WIDTH / 2)
+    y = (screen.winfo_screenheight() / 2) - (CFG.REG_HEIGHT / 2)
+    screen.geometry(f"{CFG.REG_WIDTH}x{CFG.REG_HEIGHT}+{int(x)}+{int(y)}")
     screen.title("Create First User")
-    setup_grid(screen, REG_WIDTH, REG_HEIGHT, 5, 5)
+    setup_grid(screen, CFG.REG_WIDTH, CFG.REG_HEIGHT, 5, 5)
 
     Label(screen, text="No users found.\nCreate the first System account now and remember your password!",
           font=("Arial", 15, "bold")).grid(row=0, column=0, columnspan=5, sticky="we")
@@ -58,7 +58,7 @@ def create_custom_msg(m_screen, title, message, w=300, h=150):
 
     msg = Label(root, text=message, font=("Arial", 14, "bold"))
     if "warning" in title.lower():
-        msg.config(bg="red")
+        msg.config(fg="red")
     msg.pack(anchor="n", side="top")
     Button(root, text="Ok", font=("Arial", 12, "bold"), width=10, bg="coral",
            command=lambda: close_window(m_screen, root)) \
@@ -82,12 +82,14 @@ def setup_grid(screen, width, height, columns, rows):
         screen.grid_columnconfigure(col, minsize=width / columns)
 
 
-def create_drop_down(screen, variable, collection, comm, r, c, rspan=1, cspan=1, stick=""):
-    OptionMenu(screen, variable, *collection, command=comm) \
-        .grid(row=r, column=c, rowspan=rspan, columnspan=cspan, sticky=stick)
+def create_drop_down(screen, variable, collection, comm, r, c, rspan=None, cspan=None, stick=""):
+    dropdown = OptionMenu(screen, variable, *collection, command=comm)
+    dropdown.config(bg="lightgray")
+    dropdown.grid(row=r, column=c, rowspan=rspan, columnspan=cspan, sticky=stick)
 
 
 def close_window(main, current):
     # on closing window show the last window
     current.destroy()
     main.deiconify()
+
