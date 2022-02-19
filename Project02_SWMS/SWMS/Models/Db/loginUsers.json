@@ -1,0 +1,28 @@
+{
+    "login_users": [
+        {
+            "user_id": 1,
+            "user_uname": "asd",
+            "user_pwd": "gAAAAABiEK43JImQ3TpjklByrfC3EASeHGUWnYiV6rqBxLZmlMeGP8CLkIJXoEIVofP16-3s0Ex3zPouG-4csaDYvAA1NbF64g==",
+            "user_type": "Administrator",
+            "user_status": "Active",
+            "user_last_login": ""
+        },
+        {
+            "user_id": 2,
+            "user_uname": "asdf",
+            "user_pwd": "gAAAAABiEK58JEn-El9iqzwaCkg0Wkh-4TXBeXXvyeFPxmilgSPVhLbDoVt4HOzQPzSFUknMM0Iz3qLtyRLYLlHt3P9Mq7-BbA==",
+            "user_type": "Administrator",
+            "user_status": "Active",
+            "user_last_login": ""
+        },
+        {
+            "user_id": 3,
+            "user_uname": "bobi",
+            "user_pwd": "gAAAAABiELaCLDUq7wW31r6bBYxsIYhGRHadL80LJA-rCGOSfRxssSl1Fi8NYdjWOXXqh8quyrtrlx01CTHyuJt_svrhfjZoAA==",
+            "user_type": "Operator",
+            "user_status": "Active",
+            "user_last_login": ""
+        }
+    ]
+}

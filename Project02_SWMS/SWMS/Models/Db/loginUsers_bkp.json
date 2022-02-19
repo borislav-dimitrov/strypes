@@ -1,0 +1,20 @@
+{
+	"login_users": [
+		{
+			"user_id": 1,
+			"user_uname": "system",
+			"user_pwd": "123456",
+			"user_type": "Administrator",			
+			"user_status": "Active",
+			"user_last_login": ""
+		},
+		{
+			"user_id": 2,
+			"user_uname": "operator1",
+			"user_pwd": "123456",
+			"user_type": "Operator",			
+			"user_status": "Active",
+			"user_last_login": ""
+		}
+	]
+}
