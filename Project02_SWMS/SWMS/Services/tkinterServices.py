@@ -60,9 +60,13 @@ def create_custom_msg(m_screen, title, message, w=300, h=150):
     if "warning" in title.lower():
         msg.config(fg="red")
     msg.pack(anchor="n", side="top")
-    Button(root, text="Ok", font=("Arial", 12, "bold"), width=10, bg="coral",
-           command=lambda: close_window(m_screen, root)) \
-        .pack(anchor="s", side="bottom", pady=10)
+    btn = Button(root, text="Ok", font=("Arial", 12, "bold"), width=10,
+                 command=lambda: close_window(m_screen, root))
+    if "warning" in title.lower():
+        btn.config(bg="coral")
+    else:
+        btn.config(bg="lightblue")
+    btn.pack(anchor="s", side="bottom", pady=10)
 
     root.protocol("WM_DELETE_WINDOW", lambda: m_screen.deiconify())
     root.mainloop()
@@ -92,4 +96,3 @@ def close_window(main, current):
     # on closing window show the last window
     current.destroy()
     main.deiconify()
-

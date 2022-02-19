@@ -14,7 +14,9 @@ def logout(screen):
 
 def main():
     # load users from file
+    # Todo - this may be logged in log file
     status = DB.load_and_create_users()
+    DB.load_all_entities()
 
     if "Fail" in status:
         return
@@ -74,9 +76,9 @@ def main():
         Button(screen, width=15, text="New Supplier", font=("Arial", 12),
                bg="lightblue", name="new_supplier_btn",
                command=lambda: Views.new_supplier_window()).grid(row=5, column=2, columnspan=2)
-        Button(screen, width=15, text="New Product", font=("Arial", 12),
+        Button(screen, width=15, text="Products", font=("Arial", 12),
                bg="lightblue", name="new_product_btn",
-               command=lambda: Views.new_product_window()).grid(row=5, column=4)
+               command=lambda: Views.products_window(screen)).grid(row=5, column=4)
 
     screen.mainloop()
     Save.save_all_data()

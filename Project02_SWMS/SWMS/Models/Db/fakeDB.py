@@ -1,8 +1,10 @@
-from Models.Data.loadData import load_users
+from Models.Data.loadData import load_users, load_products
 from Models.Assets.user import User
+from Models.Assets.product import Product
 from Services.userServices import check_user_before_create
 
 login_users = []
+products = []
 curr_user = None
 
 
@@ -24,6 +26,20 @@ def create_users(data):
     return "Success"
 
 
+def create_products(data):
+    try:
+        for product in data:
+            new_product = Product(product["product_id"],
+                                  product["product_name"],
+                                  product["product_type"],
+                                  product["buy_price"],
+                                  product["sell_price"])
+            products.append(new_product)
+        return "Success"
+    except Exception as ex:
+        return f"Fail! {ex}"
+
+
 def load_and_create_users():
     # clear objects before loading
     login_users.clear()
@@ -34,3 +50,21 @@ def load_and_create_users():
         return status
     except TypeError as ex:
         return "Fail! Couldn't create user!"
+
+
+def load_and_create_products():
+    # cleanup current products
+    products.clear()
+    # load the new ones
+    try:
+        products_from_file = load_products()
+        status = create_products(products_from_file)
+        return status
+    except Exception as ex:
+        print(f"Fail! {ex}")
+
+
+def load_all_entities():
+    print("Loading Products...")
+    pr_status = load_and_create_products()
+    print(pr_status)

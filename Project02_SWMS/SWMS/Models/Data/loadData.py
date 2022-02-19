@@ -21,3 +21,12 @@ def load_users():
         for line in data["login_users"]:
             all_info.append(line)
     return all_info
+
+
+def load_products():
+    file = open("./Models/Db/products.json")
+    data = json.load(file)
+    all_info = []
+    for line in data["products"]:
+        all_info.append(line)
+    return all_info
