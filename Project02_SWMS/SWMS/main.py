@@ -13,6 +13,8 @@ def logout(screen):
 
 
 def main():
+    # clear opened windows
+    CFG.OPENED = []
     # load users from file
     # Todo - this may be logged in log file
     status = DB.load_and_create_users()
@@ -67,15 +69,15 @@ def main():
         Button(screen, width=15, text="Users", font=("Arial", 12),
                bg="lightblue", name="users_btn",
                command=lambda: Views.users_window(screen)).grid(row=4, column=1, columnspan=2)
-        Button(screen, width=15, text="New Warehouse", font=("Arial", 12),
+        Button(screen, width=15, text="Warehouses", font=("Arial", 12),
                bg="lightblue", name="new_whs_btn",
                command=lambda: Views.new_whs_window()).grid(row=4, column=3, columnspan=2)
-        Button(screen, width=15, text="New Client", font=("Arial", 12),
+        Button(screen, width=15, text="Clients", font=("Arial", 12),
                bg="lightblue", name="new_client_btn",
                command=lambda: Views.new_client_window()).grid(row=5, column=1)
-        Button(screen, width=15, text="New Supplier", font=("Arial", 12),
+        Button(screen, width=15, text="Suppliers", font=("Arial", 12),
                bg="lightblue", name="new_supplier_btn",
-               command=lambda: Views.new_supplier_window()).grid(row=5, column=2, columnspan=2)
+               command=lambda: Views.new_supplier_window(screen)).grid(row=5, column=2, columnspan=2)
         Button(screen, width=15, text="Products", font=("Arial", 12),
                bg="lightblue", name="new_product_btn",
                command=lambda: Views.products_window(screen)).grid(row=5, column=4)

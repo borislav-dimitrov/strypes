@@ -49,14 +49,14 @@ def create_system_user():
             create_custom_msg(screen, "Warning!", f"Failed to create user!\nExiting...\nErr: {str(ex)}")
 
 
-def create_custom_msg(m_screen, title, message, w=300, h=150):
+def create_custom_msg(m_screen, title, message, w=400, h=150):
     root = Toplevel(m_screen)
     root.title(title)
     x = (root.winfo_screenwidth() / 2) - (w / 2)
     y = (root.winfo_screenheight() / 2) - (h / 2)
     root.geometry(f"{w}x{h}+{int(x)}+{int(y)}")
 
-    msg = Label(root, text=message, font=("Arial", 14, "bold"))
+    msg = Label(root, text=message, font=("Arial", 14, "bold"), wraplength=w)
     if "warning" in title.lower():
         msg.config(fg="red")
     msg.pack(anchor="n", side="top")
@@ -68,7 +68,6 @@ def create_custom_msg(m_screen, title, message, w=300, h=150):
         btn.config(bg="lightblue")
     btn.pack(anchor="s", side="bottom", pady=10)
 
-    root.protocol("WM_DELETE_WINDOW", lambda: m_screen.deiconify())
     root.mainloop()
 
 
@@ -96,3 +95,8 @@ def close_window(main, current):
     # on closing window show the last window
     current.destroy()
     main.deiconify()
+
+
+def close_and_rem_win_from_opened(screen, window_name):
+    CFG.OPENED.remove(window_name)
+    screen.destroy()

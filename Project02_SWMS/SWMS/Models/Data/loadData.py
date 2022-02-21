@@ -30,3 +30,12 @@ def load_products():
     for line in data["products"]:
         all_info.append(line)
     return all_info
+
+
+def load_suppliers():
+    file = open("./Models/Db/suppliers.json")
+    data = json.load(file)
+    all_info = []
+    for line in data["suppliers"]:
+        all_info.append(line)
+    return all_info

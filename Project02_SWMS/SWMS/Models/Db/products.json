@@ -16,20 +16,13 @@
         },
         {
             "product_id": 3,
-            "product_name": "Blue Paint",
-            "product_type": "Finished Goods",
-            "buy_price": "00.00",
-            "sell_price": "00.00"
-        },
-        {
-            "product_id": 4,
             "product_name": "Black Paint",
             "product_type": "Finished Goods",
             "buy_price": "00.00",
             "sell_price": "01.00"
         },
         {
-            "product_id": 5,
+            "product_id": 4,
             "product_name": "na bobi produkta",
             "product_type": "Raw Materials",
             "buy_price": "05.00",

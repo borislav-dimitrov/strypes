@@ -130,7 +130,7 @@ def new_prod(screen):
     Label(screen, name="lbl_for_new_prod_sell", text="Sell Price:", font=("Arial", 12)) \
         .grid(row=4, column=2, sticky="e")
 
-    # Create Entry fields to edit the product
+    # Create Entry fields for the new product
     pname = Entry(screen, width=30, name="new_prod_name")
     pname.grid(row=3, column=1, sticky="w")
     buy_price = Entry(screen, width=30, name="new_prod_buy_price")
@@ -138,7 +138,7 @@ def new_prod(screen):
     sell_price = Entry(screen, width=30, name="new_prod_sell_price")
     sell_price.grid(row=4, column=3, sticky="w")
 
-    # Create button to save the changes
+    # Create button to create the product
     Button(screen, text="Save", width=25, name="save_user_btn", font=("Arial", 12),
            bg="lightgreen",
            command=lambda: create_new_prod(screen, pname.get(), buy_price.get(), sell_price.get(), prod_type.get())) \

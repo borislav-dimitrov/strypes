@@ -41,6 +41,23 @@ def save_products():
     save_data_to_json(data, output_file)
 
 
+def save_suppliers():
+    output_file = "./Models/Db/suppliers.json"
+    data = {
+        "suppliers": []
+    }
+    for supplier in DB.suppliers:
+        data["suppliers"].append({
+            "supplier_id": supplier.supp_id,
+            "supplier_name": supplier.supp_name,
+            "supplier_phone": supplier.supp_phone,
+            "supplier_iban": supplier.supp_iban,
+            "supplier_status": supplier.supp_status
+        })
+    save_data_to_json(data, output_file)
+
+
 def save_all_data():
     save_users()
     save_products()
+    save_suppliers()

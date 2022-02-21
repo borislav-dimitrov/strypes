@@ -1,10 +1,12 @@
-from Models.Data.loadData import load_users, load_products
+from Models.Data.loadData import load_users, load_products, load_suppliers
 from Models.Assets.user import User
 from Models.Assets.product import Product
+from Models.Assets.supplier import Supplier
 from Services.userServices import check_user_before_create
 
 login_users = []
 products = []
+suppliers = []
 curr_user = None
 
 
@@ -40,6 +42,20 @@ def create_products(data):
         return f"Fail! {ex}"
 
 
+def create_suppliers(data):
+    try:
+        for supplier in data:
+            new_supplier = Supplier(supplier["supplier_id"],
+                                    supplier["supplier_name"],
+                                    supplier["supplier_phone"],
+                                    supplier["supplier_iban"],
+                                    supplier["supplier_status"])
+            suppliers.append(new_supplier)
+        return "Success"
+    except Exception as ex:
+        return f"Fail! {ex}"
+
+
 def load_and_create_users():
     # clear objects before loading
     login_users.clear()
@@ -64,7 +80,25 @@ def load_and_create_products():
         print(f"Fail! {ex}")
 
 
+def load_and_create_suppliers():
+    # cleanup current products
+    suppliers.clear()
+    # load the new ones
+    try:
+        suppliers_from_file = load_suppliers()
+        status = create_suppliers(suppliers_from_file)
+        return status
+    except Exception as ex:
+        print(f"Fail! {ex}")
+
+
 def load_all_entities():
+    # ToDo
+    # Log these prints in a log file
     print("Loading Products...")
-    pr_status = load_and_create_products()
-    print(pr_status)
+    products_status = load_and_create_products()
+    print(products_status)
+
+    print("Loading Suppliers...")
+    suppliers_status = load_and_create_suppliers()
+    print(suppliers_status)
