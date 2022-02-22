@@ -18,7 +18,7 @@ def warehouses_window(m_screen):
     x = (screen.winfo_screenwidth() / 2) - (CFG.RES_WIDTH / 2)
     y = (screen.winfo_screenheight() / 2) - (CFG.RES_HEIGHT / 2)
     screen.geometry(f"{CFG.RES_WIDTH}x{CFG.RES_HEIGHT}+{int(x)}+{int(y)}")
-    screen.title("Clients")
+    screen.title("Warehouses")
     TkServ.setup_grid(screen, CFG.RES_WIDTH, CFG.RES_HEIGHT, 5, 10)
 
     Label(screen, name="header_lbl", text="Create/Modify Warehouses", font=("Ariel", 15, "bold")) \

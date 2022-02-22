@@ -5,6 +5,11 @@ from Services.tkinterServices import *
 import time
 
 
+def on_exit(screen):
+    screen.destroy()
+    quit()
+
+
 def log(screen):
     username = screen.nametowidget("uname_entry")
     password = screen.nametowidget("pwd_entry")
@@ -40,6 +45,7 @@ def log_in():
            bg="lightgray", command=lambda: log(screen)).grid(row=3, column=2)
     Label(screen, text="", font=("Arial", 18, "bold"), name="login_msg").grid(row=4, column=1, columnspan=3)
 
+    screen.protocol("WM_DELETE_WINDOW", lambda: on_exit(screen))
     screen.mainloop()
 
     try:

@@ -12,11 +12,17 @@ def logout(screen):
     main()
 
 
+def on_exit(screen):
+    Save.save_all_data()
+    screen.destroy()
+    quit()
+
+
 def main():
     # clear opened windows
     CFG.OPENED = []
     # load users from file
-    # Todo - this may be logged in log file
+    # Todo - loading statuses may be logged in log file
     status = DB.load_and_create_users()
     DB.load_all_entities()
 
@@ -56,11 +62,12 @@ def main():
            command=lambda: Views.stock_window(screen)).grid(row=2, column=1)
     Button(screen, width=15, text="Transactions", font=("Arial", 12), bg="lightgreen", name="history_btn",
            command=lambda: Views.transactions_window(screen)).grid(row=2,
-                                                        column=2)
-    Button(screen, width=15, text="Sell", font=("Arial", 12), bg="lightgreen", name="sell_btn",
-           command=lambda: Views.sell_window()).grid(row=2, column=3)
+                                                                   column=2)
+    Button(screen, width=15, text="Sales", font=("Arial", 12), bg="lightgreen", name="sell_btn",
+           command=lambda: Views.sell_window(screen)).grid(row=2, column=3)
     Button(screen, width=15, text="Buy", font=("Arial", 12), bg="lightgreen", name="buy_btn",
            command=lambda: Views.buy_window()).grid(row=2, column=4)
+    # Todo - add manage warehouse stock page
 
     # render admin buttons
     if user.user_type == "Administrator":
@@ -82,8 +89,8 @@ def main():
                bg="lightblue", name="products_btn",
                command=lambda: Views.products_window(screen)).grid(row=5, column=4)
 
+    screen.protocol("WM_DELETE_WINDOW", lambda: on_exit(screen))
     screen.mainloop()
-    Save.save_all_data()
 
 
 main()
