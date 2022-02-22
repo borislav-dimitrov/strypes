@@ -52,10 +52,10 @@ def main():
     # render user buttons
     Label(screen, text="Main Operations", font=("Arial", 16, "bold")) \
         .grid(row=1, column=0, columnspan=6, sticky="we")
-    Button(screen, width=15, text="Stock", font=("Arial", 12), bg="lightgreen", name="stock_btn",
-           command=lambda: Views.stock_window()).grid(row=2, column=1)
-    Button(screen, width=15, text="History", font=("Arial", 12), bg="lightgreen", name="history_btn",
-           command=lambda: Views.history_window()).grid(row=2,
+    Button(screen, width=15, text="View Stock", font=("Arial", 12), bg="lightgreen", name="stock_btn",
+           command=lambda: Views.stock_window(screen)).grid(row=2, column=1)
+    Button(screen, width=15, text="Transactions", font=("Arial", 12), bg="lightgreen", name="history_btn",
+           command=lambda: Views.transactions_window(screen)).grid(row=2,
                                                         column=2)
     Button(screen, width=15, text="Sell", font=("Arial", 12), bg="lightgreen", name="sell_btn",
            command=lambda: Views.sell_window()).grid(row=2, column=3)
@@ -71,15 +71,15 @@ def main():
                command=lambda: Views.users_window(screen)).grid(row=4, column=1, columnspan=2)
         Button(screen, width=15, text="Warehouses", font=("Arial", 12),
                bg="lightblue", name="new_whs_btn",
-               command=lambda: Views.new_whs_window()).grid(row=4, column=3, columnspan=2)
+               command=lambda: Views.warehouses_window(screen)).grid(row=4, column=3, columnspan=2)
         Button(screen, width=15, text="Clients", font=("Arial", 12),
-               bg="lightblue", name="new_client_btn",
-               command=lambda: Views.new_client_window()).grid(row=5, column=1)
+               bg="lightblue", name="clients_btn",
+               command=lambda: Views.clients_window(screen)).grid(row=5, column=1)
         Button(screen, width=15, text="Suppliers", font=("Arial", 12),
-               bg="lightblue", name="new_supplier_btn",
-               command=lambda: Views.new_supplier_window(screen)).grid(row=5, column=2, columnspan=2)
+               bg="lightblue", name="suppliers_btn",
+               command=lambda: Views.suppliers_window(screen)).grid(row=5, column=2, columnspan=2)
         Button(screen, width=15, text="Products", font=("Arial", 12),
-               bg="lightblue", name="new_product_btn",
+               bg="lightblue", name="products_btn",
                command=lambda: Views.products_window(screen)).grid(row=5, column=4)
 
     screen.mainloop()

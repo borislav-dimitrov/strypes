@@ -1,15 +1,22 @@
-from Models.Data.loadData import load_users, load_products, load_suppliers
+from Models.Data.loadData import load_users, load_products, load_suppliers, load_clients, load_warehouses
+from Models.Data.saveData import save_products
 from Models.Assets.user import User
 from Models.Assets.product import Product
 from Models.Assets.supplier import Supplier
+from Models.Assets.client import Client
+from Models.Assets.warehouse import Warehouse
 from Services.userServices import check_user_before_create
+from Services.warehouseServices import check_whname_exist
 
 login_users = []
 products = []
 suppliers = []
+clients = []
+warehouses = []
 curr_user = None
 
 
+# Creating
 def create_users(data):
     for user in data:
         # check if user already exist
@@ -31,11 +38,14 @@ def create_users(data):
 def create_products(data):
     try:
         for product in data:
+            if not check_whname_exist(product["assigned_to_wh"], warehouses):
+                product["assigned_to_wh"] = "NaN"
             new_product = Product(product["product_id"],
                                   product["product_name"],
                                   product["product_type"],
                                   product["buy_price"],
-                                  product["sell_price"])
+                                  product["sell_price"],
+                                  product["assigned_to_wh"])
             products.append(new_product)
         return "Success"
     except Exception as ex:
@@ -56,6 +66,35 @@ def create_suppliers(data):
         return f"Fail! {ex}"
 
 
+def create_clients(data):
+    try:
+        for client in data:
+            new_client = Client(client["client_id"],
+                                client["client_name"],
+                                client["client_phone"],
+                                client["client_iban"],
+                                client["client_status"])
+            clients.append(new_client)
+        return "Success"
+    except Exception as ex:
+        return f"Fail! {ex}"
+
+
+def create_warehouses(data):
+    try:
+        for warehouse in data:
+            new_warehouse = Warehouse(warehouse["wh_id"],
+                                      warehouse["wh_name"],
+                                      warehouse["wh_type"],
+                                      warehouse["wh_capacity"],
+                                      warehouse["wh_status"])
+            warehouses.append(new_warehouse)
+        return "Success"
+    except Exception as ex:
+        return f"Fail! {ex}"
+
+
+# Loading
 def load_and_create_users():
     # clear objects before loading
     login_users.clear()
@@ -92,13 +131,57 @@ def load_and_create_suppliers():
         print(f"Fail! {ex}")
 
 
+def load_and_create_clients():
+    # cleanup current products
+    clients.clear()
+    # load the new ones
+    try:
+        clients_from_file = load_clients()
+        status = create_clients(clients_from_file)
+        return status
+    except Exception as ex:
+        print(f"Fail! {ex}")
+
+
+def load_and_create_warehouses():
+    # cleanup current products
+    warehouses.clear()
+    # load the new ones
+    try:
+        warehouses_from_file = load_warehouses()
+        status = create_warehouses(warehouses_from_file)
+        return status
+    except Exception as ex:
+        print(f"Fail! {ex}")
+
+
 def load_all_entities():
     # ToDo
     # Log these prints in a log file
+    print("Loading Warehouses...")
+    warehouses_status = load_and_create_warehouses()
+    print(warehouses_status)
+    print("===========")
+
     print("Loading Products...")
     products_status = load_and_create_products()
     print(products_status)
+    print("===========")
 
     print("Loading Suppliers...")
     suppliers_status = load_and_create_suppliers()
     print(suppliers_status)
+    print("===========")
+
+    print("Loading Clients...")
+    clients_status = load_and_create_clients()
+    print(clients_status)
+    print("===========")
+
+
+# Deleting
+def delete_product_by_id(prod_id):
+    for prod in range(len(products)):
+        if products[prod].prod_id == prod_id:
+            products.pop(prod)
+    save_products()

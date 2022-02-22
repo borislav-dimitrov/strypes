@@ -1,5 +1,5 @@
 from Views.buy import *
-from Views.history import *
+from Views.transactions import *
 from Views.login import *
 from Views.clients import *
 from Views.suppliers import *

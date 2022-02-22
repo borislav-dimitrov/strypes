@@ -1,5 +1,6 @@
 import Models.Db.fakeDB as DB
 import json
+import Services.warehouseServices as WhServ
 
 
 def save_data_to_json(data, file):
@@ -31,12 +32,16 @@ def save_products():
         "products": []
     }
     for product in DB.products:
+        if not WhServ.check_whname_exist(product.assigned_to_wh, DB.warehouses):
+            product.assigned_to_wh = "NaN"
+
         data["products"].append({
             "product_id": product.product_id,
             "product_name": product.product_name,
             "product_type": product.product_type,
             "buy_price": product.buy_price,
-            "sell_price": product.sell_price
+            "sell_price": product.sell_price,
+            "assigned_to_wh": product.assigned_to_wh
         })
     save_data_to_json(data, output_file)
 
@@ -57,7 +62,41 @@ def save_suppliers():
     save_data_to_json(data, output_file)
 
 
+def save_clients():
+    output_file = "./Models/Db/clients.json"
+    data = {
+        "clients": []
+    }
+    for client in DB.clients:
+        data["clients"].append({
+            "client_id": client.client_id,
+            "client_name": client.client_name,
+            "client_phone": client.client_phone,
+            "client_iban": client.client_iban,
+            "client_status": client.client_status
+        })
+    save_data_to_json(data, output_file)
+
+
+def save_warehouses():
+    output_file = "./Models/Db/warehouses.json"
+    data = {
+        "warehouses": []
+    }
+    for warehouse in DB.warehouses:
+        data["warehouses"].append({
+            "wh_id": warehouse.wh_id,
+            "wh_name": warehouse.wh_name,
+            "wh_type": warehouse.wh_type,
+            "wh_capacity": warehouse.wh_capacity,
+            "wh_status": warehouse.wh_status
+        })
+    save_data_to_json(data, output_file)
+
+
 def save_all_data():
     save_users()
+    save_warehouses()
     save_products()
     save_suppliers()
+    save_clients()

@@ -4,7 +4,7 @@ import Services.tkinterServices as TkServ
 from Controls.supplierControls import new_supplier, edit_supplier
 
 
-def new_supplier_window(m_screen):
+def suppliers_window(m_screen):
     # Check if another suppliers window is opened
     if "suppliers" in CFG.OPENED:
         TkServ.create_custom_msg(m_screen, "Warning!", "Suppliers page is already opened!")

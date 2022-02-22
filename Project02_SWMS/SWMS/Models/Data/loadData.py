@@ -14,7 +14,7 @@ def load_users():
     all_info = []
     # if users file is empty create form for a new system user
     # else load all the users
-    if data == "" or len(data["login_users"])<1:
+    if data == "" or len(data["login_users"]) < 1:
         tmp_user = Tkserv.create_system_user()
         all_info.append(tmp_user)
     else:
@@ -37,5 +37,23 @@ def load_suppliers():
     data = json.load(file)
     all_info = []
     for line in data["suppliers"]:
+        all_info.append(line)
+    return all_info
+
+
+def load_clients():
+    file = open("./Models/Db/clients.json")
+    data = json.load(file)
+    all_info = []
+    for line in data["clients"]:
+        all_info.append(line)
+    return all_info
+
+
+def load_warehouses():
+    file = open("./Models/Db/warehouses.json")
+    data = json.load(file)
+    all_info = []
+    for line in data["warehouses"]:
         all_info.append(line)
     return all_info

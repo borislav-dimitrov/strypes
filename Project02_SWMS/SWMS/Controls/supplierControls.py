@@ -58,7 +58,7 @@ def new_supplier(screen):
     supiban.grid(row=5, column=2)
 
     # Create button to create the supplier
-    Button(screen, text="Save", width=25, name="save_user_btn", font=("Arial", 12),
+    Button(screen, text="Save", width=25, name="save_supplier_btn", font=("Arial", 12),
            bg="lightgreen",
            command=lambda: create_new_supplier(screen, supname.get(), supphone.get(), supiban.get())) \
         .grid(row=6, column=2)
@@ -80,7 +80,7 @@ def save_supplier(screen, selected_supp, spname, spphone, spiban, spstatus):
 def del_supplier(screen, selected_supp):
     result = tkinter.messagebox.askquestion("Question...",
                                             f"Are you sure you want\n"
-                                            f"to delete the user\n{selected_supp.supp_name}",
+                                            f"to delete the supplier\n{selected_supp.supp_name}",
                                             parent=screen)
     if result == "yes":
         u_index = SupServ.get_supp_index_by_id(selected_supp.supp_id, DB.suppliers)
@@ -102,11 +102,11 @@ def on_dropdown_change(screen, var):
     Label(screen, name="lbl_for_edit_supp_name", text="Supp Name:", font=("Arial", 12)) \
         .grid(row=3, column=0, sticky="e")
     Label(screen, name="lbl_for_edit_supp_phone", text="Supp Phone:", font=("Arial", 12)) \
-        .grid(row=4, column=0, sticky="e")
-    Label(screen, name="lbl_for_edit_supp_iban", text="Supp IBAN:", font=("Arial", 12)) \
         .grid(row=3, column=2, sticky="e")
-    Label(screen, name="lbl_for_edit_supp_status", text="Supp Status:", font=("Arial", 12)) \
+    Label(screen, name="lbl_for_edit_supp_iban", text="Supp IBAN:", font=("Arial", 12)) \
         .grid(row=4, column=2, sticky="e")
+    Label(screen, name="lbl_for_edit_supp_status", text="Supp Status:", font=("Arial", 12)) \
+        .grid(row=4, column=0, sticky="e")
 
     # Create Entry fields to edit the supplier
     sp_name = Entry(screen, width=30, name="edit_supp_name")
@@ -130,10 +130,10 @@ def on_dropdown_change(screen, var):
     # Create button to save the changes
     Button(screen, text="Save", width=25, name="save_supp_btn", font=("Arial", 12), bg="lightgreen",
            command=lambda: save_supplier(screen, selected_supp, sp_name.get(),
-                                        sp_phone.get(), sp_iban.get(), sp_status.get())) \
+                                         sp_phone.get(), sp_iban.get(), sp_status.get())) \
         .grid(row=5, column=2, rowspan=2)
-    # Create button to delete the selected user
-    Button(screen, text="Delete", width=25, name="del_user_btn", font=("Arial", 12), bg="coral",
+    # Create button to delete the selected supplier
+    Button(screen, text="Delete", width=25, name="del_supp_btn", font=("Arial", 12), bg="coral",
            command=lambda: del_supplier(screen, selected_supp)) \
         .grid(row=2, column=3)
 
@@ -146,7 +146,7 @@ def edit_supplier(screen):
     hdr = screen.nametowidget("header_lbl")
     hdr.config(text="Editing Suppliers")
 
-    # Create DropDown with all existing users
+    # Create DropDown with all existing suppliers
     drop_down_variable = StringVar(screen)
     drop_down_variable.set("Chose a supplier...")
     drop_down_options = []

@@ -1,0 +1,18 @@
+{
+    "clients": [
+        {
+            "client_id": 1,
+            "client_name": "client01",
+            "client_phone": "0118888888",
+            "client_iban": "CY 17 002 00128 0000001200527600",
+            "client_status": "Active"
+        },
+        {
+            "client_id": 2,
+            "client_name": "client02",
+            "client_phone": "0222888883",
+            "client_iban": "CZ 17 002 00128 0000001200527600",
+            "client_status": "Active"
+        }
+    ]
+}

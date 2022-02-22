@@ -17,7 +17,7 @@ def clear_prod_screen(screen):
 
 def delete_product(screen, sel_prod):
     result = tkinter.messagebox.askquestion("Question...",
-                                            f"Are you sure you want\nto delete the user\n{sel_prod.product_name}",
+                                            f"Are you sure you want\nto delete the product\n{sel_prod.product_name}",
                                             parent=screen)
     if result == "yes":
         u_index = ProdServ.get_prod_index_by_id(sel_prod.product_id, DB.products)
@@ -31,17 +31,30 @@ def delete_product(screen, sel_prod):
                 TkServ.create_custom_msg(screen, "Warning!", f"Something went wrong!\n{ex}")
 
 
-def save_product(screen, sel_prod, pname, ptype, pbuy, psell):
+def save_product(screen, sel_prod, pname, ptype, pbuy, psell, pwarehouse):
+    chosen_wh_name = pwarehouse
+    if "NaN" not in chosen_wh_name:
+        chosen_wh_name = pwarehouse.split("|")[0].strip()
+        chosen_wh_type = pwarehouse.split("Type:")[1].strip()
+        if ptype not in chosen_wh_type:
+            TkServ.create_custom_msg(screen, "Warning..", f"Product of type {ptype} cannot go in {chosen_wh_name}")
+            return
+
     try:
         sel_prod.product_name = pname
         sel_prod.product_type = ptype
         sel_prod.buy_price = pbuy
         sel_prod.sell_price = psell
+        sel_prod.assigned_to_wh = chosen_wh_name
         save_products()
         clear_prod_screen(screen)
         TkServ.create_custom_msg(screen, "Message..", f"Product has been\nchanged successfully")
     except Exception as ex:
         TkServ.create_custom_msg(screen, "Warning!", f"Something went wrong!\n{ex}")
+
+
+def chose_wh_for_product(screen, choice):
+    pass
 
 
 def on_dropdown_change(screen, var):
@@ -56,6 +69,8 @@ def on_dropdown_change(screen, var):
         .grid(row=3, column=2, sticky="e")
     Label(screen, name="lbl_for_edit_prod_sell", text="Sell Price:", font=("Arial", 12)) \
         .grid(row=4, column=2, sticky="e")
+    Label(screen, name="lbl_for_edit_prod_assigned_wh", text="Assigned to:", font=("Arial", 12)) \
+        .grid(row=5, column=1, sticky="e")
     # Create Entry fields to edit the product
     pname = Entry(screen, width=30, name="edit_prod_name")
     pname.grid(row=3, column=1, sticky="w")
@@ -66,6 +81,20 @@ def on_dropdown_change(screen, var):
     sell_price = Entry(screen, width=30, name="edit_prod_sell_price")
     sell_price.insert(0, selected_prod.sell_price)
     sell_price.grid(row=4, column=3, sticky="w")
+
+    # Create DropDown with all existing warehouses
+    chosen_wh = StringVar(screen)
+
+    if "NaN" in selected_prod.assigned_to_wh:
+        chosen_wh.set("NaN")
+    else:
+        chosen_wh.set(selected_prod.assigned_to_wh)
+    chosen_wh_options = ["NaN"]
+    for warehouse in DB.warehouses:
+        chosen_wh_options.append(f"{warehouse.wh_name} | Type: {warehouse.wh_type}")
+
+    TkServ.create_drop_down(screen, chosen_wh, chosen_wh_options,
+                            lambda a: chose_wh_for_product(screen, chosen_wh), 5, 2, stick="we")
 
     # Select new user type
     prod_type = StringVar()
@@ -78,7 +107,7 @@ def on_dropdown_change(screen, var):
     # Create button to save the changes
     Button(screen, text="Save", width=25, name="save_user_btn", font=("Arial", 12), bg="lightgreen",
            command=lambda: save_product(screen, selected_prod, pname.get(),
-                                        prod_type.get(), buy_price.get(), sell_price.get())) \
+                                        prod_type.get(), buy_price.get(), sell_price.get(), chosen_wh.get())) \
         .grid(row=5, column=2, rowspan=2)
     # Create button to delete the selected user
     Button(screen, text="Delete", width=25, name="del_user_btn", font=("Arial", 12), bg="coral",
@@ -139,7 +168,7 @@ def new_prod(screen):
     sell_price.grid(row=4, column=3, sticky="w")
 
     # Create button to create the product
-    Button(screen, text="Save", width=25, name="save_user_btn", font=("Arial", 12),
+    Button(screen, text="Save", width=25, name="save_prod_btn", font=("Arial", 12),
            bg="lightgreen",
            command=lambda: create_new_prod(screen, pname.get(), buy_price.get(), sell_price.get(), prod_type.get())) \
         .grid(row=5, column=2)
@@ -153,7 +182,7 @@ def edit_prod(screen):
     hdr = screen.nametowidget("header_lbl")
     hdr.config(text="Editing Products")
 
-    # Create DropDown with all existing users
+    # Create DropDown with all existing products
     drop_down_variable = StringVar(screen)
     drop_down_variable.set("Chose a product...")
     drop_down_options = []

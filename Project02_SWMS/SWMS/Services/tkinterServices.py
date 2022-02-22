@@ -100,3 +100,59 @@ def close_window(main, current):
 def close_and_rem_win_from_opened(screen, window_name):
     CFG.OPENED.remove(window_name)
     screen.destroy()
+
+
+def create_preview(screen, data, width=CFG.REG_WIDTH, height=CFG.RES_HEIGHT / 2,
+                   rows=30, columns=3, cell_width=0):
+    # If cell width is not 0 , the cells will be auto resized by the columns
+
+    parent = Canvas(screen, width=width, height=height)
+    parent.grid(row=1, column=0)
+
+    canvas_frame = Frame(parent)
+    canvas_frame.grid(row=2, column=0, pady=(5, 0), sticky="nw")
+    canvas_frame.grid_rowconfigure(0, weight=1)
+    canvas_frame.grid_columnconfigure(0, weight=1)
+    canvas_frame.grid_propagate(False)
+
+    canvas = Canvas(canvas_frame)
+    canvas.grid(row=0, column=0, sticky="news")
+
+    # Setup scrollbars
+    vsb = Scrollbar(canvas_frame, orient="vertical", command=canvas.yview)
+    vsb.grid(row=0, column=1, sticky="ns")
+    hsb = Scrollbar(canvas_frame, orient="horizontal", command=canvas.xview)
+    hsb.grid(row=1, column=0, sticky="we")
+    canvas.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+
+    # Fill the info
+    info_frame = Frame(canvas)
+
+    # Set up the grid for the auto-sized variant
+    if cell_width == 0:
+        setup_grid(info_frame, width-30, height, columns, rows)
+
+    canvas.create_window((0, 0), window=info_frame, anchor="nw")
+    for row in range(len(data)):
+        for col in range(len(data[0])):
+            if row == 0:
+                label = Label(info_frame, fg='red',
+                              font=('Arial', 12, 'bold'), relief="solid", borderwidth=1)
+            else:
+                label = Label(info_frame, fg='black',
+                              font=('Arial', 12), relief="solid", borderwidth=1)
+            if cell_width != 0:
+                label.config(width=cell_width, text=data[row][col])
+                label.grid(row=row, column=col, sticky="w")
+            else:
+                label.config(text=data[row][col])
+                label.grid(row=row, column=col, sticky="we")
+
+    # Update frame idle tasks to let tkinter calc label sizes
+    info_frame.update_idletasks()
+
+    # Resize the canvas
+    canvas_frame.config(width=width, height=height)
+
+    # Set the canvas scrolling region
+    canvas.config(scrollregion=canvas.bbox("all"))
