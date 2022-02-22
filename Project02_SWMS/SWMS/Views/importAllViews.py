@@ -5,6 +5,6 @@ from Views.clients import *
 from Views.suppliers import *
 from Views.warehouses import *
 from Views.products import *
-from Views.sell import *
+from Views.sales import *
 from Views.users import *
 from Views.stock import *

@@ -26,7 +26,7 @@ def on_wh_dropdown_change(screen, var):
     clear_selected_wh(screen)
 
     chosen_wh_name = var.get()
-    if "NaN" not in chosen_wh_name:
+    if "none" not in chosen_wh_name:
         chosen_wh_name = var.get().split("-")[1].strip()
 
     products_in_chosen_wh = ProdServ.get_all_products_assigned_to_wh(chosen_wh_name, DB.products)
@@ -63,7 +63,7 @@ def stock_by_wh(screen):
     # Create DropDown with all existing users
     drop_down_variable = StringVar(screen)
     drop_down_variable.set("Chose a warehouse...")
-    drop_down_options = ["NaN"]
+    drop_down_options = ["none"]
     for warehouse in DB.warehouses:
         drop_down_options.append(f"{warehouse.wh_id} - "
                                  f"{warehouse.wh_name}")
@@ -82,7 +82,7 @@ def stock_by_product(screen):
     # Create preview for all existing products
     # Prepare the Data for the preview
     row_counter = 0
-    all_warehouses = ["NaN"]
+    all_warehouses = ["none"]
     # The first item in the Data are the column headers
     data = [("Row Num", "Warehouse", "Product Id - Name")]
     for warehouse in DB.warehouses:

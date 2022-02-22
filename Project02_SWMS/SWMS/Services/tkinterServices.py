@@ -26,6 +26,7 @@ def create_system_user():
     x = (screen.winfo_screenwidth() / 2) - (CFG.REG_WIDTH / 2)
     y = (screen.winfo_screenheight() / 2) - (CFG.REG_HEIGHT / 2)
     screen.geometry(f"{CFG.REG_WIDTH}x{CFG.REG_HEIGHT}+{int(x)}+{int(y)}")
+    screen.resizable(False, False)
     screen.title("Create First User")
     setup_grid(screen, CFG.REG_WIDTH, CFG.REG_HEIGHT, 5, 5)
 
@@ -89,6 +90,7 @@ def create_drop_down(screen, variable, collection, comm, r, c, rspan=None, cspan
     dropdown = OptionMenu(screen, variable, *collection, command=comm)
     dropdown.config(bg="lightgray")
     dropdown.grid(row=r, column=c, rowspan=rspan, columnspan=cspan, sticky=stick)
+    return dropdown
 
 
 def close_window(main, current):
@@ -130,7 +132,7 @@ def create_preview(screen, data, width=CFG.REG_WIDTH, height=CFG.RES_HEIGHT / 2,
 
     # Set up the grid for the auto-sized variant
     if cell_width == 0:
-        setup_grid(info_frame, width-30, height, columns, rows)
+        setup_grid(info_frame, width - 30, height, columns, rows)
 
     canvas.create_window((0, 0), window=info_frame, anchor="nw")
     for row in range(len(data)):
@@ -156,3 +158,25 @@ def create_preview(screen, data, width=CFG.REG_WIDTH, height=CFG.RES_HEIGHT / 2,
 
     # Set the canvas scrolling region
     canvas.config(scrollregion=canvas.bbox("all"))
+
+
+def create_listbox(parent, name, row, column, data, width=50, height=10, rowspan=1, columnspan=1, sticky="wens",
+                   padx=(0, 0), pady=(0, 0)):
+    lb_holder = Frame(parent)
+    lb_holder.grid(row=row, column=column, rowspan=rowspan, columnspan=columnspan, sticky=sticky, padx=padx, pady=pady)
+
+    lb_variable = StringVar()
+    list_box = Listbox(lb_holder, listvariable=lb_variable, width=width, height=height)
+    list_box.grid(row=0, column=0, sticky="ew")
+
+    if len(data) > 0:
+        for item in data:
+            list_box.insert(END, item)
+
+    v_scroll = Scrollbar(lb_holder, orient="vertical")
+    v_scroll.grid(row=0, column=1, sticky="ns")
+
+    list_box.config(yscrollcommand=v_scroll.set)
+    v_scroll.config(command=list_box.yview)
+
+    return list_box, lb_variable

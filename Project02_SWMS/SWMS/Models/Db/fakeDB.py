@@ -39,7 +39,7 @@ def create_products(data):
     try:
         for product in data:
             if not check_whname_exist(product["assigned_to_wh"], warehouses):
-                product["assigned_to_wh"] = "NaN"
+                product["assigned_to_wh"] = "none"
             new_product = Product(product["product_id"],
                                   product["product_name"],
                                   product["product_type"],
@@ -181,7 +181,7 @@ def load_all_entities():
 
 # Deleting
 def delete_product_by_id(prod_id):
-    for prod in range(len(products)):
-        if products[prod].prod_id == prod_id:
+    for prod in range(len(products) - 1):
+        if products[prod].product_id == prod_id:
             products.pop(prod)
     save_products()

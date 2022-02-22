@@ -32,6 +32,7 @@ def log_in():
     x = (screen.winfo_screenwidth() / 2) - (LOGIN_WIDTH / 2)
     y = (screen.winfo_screenheight() / 2) - (LOGIN_HEIGHT / 2)
     screen.geometry(f"{LOGIN_WIDTH}x{LOGIN_HEIGHT}+{int(x)}+{int(y)}")
+    screen.resizable(False, False)
     screen.title("Login")
 
     setup_grid(screen, LOGIN_WIDTH, LOGIN_HEIGHT, 5, 5)

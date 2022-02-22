@@ -26,3 +26,10 @@ def get_all_products_assigned_to_wh(wh_name, all_products):
             products_found.append(product)
     return products_found
 
+
+def get_all_sellable_products(all_products):
+    all_sellable = []
+    for product in all_products:
+        if "finished goods" in product.product_type.lower() and "finished goods" in product.assigned_to_wh.lower():
+            all_sellable.append(f"{product.product_id} | {product.product_name} | {product.sell_price}")
+    return all_sellable

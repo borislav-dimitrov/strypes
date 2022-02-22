@@ -33,10 +33,8 @@ def delete_product(screen, sel_prod):
 
 def save_product(screen, sel_prod, pname, ptype, pbuy, psell, pwarehouse):
     chosen_wh_name = pwarehouse
-    if "NaN" not in chosen_wh_name:
-        chosen_wh_name = pwarehouse.split("|")[0].strip()
-        chosen_wh_type = pwarehouse.split("Type:")[1].strip()
-        if ptype not in chosen_wh_type:
+    if "none" not in chosen_wh_name:
+        if ptype.lower() not in chosen_wh_name.lower():
             TkServ.create_custom_msg(screen, "Warning..", f"Product of type {ptype} cannot go in {chosen_wh_name}")
             return
 
@@ -85,11 +83,11 @@ def on_dropdown_change(screen, var):
     # Create DropDown with all existing warehouses
     chosen_wh = StringVar(screen)
 
-    if "NaN" in selected_prod.assigned_to_wh:
-        chosen_wh.set("NaN")
+    if "none" in selected_prod.assigned_to_wh:
+        chosen_wh.set("none")
     else:
         chosen_wh.set(selected_prod.assigned_to_wh)
-    chosen_wh_options = ["NaN"]
+    chosen_wh_options = ["none"]
     for warehouse in DB.warehouses:
         chosen_wh_options.append(f"{warehouse.wh_name} | Type: {warehouse.wh_type}")
 

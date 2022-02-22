@@ -33,7 +33,7 @@ def save_products():
     }
     for product in DB.products:
         if not WhServ.check_whname_exist(product.assigned_to_wh, DB.warehouses):
-            product.assigned_to_wh = "NaN"
+            product.assigned_to_wh = "none"
 
         data["products"].append({
             "product_id": product.product_id,
