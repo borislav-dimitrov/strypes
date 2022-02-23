@@ -62,7 +62,8 @@ def create_suppliers(data):
                                     supplier["supplier_name"],
                                     supplier["supplier_phone"],
                                     supplier["supplier_iban"],
-                                    supplier["supplier_status"])
+                                    supplier["supplier_status"],
+                                    supplier["buy_menu"])
             suppliers.append(new_supplier)
         return "Success"
     except Exception as ex:

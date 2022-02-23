@@ -57,7 +57,8 @@ def save_suppliers():
             "supplier_name": supplier.supp_name,
             "supplier_phone": supplier.supp_phone,
             "supplier_iban": supplier.supp_iban,
-            "supplier_status": supplier.supp_status
+            "supplier_status": supplier.supp_status,
+            "buy_menu": supplier.buy_menu
         })
     save_data_to_json(data, output_file)
 

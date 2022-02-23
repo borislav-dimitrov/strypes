@@ -15,14 +15,57 @@ def clear_supp_screen(screen):
             widget.config(text="Create/Modify Suppliers")
 
 
-def create_new_supplier(screen, sname, sphone, siban):
+def validate_supp_menu(menu):
+    try:
+        items = menu
+        # Define if there are one or more products
+        if "|" in items:
+            items = items.split("|")
+            for item in items:
+                # Verify pattern for multiple products
+                if len(item.split("-")) != 3:
+                    print(False)
+                    return False, "Invalid menu pattern!"
+            for item in items:
+                item_name = item.split("-")[0].strip()
+                item_type = item.split("-")[1].strip()
+                # Check if product type is correct (suppliers can sell only raw materials)
+                if "raw material" != item_type.lower():
+                    return False, "Invalid product type!"
+                item_buy_price = float(item.split("-")[2].strip())
+            return True, "Success"
+        else:
+            # Verify pattern for one product
+            if len(items.split("-")) != 3:
+                return False, "Invalid menu pattern!"
+            item_name = items.split("-")[0].strip()
+            item_type = items.split("-")[1].strip()
+            # Check if product type is correct (suppliers can sell only raw materials)
+            if "raw material" != item_type.lower():
+                return False, "Invalid product type!"
+            item_buy_price = float(items.split("-")[2].strip())
+            return True, "Success"
+    except Exception as ex:
+        print(ex)
+        if "convert string to float" in str(ex):
+            return False, "Invalid product price!"
+
+    return False, "Invalid menu pattern!"
+
+
+def create_new_supplier(screen, sname, sphone, siban, supmenu):
+    valid_info, status = validate_supp_menu(supmenu)
+    if not valid_info:
+        TkServ.create_custom_msg(screen, "Warning!", status)
+        return
     new_supp_id = SupServ.get_id_for_new_supplier(DB.suppliers)
     supp_data = [{
         "supplier_id": new_supp_id,
         "supplier_name": sname,
         "supplier_phone": sphone,
         "supplier_iban": siban,
-        "supplier_status": "Active"
+        "supplier_status": "Active",
+        "buy_menu": supmenu
     }]
     status = DB.create_suppliers(supp_data)
     if "Success" in status:
@@ -43,33 +86,46 @@ def new_supplier(screen):
 
     # Create Labels for the Entry fields
     Label(screen, name="lbl_for_new_supp_name", text="Supplier Name:", font=("Arial", 12)) \
-        .grid(row=3, column=1, sticky="e")
+        .grid(row=3, column=0, sticky="e")
     Label(screen, name="lbl_for_new_supp_phone", text="Supplier Phone:", font=("Arial", 12)) \
-        .grid(row=4, column=1, sticky="e")
+        .grid(row=4, column=2, sticky="e")
     Label(screen, name="lbl_for_new_supp_iban", text="Supplier IBAN:", font=("Arial", 12)) \
-        .grid(row=5, column=1, sticky="e")
+        .grid(row=3, column=2, sticky="e")
+    Label(screen, name="lbl_for_new_supp_buy_menu",
+          text="Buy Menu pattern: productname-product type-buy price(float)|product...",
+          font=("Arial", 13)) \
+        .grid(row=5, column=1, columnspan=3, sticky="we")
+    Label(screen, name="lbl_for_new_supp_buy_menu2", text="Supplier Buy Menu:", font=("Arial", 12)) \
+        .grid(row=6, column=2, sticky="ws")
 
     # Create Entry fields for the new supplier
     supname = Entry(screen, width=30, name="new_sup_name")
-    supname.grid(row=3, column=2)
+    supname.grid(row=3, column=1)
     supphone = Entry(screen, width=30, name="new_sup_phone")
-    supphone.grid(row=4, column=2)
+    supphone.grid(row=4, column=3)
     supiban = Entry(screen, width=30, name="new_sup_iban")
-    supiban.grid(row=5, column=2)
+    supiban.grid(row=3, column=3)
+    supmenu = Entry(screen, width=30, name="new_sup_buy_menu")
+    supmenu.grid(row=7, column=1, columnspan=3, sticky="ew")
 
     # Create button to create the supplier
     Button(screen, text="Save", width=25, name="save_supplier_btn", font=("Arial", 12),
            bg="lightgreen",
-           command=lambda: create_new_supplier(screen, supname.get(), supphone.get(), supiban.get())) \
-        .grid(row=6, column=2)
+           command=lambda: create_new_supplier(screen, supname.get(), supphone.get(), supiban.get(), supmenu.get())) \
+        .grid(row=8, column=2)
 
 
-def save_supplier(screen, selected_supp, spname, spphone, spiban, spstatus):
+def save_supplier(screen, selected_supp, spname, spphone, spiban, spstatus, spmenu):
     try:
+        valid_info, status = validate_supp_menu(spmenu)
+        if not valid_info:
+            TkServ.create_custom_msg(screen, "Warning!", status)
+            return
         selected_supp.supp_name = spname
         selected_supp.supp_phone = spphone
         selected_supp.supp_iban = spiban
         selected_supp.supp_status = spstatus
+        selected_supp.buy_menu = spmenu
         save_suppliers()
         clear_supp_screen(screen)
         TkServ.create_custom_msg(screen, "Message..", f"Supplier has been\nchanged successfully")
@@ -107,6 +163,12 @@ def on_dropdown_change(screen, var):
         .grid(row=4, column=2, sticky="e")
     Label(screen, name="lbl_for_edit_supp_status", text="Supp Status:", font=("Arial", 12)) \
         .grid(row=4, column=0, sticky="e")
+    Label(screen, name="lbl_for_new_supp_buy_menu",
+          text="Buy Menu pattern: productname-product type-buy price(float)|product...",
+          font=("Arial", 13)) \
+        .grid(row=5, column=1, columnspan=3, sticky="we")
+    Label(screen, name="lbl_for_new_supp_buy_menu2", text="Supplier Buy Menu:", font=("Arial", 12)) \
+        .grid(row=6, column=2, sticky="wn")
 
     # Create Entry fields to edit the supplier
     sp_name = Entry(screen, width=30, name="edit_supp_name")
@@ -118,7 +180,9 @@ def on_dropdown_change(screen, var):
     sp_iban = Entry(screen, width=30, name="edit_supp_iban")
     sp_iban.insert(0, selected_supp.supp_iban)
     sp_iban.grid(row=4, column=3, sticky="w")
-
+    sp_menu = Entry(screen, width=30, name="new_sup_buy_menu")
+    sp_menu.insert(0, selected_supp.buy_menu)
+    sp_menu.grid(row=6, column=1, columnspan=3, sticky="ew")
     # Change supplier status
     sp_status = StringVar()
     sp_status.set(selected_supp.supp_status)
@@ -130,8 +194,8 @@ def on_dropdown_change(screen, var):
     # Create button to save the changes
     Button(screen, text="Save", width=25, name="save_supp_btn", font=("Arial", 12), bg="lightgreen",
            command=lambda: save_supplier(screen, selected_supp, sp_name.get(),
-                                         sp_phone.get(), sp_iban.get(), sp_status.get())) \
-        .grid(row=5, column=2, rowspan=2)
+                                         sp_phone.get(), sp_iban.get(), sp_status.get(), sp_menu.get())) \
+        .grid(row=7, column=2, rowspan=2)
     # Create button to delete the selected supplier
     Button(screen, text="Delete", width=25, name="del_supp_btn", font=("Arial", 12), bg="coral",
            command=lambda: del_supplier(screen, selected_supp)) \
