@@ -21,6 +21,7 @@ def get_id_for_new_supplier(all_suppliers):
 
 def validate_supp_menu(menu):
     try:
+        all_items = []
         items = menu
         # Define if there are one or more products
         if "|" in items:
@@ -37,7 +38,8 @@ def validate_supp_menu(menu):
                 if "raw material" != item_type.lower():
                     return False, "Invalid product type!"
                 item_buy_price = float(item.split("-")[2].strip())
-            return True, "Success", [item_name, item_type, item_buy_price]
+                all_items.append(f"{item_name}-{item_type}-{item_buy_price}")
+            return True, "Success", all_items
         else:
             # Verify pattern for one product
             if len(items.split("-")) != 3:
@@ -48,7 +50,7 @@ def validate_supp_menu(menu):
             if "raw material" != item_type.lower():
                 return False, "Invalid product type!", []
             item_buy_price = float(items.split("-")[2].strip())
-            return True, "Success", [item_name, item_type, item_buy_price]
+            return True, "Success", all_items.append(f"{item_name}-{item_type}-{item_buy_price}")
     except Exception as ex:
         print(ex)
         if "convert string to float" in str(ex):

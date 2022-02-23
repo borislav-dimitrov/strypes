@@ -113,11 +113,10 @@ def rem_item_from_cart(screen, cart, sellable, cart_items):
 
 
 def clear_cart(screen, cart, items):
-    # Calculate total price
-    calc_and_set_total_price(screen, items)
-
     cart.delete(0, END)
 
+    # Calculate total price
+    calc_and_set_total_price(screen, items)
 
 def on_client_change():
     pass

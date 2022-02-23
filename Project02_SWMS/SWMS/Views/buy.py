@@ -39,10 +39,10 @@ def buy_window(m_screen):
 
     # Create listbox with all the products that can be bought
     available_lb, available_items = TkServ.create_listbox(screen, "available_lb", row=10, column=0,
-                                                          width=25, height=25,
+                                                          width=35, height=25,
                                                           rowspan=14, columnspan=1,
                                                           data=[],
-                                                          padx=(0, 25), sticky="e")
+                                                          padx=(25, 25), sticky="e")
 
     # Create listbox with suppliers
     selected_supp_var = StringVar(screen)
@@ -51,7 +51,7 @@ def buy_window(m_screen):
     for supplier in DB.suppliers:
         drop_down_options.append(f"{supplier.supp_id} | {supplier.supp_name}")
     selected_supplier = TkServ.create_drop_down(screen, selected_supp_var, drop_down_options,
-                                                lambda a: on_supplier_change(screen), 10, 3, stick="we")
+                                                lambda a: on_supplier_change(screen, selected_supp_var), 10, 3, stick="we")
     # ----
     # Is there a way to set widget name on option menu ?
     # ----

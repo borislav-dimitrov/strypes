@@ -1,17 +1,29 @@
 import Models.Db.fakeDB as DB
 import Services.tkinterServices as TkServ
-from Services.suppliersServices import validate_supp_menu
+from Services.suppliersServices import validate_supp_menu, get_supplier_by_id
 from tkinter import *
 
 
 def get_data_for_available_products(screen, selected_supplier):
     info = []
     for supplier in DB.suppliers:
-        is_valid, status, items = validate_supp_menu(supplier.buy_menu)
-        if is_valid and len(items) == 3 and supplier.supp_name == selected_supplier.supplier_name:
-            info.append(f"{items[0]}-{items[1]}-{items[2]}")
-        else:
-            TkServ.create_custom_msg(screen, "Warning!", f"Something is wrong in {supplier.supp_name} menu data!")
+        if supplier.supp_name == selected_supplier.supp_name:
+            is_valid, status, items = validate_supp_menu(supplier.buy_menu)
+
+            if not is_valid:
+                TkServ.create_custom_msg(screen, "Warning!", f"Something is wrong in {supplier.supp_name} menu data!")
+                return
+
+            # If 1 item
+            if len(items) == 1:
+                info.append(items[0])
+            # If more than 1 item
+            else:
+                for item in items:
+                    info.append(item)
+    if len(info) == 0:
+        TkServ.create_custom_msg(screen, "Warning!", f"Something is wrong in {selected_supplier.supp_name} menu data!")
+        return
     return info
 
 
@@ -28,20 +40,25 @@ def calc_and_set_total_price(screen, items):
     selection = selection[1:-1:]
     selection = selection.split(",")
     for item in selection:
-        if item != "":
-            if item[0] == " ":
-                curr_price = item[1:-1:].split("|")[2].strip()
-            else:
-                curr_price = item.split("|")[2].strip()[:-1:]
-            total += float(curr_price)
+        if item != "" and item[0] == " ":
+            item_name = item[2:-1:].split("-")[0].strip()
+            item_type = item[2:-1:].split("-")[1].strip()
+            item_price = item[2:-1:].split("-")[2].strip()
+            total += float(item_price)
+        elif item != "":
+            item_name = item[1:-1:].split("-")[0].strip()
+            item_type = item[1:-1:].split("-")[1].strip()
+            item_price = item[1:-1:].split("-")[2].strip()
+            total += float(item_price)
 
     total_lbl.config(text=total)
 
 
-def on_supplier_change(screen):
+def on_supplier_change(screen, selected_supplier):
     listbox = screen.nametowidget("available_lb_frame").nametowidget("available_lb")
-
-    data = get_data_for_available_products(screen)
+    supplier_id = selected_supplier.get().split("|")[0].strip()
+    supplier = get_supplier_by_id(supplier_id, DB.suppliers)
+    data = get_data_for_available_products(screen, supplier)
     # Change total price
 
     # Clear listbox
@@ -57,7 +74,7 @@ def add_item_to_cart(screen, cart_lb, available_lb, cart_items):
     current_selection = available_lb.get(selection_index)
 
     cart_lb.insert(END, current_selection)
-    available_lb.delete(selection_index)
+    # available_lb.delete(selection_index)
     # Calculate total price
     calc_and_set_total_price(screen, cart_items)
 
