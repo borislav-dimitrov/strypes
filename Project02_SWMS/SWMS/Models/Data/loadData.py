@@ -57,3 +57,12 @@ def load_warehouses():
     for line in data["warehouses"]:
         all_info.append(line)
     return all_info
+
+
+def load_transactions():
+    file = open("./Models/Db/transactions.json")
+    data = json.load(file)
+    all_info = []
+    for line in data["transactions"]:
+        all_info.append(line)
+    return all_info

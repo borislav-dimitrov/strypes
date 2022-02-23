@@ -94,9 +94,27 @@ def save_warehouses():
     save_data_to_json(data, output_file)
 
 
+def save_transactions():
+    output_file = "./Models/Db/transactions.json"
+    data = {
+        "transactions": []
+    }
+    for transaction in DB.transactions:
+        data["transactions"].append({
+            "tr_id": transaction.tr_id,
+            "tr_type": transaction.tr_type,
+            "tr_date": transaction.tr_date,
+            "tr_price": transaction.tr_price,
+            "buyer_seller": transaction.buyer_seller,
+            "assets_traded": transaction.assets_traded
+        })
+    save_data_to_json(data, output_file)
+
+
 def save_all_data():
     save_users()
     save_warehouses()
     save_products()
     save_suppliers()
     save_clients()
+    save_transactions()

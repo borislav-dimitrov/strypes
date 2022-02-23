@@ -44,15 +44,16 @@ def sell_window(m_screen):
                                                         padx=(0, 25), sticky="e")
 
     # Create listbox with clients
-    drop_down_variable = StringVar(screen)
-    drop_down_variable.set("None")
+    selected_client_var = StringVar(screen)
+    selected_client_var.set("None")
     drop_down_options = []
     for client in DB.clients:
         drop_down_options.append(f"{client.client_id} | {client.client_name}")
-    sel_client = TkServ.create_drop_down(screen, drop_down_variable, drop_down_options,
-                                         lambda a: on_client_change(), 10, 3, stick="we")
-    # Figure out a way to name sel_client
-
+    selected_client = TkServ.create_drop_down(screen, selected_client_var, drop_down_options,
+                                              lambda a: on_client_change(), 10, 3, stick="we")
+    # ----
+    # Is there a way to set widget name on option menu ?
+    # ----
     # Create transaction cart
     cart_lb, cart_items = TkServ.create_listbox(screen, "cart_lb", row=10, column=1, width=80, height=25,
                                                 rowspan=14, columnspan=2, data=[])
@@ -72,7 +73,7 @@ def sell_window(m_screen):
         .grid(row=24, column=1, columnspan=2, sticky="we", padx=(0, 35))
     Button(screen, text="Sell", width=25, name="sell_cart_btn", font=("Arial", 12),
            bg="green",
-           command=lambda: sell(screen, cart_lb, cart_items, sellable_items)) \
+           command=lambda: sell(screen, cart_lb, cart_items, sellable_items, selected_client_var)) \
         .grid(row=24, column=3, sticky="we", padx=10)
 
     screen.protocol("WM_DELETE_WINDOW", lambda: TkServ.close_and_rem_win_from_opened(screen, "sell"))

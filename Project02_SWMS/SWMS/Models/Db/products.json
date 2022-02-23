@@ -4,7 +4,7 @@
             "product_id": 1,
             "product_name": "Green Paint",
             "product_type": "Finished Goods",
-            "buy_price": "0.00",
+            "buy_price": "4.00",
             "sell_price": "3.00",
             "assigned_to_wh": "WHS Finished Goods"
         },
@@ -12,7 +12,7 @@
             "product_id": 2,
             "product_name": "Green Paint",
             "product_type": "Finished Goods",
-            "buy_price": "0.00",
+            "buy_price": "4.00",
             "sell_price": "3.00",
             "assigned_to_wh": "WHS Finished Goods"
         },
@@ -20,9 +20,9 @@
             "product_id": 3,
             "product_name": "Black Paint",
             "product_type": "Finished Goods",
-            "buy_price": "0.00",
+            "buy_price": "4.00",
             "sell_price": "1.00",
-            "assigned_to_wh": "none"
+            "assigned_to_wh": "WHS Finished Goods"
         },
         {
             "product_id": 4,
@@ -30,13 +30,13 @@
             "product_type": "Finished Goods",
             "buy_price": "5.00",
             "sell_price": "6.00",
-            "assigned_to_wh": "none"
+            "assigned_to_wh": "WHS Finished Goods"
         },
         {
             "product_id": 5,
             "product_name": "Green Paint",
             "product_type": "Finished Goods",
-            "buy_price": "0.00",
+            "buy_price": "4.00",
             "sell_price": "3.00",
             "assigned_to_wh": "WHS Finished Goods"
         },
@@ -44,17 +44,17 @@
             "product_id": 6,
             "product_name": "Green Paint",
             "product_type": "Finished Goods",
-            "buy_price": "0.00",
-            "sell_price": "0.00",
+            "buy_price": "4.00",
+            "sell_price": "4.00",
             "assigned_to_wh": "WHS Finished Goods"
         },
         {
             "product_id": 7,
             "product_name": "Black Paint",
             "product_type": "Finished Goods",
-            "buy_price": "0.00",
+            "buy_price": "4.00",
             "sell_price": "1.00",
-            "assigned_to_wh": "none"
+            "assigned_to_wh": "WHS Finished Goods"
         },
         {
             "product_id": 8,
@@ -62,31 +62,31 @@
             "product_type": "Finished Goods",
             "buy_price": "5.00",
             "sell_price": "6.00",
-            "assigned_to_wh": "none"
+            "assigned_to_wh": "WHS Finished Goods"
         },
         {
             "product_id": 9,
             "product_name": "Red Paint",
             "product_type": "Finished Goods",
-            "buy_price": "0.00",
-            "sell_price": "0.00",
+            "buy_price": "4.00",
+            "sell_price": "4.00",
             "assigned_to_wh": "WHS Finished Goods"
         },
         {
             "product_id": 10,
             "product_name": "Green Paint",
             "product_type": "Finished Goods",
-            "buy_price": "0.00",
-            "sell_price": "0.00",
+            "buy_price": "4.00",
+            "sell_price": "4.00",
             "assigned_to_wh": "WHS Finished Goods"
         },
         {
             "product_id": 11,
             "product_name": "Black Paint",
             "product_type": "Finished Goods",
-            "buy_price": "0.00",
+            "buy_price": "4.00",
             "sell_price": "1.00",
-            "assigned_to_wh": "none"
+            "assigned_to_wh": "WHS Finished Goods"
         },
         {
             "product_id": 12,
@@ -94,31 +94,31 @@
             "product_type": "Finished Goods",
             "buy_price": "5.00",
             "sell_price": "6.00",
-            "assigned_to_wh": "none"
+            "assigned_to_wh": "WHS Finished Goods"
         },
         {
             "product_id": 13,
             "product_name": "Red Paint",
             "product_type": "Finished Goods",
-            "buy_price": "0.00",
-            "sell_price": "0.00",
+            "buy_price": "4.00",
+            "sell_price": "4.00",
             "assigned_to_wh": "WHS Finished Goods"
         },
         {
             "product_id": 14,
             "product_name": "Green Paint",
             "product_type": "Finished Goods",
-            "buy_price": "0.00",
-            "sell_price": "0.00",
+            "buy_price": "4.00",
+            "sell_price": "4.00",
             "assigned_to_wh": "WHS Finished Goods"
         },
         {
             "product_id": 15,
             "product_name": "Black Paint",
             "product_type": "Finished Goods",
-            "buy_price": "0.00",
+            "buy_price": "4.00",
             "sell_price": "1.00",
-            "assigned_to_wh": "none"
+            "assigned_to_wh": "WHS Finished Goods"
         },
         {
             "product_id": 16,
@@ -126,7 +126,7 @@
             "product_type": "Finished Goods",
             "buy_price": "5.00",
             "sell_price": "6.00",
-            "assigned_to_wh": "none"
+            "assigned_to_wh": "WHS Finished Goods"
         }
     ]
 }

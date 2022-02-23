@@ -1,10 +1,12 @@
-from Models.Data.loadData import load_users, load_products, load_suppliers, load_clients, load_warehouses
+from Models.Data.loadData import load_users, load_products, load_suppliers, load_clients, load_warehouses, \
+    load_transactions
 from Models.Data.saveData import save_products
 from Models.Assets.user import User
 from Models.Assets.product import Product
 from Models.Assets.supplier import Supplier
 from Models.Assets.client import Client
 from Models.Assets.warehouse import Warehouse
+from Models.Assets.transaction import Transaction
 from Services.userServices import check_user_before_create
 from Services.warehouseServices import check_whname_exist
 
@@ -13,6 +15,7 @@ products = []
 suppliers = []
 clients = []
 warehouses = []
+transactions = []
 curr_user = None
 
 
@@ -94,6 +97,21 @@ def create_warehouses(data):
         return f"Fail! {ex}"
 
 
+def create_transactions(data):
+    try:
+        for transaction in data:
+            new_transaction = Transaction(transaction["tr_id"],
+                                          transaction["tr_type"],
+                                          transaction["tr_date"],
+                                          transaction["tr_price"],
+                                          transaction["buyer_seller"],
+                                          transaction["assets_traded"])
+            transactions.append(new_transaction)
+        return "Success"
+    except Exception as ex:
+        return f"Fail! {ex}"
+
+
 # Loading
 def load_and_create_users():
     # clear objects before loading
@@ -155,6 +173,18 @@ def load_and_create_warehouses():
         print(f"Fail! {ex}")
 
 
+def load_and_create_transactions():
+    # cleanup current products
+    transactions.clear()
+    # load the new ones
+    try:
+        transactions_from_file = load_transactions()
+        status = create_transactions(transactions_from_file)
+        return status
+    except Exception as ex:
+        print(f"Fail! {ex}")
+
+
 def load_all_entities():
     # ToDo
     # Log these prints in a log file
@@ -176,6 +206,11 @@ def load_all_entities():
     print("Loading Clients...")
     clients_status = load_and_create_clients()
     print(clients_status)
+    print("===========")
+
+    print("Loading Transactions...")
+    transactions_status = load_and_create_transactions()
+    print(transactions_status)
     print("===========")
 
 
