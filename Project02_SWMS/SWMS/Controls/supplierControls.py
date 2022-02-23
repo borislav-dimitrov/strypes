@@ -15,46 +15,8 @@ def clear_supp_screen(screen):
             widget.config(text="Create/Modify Suppliers")
 
 
-def validate_supp_menu(menu):
-    try:
-        items = menu
-        # Define if there are one or more products
-        if "|" in items:
-            items = items.split("|")
-            for item in items:
-                # Verify pattern for multiple products
-                if len(item.split("-")) != 3:
-                    print(False)
-                    return False, "Invalid menu pattern!"
-            for item in items:
-                item_name = item.split("-")[0].strip()
-                item_type = item.split("-")[1].strip()
-                # Check if product type is correct (suppliers can sell only raw materials)
-                if "raw material" != item_type.lower():
-                    return False, "Invalid product type!"
-                item_buy_price = float(item.split("-")[2].strip())
-            return True, "Success"
-        else:
-            # Verify pattern for one product
-            if len(items.split("-")) != 3:
-                return False, "Invalid menu pattern!"
-            item_name = items.split("-")[0].strip()
-            item_type = items.split("-")[1].strip()
-            # Check if product type is correct (suppliers can sell only raw materials)
-            if "raw material" != item_type.lower():
-                return False, "Invalid product type!"
-            item_buy_price = float(items.split("-")[2].strip())
-            return True, "Success"
-    except Exception as ex:
-        print(ex)
-        if "convert string to float" in str(ex):
-            return False, "Invalid product price!"
-
-    return False, "Invalid menu pattern!"
-
-
 def create_new_supplier(screen, sname, sphone, siban, supmenu):
-    valid_info, status = validate_supp_menu(supmenu)
+    valid_info, status, items = SupServ.validate_supp_menu(supmenu)
     if not valid_info:
         TkServ.create_custom_msg(screen, "Warning!", status)
         return
@@ -117,7 +79,7 @@ def new_supplier(screen):
 
 def save_supplier(screen, selected_supp, spname, spphone, spiban, spstatus, spmenu):
     try:
-        valid_info, status = validate_supp_menu(spmenu)
+        valid_info, status, items = SupServ.validate_supp_menu(spmenu)
         if not valid_info:
             TkServ.create_custom_msg(screen, "Warning!", status)
             return

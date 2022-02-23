@@ -27,7 +27,7 @@ def sell_window(m_screen):
     Label(screen, name="header_lbl", text="Sales", font=("Ariel", 15, "bold")) \
         .grid(row=0, column=2, columnspan=5, sticky="w")
 
-    # Create Lables
+    # Create Labels
     Label(screen, text="TOTAL PRICE:", font=("Ariel", 13, "bold")) \
         .grid(row=22, column=3, sticky="s", padx=10)
     Label(screen, name="total_price", text="0.0", font=("Ariel", 13, "bold")) \

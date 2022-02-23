@@ -162,11 +162,11 @@ def create_preview(screen, data, width=CFG.REG_WIDTH, height=CFG.RES_HEIGHT / 2,
 
 def create_listbox(parent, name, row, column, data, width=50, height=10, rowspan=1, columnspan=1, sticky="wens",
                    padx=(0, 0), pady=(0, 0)):
-    lb_holder = Frame(parent)
+    lb_holder = Frame(parent, name=f"{name}_frame")
     lb_holder.grid(row=row, column=column, rowspan=rowspan, columnspan=columnspan, sticky=sticky, padx=padx, pady=pady)
 
     lb_variable = StringVar()
-    list_box = Listbox(lb_holder, listvariable=lb_variable, width=width, height=height)
+    list_box = Listbox(lb_holder, name=name, listvariable=lb_variable, width=width, height=height)
     list_box.grid(row=0, column=0, sticky="ew")
 
     if len(data) > 0:

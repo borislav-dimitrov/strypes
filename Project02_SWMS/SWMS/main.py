@@ -65,8 +65,8 @@ def main():
                                                                    column=2)
     Button(screen, width=15, text="Sales", font=("Arial", 12), bg="lightgreen", name="sell_btn",
            command=lambda: Views.sell_window(screen)).grid(row=2, column=3)
-    Button(screen, width=15, text="Buy", font=("Arial", 12), bg="lightgreen", name="buy_btn",
-           command=lambda: Views.buy_window()).grid(row=2, column=4)
+    Button(screen, width=15, text="Purchases", font=("Arial", 12), bg="lightgreen", name="buy_btn",
+           command=lambda: Views.buy_window(screen)).grid(row=2, column=4)
     # Todo - add manage warehouse stock page
 
     # render admin buttons
