@@ -1,6 +1,6 @@
 from Models.Data.loadData import load_users, load_products, load_suppliers, load_clients, load_warehouses, \
     load_transactions
-from Models.Data.saveData import save_products
+from Models.Data.saveData import save_products, save_all_data
 from Models.Assets.user import User
 from Models.Assets.product import Product
 from Models.Assets.supplier import Supplier
@@ -16,7 +16,8 @@ suppliers = []
 clients = []
 warehouses = []
 transactions = []
-curr_user = None
+
+opened_pages = []
 
 
 # Creating
@@ -43,6 +44,7 @@ def create_products(data):
         for product in data:
             if not check_whname_exist(product["assigned_to_wh"], warehouses):
                 product["assigned_to_wh"] = "none"
+
             new_product = Product(product["product_id"],
                                   product["product_name"],
                                   product["product_type"],
@@ -119,10 +121,14 @@ def load_and_create_users():
     login_users.clear()
     # load the new objects
     try:
+        print("Loading Users")
         users_from_file = load_users()
+        if users_from_file == "none":
+            return "No users found!"
         status = create_users(users_from_file)
         return status
     except TypeError as ex:
+
         return "Fail! Couldn't create user!"
 
 
@@ -213,6 +219,11 @@ def load_all_entities():
     transactions_status = load_and_create_transactions()
     print(transactions_status)
     print("===========")
+
+
+# Saving
+def save_all():
+    save_all_data()
 
 
 # Deleting

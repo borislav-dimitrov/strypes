@@ -52,33 +52,33 @@ def on_dropdown_change(screen, var):
     selected_user = UsrServ.get_user_by_id(selected_user_id, DB.login_users)
     # Create Labels for the Entry fields
     Label(screen, name="lbl_for_edit_uname", text="Edit Username:", font=("Arial", 12)) \
-        .grid(row=3, column=0, sticky="e")
+        .grid(row=11, column=0, columnspan=3, sticky="w", padx=(140, 0))
     Label(screen, name="lbl_for_edit_password", text="Edit Password:", font=("Arial", 12)) \
-        .grid(row=3, column=2, sticky="e")
+        .grid(row=11, column=3, columnspan=4, sticky="w", padx=(90, 0))
     # Create Entry fields to edit the user
     uname = Entry(screen, width=30, name="edit_user_name")
-    uname.grid(row=3, column=1, sticky="w")
+    uname.grid(row=11, column=1, sticky="e", columnspan=2)
     uname.insert(0, selected_user.user_name)
     pwd = Entry(screen, width=30, name="edit_user_pwd", show="*")
     pwd.insert(0, UsrServ.decrypt_pwd(selected_user.user_pwd))
-    pwd.grid(row=3, column=3, sticky="w")
+    pwd.grid(row=11, column=5, columnspan=4, sticky="w")
 
     # Select new user type
     usr_type = StringVar()
     usr_type.set(UsrServ.get_user_type_by_id(selected_user_id, DB.login_users))
     Radiobutton(screen, text="Administrator", variable=usr_type, value="Administrator", name="rb_admin") \
-        .grid(row=2, rowspan=2, column=1, sticky="e")
+        .grid(row=13, rowspan=2, column=1, columnspan=2, sticky="e")
     Radiobutton(screen, text="Operator", variable=usr_type, value="Operator", name="rb_operator") \
-        .grid(row=2, rowspan=2, column=3, sticky="w")
+        .grid(row=13, rowspan=2, column=4, columnspan=3, sticky="w")
 
     # Create button to save the changes
     Button(screen, text="Save", width=25, name="save_user_btn", font=("Arial", 12), bg="lightgreen",
            command=lambda: save_user(screen, selected_user_id, uname.get(), pwd.get(), usr_type)) \
-        .grid(row=3, column=2, rowspan=2)
+        .grid(row=15, column=2, rowspan=2, columnspan=4)
     # Create button to delete the selected user
     Button(screen, text="Delete", width=25, name="del_user_btn", font=("Arial", 12), bg="coral",
            command=lambda: delete_user(screen, selected_user_id)) \
-        .grid(row=2, column=3)
+        .grid(row=8, column=5, columnspan=3, sticky="w")
 
 
 def edit_usr(screen):
@@ -96,7 +96,7 @@ def edit_usr(screen):
     for user in DB.login_users:
         drop_down_options.append(f"{user.user_id} - {user.user_name}")
     TkServ.create_drop_down(screen, drop_down_variable, drop_down_options,
-                            lambda a: on_dropdown_change(screen, drop_down_variable), 2, 1, stick="we")
+                            lambda a: on_dropdown_change(screen, drop_down_variable), 8, 1, stick="we")
 
 
 def create_new_user(screen, uname, pwd, usr_type):
@@ -133,24 +133,24 @@ def new_usr(screen):
     usr_type = StringVar()
     usr_type.set("Operator")
     Radiobutton(screen, text="Administrator", variable=usr_type, value="Administrator", name="rb_admin") \
-        .grid(row=2, column=1)
+        .grid(row=8, column=0, columnspan=3, sticky="we")
     Radiobutton(screen, text="Operator", variable=usr_type, value="Operator", name="rb_operator") \
-        .grid(row=3, column=1)
+        .grid(row=9, column=0, columnspan=3, sticky="we")
 
     # Create Labels for the Entry fields
     Label(screen, name="lbl_for_new_uname", text="Username:", font=("Arial", 12)) \
-        .grid(row=2, column=2, sticky="e")
+        .grid(row=8, column=2, columnspan=2, sticky="e")
     Label(screen, name="lbl_for_new_password", text="Password:", font=("Arial", 12)) \
-        .grid(row=3, column=2, sticky="e")
+        .grid(row=9, column=2, columnspan=2, sticky="e")
 
     # Create Entry fields to fill info for the new user
     uname = Entry(screen, width=30, name="edit_user_name")
-    uname.grid(row=2, column=3, sticky="w")
+    uname.grid(row=8, column=4, columnspan=2, sticky="w")
     pwd = Entry(screen, width=30, name="edit_user_pwd", show="*")
-    pwd.grid(row=3, column=3, sticky="w")
+    pwd.grid(row=9, column=4, columnspan=2, sticky="w")
 
     # Create button to save the changes
     Button(screen, text="Save", width=25, name="save_user_btn", font=("Arial", 12),
            bg="lightgreen",
            command=lambda: create_new_user(screen, uname.get(), pwd.get(), usr_type)) \
-        .grid(row=4, column=2)
+        .grid(row=12, column=2, columnspan=4, sticky="w")

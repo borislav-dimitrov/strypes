@@ -15,6 +15,16 @@ def clear_prod_screen(screen):
             widget.config(text="Create/Modify Products")
 
 
+def clear_product_properties(screen):
+    clear_all_but = ["edit_prod_btn", "new_prod_btn", "header_lbl", "!optionmenu"]
+    for widget in screen.grid_slaves():
+        current = str(widget).split(".").pop()
+        if current not in clear_all_but:
+            widget.destroy()
+        if current == "!optionmenu2":
+            widget.destroy()
+
+
 def delete_product(screen, sel_prod):
     result = tkinter.messagebox.askquestion("Question...",
                                             f"Are you sure you want\nto delete the product\n{sel_prod.product_name}",
@@ -32,11 +42,12 @@ def delete_product(screen, sel_prod):
 
 
 def save_product(screen, sel_prod, pname, ptype, pbuy, psell, pwarehouse):
-    chosen_wh_name = pwarehouse
-    if "none" not in chosen_wh_name:
-        if ptype.lower() not in chosen_wh_name.lower():
-            TkServ.create_custom_msg(screen, "Warning..", f"Product of type {ptype} cannot go in {chosen_wh_name}")
-            return
+    chosen_wh_name = pwarehouse.split("|")[0].strip()
+
+    # if "none" not in chosen_wh_name:
+    #     if ptype.lower() not in chosen_wh_name.lower():
+    #         TkServ.create_custom_msg(screen, "Warning..", f"Product of type {ptype} cannot go in {chosen_wh_name}")
+    #         return
 
     try:
         sel_prod.product_name = pname
@@ -58,27 +69,30 @@ def chose_wh_for_product(screen, choice):
 def on_dropdown_change(screen, var):
     selected_prod_id = var.get().split("-")[0]
     selected_prod = ProdServ.get_product_by_id(selected_prod_id, DB.products)
+    print(selected_prod.assigned_to_wh)
+    # clear_product_properties(screen)
+
     # Create Labels for the Entry fields
     Label(screen, name="lbl_for_edit_prod_name", text="Name:", font=("Arial", 12)) \
-        .grid(row=3, column=0, sticky="e")
+        .grid(row=13, column=0, sticky="e")
     Label(screen, name="lbl_for_edit_prod_type", text="Type:", font=("Arial", 12)) \
-        .grid(row=4, column=0, sticky="e")
+        .grid(row=15, column=0, sticky="e")
     Label(screen, name="lbl_for_edit_prod_buy", text="Buy Price:", font=("Arial", 12)) \
-        .grid(row=3, column=2, sticky="e")
+        .grid(row=13, column=4, sticky="e")
     Label(screen, name="lbl_for_edit_prod_sell", text="Sell Price:", font=("Arial", 12)) \
-        .grid(row=4, column=2, sticky="e")
+        .grid(row=11, column=4, sticky="e")
     Label(screen, name="lbl_for_edit_prod_assigned_wh", text="Assigned to:", font=("Arial", 12)) \
-        .grid(row=5, column=1, sticky="e")
+        .grid(row=10, column=0, sticky="e")
     # Create Entry fields to edit the product
     pname = Entry(screen, width=30, name="edit_prod_name")
-    pname.grid(row=3, column=1, sticky="w")
+    pname.grid(row=13, column=1, columnspan=2, sticky="w")
     pname.insert(0, selected_prod.product_name)
     buy_price = Entry(screen, width=30, name="edit_prod_buy_price")
     buy_price.insert(0, selected_prod.buy_price)
-    buy_price.grid(row=3, column=3, sticky="w")
+    buy_price.grid(row=13, column=5, columnspan=4, sticky="w")
     sell_price = Entry(screen, width=30, name="edit_prod_sell_price")
     sell_price.insert(0, selected_prod.sell_price)
-    sell_price.grid(row=4, column=3, sticky="w")
+    sell_price.grid(row=11, column=5, sticky="w")
 
     # Create DropDown with all existing warehouses
     chosen_wh = StringVar(screen)
@@ -92,25 +106,26 @@ def on_dropdown_change(screen, var):
         chosen_wh_options.append(f"{warehouse.wh_name} | Type: {warehouse.wh_type}")
 
     TkServ.create_drop_down(screen, chosen_wh, chosen_wh_options,
-                            lambda a: chose_wh_for_product(screen, chosen_wh), 5, 2, stick="we")
+                            lambda a: chose_wh_for_product(screen, chosen_wh), 10, 1, stick="we",
+                            cspan=3, padx=(0, 100))
 
     # Select new user type
     prod_type = StringVar()
     prod_type.set(selected_prod.product_type)
     Radiobutton(screen, text="Finished Goods", variable=prod_type, value="Finished Goods", name="rb_fg") \
-        .grid(row=3, rowspan=2, column=1, sticky="s")
+        .grid(row=15, column=1, sticky="w")
     Radiobutton(screen, text="Raw Materials", variable=prod_type, value="Raw Materials", name="rb_rm") \
-        .grid(row=4, rowspan=2, column=1, sticky="n")
+        .grid(row=15, column=1, sticky="e")
 
     # Create button to save the changes
     Button(screen, text="Save", width=25, name="save_user_btn", font=("Arial", 12), bg="lightgreen",
            command=lambda: save_product(screen, selected_prod, pname.get(),
                                         prod_type.get(), buy_price.get(), sell_price.get(), chosen_wh.get())) \
-        .grid(row=5, column=2, rowspan=2)
+        .grid(row=17, column=2, rowspan=2, columnspan=4)
     # Create button to delete the selected user
     Button(screen, text="Delete", width=25, name="del_user_btn", font=("Arial", 12), bg="coral",
            command=lambda: delete_product(screen, selected_prod)) \
-        .grid(row=2, column=3)
+        .grid(row=6, column=5, columnspan=4, sticky="w")
 
 
 def create_new_prod(screen, pname, bprice, sprice, ptype):
@@ -120,7 +135,8 @@ def create_new_prod(screen, pname, bprice, sprice, ptype):
         "product_name": pname,
         "product_type": ptype,
         "buy_price": bprice,
-        "sell_price": sprice
+        "sell_price": sprice,
+        "assigned_to_wh": "none"
     }]
     status = DB.create_products(prod_data)
     if "Success" in status:
@@ -143,33 +159,33 @@ def new_prod(screen):
     prod_type = StringVar()
     prod_type.set("Finished Goods")
     Radiobutton(screen, text="Finished Goods", variable=prod_type, value="Finished Goods", name="rb_fg") \
-        .grid(row=4, column=1, sticky="s")
+        .grid(row=10, column=2, sticky="s")
     Radiobutton(screen, text="Raw Materials", variable=prod_type, value="Raw Materials", name="rb_rm") \
-        .grid(row=5, column=1, sticky="n")
+        .grid(row=12, column=2, sticky="n")
 
     # Create Labels for the Entry fields
     Label(screen, name="lbl_for_new_prod_name", text="Name:", font=("Arial", 12)) \
-        .grid(row=3, column=0, sticky="e")
+        .grid(row=7, column=1, sticky="ns")
     Label(screen, name="lbl_for_new_prod_type", text="Type:", font=("Arial", 12)) \
-        .grid(row=4, column=0, sticky="e")
+        .grid(row=11, column=1, sticky="ns")
     Label(screen, name="lbl_for_new_prod_buy", text="Buy Price:", font=("Arial", 12)) \
-        .grid(row=3, column=2, sticky="e")
+        .grid(row=7, column=4, sticky="e")
     Label(screen, name="lbl_for_new_prod_sell", text="Sell Price:", font=("Arial", 12)) \
-        .grid(row=4, column=2, sticky="e")
+        .grid(row=11, column=4, sticky="e")
 
     # Create Entry fields for the new product
     pname = Entry(screen, width=30, name="new_prod_name")
-    pname.grid(row=3, column=1, sticky="w")
+    pname.grid(row=7, column=1, columnspan=2, sticky="e")
     buy_price = Entry(screen, width=30, name="new_prod_buy_price")
-    buy_price.grid(row=3, column=3, sticky="w")
+    buy_price.grid(row=7, column=5, columnspan=4, sticky="w")
     sell_price = Entry(screen, width=30, name="new_prod_sell_price")
-    sell_price.grid(row=4, column=3, sticky="w")
+    sell_price.grid(row=11, column=5, columnspan=4, sticky="w")
 
     # Create button to create the product
     Button(screen, text="Save", width=25, name="save_prod_btn", font=("Arial", 12),
            bg="lightgreen",
            command=lambda: create_new_prod(screen, pname.get(), buy_price.get(), sell_price.get(), prod_type.get())) \
-        .grid(row=5, column=2)
+        .grid(row=17, column=2, columnspan=4, sticky="w")
 
 
 def edit_prod(screen):
@@ -180,6 +196,9 @@ def edit_prod(screen):
     hdr = screen.nametowidget("header_lbl")
     hdr.config(text="Editing Products")
 
+    # Labels
+    Label(screen, text="Product:", font=("Arial", 12)).grid(row=6, column=0, sticky="e")
+
     # Create DropDown with all existing products
     drop_down_variable = StringVar(screen)
     drop_down_variable.set("Chose a product...")
@@ -189,4 +208,4 @@ def edit_prod(screen):
                                  f"{product.product_name} - "
                                  f"{product.product_type}")
     TkServ.create_drop_down(screen, drop_down_variable, drop_down_options,
-                            lambda a: on_dropdown_change(screen, drop_down_variable), 2, 1, stick="we")
+                            lambda a: on_dropdown_change(screen, drop_down_variable), 6, 1, stick="w", cspan=2)

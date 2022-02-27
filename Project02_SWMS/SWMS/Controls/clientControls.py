@@ -43,25 +43,25 @@ def new_client(screen):
 
     # Create Labels for the Entry fields
     Label(screen, name="lbl_for_new_client_name", text="Client Name:", font=("Arial", 12)) \
-        .grid(row=3, column=1, sticky="e")
+        .grid(row=7, column=2, sticky="e")
     Label(screen, name="lbl_for_new_client_phone", text="Client Phone:", font=("Arial", 12)) \
-        .grid(row=4, column=1, sticky="e")
+        .grid(row=9, column=2, sticky="e")
     Label(screen, name="lbl_for_new_client_iban", text="Client IBAN:", font=("Arial", 12)) \
-        .grid(row=5, column=1, sticky="e")
+        .grid(row=11, column=2, sticky="e")
 
     # Create Entry fields for the new supplier
     client_name = Entry(screen, width=30, name="new_client_name")
-    client_name.grid(row=3, column=2)
+    client_name.grid(row=7, column=3, columnspan=2)
     client_phone = Entry(screen, width=30, name="new_client_phone")
-    client_phone.grid(row=4, column=2)
+    client_phone.grid(row=9, column=3, columnspan=2)
     client_iban = Entry(screen, width=30, name="new_client_iban")
-    client_iban.grid(row=5, column=2)
+    client_iban.grid(row=11, column=3, columnspan=2)
 
     # Create button to create the supplier
     Button(screen, text="Save", width=25, name="save_client_btn", font=("Arial", 12),
            bg="lightgreen",
            command=lambda: create_new_client(screen, client_name.get(), client_phone.get(), client_iban.get())) \
-        .grid(row=6, column=2)
+        .grid(row=15, column=2, columnspan=4, sticky="w")
 
 
 def save_client(screen, selected_client, client_name, client_phone, client_iban, client_status):
@@ -100,42 +100,42 @@ def on_dropdown_change(screen, var):
 
     # Create Labels for the Entry fields
     Label(screen, name="lbl_for_edit_client_name", text="Client Name:", font=("Arial", 12)) \
-        .grid(row=3, column=0, sticky="e")
+        .grid(row=10, column=1, sticky="w")
     Label(screen, name="lbl_for_edit_client_phone", text="Client Phone:", font=("Arial", 12)) \
-        .grid(row=3, column=2, sticky="e")
+        .grid(row=10, column=4, sticky="e")
     Label(screen, name="lbl_for_edit_client_iban", text="Client IBAN:", font=("Arial", 12)) \
-        .grid(row=4, column=2, sticky="e")
+        .grid(row=12, column=1, sticky="w")
     Label(screen, name="lbl_for_edit_client_status", text="Client Status:", font=("Arial", 12)) \
-        .grid(row=4, column=0, sticky="e")
+        .grid(row=12, column=4, sticky="e")
 
     # Create Entry fields to edit the client
     client_name = Entry(screen, width=30, name="edit_client_name")
-    client_name.grid(row=3, column=1, sticky="w")
+    client_name.grid(row=10, column=1, columnspan=3, sticky="w", padx=(100, 0))
     client_name.insert(0, selected_client.client_name)
     client_phone = Entry(screen, width=30, name="edit_client_phone")
     client_phone.insert(0, selected_client.client_phone)
-    client_phone.grid(row=3, column=3, sticky="w")
+    client_phone.grid(row=10, column=5, columnspan=4, sticky="w")
     client_iban = Entry(screen, width=30, name="edit_client_iban")
     client_iban.insert(0, selected_client.client_iban)
-    client_iban.grid(row=4, column=3, sticky="w")
+    client_iban.grid(row=12, column=1, columnspan=3, sticky="w", padx=(100, 0))
 
     # Change client status
     client_status = StringVar()
     client_status.set(selected_client.client_status)
     Radiobutton(screen, text="Active", variable=client_status, value="Active", name="rb_act") \
-        .grid(row=4, rowspan=2, column=1, sticky="n")
+        .grid(row=12, rowspan=2, column=5, sticky="n")
     Radiobutton(screen, text="Disabled", variable=client_status, value="Disabled", name="rb_dis") \
-        .grid(row=3, rowspan=2, column=1, sticky="s")
+        .grid(row=12, rowspan=2, column=5, sticky="s")
 
     # Create button to save the changes
     Button(screen, text="Save", width=25, name="save_client_btn", font=("Arial", 12), bg="lightgreen",
            command=lambda: save_client(screen, selected_client, client_name.get(),
                                        client_phone.get(), client_iban.get(), client_status.get())) \
-        .grid(row=5, column=2, rowspan=2)
+        .grid(row=15, column=2, columnspan=4, sticky="w")
     # Create button to delete the selected user
     Button(screen, text="Delete", width=25, name="del_client_btn", font=("Arial", 12), bg="coral",
            command=lambda: delete_client(screen, selected_client)) \
-        .grid(row=2, column=3)
+        .grid(row=7, column=5, columnspan=4, sticky="w")
 
 
 def edit_client(screen):
@@ -154,4 +154,4 @@ def edit_client(screen):
         drop_down_options.append(f"{client.client_id} - "
                                  f"{client.client_name}")
     TkServ.create_drop_down(screen, drop_down_variable, drop_down_options,
-                            lambda a: on_dropdown_change(screen, drop_down_variable), 2, 1, stick="we")
+                            lambda a: on_dropdown_change(screen, drop_down_variable), 7, 1, stick="we")
