@@ -1,0 +1,20 @@
+{
+    "suppliers": [
+        {
+            "supplier_id": 1,
+            "supplier_name": "supplier raw_mats 1",
+            "supplier_phone": "0888888888",
+            "supplier_iban": "CY 17 002 00128 0000001200527600",
+            "supplier_status": "Active",
+            "buy_menu": "terpentine-raw material-10.00|pigment(bk)-raw material-5.00"
+        },
+        {
+            "supplier_id": 2,
+            "supplier_name": "supplier raw_mats 2",
+            "supplier_phone": "0888888883",
+            "supplier_iban": "CZ 17 002 00128 0000001200527600",
+            "supplier_status": "Active",
+            "buy_menu": "pigment(m)-raw material-7.00|pigment(y)-raw material-7.00|pigment(b)-raw material-7.00"
+        }
+    ]
+}
