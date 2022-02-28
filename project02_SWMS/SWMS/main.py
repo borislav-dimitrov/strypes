@@ -1,4 +1,3 @@
-from tkinter import *
 from Views.mainScreen import MainScreen
 import tkinter as tk
 import config as CFG
@@ -6,23 +5,9 @@ import Views.importAllViews as Views
 from Views.onFirstStart import FirstUser
 import Models.Db.fakeDB as DB
 import Services.tkinterServices as TkServ
-import Services.dateServices as Dateserv
 
 
-def logout(screen):
-    screen.destroy()
-    main()
-
-
-def on_exit(screen):
-    return
-    Save.save_all_data()
-    screen.destroy()
-    quit()
-
-
-# main()
-def new():
+def main():
     # clear opened windows
     DB.opened_pages = []
     # reset the user on startup
@@ -50,9 +35,9 @@ def new():
             DB.save_all_data()
 
     # login and set the current user
-    loginScreen = tk.Tk()
-    login = Views.Login(loginScreen, "login_page", "Login", CFG.LOGIN_WIDTH, CFG.LOGIN_HEIGHT, 5, 5)
-    loginScreen.mainloop()
+    login_screen = tk.Tk()
+    login = Views.Login(login_screen, "login_page", "Login", CFG.LOGIN_WIDTH, CFG.LOGIN_HEIGHT, 5, 5)
+    login_screen.mainloop()
     user = login.logged_user
     if user == "none":
         return
@@ -64,7 +49,7 @@ def new():
                              user)
     screen.mainloop()
     if main_screen.logout_status:
-        new()
+        main()
 
 
-new()
+main()

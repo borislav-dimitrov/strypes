@@ -16,6 +16,14 @@ def clear_wh_screen(screen):
 
 
 def create_new_wh(screen, wh_name, wh_type, wh_capacity):
+    if wh_type.lower() == "raw materials":
+        wh_type = "Raw Materials"
+    elif wh_type.lower() == "finished goods":
+        wh_type = "Finished Goods"
+    else:
+        TkServ.create_custom_msg(screen, "Warning!", "Invalid warehouse type!")
+        return
+
     new_wh_id = WhServ.get_id_for_new_wh(DB.warehouses)
     wh_data = [{
         "wh_id": new_wh_id,
@@ -43,25 +51,25 @@ def new_wh(screen):
 
     # Create Labels for the Entry fields
     Label(screen, name="lbl_for_new_wh_name", text="Warehouse Name:", font=("Arial", 12)) \
-        .grid(row=3, column=1, sticky="e")
+        .grid(row=7, column=1, columnspan=2, sticky="e")
     Label(screen, name="lbl_for_new_wh_phone", text="Warehouse Type:", font=("Arial", 12)) \
-        .grid(row=4, column=1, sticky="e")
+        .grid(row=9, column=1, columnspan=2, sticky="e")
     Label(screen, name="lbl_for_new_wh_iban", text="Warehouse Capacity:", font=("Arial", 12)) \
-        .grid(row=5, column=1, sticky="e")
+        .grid(row=11, column=1, columnspan=2, sticky="e")
 
     # Create Entry fields for the new supplier
     wh_name = Entry(screen, width=30, name="new_wh_name")
-    wh_name.grid(row=3, column=2)
+    wh_name.grid(row=7, column=3, columnspan=3, sticky="w")
     wh_type = Entry(screen, width=30, name="new_wh_type")
-    wh_type.grid(row=4, column=2)
+    wh_type.grid(row=9, column=3, columnspan=3, sticky="w")
     wh_capacity = Entry(screen, width=30, name="new_wh_capacity")
-    wh_capacity.grid(row=5, column=2)
+    wh_capacity.grid(row=11, column=3, columnspan=3, sticky="w")
 
     # Create button to create the supplier
     Button(screen, text="Save", width=25, name="save_wh_btn", font=("Arial", 12),
            bg="lightgreen",
            command=lambda: create_new_wh(screen, wh_name.get(), wh_type.get(), wh_capacity.get())) \
-        .grid(row=6, column=2)
+        .grid(row=15, column=2, columnspan=4, sticky="w")
 
 
 def delete_wh(screen, selected_wh):
@@ -82,6 +90,14 @@ def delete_wh(screen, selected_wh):
 
 
 def save_wh(screen, selected_wh, wh_name, wh_type, wh_capacity, wh_status):
+    if wh_type.lower() == "raw materials":
+        wh_type = "Raw Materials"
+    elif wh_type.lower() == "finished goods":
+        wh_type = "Finished Goods"
+    else:
+        TkServ.create_custom_msg(screen, "Warning!", "Invalid warehouse type!")
+        return
+
     try:
         selected_wh.wh_name = wh_name
         selected_wh.wh_type = wh_type
@@ -100,42 +116,43 @@ def on_dropdown_change(screen, var):
 
     # Create Labels for the Entry fields
     Label(screen, name="lbl_for_edit_wh_name", text="Warehouse Name:", font=("Arial", 12)) \
-        .grid(row=3, column=0, sticky="e")
-    Label(screen, name="lbl_for_edit_wh_type", text="Warehouse Type:", font=("Arial", 12)) \
-        .grid(row=3, column=2, sticky="e")
-    Label(screen, name="lbl_for_edit_wh_capacity", text="Warehouse Capacity:", font=("Arial", 12)) \
-        .grid(row=4, column=2, sticky="e")
+        .grid(row=9, column=0, columnspan=2, sticky="w")
     Label(screen, name="lbl_for_edit_w_status", text="Warehouse Status:", font=("Arial", 12)) \
-        .grid(row=4, column=0, sticky="e")
+        .grid(row=11, column=0, columnspan=2, sticky="w")
+    Label(screen, name="lbl_for_edit_wh_type", text="Warehouse Type:", font=("Arial", 12)) \
+        .grid(row=9, column=3, columnspan=2, sticky="w")
+    Label(screen, name="lbl_for_edit_wh_capacity", text="Warehouse Capacity:", font=("Arial", 12)) \
+        .grid(row=11, column=3, columnspan=2, sticky="w")
+
 
     # Create Entry fields to edit the supplier
     wh_name = Entry(screen, width=30, name="edit_wh_name")
-    wh_name.grid(row=3, column=1, sticky="w")
+    wh_name.grid(row=9, column=1, columnspan=2, sticky="w", padx=(50, 0))
     wh_name.insert(0, selected_wh.wh_name)
     wh_type = Entry(screen, width=30, name="edit_wh_type")
     wh_type.insert(0, selected_wh.wh_type)
-    wh_type.grid(row=3, column=3, sticky="w")
+    wh_type.grid(row=9, column=4, columnspan=2, sticky="w", padx=(50, 0))
     wh_capacity = Entry(screen, width=30, name="edit_wh_capacity")
     wh_capacity.insert(0, selected_wh.wh_capacity)
-    wh_capacity.grid(row=4, column=3, sticky="w")
+    wh_capacity.grid(row=11, column=4, columnspan=2, sticky="w", padx=(50, 0))
 
     # Change supplier status
     wh_status = StringVar()
     wh_status.set(selected_wh.wh_status)
     Radiobutton(screen, text="Active", variable=wh_status, value="Active", name="rb_act") \
-        .grid(row=4, rowspan=2, column=1, sticky="n")
+        .grid(row=11, rowspan=2, column=1, sticky="n")
     Radiobutton(screen, text="Disabled", variable=wh_status, value="Disabled", name="rb_dis") \
-        .grid(row=3, rowspan=2, column=1, sticky="s")
+        .grid(row=11, rowspan=2, column=1, sticky="s")
 
     # Create button to save the changes
     Button(screen, text="Save", width=25, name="save_wh_btn", font=("Arial", 12), bg="lightgreen",
            command=lambda: save_wh(screen, selected_wh, wh_name.get(),
                                    wh_type.get(), wh_capacity.get(), wh_status.get())) \
-        .grid(row=5, column=2, rowspan=2)
+        .grid(row=15, column=2, columnspan=4, sticky="w")
     # Create button to delete the selected user
     Button(screen, text="Delete", width=25, name="del_wh_btn", font=("Arial", 12), bg="coral",
            command=lambda: delete_wh(screen, selected_wh)) \
-        .grid(row=2, column=3)
+        .grid(row=7, column=5, columnspan=4, sticky="w")
 
 
 def edit_wh(screen):
@@ -146,6 +163,9 @@ def edit_wh(screen):
     hdr = screen.nametowidget("header_lbl")
     hdr.config(text="Editing Warehouses")
 
+    # Labels
+    Label(screen, text="Warehouse:", font=("Arial", 12)).grid(row=7, column=0, columnspan=2, sticky="w")
+
     # Create DropDown with all existing warehouses
     drop_down_variable = StringVar(screen)
     drop_down_variable.set("Chose a warehouse...")
@@ -154,4 +174,4 @@ def edit_wh(screen):
         drop_down_options.append(f"{warehouse.wh_id} - "
                                  f"{warehouse.wh_name}")
     TkServ.create_drop_down(screen, drop_down_variable, drop_down_options,
-                            lambda a: on_dropdown_change(screen, drop_down_variable), 2, 1, stick="we")
+                            lambda a: on_dropdown_change(screen, drop_down_variable), 7, 1, stick="we")

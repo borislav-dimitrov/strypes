@@ -48,33 +48,33 @@ def new_supplier(screen):
 
     # Create Labels for the Entry fields
     Label(screen, name="lbl_for_new_supp_name", text="Supplier Name:", font=("Arial", 12)) \
-        .grid(row=3, column=0, sticky="e")
+        .grid(row=7, column=0, columnspan=2, sticky="w")
     Label(screen, name="lbl_for_new_supp_phone", text="Supplier Phone:", font=("Arial", 12)) \
-        .grid(row=4, column=2, sticky="e")
+        .grid(row=7, column=4, columnspan=3, sticky="w")
     Label(screen, name="lbl_for_new_supp_iban", text="Supplier IBAN:", font=("Arial", 12)) \
-        .grid(row=3, column=2, sticky="e")
+        .grid(row=9, column=0, columnspan=2, sticky="w")
     Label(screen, name="lbl_for_new_supp_buy_menu",
           text="Buy Menu pattern: productname-product type-buy price(float)|product...",
           font=("Arial", 13)) \
-        .grid(row=5, column=1, columnspan=3, sticky="we")
+        .grid(row=11, column=2, columnspan=5, sticky="we")
     Label(screen, name="lbl_for_new_supp_buy_menu2", text="Supplier Buy Menu:", font=("Arial", 12)) \
-        .grid(row=6, column=2, sticky="ws")
+        .grid(row=13, column=1, sticky="e")
 
     # Create Entry fields for the new supplier
     supname = Entry(screen, width=30, name="new_sup_name")
-    supname.grid(row=3, column=1)
+    supname.grid(row=7, column=1, columnspan=2, sticky="w", padx=(20, 0))
     supphone = Entry(screen, width=30, name="new_sup_phone")
-    supphone.grid(row=4, column=3)
+    supphone.grid(row=7, column=5, columnspan=5, sticky="w", padx=(20, 0))
     supiban = Entry(screen, width=30, name="new_sup_iban")
-    supiban.grid(row=3, column=3)
+    supiban.grid(row=9, column=1, columnspan=2, sticky="w", padx=(20, 0))
     supmenu = Entry(screen, width=30, name="new_sup_buy_menu")
-    supmenu.grid(row=7, column=1, columnspan=3, sticky="ew")
+    supmenu.grid(row=13, column=2, columnspan=5, sticky="ew")
 
     # Create button to create the supplier
     Button(screen, text="Save", width=25, name="save_supplier_btn", font=("Arial", 12),
            bg="lightgreen",
            command=lambda: create_new_supplier(screen, supname.get(), supphone.get(), supiban.get(), supmenu.get())) \
-        .grid(row=8, column=2)
+        .grid(row=16, column=3, columnspan=6, sticky="w")
 
 
 def save_supplier(screen, selected_supp, spname, spphone, spiban, spstatus, spmenu):
@@ -117,51 +117,52 @@ def on_dropdown_change(screen, var):
     selected_supp = SupServ.get_supplier_by_id(selected_supp_id, DB.suppliers)
 
     # Create Labels for the Entry fields
-    Label(screen, name="lbl_for_edit_supp_name", text="Supp Name:", font=("Arial", 12)) \
-        .grid(row=3, column=0, sticky="e")
-    Label(screen, name="lbl_for_edit_supp_phone", text="Supp Phone:", font=("Arial", 12)) \
-        .grid(row=3, column=2, sticky="e")
-    Label(screen, name="lbl_for_edit_supp_iban", text="Supp IBAN:", font=("Arial", 12)) \
-        .grid(row=4, column=2, sticky="e")
-    Label(screen, name="lbl_for_edit_supp_status", text="Supp Status:", font=("Arial", 12)) \
-        .grid(row=4, column=0, sticky="e")
+    Label(screen, name="lbl_for_edit_supp_name", text="Supplier Name:", font=("Arial", 12)) \
+        .grid(row=9, column=0, columnspan=3, sticky="w")
+    Label(screen, name="lbl_for_edit_supp_phone", text="Supplier Phone:", font=("Arial", 12)) \
+        .grid(row=9, column=4, columnspan=3, sticky="w")
+    Label(screen, name="lbl_for_edit_supp_iban", text="Supplier IBAN:", font=("Arial", 12)) \
+        .grid(row=11, column=0, columnspan=2, sticky="w")
+    Label(screen, name="lbl_for_edit_supp_status", text="Supplier Status:", font=("Arial", 12)) \
+        .grid(row=11, column=4, columnspan=2, sticky="w")
     Label(screen, name="lbl_for_new_supp_buy_menu",
           text="Buy Menu pattern: productname-product type-buy price(float)|product...",
           font=("Arial", 13)) \
-        .grid(row=5, column=1, columnspan=3, sticky="we")
+        .grid(row=14, column=1, columnspan=5, sticky="n", padx=(150, 0))
     Label(screen, name="lbl_for_new_supp_buy_menu2", text="Supplier Buy Menu:", font=("Arial", 12)) \
-        .grid(row=6, column=2, sticky="wn")
+        .grid(row=15, column=0, columnspan=2, sticky="w", padx=(100, 0))
 
     # Create Entry fields to edit the supplier
     sp_name = Entry(screen, width=30, name="edit_supp_name")
-    sp_name.grid(row=3, column=1, sticky="w")
+    sp_name.grid(row=9, column=1, columnspan=3, sticky="w", padx=(20, 0))
     sp_name.insert(0, selected_supp.supp_name)
     sp_phone = Entry(screen, width=30, name="edit_supp_phone")
     sp_phone.insert(0, selected_supp.supp_phone)
-    sp_phone.grid(row=3, column=3, sticky="w")
+    sp_phone.grid(row=9, column=5, columnspan=4, sticky="w", padx=(20, 0))
     sp_iban = Entry(screen, width=30, name="edit_supp_iban")
     sp_iban.insert(0, selected_supp.supp_iban)
-    sp_iban.grid(row=4, column=3, sticky="w")
+    sp_iban.grid(row=11, column=1, columnspan=2, sticky="w", padx=(20, 0))
     sp_menu = Entry(screen, width=30, name="new_sup_buy_menu")
     sp_menu.insert(0, selected_supp.buy_menu)
-    sp_menu.grid(row=6, column=1, columnspan=3, sticky="ew")
+    sp_menu.grid(row=15, column=1, columnspan=5, sticky="ew", padx=(150, 0))
+
     # Change supplier status
     sp_status = StringVar()
     sp_status.set(selected_supp.supp_status)
     Radiobutton(screen, text="Active", variable=sp_status, value="Active", name="rb_act") \
-        .grid(row=4, rowspan=2, column=1, sticky="n")
+        .grid(row=11, rowspan=2, column=5, sticky="n")
     Radiobutton(screen, text="Disabled", variable=sp_status, value="Disabled", name="rb_dis") \
-        .grid(row=3, rowspan=2, column=1, sticky="s")
+        .grid(row=11, rowspan=2, column=5, sticky="s")
 
     # Create button to save the changes
     Button(screen, text="Save", width=25, name="save_supp_btn", font=("Arial", 12), bg="lightgreen",
            command=lambda: save_supplier(screen, selected_supp, sp_name.get(),
                                          sp_phone.get(), sp_iban.get(), sp_status.get(), sp_menu.get())) \
-        .grid(row=7, column=2, rowspan=2)
+        .grid(row=17, column=3, columnspan=5, sticky="w")
     # Create button to delete the selected supplier
     Button(screen, text="Delete", width=25, name="del_supp_btn", font=("Arial", 12), bg="coral",
            command=lambda: del_supplier(screen, selected_supp)) \
-        .grid(row=2, column=3)
+        .grid(row=7, column=5, columnspan=5, sticky="w")
 
 
 def edit_supplier(screen):
@@ -172,6 +173,9 @@ def edit_supplier(screen):
     hdr = screen.nametowidget("header_lbl")
     hdr.config(text="Editing Suppliers")
 
+    # Labels
+    Label(screen, text="Supplier:", font=("Ariel", 12)).grid(row=7, column=0, sticky="e")
+
     # Create DropDown with all existing suppliers
     drop_down_variable = StringVar(screen)
     drop_down_variable.set("Chose a supplier...")
@@ -180,4 +184,4 @@ def edit_supplier(screen):
         drop_down_options.append(f"{supplier.supp_id} - "
                                  f"{supplier.supp_name}")
     TkServ.create_drop_down(screen, drop_down_variable, drop_down_options,
-                            lambda a: on_dropdown_change(screen, drop_down_variable), 2, 1, stick="we")
+                            lambda a: on_dropdown_change(screen, drop_down_variable), 7, 1, stick="we")

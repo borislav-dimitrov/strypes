@@ -89,6 +89,8 @@ def sell(screen, cart, cart_items, sellable_items, selected_client):
 
 
 def add_item_to_cart(screen, cart, sellable, cart_items):
+    if len(sellable.curselection()) == 0:
+        return
     selection_index = sellable.curselection()[0]
     current_selection = sellable.get(selection_index)
 
@@ -117,6 +119,7 @@ def clear_cart(screen, cart, items):
 
     # Calculate total price
     calc_and_set_total_price(screen, items)
+
 
 def on_client_change():
     pass

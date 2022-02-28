@@ -225,7 +225,6 @@ def load_all_entities():
 def save_all():
     save_all_data()
 
-
 # Deleting
 def delete_product_by_id(prod_id):
     for prod in range(len(products) - 1):

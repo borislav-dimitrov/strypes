@@ -20,6 +20,20 @@
             "wh_type": "new_type",
             "wh_capacity": "2",
             "wh_status": "Active"
+        },
+        {
+            "wh_id": 4,
+            "wh_name": "my new wh",
+            "wh_type": "finished goods",
+            "wh_capacity": "500",
+            "wh_status": "Active"
+        },
+        {
+            "wh_id": 5,
+            "wh_name": "my new wh3",
+            "wh_type": "Finished Goods",
+            "wh_capacity": "30",
+            "wh_status": "Active"
         }
     ]
 }

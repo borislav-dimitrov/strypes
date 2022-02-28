@@ -14,11 +14,12 @@ def clear_stock_screen(screen):
 
 
 def clear_selected_wh(screen):
-    clear_all_but = ["stock_by_prod_btn", "stock_by_wh_btn", "header_lbl", "!optionmenu"]
+    clear_all_but = ["stock_by_prod_btn", "stock_by_wh_btn", "header_lbl", "header2_lbl"]
     for widget in screen.grid_slaves():
-        if str(widget).split(".").pop() not in clear_all_but:
+        current = str(widget).split(".").pop()
+        if current not in clear_all_but and "!optionmenu" not in current:
             widget.destroy()
-        if str(widget).split(".").pop() == "header_lbl":
+        if current == "header_lbl":
             widget.config(text="View stock by Warehouse")
 
 
@@ -31,8 +32,8 @@ def on_wh_dropdown_change(screen, var):
 
     products_in_chosen_wh = ProdServ.get_all_products_assigned_to_wh(chosen_wh_name, DB.products)
 
-    Label(screen, name="child_header_lbl", text=f"Stock in {chosen_wh_name}", font=("Ariel", 12)) \
-        .grid(row=5, column=2, columnspan=2, sticky="w")
+    # Label(screen, name="child_header_lbl", text=f"Stock in {chosen_wh_name}", font=("Ariel", 12)) \
+    #     .grid(row=6, column=2, columnspan=5, sticky="w")
 
     # Create preview for all existing products
     # Prepare the Data for the preview
@@ -48,7 +49,7 @@ def on_wh_dropdown_change(screen, var):
 
     # Initialize the preview
     preview = Frame(screen, name="preview")
-    preview.grid(row=6, column=0, columnspan=4, padx=(75, 0))
+    preview.grid(row=7, column=0, columnspan=7)
     TkServ.create_preview(preview, data, columns=len(data[0]))
 
 
@@ -60,6 +61,9 @@ def stock_by_wh(screen):
     hdr = screen.nametowidget("header_lbl")
     hdr.config(text="View stock by Warehouse")
 
+    # Labels
+    Label(screen, name="header2_lbl", text="Warehouse:", font=("Arial", 12)).grid(row=5, column=0, sticky="w")
+
     # Create DropDown with all existing users
     drop_down_variable = StringVar(screen)
     drop_down_variable.set("Chose a warehouse...")
@@ -68,7 +72,7 @@ def stock_by_wh(screen):
         drop_down_options.append(f"{warehouse.wh_id} - "
                                  f"{warehouse.wh_name}")
     TkServ.create_drop_down(screen, drop_down_variable, drop_down_options,
-                            lambda a: on_wh_dropdown_change(screen, drop_down_variable), 4, 1, cspan=2, stick="w")
+                            lambda a: on_wh_dropdown_change(screen, drop_down_variable), 5, 1, cspan=5, stick="w")
 
 
 def stock_by_product(screen):
@@ -82,7 +86,7 @@ def stock_by_product(screen):
     # Create preview for all existing products
     # Prepare the Data for the preview
     row_counter = 0
-    all_warehouses = ["none"]
+    all_warehouses = []
     # The first item in the Data are the column headers
     data = [("Row Num", "Warehouse", "Product Id - Name")]
     for warehouse in DB.warehouses:
@@ -99,5 +103,5 @@ def stock_by_product(screen):
 
     # Initialize the preview
     preview = Frame(screen, name="preview")
-    preview.grid(row=5, column=0, columnspan=4, padx=(75, 0))
+    preview.grid(row=6, column=0, columnspan=7)
     TkServ.create_preview(preview, data, columns=len(data[0]))

@@ -66,7 +66,7 @@ class MainScreen:
 
             warehouses_btn = tk.Button(self.m_screen, width=15, text="Warehouses", font=("Arial", 12),
                                        bg="lightblue", name="new_whs_btn",
-                                       command=lambda: self.warehoueses())
+                                       command=lambda: self.warehouses())
             warehouses_btn.grid(row=15, column=2)
 
             clients_btn = tk.Button(self.m_screen, width=15, text="Clients", font=("Arial", 12),
@@ -105,16 +105,43 @@ class MainScreen:
         self.m_screen.destroy()
 
     def view_stock(self):
-        print("view_stock")
+        if "stock" in DB.opened_pages:
+            TkServ.create_custom_msg(self.m_screen, "Warning!", "Stock page is already opened!")
+            return
+
+        stock_screen = tk.Toplevel(self.m_screen)
+        stock_page = Views.Stock(stock_screen, "stock",
+                                 "Stock", self.width,
+                                 self.height, self.grid_rows,
+                                 self.grid_cols)
+        stock_screen.mainloop()
 
     def transactions(self):
         print("transactions")
 
     def sales(self):
-        print("sales")
+        if "sales" in DB.opened_pages:
+            TkServ.create_custom_msg(self.m_screen, "Warning!", "Sales page is already opened!")
+            return
+
+        sales_screen = tk.Toplevel(self.m_screen)
+        sales_page = Views.Sales(sales_screen, "sales",
+                                 "Sales", self.width,
+                                 self.height, self.grid_rows,
+                                 self.grid_cols)
+        sales_screen.mainloop()
 
     def purchases(self):
-        print("purchases")
+        if "purchases" in DB.opened_pages:
+            TkServ.create_custom_msg(self.m_screen, "Warning!", "Purchases page is already opened!")
+            return
+
+        purchases_screen = tk.Toplevel(self.m_screen)
+        purchases_page = Views.Purchases(purchases_screen, "purchases",
+                                         "Purchases", self.width,
+                                         self.height, self.grid_rows,
+                                         self.grid_cols)
+        purchases_screen.mainloop()
 
     def users(self):
         if "users" in DB.opened_pages:
@@ -128,8 +155,17 @@ class MainScreen:
                                self.grid_cols)
         usr_screen.mainloop()
 
-    def warehoueses(self):
-        print("warehouses")
+    def warehouses(self):
+        if "warehouses" in DB.opened_pages:
+            TkServ.create_custom_msg(self.m_screen, "Warning!", "Warehouses page is already opened!")
+            return
+
+        warehouses_screen = tk.Toplevel(self.m_screen)
+        warehouses_page = Views.Warehouses(warehouses_screen, "warehouses",
+                                           "Warehouses", self.width,
+                                           self.height, self.grid_rows,
+                                           self.grid_cols)
+        warehouses_screen.mainloop()
 
     def clients(self):
         if "clients" in DB.opened_pages:
@@ -144,7 +180,16 @@ class MainScreen:
         clients_screen.mainloop()
 
     def suppliers(self):
-        print("suppliers")
+        if "suppliers" in DB.opened_pages:
+            TkServ.create_custom_msg(self.m_screen, "Warning!", "Suppliers page is already opened!")
+            return
+
+        suppliers_screen = tk.Toplevel(self.m_screen)
+        suppliers_page = Views.Suppliers(suppliers_screen, "suppliers",
+                                         "Suppliers", self.width,
+                                         self.height, self.grid_rows,
+                                         self.grid_cols)
+        suppliers_screen.mainloop()
 
     def products(self):
         if "products" in DB.opened_pages:
