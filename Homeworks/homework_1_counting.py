@@ -1,4 +1,10 @@
 def counting(n, m):
+    """
+
+    :param n: Total players amount
+    :param m: step on which the player is removed
+    :return: winner
+    """
     # Create list with all players
     players = [i for i in range(1, n + 1)]
     # Index is m-1 because it is 0 based
@@ -30,4 +36,3 @@ if __name__ == '__main__':
     n = int(input("Input N:"))
     m = int(input("Input M:"))
     print(f"Winning Player is: {counting(n, m)}")
-
