@@ -68,8 +68,6 @@ def super_fly(d, v, v1, v2, e):
 
         # when trains meet exit
         if float(train2_is_at - train1_is_at) <= fly_size:
-            print(
-                f"Trains meet at {train1_is_at - train2_is_at:.6f}")
             break
 
         # track the current fly position
