@@ -3,6 +3,7 @@ import Models.Db.fakeDB as DB
 import Services.tkinterServices as TkServ
 import Controls.productControls as ProdContr
 
+
 # import config as CFG
 # from Services.tkinterServices import setup_grid
 # from Controls.productControls import new_prod, edit_prod
@@ -27,17 +28,17 @@ class Products:
         TkServ.setup_grid(self.m_screen, self.width, self.height, self.grid_cols, self.grid_rows)
 
         self.header_lbl = tk.Label(self.m_screen, name="header_lbl",
-                              text="Create/Modify Products",
-                              font=("Ariel", 15, "bold"))
+                                   text="Create/Modify Products",
+                                   font=("Ariel", 15, "bold"))
         self.header_lbl.grid(row=0, column=2, columnspan=5, sticky="w")
 
         # Create Buttons
         self.new_btn = tk.Button(self.m_screen, name="new_prod_btn", text="New", font=("Ariel", 12),
-               width=25, bg="lightblue", command=lambda: self.new_product())
+                                 width=25, bg="lightblue", command=lambda: self.new_product())
         self.new_btn.grid(row=3, column=1)
 
         self.edit_btn = tk.Button(self.m_screen, name="edit_prod_btn", text="Edit/Delete", font=("Ariel", 12),
-               width=25, bg="lightblue", command=lambda: self.edit_product())
+                                  width=25, bg="lightblue", command=lambda: self.edit_product())
         self.edit_btn.grid(row=3, column=5, sticky="w")
 
         self.m_screen.protocol("WM_DELETE_WINDOW", lambda: self.on_exit())

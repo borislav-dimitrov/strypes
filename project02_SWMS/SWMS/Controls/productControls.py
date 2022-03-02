@@ -69,7 +69,6 @@ def chose_wh_for_product(screen, choice):
 def on_dropdown_change(screen, var):
     selected_prod_id = var.get().split("-")[0]
     selected_prod = ProdServ.get_product_by_id(selected_prod_id, DB.products)
-    print(selected_prod.assigned_to_wh)
     # clear_product_properties(screen)
 
     # Create Labels for the Entry fields
@@ -83,6 +82,9 @@ def on_dropdown_change(screen, var):
         .grid(row=11, column=4, sticky="e")
     Label(screen, name="lbl_for_edit_prod_assigned_wh", text="Assigned to:", font=("Arial", 12)) \
         .grid(row=10, column=0, sticky="e")
+    Label(screen, name="lbl_for_edit_prod_quantity", text="Quantity:", font=("Arial", 12)) \
+        .grid(row=17, column=2, sticky="e")
+
     # Create Entry fields to edit the product
     pname = Entry(screen, width=30, name="edit_prod_name")
     pname.grid(row=13, column=1, columnspan=2, sticky="w")
@@ -93,6 +95,9 @@ def on_dropdown_change(screen, var):
     sell_price = Entry(screen, width=30, name="edit_prod_sell_price")
     sell_price.insert(0, selected_prod.sell_price)
     sell_price.grid(row=11, column=5, sticky="w")
+    quantity = Entry(screen, width=30, name="edit_prod_quantity")
+    quantity.insert(0, selected_prod.quantity)
+    quantity.grid(row=17, column=3, columnspan=4, sticky="w")
 
     # Create DropDown with all existing warehouses
     chosen_wh = StringVar(screen)
@@ -121,14 +126,19 @@ def on_dropdown_change(screen, var):
     Button(screen, text="Save", width=25, name="save_user_btn", font=("Arial", 12), bg="lightgreen",
            command=lambda: save_product(screen, selected_prod, pname.get(),
                                         prod_type.get(), buy_price.get(), sell_price.get(), chosen_wh.get())) \
-        .grid(row=17, column=2, rowspan=2, columnspan=4)
+        .grid(row=19, column=2, rowspan=2, columnspan=4)
     # Create button to delete the selected user
     Button(screen, text="Delete", width=25, name="del_user_btn", font=("Arial", 12), bg="coral",
            command=lambda: delete_product(screen, selected_prod)) \
         .grid(row=6, column=5, columnspan=4, sticky="w")
 
 
-def create_new_prod(screen, pname, bprice, sprice, ptype):
+def create_new_prod(screen, pname, bprice, sprice, ptype, quantity):
+
+    if not quantity.isnumeric():
+        TkServ.create_custom_msg(screen, "Warning!", "Invalid product quantity!")
+        return
+
     new_prod_id = ProdServ.get_id_for_new_product(DB.products)
     prod_data = [{
         "product_id": new_prod_id,
@@ -136,7 +146,8 @@ def create_new_prod(screen, pname, bprice, sprice, ptype):
         "product_type": ptype,
         "buy_price": bprice,
         "sell_price": sprice,
-        "assigned_to_wh": "none"
+        "assigned_to_wh": "none",
+        "quantity": quantity
     }]
     status = DB.create_products(prod_data)
     if "Success" in status:
@@ -172,6 +183,8 @@ def new_prod(screen):
         .grid(row=7, column=4, sticky="e")
     Label(screen, name="lbl_for_new_prod_sell", text="Sell Price:", font=("Arial", 12)) \
         .grid(row=11, column=4, sticky="e")
+    Label(screen, name="lbl_for_new_prod_quantity", text="Quantity:", font=("Arial", 12)) \
+        .grid(row=14, column=2, sticky="e")
 
     # Create Entry fields for the new product
     pname = Entry(screen, width=30, name="new_prod_name")
@@ -180,12 +193,27 @@ def new_prod(screen):
     buy_price.grid(row=7, column=5, columnspan=4, sticky="w")
     sell_price = Entry(screen, width=30, name="new_prod_sell_price")
     sell_price.grid(row=11, column=5, columnspan=4, sticky="w")
+    quantity = Entry(screen, width=30, name="new_prod_quantity")
+    quantity.grid(row=14, column=3, columnspan=4, sticky="w")
+
+    # Create DropDown with all existing warehouses
+    chosen_wh = StringVar(screen)
+    chosen_wh.set("none")
+    chosen_wh_options = ["none"]
+    for warehouse in DB.warehouses:
+        chosen_wh_options.append(f"{warehouse.wh_name} | Type: {warehouse.wh_type}")
+
+    # TODO - position this dropdown and test add / edit product quantity
+    TkServ.create_drop_down(screen, chosen_wh, chosen_wh_options,
+                            lambda a: chose_wh_for_product(screen, chosen_wh), 16, 2, stick="w",
+                            cspan=4, padx=(0, 100), width=30)
 
     # Create button to create the product
     Button(screen, text="Save", width=25, name="save_prod_btn", font=("Arial", 12),
            bg="lightgreen",
-           command=lambda: create_new_prod(screen, pname.get(), buy_price.get(), sell_price.get(), prod_type.get())) \
-        .grid(row=17, column=2, columnspan=4, sticky="w")
+           command=lambda: create_new_prod(screen, pname.get(), buy_price.get(), sell_price.get(), prod_type.get(),
+                                           quantity.get())) \
+        .grid(row=18, column=2, columnspan=4, sticky="w")
 
 
 def edit_prod(screen):

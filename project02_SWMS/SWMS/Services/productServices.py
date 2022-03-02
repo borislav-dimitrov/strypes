@@ -33,3 +33,53 @@ def get_all_sellable_products(all_products):
         if "finished goods" in product.product_type.lower() and "finished goods" in product.assigned_to_wh.lower():
             all_sellable.append(f"{product.product_id} | {product.product_name} | {product.sell_price}")
     return all_sellable
+
+
+def get_product_info_by_id(product_ids, all_products):
+    """
+    Receive a list with product id/ids
+    Return list of product's info
+    :param product_ids: list with id's
+    :param all_products: list with all products
+    :return: list with product/s info
+    """
+    info = []
+    if not isinstance(product_ids, list) and not isinstance(all_products, list):
+        return
+
+    for product in all_products:
+        if product.product_id in product_ids:
+            info.append(product.get_self_info())
+
+    return info
+
+
+def check_product_exist(product_info, all_products):
+    """
+    Check if same product already exist
+    :param product_info: Name, Type, buy price, sell price, assigned to wh
+    :param all_products: All existing products
+    :return: True, product id / False, -1
+    """
+
+    for product in all_products:
+        if product.product_name == product_info[0]:
+            if product.product_type == product_info[1]:
+                if product.buy_price == product_info[2]:
+                    if product.sell_price == product_info[3]:
+                        if product.assigned_to_wh == product_info[4]:
+                            return True, product.product_id
+
+    return False, -1
+
+
+def add_to_existing_product(existing_product_id, ammount_to_add, all_products):
+    """
+    Add quantity to existing product
+    :param existing_product_id: The product we want to increase
+    :param ammount_to_add: How much to increase
+    :param all_products: List with all current products
+    :return: None
+    """
+    product = get_product_by_id(existing_product_id, all_products)
+    product.quantity += ammount_to_add

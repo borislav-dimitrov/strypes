@@ -42,9 +42,11 @@ def setup_grid(screen, width, height, columns, rows):
 
 
 def create_drop_down(screen, variable, collection, comm, r, c, rspan=None, cspan=None, stick="", padx=(0, 0),
-                     pady=(0, 0)):
+                     pady=(0, 0), width=-1):
     dropdown = OptionMenu(screen, variable, *collection, command=comm)
     dropdown.config(bg="lightgray")
+    if width != -1:
+        dropdown.config(width=width)
     dropdown.grid(row=r, column=c, rowspan=rspan, columnspan=cspan, sticky=stick, padx=padx, pady=pady)
     return dropdown
 

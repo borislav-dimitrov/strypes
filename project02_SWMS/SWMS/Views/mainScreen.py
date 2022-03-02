@@ -117,7 +117,16 @@ class MainScreen:
         stock_screen.mainloop()
 
     def transactions(self):
-        print("transactions")
+        if "transactions" in DB.opened_pages:
+            TkServ.create_custom_msg(self.m_screen, "Warning!", "Transactions page is already opened!")
+            return
+
+        transactions_screen = tk.Toplevel(self.m_screen)
+        transactions_page = Views.Transactions(transactions_screen, "transactions",
+                                               "Transactions", self.width,
+                                               self.height, self.grid_rows,
+                                               self.grid_cols)
+        transactions_screen.mainloop()
 
     def sales(self):
         if "sales" in DB.opened_pages:

@@ -160,7 +160,7 @@ def buy(screen, cart_lb, cart_items, sellable_items, selected_supplier_var):
 
         # Create new products
         DB.create_products(new_products_info)
-        #DB.save_products()
+        # DB.save_products()
 
         # Create transaction object
 
@@ -169,25 +169,13 @@ def buy(screen, cart_lb, cart_items, sellable_items, selected_supplier_var):
                                       DateServ.get_time_now(),
                                       total_price,
                                       supplier.get_self_info(),
-                                      products_info_for_transaction)
+                                      ProdServ.get_product_info_by_id(newly_created_products_id, DB.products))
         DB.transactions.append(new_transaction)
-        return
         Save.save_transactions()
 
         # Clear cart and total price
         clear_cart(screen, cart_lb, cart_items)
 
-        # Remove the sold products from the db
-        # for item in selection:
-        #    curr_item_id = item.split("|")[0].strip()[1::]  # This row is old and must be changed
-        #    DB.delete_product_by_id(int(curr_item_id))
-        #    save_products()
-
-        # Refresh the listbox values after the sale
-        sellable_items.set(ProdServ.get_all_sellable_products(DB.products))
-
-        # Set client back to none
-        selected_supplier_var.set("none")
     except Exception as ex:
         print(ex)
         TkServ.create_custom_msg(screen, "Warning!", ex)

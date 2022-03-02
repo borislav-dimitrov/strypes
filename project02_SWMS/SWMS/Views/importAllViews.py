@@ -1,5 +1,5 @@
 from Views.buy import Purchases
-from Views.transactions import *
+from Views.transactions import Transactions
 from Views.login import Login
 from Views.clients import Clients
 from Views.suppliers import Suppliers

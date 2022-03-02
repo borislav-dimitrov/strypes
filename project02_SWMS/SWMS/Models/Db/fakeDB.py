@@ -1,5 +1,4 @@
-from Models.Data.loadData import load_users, load_products, load_suppliers, load_clients, load_warehouses, \
-    load_transactions
+import Models.Data.loadData as Load
 from Models.Data.saveData import save_products, save_all_data
 from Models.Assets.user import User
 from Models.Assets.product import Product
@@ -9,6 +8,7 @@ from Models.Assets.warehouse import Warehouse
 from Models.Assets.transaction import Transaction
 from Services.userServices import check_user_before_create
 from Services.warehouseServices import check_whname_exist
+import Services.productServices as ProdServ
 
 login_users = []
 products = []
@@ -42,16 +42,28 @@ def create_users(data):
 def create_products(data):
     try:
         for product in data:
+            p_id = product["product_id"]
+            p_name = product["product_name"]
+            p_type = product["product_type"]
+            p_buy_price = product["buy_price"]
+            p_sell_price = product["sell_price"]
+            p_assigned_wh = product["assigned_to_wh"]
+            p_quantity = product["quantity"]
+
+            # Check if desired warehouse assignment exists
             if not check_whname_exist(product["assigned_to_wh"], warehouses):
                 product["assigned_to_wh"] = "none"
 
-            new_product = Product(product["product_id"],
-                                  product["product_name"],
-                                  product["product_type"],
-                                  product["buy_price"],
-                                  product["sell_price"],
-                                  product["assigned_to_wh"])
-            products.append(new_product)
+            # Check if product already exist
+            prod_exist, prod_id = ProdServ.check_product_exist(
+                [p_name, p_type, p_buy_price, p_sell_price, p_assigned_wh], products)
+
+            # If yes - add quantity, If no - create new product
+            if prod_exist:
+                ProdServ.add_to_existing_product(prod_id, p_quantity, products)
+            else:
+                new_product = Product(p_id, p_name, p_type, p_buy_price, p_sell_price, p_assigned_wh, p_quantity)
+                products.append(new_product)
         return "Success"
     except Exception as ex:
         return f"Fail! {ex}"
@@ -122,7 +134,7 @@ def load_and_create_users():
     # load the new objects
     try:
         print("Loading Users")
-        users_from_file = load_users()
+        users_from_file = Load.load_users()
         if users_from_file == "none":
             return "No users found!"
         status = create_users(users_from_file)
@@ -137,7 +149,7 @@ def load_and_create_products():
     products.clear()
     # load the new ones
     try:
-        products_from_file = load_products()
+        products_from_file = Load.load_products()
         status = create_products(products_from_file)
         return status
     except Exception as ex:
@@ -149,7 +161,7 @@ def load_and_create_suppliers():
     suppliers.clear()
     # load the new ones
     try:
-        suppliers_from_file = load_suppliers()
+        suppliers_from_file = Load.load_suppliers()
         status = create_suppliers(suppliers_from_file)
         return status
     except Exception as ex:
@@ -161,7 +173,7 @@ def load_and_create_clients():
     clients.clear()
     # load the new ones
     try:
-        clients_from_file = load_clients()
+        clients_from_file = Load.load_clients()
         status = create_clients(clients_from_file)
         return status
     except Exception as ex:
@@ -173,7 +185,7 @@ def load_and_create_warehouses():
     warehouses.clear()
     # load the new ones
     try:
-        warehouses_from_file = load_warehouses()
+        warehouses_from_file = Load.load_warehouses()
         status = create_warehouses(warehouses_from_file)
         return status
     except Exception as ex:
@@ -185,7 +197,7 @@ def load_and_create_transactions():
     transactions.clear()
     # load the new ones
     try:
-        transactions_from_file = load_transactions()
+        transactions_from_file = Load.load_transactions()
         status = create_transactions(transactions_from_file)
         return status
     except Exception as ex:
@@ -224,6 +236,7 @@ def load_all_entities():
 # Saving
 def save_all():
     save_all_data()
+
 
 # Deleting
 def delete_product_by_id(prod_id):

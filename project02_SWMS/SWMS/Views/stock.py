@@ -24,7 +24,7 @@ class Stock:
 
         # Set header
         self.header_lbl = tk.Label(self.m_screen, name="header_lbl", text="View Stock", font=("Ariel", 15, "bold"))
-        self.header_lbl.grid(row=0, column=2, columnspan=5, sticky="w")
+        self.header_lbl.grid(row=0, column=3, columnspan=5, sticky="w")
 
         # Create Buttons
         self.by_wh_btn = tk.Button(self.m_screen, name="stock_by_wh_btn", text="By Warehouses", font=("Ariel", 12),

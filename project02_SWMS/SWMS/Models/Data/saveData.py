@@ -41,7 +41,8 @@ def save_products():
             "product_type": product.product_type,
             "buy_price": product.buy_price,
             "sell_price": product.sell_price,
-            "assigned_to_wh": product.assigned_to_wh
+            "assigned_to_wh": product.assigned_to_wh,
+            "quantity": product.quantity
         })
     save_data_to_json(data, output_file)
 

@@ -1,29 +1,48 @@
-from tkinter import *
-import config as CFG
+import tkinter as tk
+import Models.Db.fakeDB as DB
 import Services.tkinterServices as TkServ
+import Controls.transactionsControls as TrControls
 
 
-def transactions_window(m_screen):
-    # Check if another suppliers window is opened
-    if "transactions" in CFG.OPENED:
-        TkServ.create_custom_msg(m_screen, "Warning!", "Transactions page is already opened!")
-        return
+class Transactions:
+    def __init__(self, m_screen, page_name, title, width, height, grid_rows, grid_cols):
+        self.m_screen = m_screen
+        self.page_name = page_name
+        self.width = width
+        self.height = height
+        self.grid_rows = grid_rows
+        self.grid_cols = grid_cols
+        self.x = (self.m_screen.winfo_screenwidth() / 2) - (self.width / 2)
+        self.y = (self.m_screen.winfo_screenheight() / 2) - (self.height / 2)
+        self.title = title
 
-    # Add the window to the opened ones
-    if "transactions" not in CFG.OPENED:
-        CFG.OPENED.append("transactions")
+        self.m_screen.geometry(f"{self.width}x{self.height}+{int(self.x) + 15}+{int(self.y) + 30}")
+        self.m_screen.title(self.title)
 
-    screen = Toplevel(m_screen)
-    x = (screen.winfo_screenwidth() / 2) - (CFG.RES_WIDTH / 2)
-    y = (screen.winfo_screenheight() / 2) - (CFG.RES_HEIGHT / 2)
-    screen.geometry(f"{CFG.RES_WIDTH}x{CFG.RES_HEIGHT}+{int(x)}+{int(y)}")
-    screen.title("Clients")
-    TkServ.setup_grid(screen, CFG.RES_WIDTH, CFG.RES_HEIGHT, 5, 10)
+        DB.opened_pages.append(self.page_name)
+        TkServ.setup_grid(self.m_screen, self.width, self.height, self.grid_cols, self.grid_rows)
 
-    Label(screen, name="header_lbl", text="Transactions", font=("Ariel", 15, "bold")) \
-        .grid(row=0, column=2, columnspan=5, sticky="w")
+        # Set header
+        self.header_lbl = tk.Label(self.m_screen, name="header_lbl", text="View Transactions",
+                                   font=("Ariel", 15, "bold"))
+        self.header_lbl.grid(row=0, column=3, columnspan=5, sticky="w")
 
-    # Create UI
+        # Create Buttons
+        self.sales_btn = tk.Button(self.m_screen, name="sales_btn", text="Sales", font=("Ariel", 12),
+                                   width=25, bg="lightblue", command=lambda: self.sales())
+        self.sales_btn.grid(row=3, column=1)
+        self.purchases_btn = tk.Button(self.m_screen, name="purchases_btn", text="Purchases", font=("Ariel", 12),
+                                       width=25, bg="lightblue", command=lambda: self.purchases())
+        self.purchases_btn.grid(row=3, column=5, sticky="w")
 
-    screen.protocol("WM_DELETE_WINDOW", lambda: TkServ.close_and_rem_win_from_opened(screen, "transactions"))
-    screen.mainloop()
+        self.m_screen.protocol("WM_DELETE_WINDOW", lambda: self.on_exit())
+
+    def on_exit(self):
+        DB.opened_pages.remove(self.page_name)
+        self.m_screen.destroy()
+
+    def sales(self):
+        TrControls.sales(self.m_screen)
+
+    def purchases(self):
+        TrControls.purchases(self.m_screen)
