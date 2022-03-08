@@ -1,8 +1,8 @@
-import random
-from datetime import datetime
+# import random
+# from datetime import datetime
 
 
-def long_number(n, a, f):
+def long_number(n: int, a: str, f: str) -> int:
     """
     Largest n = 200000 { 2*10^5 }
     :param n: given number length { }
@@ -18,7 +18,7 @@ def long_number(n, a, f):
         if item.isnumeric():
             new_f_func += str(item)
 
-    # Changes map f to a
+    # Map f to a
     for item in range(1, n + 1):
         index = item - 1
         current_number = a_to_list[index]
@@ -28,35 +28,51 @@ def long_number(n, a, f):
 
         item += 1
 
-    return ''.join(a_to_list)
+    return int(''.join(a_to_list))
 
 
-def main():
-    digits = 2 * (pow(10, 5))
-    number = str()
-    for i in range(1, digits + 1):
-        number += str(random.randint(1, 9))
-
-    number = number
-    f_func = "1 2 5 4 6 6 3 1 9"
-    try:
-        answer = long_number(digits, number, f_func)
-        if int(answer) >= int(number):
-            return True
-        else:
-            return False
-    except Exception as ex:
-        return ex
+# Test functionality
+# def test(number_length: int, func: str):
+#     """
+#     Test functionality
+#     :param number_length: Number length
+#     :param func: Mapping function
+#     :return: Test status { Bool } or { Exception }
+#     """
+#     digits = number_length
+#     number = str()
+#     for i in range(1, digits + 1):
+#         number += str(random.randint(1, 9))
+#
+#     number = number
+#     func = func
+#     try:
+#         answer = long_number(digits, number, func)
+#         if answer >= int(number):
+#             return True
+#         else:
+#             return False
+#     except Exception as ex:
+#         return ex
 
 
 if __name__ == '__main__':
+    digits = int(input("Number length: "))
+    number = input("Number: ")
+    f_func = input("Number length: ")
+    print(long_number(digits, number, f_func))
+
+    # Test functionality
+    """
     attempt = 1
-    for i in range(0, 10):
+    total_attempts = 20
+    for i in range(0, total_attempts):
         now = datetime.now()
         start_time = now.strftime("%H:%M:%S")
-        status = main()
+        status = test(2 * (pow(10, 5)), "1 2 5 4 6 6 3 1 9")
         now = datetime.now()
         finish_time = now.strftime("%H:%M:%S")
         print(f"Attempt: {attempt}    -    {status}    -    Started: {start_time}    -    Finished: {finish_time}")
 
         attempt += 1
+    """
