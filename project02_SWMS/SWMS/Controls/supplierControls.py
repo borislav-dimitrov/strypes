@@ -15,7 +15,7 @@ def clear_supp_screen(screen):
             widget.config(text="Create/Modify Suppliers")
 
 
-def create_new_supplier(screen, sname, sphone, siban, supmenu):
+def create_new_supplier(screen, sname, sphone, siban, supmenu, supstatus):
     valid_info, status, items = SupServ.validate_supp_menu(supmenu)
     if not valid_info:
         TkServ.create_custom_msg(screen, "Warning!", status)
@@ -26,7 +26,7 @@ def create_new_supplier(screen, sname, sphone, siban, supmenu):
         "supplier_name": sname,
         "supplier_phone": sphone,
         "supplier_iban": siban,
-        "supplier_status": "Active",
+        "supplier_status": supstatus,
         "buy_menu": supmenu
     }]
     status = DB.create_suppliers(supp_data)
@@ -53,12 +53,22 @@ def new_supplier(screen):
         .grid(row=7, column=4, columnspan=3, sticky="w")
     Label(screen, name="lbl_for_new_supp_iban", text="Supplier IBAN:", font=("Arial", 12)) \
         .grid(row=9, column=0, columnspan=2, sticky="w")
+    Label(screen, name="lbl_for_new_supp_status", text="Supplier Status:", font=("Arial", 12)) \
+        .grid(row=9, rowspan=2, column=4, columnspan=3, sticky="w")
     Label(screen, name="lbl_for_new_supp_buy_menu",
           text="Buy Menu pattern: productname-product type-buy price(float)|product...",
           font=("Arial", 13)) \
-        .grid(row=11, column=2, columnspan=5, sticky="we")
+        .grid(row=12, column=1, columnspan=5, sticky="we")
     Label(screen, name="lbl_for_new_supp_buy_menu2", text="Supplier Buy Menu:", font=("Arial", 12)) \
         .grid(row=13, column=1, sticky="e")
+
+    # Change user type
+    supp_status = StringVar()
+    supp_status.set("Active")
+    Radiobutton(screen, text="Active", variable=supp_status, value="Active", name="rb_active") \
+        .grid(row=9, column=5, columnspan=2, sticky="w", padx=(20, 0))
+    Radiobutton(screen, text="Disabled", variable=supp_status, value="Disabled", name="rb_disabled") \
+        .grid(row=10, column=5, columnspan=2, sticky="w", padx=(20, 0))
 
     # Create Entry fields for the new supplier
     supname = Entry(screen, width=30, name="new_sup_name")
@@ -68,12 +78,13 @@ def new_supplier(screen):
     supiban = Entry(screen, width=30, name="new_sup_iban")
     supiban.grid(row=9, column=1, columnspan=2, sticky="w", padx=(20, 0))
     supmenu = Entry(screen, width=30, name="new_sup_buy_menu")
-    supmenu.grid(row=13, column=2, columnspan=5, sticky="ew")
+    supmenu.grid(row=13, column=2, columnspan=4, sticky="ew")
 
     # Create button to create the supplier
     Button(screen, text="Save", width=25, name="save_supplier_btn", font=("Arial", 12),
            bg="lightgreen",
-           command=lambda: create_new_supplier(screen, supname.get(), supphone.get(), supiban.get(), supmenu.get())) \
+           command=lambda: create_new_supplier(screen, supname.get(), supphone.get(), supiban.get(), supmenu.get(),
+                                               supp_status.get())) \
         .grid(row=16, column=3, columnspan=6, sticky="w")
 
 

@@ -15,22 +15,15 @@ def clear_wh_screen(screen):
             widget.config(text="Create/Modify Warehouses")
 
 
-def create_new_wh(screen, wh_name, wh_type, wh_capacity):
-    if wh_type.lower() == "raw materials":
-        wh_type = "Raw Materials"
-    elif wh_type.lower() == "finished goods":
-        wh_type = "Finished Goods"
-    else:
-        TkServ.create_custom_msg(screen, "Warning!", "Invalid warehouse type!")
-        return
-
+def create_new_wh(screen, wh_name, wh_type, wh_capacity, wh_status):
     new_wh_id = WhServ.get_id_for_new_wh(DB.warehouses)
     wh_data = [{
         "wh_id": new_wh_id,
         "wh_name": wh_name,
         "wh_type": wh_type,
-        "wh_capacity": wh_capacity,
-        "wh_status": "Active"
+        "wh_capacity": int(wh_capacity),
+        "wh_stored": [],
+        "wh_status": wh_status
     }]
     status = DB.create_warehouses(wh_data)
     if "Success" in status:
@@ -52,23 +45,41 @@ def new_wh(screen):
     # Create Labels for the Entry fields
     Label(screen, name="lbl_for_new_wh_name", text="Warehouse Name:", font=("Arial", 12)) \
         .grid(row=7, column=1, columnspan=2, sticky="e")
-    Label(screen, name="lbl_for_new_wh_phone", text="Warehouse Type:", font=("Arial", 12)) \
-        .grid(row=9, column=1, columnspan=2, sticky="e")
     Label(screen, name="lbl_for_new_wh_iban", text="Warehouse Capacity:", font=("Arial", 12)) \
-        .grid(row=11, column=1, columnspan=2, sticky="e")
+        .grid(row=9, column=1, columnspan=2, sticky="e")
+    Label(screen, name="lbl_for_new_wh_phone", text="Warehouse Type:", font=("Arial", 12)) \
+        .grid(row=12, column=1, columnspan=2, sticky="w")
+    Label(screen, name="lbl_for_new_wh_status", text="Warehouse Status:", font=("Arial", 12)) \
+        .grid(row=12, column=3, columnspan=2, sticky="w")
+
+    # Select new warehouse Status
+    wh_status = StringVar()
+    wh_status.set("Active")
+    Radiobutton(screen, text="Active", variable=wh_status, value="Active", name="rb_active") \
+        .grid(row=11, rowspan=2, column=1, columnspan=2, sticky="w", padx=(150, 0))
+    Radiobutton(screen, text="Disabled", variable=wh_status, value="Disabled", name="rb_disable") \
+        .grid(row=12, rowspan=2, column=1, columnspan=2, sticky="w", padx=(150, 0))
+
+    # Select new warehouse Type
+    wh_type = StringVar()
+    wh_type.set("Finished Goods")
+    Radiobutton(screen, text="Finished Goods", variable=wh_type, value="Finished Goods", name="rb_fg") \
+        .grid(row=11, rowspan=2, column=4, columnspan=2, sticky="w", padx=(60, 0))
+    Radiobutton(screen, text="Raw Materials", variable=wh_type, value="Raw Materials", name="rb_rm") \
+        .grid(row=12, rowspan=2, column=4, columnspan=2, sticky="w", padx=(60, 0))
 
     # Create Entry fields for the new supplier
     wh_name = Entry(screen, width=30, name="new_wh_name")
     wh_name.grid(row=7, column=3, columnspan=3, sticky="w")
-    wh_type = Entry(screen, width=30, name="new_wh_type")
-    wh_type.grid(row=9, column=3, columnspan=3, sticky="w")
+    # wh_type = Entry(screen, width=30, name="new_wh_type")
+    # wh_type.grid(row=9, column=3, columnspan=3, sticky="w")
     wh_capacity = Entry(screen, width=30, name="new_wh_capacity")
-    wh_capacity.grid(row=11, column=3, columnspan=3, sticky="w")
+    wh_capacity.grid(row=9, column=3, columnspan=3, sticky="w")
 
     # Create button to create the supplier
     Button(screen, text="Save", width=25, name="save_wh_btn", font=("Arial", 12),
            bg="lightgreen",
-           command=lambda: create_new_wh(screen, wh_name.get(), wh_type.get(), wh_capacity.get())) \
+           command=lambda: create_new_wh(screen, wh_name.get(), wh_type.get(), wh_capacity.get(), wh_status.get())) \
         .grid(row=15, column=2, columnspan=4, sticky="w")
 
 
@@ -90,14 +101,6 @@ def delete_wh(screen, selected_wh):
 
 
 def save_wh(screen, selected_wh, wh_name, wh_type, wh_capacity, wh_status):
-    if wh_type.lower() == "raw materials":
-        wh_type = "Raw Materials"
-    elif wh_type.lower() == "finished goods":
-        wh_type = "Finished Goods"
-    else:
-        TkServ.create_custom_msg(screen, "Warning!", "Invalid warehouse type!")
-        return
-
     try:
         selected_wh.wh_name = wh_name
         selected_wh.wh_type = wh_type
@@ -120,29 +123,36 @@ def on_dropdown_change(screen, var):
     Label(screen, name="lbl_for_edit_w_status", text="Warehouse Status:", font=("Arial", 12)) \
         .grid(row=11, column=0, columnspan=2, sticky="w")
     Label(screen, name="lbl_for_edit_wh_type", text="Warehouse Type:", font=("Arial", 12)) \
-        .grid(row=9, column=3, columnspan=2, sticky="w")
-    Label(screen, name="lbl_for_edit_wh_capacity", text="Warehouse Capacity:", font=("Arial", 12)) \
         .grid(row=11, column=3, columnspan=2, sticky="w")
-
+    Label(screen, name="lbl_for_edit_wh_capacity", text="Warehouse Capacity:", font=("Arial", 12)) \
+        .grid(row=9, column=3, columnspan=2, sticky="w")
+    Label(screen, name="lbl_for_edit_wh_free_space", text=f"Free: {WhServ.get_wh_free_space(selected_wh)}",
+          font=("Arial", 12)) \
+        .grid(row=9, column=5, columnspan=2, sticky="w", padx=(170, 0))
 
     # Create Entry fields to edit the supplier
     wh_name = Entry(screen, width=30, name="edit_wh_name")
     wh_name.grid(row=9, column=1, columnspan=2, sticky="w", padx=(50, 0))
     wh_name.insert(0, selected_wh.wh_name)
-    wh_type = Entry(screen, width=30, name="edit_wh_type")
-    wh_type.insert(0, selected_wh.wh_type)
-    wh_type.grid(row=9, column=4, columnspan=2, sticky="w", padx=(50, 0))
     wh_capacity = Entry(screen, width=30, name="edit_wh_capacity")
     wh_capacity.insert(0, selected_wh.wh_capacity)
-    wh_capacity.grid(row=11, column=4, columnspan=2, sticky="w", padx=(50, 0))
+    wh_capacity.grid(row=9, column=4, columnspan=2, sticky="w", padx=(80, 0))
 
     # Change supplier status
     wh_status = StringVar()
     wh_status.set(selected_wh.wh_status)
     Radiobutton(screen, text="Active", variable=wh_status, value="Active", name="rb_act") \
-        .grid(row=11, rowspan=2, column=1, sticky="n")
+        .grid(row=11, rowspan=2, column=1, sticky="nw", padx=(80, 0))
     Radiobutton(screen, text="Disabled", variable=wh_status, value="Disabled", name="rb_dis") \
-        .grid(row=11, rowspan=2, column=1, sticky="s")
+        .grid(row=11, rowspan=2, column=1, sticky="sw", padx=(80, 0))
+
+    # Select new warehouse Type
+    wh_type = StringVar()
+    wh_type.set(str(selected_wh.wh_type))
+    Radiobutton(screen, text="Finished Goods", variable=wh_type, value="Finished Goods", name="rb_fg") \
+        .grid(row=11, rowspan=2, column=4, columnspan=2, sticky="nw", padx=(60, 0))
+    Radiobutton(screen, text="Raw Materials", variable=wh_type, value="Raw Materials", name="rb_rm") \
+        .grid(row=11, rowspan=2, column=4, columnspan=2, sticky="sw", padx=(60, 0))
 
     # Create button to save the changes
     Button(screen, text="Save", width=25, name="save_wh_btn", font=("Arial", 12), bg="lightgreen",

@@ -3,6 +3,7 @@ from tkinter import *
 import Models.Db.fakeDB as DB
 import Services.tkinterServices as TkServ
 import Services.productServices as ProdServ
+import Services.warehouseServices as WhServ
 from Models.Data.saveData import save_products
 
 
@@ -41,25 +42,39 @@ def delete_product(screen, sel_prod):
                 TkServ.create_custom_msg(screen, "Warning!", f"Something went wrong!\n{ex}")
 
 
-def save_product(screen, sel_prod, pname, ptype, pbuy, psell, pwarehouse):
+def save_product(screen, sel_prod, pname, ptype, pbuy, psell, pwarehouse, pquantity):
     chosen_wh_name = pwarehouse.split("|")[0].strip()
+    chosen_wh = WhServ.get_wh_by_name(chosen_wh_name, DB.warehouses)
+    current_quantity = sel_prod.quantity
 
-    # if "none" not in chosen_wh_name:
-    #     if ptype.lower() not in chosen_wh_name.lower():
-    #         TkServ.create_custom_msg(screen, "Warning..", f"Product of type {ptype} cannot go in {chosen_wh_name}")
-    #         return
+    # Change quantity and remove/add from/to warehouse
+    if int(current_quantity) > int(pquantity):
+        # Remove
+        amount_to_remove = int(current_quantity) - int(pquantity)
+        sel_prod.quantity -= amount_to_remove
+        # Remove from warehouse
+        WhServ.remove_product(chosen_wh, sel_prod.product_id, amount_to_remove)
+        # TODO - log removed amount
+    elif int(current_quantity) < int(pquantity):
+        # Add
+        sel_prod.quantity = int(pquantity)
+        # Add to warehouse
+        WhServ.add_product(chosen_wh, sel_prod.product_id, sel_prod.quantity)
+        # TODO log added amount
 
     try:
         sel_prod.product_name = pname
         sel_prod.product_type = ptype
         sel_prod.buy_price = pbuy
         sel_prod.sell_price = psell
-        sel_prod.assigned_to_wh = chosen_wh_name
+        sel_prod.assigned_to_wh = chosen_wh.wh_name
         save_products()
         clear_prod_screen(screen)
         TkServ.create_custom_msg(screen, "Message..", f"Product has been\nchanged successfully")
     except Exception as ex:
         TkServ.create_custom_msg(screen, "Warning!", f"Something went wrong!\n{ex}")
+
+    # TODO log changed product status
 
 
 def chose_wh_for_product(screen, choice):
@@ -125,15 +140,17 @@ def on_dropdown_change(screen, var):
     # Create button to save the changes
     Button(screen, text="Save", width=25, name="save_user_btn", font=("Arial", 12), bg="lightgreen",
            command=lambda: save_product(screen, selected_prod, pname.get(),
-                                        prod_type.get(), buy_price.get(), sell_price.get(), chosen_wh.get())) \
-        .grid(row=19, column=2, rowspan=2, columnspan=4)
+                                        prod_type.get(), buy_price.get(), sell_price.get(), chosen_wh.get(),
+                                        quantity.get())) \
+        .grid(row=19, column=2, columnspan=4, sticky="w")
     # Create button to delete the selected user
     Button(screen, text="Delete", width=25, name="del_user_btn", font=("Arial", 12), bg="coral",
            command=lambda: delete_product(screen, selected_prod)) \
         .grid(row=6, column=5, columnspan=4, sticky="w")
 
 
-def create_new_prod(screen, pname, bprice, sprice, ptype, quantity):
+def create_new_prod(screen, pname, bprice, sprice, ptype, quantity, chosenwh):
+    chosen_wh_name = chosenwh.split("|")[0].strip()
 
     if not quantity.isnumeric():
         TkServ.create_custom_msg(screen, "Warning!", "Invalid product quantity!")
@@ -146,7 +163,7 @@ def create_new_prod(screen, pname, bprice, sprice, ptype, quantity):
         "product_type": ptype,
         "buy_price": bprice,
         "sell_price": sprice,
-        "assigned_to_wh": "none",
+        "assigned_to_wh": chosen_wh_name,
         "quantity": quantity
     }]
     status = DB.create_products(prod_data)
@@ -170,21 +187,23 @@ def new_prod(screen):
     prod_type = StringVar()
     prod_type.set("Finished Goods")
     Radiobutton(screen, text="Finished Goods", variable=prod_type, value="Finished Goods", name="rb_fg") \
-        .grid(row=10, column=2, sticky="s")
+        .grid(row=10, column=2, sticky="w")
     Radiobutton(screen, text="Raw Materials", variable=prod_type, value="Raw Materials", name="rb_rm") \
-        .grid(row=12, column=2, sticky="n")
+        .grid(row=11, column=2, sticky="w")
 
     # Create Labels for the Entry fields
     Label(screen, name="lbl_for_new_prod_name", text="Name:", font=("Arial", 12)) \
         .grid(row=7, column=1, sticky="ns")
     Label(screen, name="lbl_for_new_prod_type", text="Type:", font=("Arial", 12)) \
-        .grid(row=11, column=1, sticky="ns")
+        .grid(row=10, rowspan=2, column=1, sticky="e")
     Label(screen, name="lbl_for_new_prod_buy", text="Buy Price:", font=("Arial", 12)) \
         .grid(row=7, column=4, sticky="e")
     Label(screen, name="lbl_for_new_prod_sell", text="Sell Price:", font=("Arial", 12)) \
         .grid(row=11, column=4, sticky="e")
     Label(screen, name="lbl_for_new_prod_quantity", text="Quantity:", font=("Arial", 12)) \
         .grid(row=14, column=2, sticky="e")
+    Label(screen, name="lbl_for_new_prod_assig", text="Assign to:", font=("Arial", 12)) \
+        .grid(row=16, column=1, sticky="e")
 
     # Create Entry fields for the new product
     pname = Entry(screen, width=30, name="new_prod_name")
@@ -203,16 +222,15 @@ def new_prod(screen):
     for warehouse in DB.warehouses:
         chosen_wh_options.append(f"{warehouse.wh_name} | Type: {warehouse.wh_type}")
 
-    # TODO - position this dropdown and test add / edit product quantity
     TkServ.create_drop_down(screen, chosen_wh, chosen_wh_options,
-                            lambda a: chose_wh_for_product(screen, chosen_wh), 16, 2, stick="w",
-                            cspan=4, padx=(0, 100), width=30)
+                            lambda a: chose_wh_for_product(screen, chosen_wh), 16, 2, stick="we",
+                            cspan=3)
 
     # Create button to create the product
     Button(screen, text="Save", width=25, name="save_prod_btn", font=("Arial", 12),
            bg="lightgreen",
            command=lambda: create_new_prod(screen, pname.get(), buy_price.get(), sell_price.get(), prod_type.get(),
-                                           quantity.get())) \
+                                           quantity.get(), chosen_wh.get())) \
         .grid(row=18, column=2, columnspan=4, sticky="w")
 
 

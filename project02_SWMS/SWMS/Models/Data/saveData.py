@@ -91,6 +91,7 @@ def save_warehouses():
             "wh_name": warehouse.wh_name,
             "wh_type": warehouse.wh_type,
             "wh_capacity": warehouse.wh_capacity,
+            "wh_stored": warehouse.wh_stored,
             "wh_status": warehouse.wh_status
         })
     save_data_to_json(data, output_file)

@@ -37,6 +37,13 @@ class Sales:
         self.sellable_lbl.grid(row=9, column=0, sticky="we", padx=(0, 15))
         self.clients_lbl = tk.Label(self.m_screen, name="clients", text="Clients", font=("Ariel", 12, "bold"))
         self.clients_lbl.grid(row=9, column=3, sticky="we")
+        self.multiplier_lbl = tk.Label(self.m_screen, name="multiplier", text="Amount", font=("Ariel", 12, "bold"))
+        self.multiplier_lbl.grid(row=8, column=1, sticky="w", padx=(190, 0))
+
+        # Create Entry boxes
+        self.multiplier_entry = tk.Entry(self.m_screen, name="multiplier_entry", width=10)
+        self.multiplier_entry.insert(0, "1")
+        self.multiplier_entry.grid(row=9, column=1, sticky="w", padx=(190, 0))
 
         # Create listbox with all the products that can be added to the cart
         self.sellable_lb, self.sellable_items = TkServ.create_listbox(self.m_screen, "sellable_lb", row=10, column=0,
@@ -94,13 +101,17 @@ class Sales:
         self.m_screen.destroy()
 
     def add_to_cart(self):
-        SalesControls.add_item_to_cart(self.m_screen, self.cart_lb, self.sellable_lb, self.cart_items)
+        SalesControls.add_item_to_cart(self.m_screen, self.cart_lb, self.cart_items, self.sellable_lb,
+                                       self.sellable_items,
+                                       self.multiplier_entry.get())
 
     def rem_from_cart(self):
-        SalesControls.rem_item_from_cart(self.m_screen, self.cart_lb, self.sellable_lb, self.cart_items)
+        SalesControls.rem_item_from_cart(self.m_screen, self.cart_lb, self.cart_items, self.sellable_lb,
+                                         self.sellable_items, self.multiplier_entry.get())
 
     def clear_cart(self):
-        SalesControls.clear_cart(self.m_screen, self.cart_lb, self.cart_items)
+        SalesControls.clear_cart(self.m_screen, self.cart_lb, self.cart_items, self.sellable_lb)
 
     def sell(self):
-        SalesControls.sell(self.m_screen, self.cart_lb, self.cart_items, self.sellable_items, self.selected_client_var)
+        SalesControls.sell(self.m_screen, self.cart_lb, self.cart_items, self.sellable_lb, self.sellable_items,
+                           self.selected_client_var)

@@ -39,14 +39,6 @@
             "user_type": "Operator",
             "user_status": "Active",
             "user_last_login": ""
-        },
-        {
-            "user_id": 6,
-            "user_uname": "operator1",
-            "user_pwd": "gAAAAABiGlPSy9trfMhG9sWF-jHn-M06XFjJfCMRPf-XpdKJ6uZz8QLg4-v0AfV-FK2sH6Wyv_zFDstALjytOVpX14QQulL2dA==",
-            "user_type": "Operator",
-            "user_status": "Active",
-            "user_last_login": ""
         }
     ]
 }

@@ -35,7 +35,9 @@ def sales(screen):
             for product in transaction.assets_traded:
                 products_info += product.split("|")[1].strip()
                 products_info += " - "
-                products_info += product.split("|")[4].strip()
+                products_info += product.split("|")[3].strip()
+                products_info += " - "
+                products_info += product.split("|")[5].strip()
                 products_info += " | "
 
             data.append((row_counter + 1,
@@ -75,7 +77,9 @@ def purchases(screen):
             for product in transaction.assets_traded:
                 products_info += product.split("|")[1].strip()
                 products_info += " - "
-                products_info += product.split("|")[4].strip()
+                products_info += product.split("|")[3].strip()
+                products_info += " - "
+                products_info += product.split("|")[5].strip()
                 products_info += " | "
 
             data.append((row_counter + 1,

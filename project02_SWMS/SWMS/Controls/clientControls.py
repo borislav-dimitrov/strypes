@@ -15,14 +15,14 @@ def clear_client_screen(screen):
             widget.config(text="Create/Modify Clients")
 
 
-def create_new_client(screen, client_name, client_phone, client_iban):
+def create_new_client(screen, client_name, client_phone, client_iban, client_status):
     new_client_id = CliServ.get_id_for_new_client(DB.clients)
     client_data = [{
         "client_id": new_client_id,
         "client_name": client_name,
         "client_phone": client_phone,
         "client_iban": client_iban,
-        "client_status": "Active"
+        "client_status": client_status
     }]
     status = DB.create_clients(client_data)
     if "Success" in status:
@@ -48,6 +48,16 @@ def new_client(screen):
         .grid(row=9, column=2, sticky="e")
     Label(screen, name="lbl_for_new_client_iban", text="Client IBAN:", font=("Arial", 12)) \
         .grid(row=11, column=2, sticky="e")
+    Label(screen, name="lbl_for_new_client_status", text="Client IBAN:", font=("Arial", 12)) \
+        .grid(row=13, rowspan=2, column=2, sticky="e")
+
+    # Change client status
+    client_status = StringVar()
+    client_status.set("Active")
+    Radiobutton(screen, text="Active", variable=client_status, value="Active", name="rb_act") \
+        .grid(row=13, column=3, sticky="w", padx=(20, 0))
+    Radiobutton(screen, text="Disabled", variable=client_status, value="Disabled", name="rb_dis") \
+        .grid(row=14, column=3, sticky="w", padx=(20, 0))
 
     # Create Entry fields for the new supplier
     client_name = Entry(screen, width=30, name="new_client_name")
@@ -60,8 +70,9 @@ def new_client(screen):
     # Create button to create the supplier
     Button(screen, text="Save", width=25, name="save_client_btn", font=("Arial", 12),
            bg="lightgreen",
-           command=lambda: create_new_client(screen, client_name.get(), client_phone.get(), client_iban.get())) \
-        .grid(row=15, column=2, columnspan=4, sticky="w")
+           command=lambda: create_new_client(screen, client_name.get(), client_phone.get(), client_iban.get(),
+                                             client_status.get())) \
+        .grid(row=17, column=2, columnspan=4, sticky="w")
 
 
 def save_client(screen, selected_client, client_name, client_phone, client_iban, client_status):

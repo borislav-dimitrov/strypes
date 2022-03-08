@@ -15,6 +15,7 @@ class MainScreen:
         self.x = (self.m_screen.winfo_screenwidth() / 2) - (self.width / 2)
         self.y = (self.m_screen.winfo_screenheight() / 2) - (self.height / 2)
         self.logged_user = logged_user
+        DB.curr_user = self.logged_user
         self.logout_status = False
 
         m_screen.geometry(f"{self.width}x{self.height}+{int(self.x)}+{int(self.y)}")
@@ -88,6 +89,7 @@ class MainScreen:
     def on_exit(self):
         # Todo - log prints in log
         DB.opened_pages = []
+        DB.curr_user = ""
         print("Saving...")
         DB.save_all_data()
         print("Saving done!\nExiting...")
@@ -97,6 +99,7 @@ class MainScreen:
     def logout(self):
         # Todo - log prints in log
         DB.opened_pages = []
+        DB.curr_user = ""
         print("Saving Data...")
         DB.save_all_data()
         print("Saving done!\nLogging out...")

@@ -7,7 +7,7 @@ from Models.Assets.client import Client
 from Models.Assets.warehouse import Warehouse
 from Models.Assets.transaction import Transaction
 from Services.userServices import check_user_before_create
-from Services.warehouseServices import check_whname_exist
+import Services.warehouseServices as WhServ
 import Services.productServices as ProdServ
 
 login_users = []
@@ -18,6 +18,7 @@ warehouses = []
 transactions = []
 
 opened_pages = []
+curr_user = ""
 
 
 # Creating
@@ -51,8 +52,22 @@ def create_products(data):
             p_quantity = product["quantity"]
 
             # Check if desired warehouse assignment exists
-            if not check_whname_exist(product["assigned_to_wh"], warehouses):
+            if not WhServ.check_whname_exist(product["assigned_to_wh"], warehouses):
                 product["assigned_to_wh"] = "none"
+
+            # Check if assigned wh is not "none" and there is enough space
+            # If no -> change product assigned_wh to none
+            # Else add the product id to the warehouse wh_stored items
+            if p_assigned_wh.lower() != "none":
+                chosen_wh = WhServ.get_wh_by_name(p_assigned_wh, warehouses)
+                free_space = WhServ.get_wh_free_space(chosen_wh)
+                if p_quantity < free_space:
+                    WhServ.add_product(chosen_wh, p_id, p_quantity)
+                else:
+                    print(
+                        f"Product {p_id} - {p_name} could not be assigned to {p_assigned_wh}! "
+                        f"Not enough space in warehouse! Assigning to \"none\"")
+                    p_assigned_wh = "none"
 
             # Check if product already exist
             prod_exist, prod_id = ProdServ.check_product_exist(
@@ -105,6 +120,7 @@ def create_warehouses(data):
                                       warehouse["wh_name"],
                                       warehouse["wh_type"],
                                       warehouse["wh_capacity"],
+                                      [],  # warehouse["wh_stored"],
                                       warehouse["wh_status"])
             warehouses.append(new_warehouse)
         return "Success"
@@ -237,10 +253,9 @@ def load_all_entities():
 def save_all():
     save_all_data()
 
-
 # Deleting
-def delete_product_by_id(prod_id):
-    for prod in range(len(products) - 1):
-        if products[prod].product_id == prod_id:
-            products.pop(prod)
-    save_products()
+# def delete_product_by_id(prod_id):
+#     for prod in range(len(products) - 1):
+#         if products[prod].product_id == prod_id:
+#             products.pop(prod)
+#     save_products()

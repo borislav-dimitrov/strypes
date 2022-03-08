@@ -15,7 +15,7 @@ def clear_usr_screen(screen):
             widget.config(text="Create/Modify Users")
 
 
-def save_user(screen, user_id, uname, pwd, usr_type):
+def save_user(screen, user_id, uname, pwd, usr_type, usr_status):
     if len(pwd) < 6:
         screen.withdraw()
         TkServ.create_custom_msg(screen, "Warning!", "Chose stronger password!")
@@ -25,11 +25,13 @@ def save_user(screen, user_id, uname, pwd, usr_type):
             selected_user.user_name = uname.lower()
             selected_user.user_pwd = UsrServ.encrypt_pwd(pwd)
             selected_user.user_type = usr_type.get()
+            selected_user.user_status = usr_status.get()
             save_users()
             clear_usr_screen(screen)
             TkServ.create_custom_msg(screen, "Message..", f"User has been\nchanged successfully")
         except Exception as ex:
             TkServ.create_custom_msg(screen, "Warning!", f"Something went wrong!\n{ex}")
+    # TODO - Log user changed
 
 
 def delete_user(screen, user_id):
@@ -45,35 +47,51 @@ def delete_user(screen, user_id):
         if u_index:
             DB.login_users.pop(u_index)
             save_users()
+            clear_usr_screen(screen)
+            TkServ.create_custom_msg(screen, "Message..", f"User has been\ndeleted successfully")
 
 
 def on_dropdown_change(screen, var):
     selected_user_id = var.get().split("-")[0]
     selected_user = UsrServ.get_user_by_id(selected_user_id, DB.login_users)
+
     # Create Labels for the Entry fields
     Label(screen, name="lbl_for_edit_uname", text="Edit Username:", font=("Arial", 12)) \
-        .grid(row=11, column=0, columnspan=3, sticky="w", padx=(140, 0))
+        .grid(row=11, column=0, columnspan=2, sticky="w", padx=(140, 0))
     Label(screen, name="lbl_for_edit_password", text="Edit Password:", font=("Arial", 12)) \
-        .grid(row=11, column=3, columnspan=4, sticky="w", padx=(90, 0))
+        .grid(row=11, column=3, columnspan=2, sticky="e")
+    Label(screen, name="lbl_for_edit_type", text="Edit Type:", font=("Arial", 12)) \
+        .grid(row=13, rowspan=2, column=1, sticky="w", padx=(60, 0))
+    Label(screen, name="lbl_for_edit_status", text="Edit Status:", font=("Arial", 12)) \
+        .grid(row=13, rowspan=2, column=4, sticky="e", padx=(0, 10))
+
     # Create Entry fields to edit the user
     uname = Entry(screen, width=30, name="edit_user_name")
-    uname.grid(row=11, column=1, sticky="e", columnspan=2)
+    uname.grid(row=11, column=1, columnspan=2, sticky="e")
     uname.insert(0, selected_user.user_name)
     pwd = Entry(screen, width=30, name="edit_user_pwd", show="*")
     pwd.insert(0, UsrServ.decrypt_pwd(selected_user.user_pwd))
     pwd.grid(row=11, column=5, columnspan=4, sticky="w")
 
-    # Select new user type
+    # Change user type
     usr_type = StringVar()
-    usr_type.set(UsrServ.get_user_type_by_id(selected_user_id, DB.login_users))
+    usr_type.set(selected_user.user_type)
     Radiobutton(screen, text="Administrator", variable=usr_type, value="Administrator", name="rb_admin") \
-        .grid(row=13, rowspan=2, column=1, columnspan=2, sticky="e")
+        .grid(row=13, column=1, columnspan=2, sticky="w", padx=(150, 0))
     Radiobutton(screen, text="Operator", variable=usr_type, value="Operator", name="rb_operator") \
-        .grid(row=13, rowspan=2, column=4, columnspan=3, sticky="w")
+        .grid(row=14, column=1, columnspan=2, sticky="w", padx=(150, 0))
+
+    # Change user status
+    usr_status = StringVar()
+    usr_status.set(selected_user.user_status)
+    Radiobutton(screen, text="Active", variable=usr_status, value="Active", name="rb_active") \
+        .grid(row=13, column=5, columnspan=2, sticky="w")
+    Radiobutton(screen, text="Disabled", variable=usr_status, value="Disabled", name="rb_disabled") \
+        .grid(row=14, column=5, columnspan=2, sticky="w")
 
     # Create button to save the changes
     Button(screen, text="Save", width=25, name="save_user_btn", font=("Arial", 12), bg="lightgreen",
-           command=lambda: save_user(screen, selected_user_id, uname.get(), pwd.get(), usr_type)) \
+           command=lambda: save_user(screen, selected_user_id, uname.get(), pwd.get(), usr_type, usr_status)) \
         .grid(row=15, column=2, rowspan=2, columnspan=4)
     # Create button to delete the selected user
     Button(screen, text="Delete", width=25, name="del_user_btn", font=("Arial", 12), bg="coral",
@@ -96,10 +114,10 @@ def edit_usr(screen):
     for user in DB.login_users:
         drop_down_options.append(f"{user.user_id} - {user.user_name}")
     TkServ.create_drop_down(screen, drop_down_variable, drop_down_options,
-                            lambda a: on_dropdown_change(screen, drop_down_variable), 8, 1, stick="we")
+                            lambda a: on_dropdown_change(screen, drop_down_variable), 8, 1, stick="w", cspan=2)
 
 
-def create_new_user(screen, uname, pwd, usr_type):
+def create_new_user(screen, uname, pwd, usr_type, usr_status):
     if len(pwd) < 6:
         TkServ.create_custom_msg(screen, "Warning!", "Chose stronger password!")
         return
@@ -109,7 +127,7 @@ def create_new_user(screen, uname, pwd, usr_type):
         "user_uname": uname.lower(),
         "user_pwd": UsrServ.encrypt_pwd(pwd).decode("utf-8"),
         "user_type": usr_type.get(),
-        "user_status": "Active",
+        "user_status": usr_status.get(),
         "user_last_login": ""
     }]
     status = DB.create_users(user_data)
@@ -129,28 +147,40 @@ def new_usr(screen):
     hdr = screen.nametowidget("header_lbl")
     hdr.config(text="Creating new user")
 
+    # Create Labels
+    Label(screen, name="lbl_for_new_uname", text="Username:", font=("Arial", 12)) \
+        .grid(row=8, column=1, columnspan=2, sticky="e")
+    Label(screen, name="lbl_for_new_password", text="Password:", font=("Arial", 12)) \
+        .grid(row=9, column=1, columnspan=2, sticky="e")
+    Label(screen, name="lbl_for_usr_type", text="User Type:", font=("Arial", 12)) \
+        .grid(row=11, rowspan=2, column=2, sticky="e")
+    Label(screen, name="lbl_for_usr_status", text="User Status:", font=("Arial", 12)) \
+        .grid(row=14, rowspan=2, column=2, sticky="e")
+
     # Select new user type
     usr_type = StringVar()
     usr_type.set("Operator")
     Radiobutton(screen, text="Administrator", variable=usr_type, value="Administrator", name="rb_admin") \
-        .grid(row=8, column=0, columnspan=3, sticky="we")
+        .grid(row=11, column=3, columnspan=2, sticky="w")
     Radiobutton(screen, text="Operator", variable=usr_type, value="Operator", name="rb_operator") \
-        .grid(row=9, column=0, columnspan=3, sticky="we")
+        .grid(row=12, column=3, columnspan=2, sticky="w")
 
-    # Create Labels for the Entry fields
-    Label(screen, name="lbl_for_new_uname", text="Username:", font=("Arial", 12)) \
-        .grid(row=8, column=2, columnspan=2, sticky="e")
-    Label(screen, name="lbl_for_new_password", text="Password:", font=("Arial", 12)) \
-        .grid(row=9, column=2, columnspan=2, sticky="e")
+    # Select new user status
+    usr_status = StringVar()
+    usr_status.set("Active")
+    Radiobutton(screen, text="Active", variable=usr_status, value="Active", name="rb_active") \
+        .grid(row=14, column=3, columnspan=2, sticky="w")
+    Radiobutton(screen, text="Disabled", variable=usr_status, value="Disabled", name="rb_disabled") \
+        .grid(row=15, column=3, columnspan=2, sticky="w")
 
     # Create Entry fields to fill info for the new user
     uname = Entry(screen, width=30, name="edit_user_name")
-    uname.grid(row=8, column=4, columnspan=2, sticky="w")
+    uname.grid(row=8, column=3, columnspan=2, sticky="w")
     pwd = Entry(screen, width=30, name="edit_user_pwd", show="*")
-    pwd.grid(row=9, column=4, columnspan=2, sticky="w")
+    pwd.grid(row=9, column=3, columnspan=2, sticky="w")
 
     # Create button to save the changes
     Button(screen, text="Save", width=25, name="save_user_btn", font=("Arial", 12),
            bg="lightgreen",
-           command=lambda: create_new_user(screen, uname.get(), pwd.get(), usr_type)) \
-        .grid(row=12, column=2, columnspan=4, sticky="w")
+           command=lambda: create_new_user(screen, uname.get(), pwd.get(), usr_type, usr_status)) \
+        .grid(row=17, column=2, columnspan=4, sticky="w")

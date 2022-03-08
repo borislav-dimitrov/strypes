@@ -36,7 +36,7 @@
             ]
         },
         {
-            "tr_id": 7,
+            "tr_id": 4,
             "tr_type": "purchase",
             "tr_date": "22/03/02 15:52:22",
             "tr_price": 14.0,
@@ -44,6 +44,52 @@
             "assets_traded": [
                 "ID: 19 | Name: pigment(m) | Type: raw material | Buy Price: 7.0 | Sell Price: 8.4 | Assigned to: none",
                 "ID: 19 | Name: pigment(m) | Type: raw material | Buy Price: 7.0 | Sell Price: 8.4 | Assigned to: none"
+            ]
+        },
+        {
+            "tr_id": 5,
+            "tr_type": "sale",
+            "tr_date": "22/03/04 15:09:51",
+            "tr_price": 10.15,
+            "buyer_seller": "ID: 2 | Name: client02 | Phone: 0222888883 | IBAN: CZ 17 002 00128 0000001200527600 | Status: Active ",
+            "assets_traded": [
+                "ID: 3 | Name: Black Paint | Type: Finished Goods | Sell Price: 1.15 | Assigned to: WHS Finished Goods | Amount sold: 1",
+                "ID: 1 | Name: Green Paint | Type: Finished Goods | Sell Price: 3.00 | Assigned to: WHS Finished Goods | Amount sold: 3"
+            ]
+        },
+        {
+            "tr_id": 6,
+            "tr_type": "sale",
+            "tr_date": "22/03/04 15:21:23",
+            "tr_price": 30.0,
+            "buyer_seller": "ID: 2 | Name: client02 | Phone: 0222888883 | IBAN: CZ 17 002 00128 0000001200527600 | Status: Active ",
+            "assets_traded": [
+                "ID: 3 | Name: Black Paint | Type: Finished Goods | Sell Price: 6.00 | Assigned to: WHS Finished Goods | Amount sold: 2",
+                "ID: 2 | Name: Red Paint | Type: Finished Goods | Sell Price: 3.00 | Assigned to: WHS Finished Goods | Amount sold: 3",
+                "ID: 1 | Name: Green Paint | Type: Finished Goods | Sell Price: 3.00 | Assigned to: WHS Finished Goods | Amount sold: 3"
+            ]
+        },
+        {
+            "tr_id": 7,
+            "tr_type": "sale",
+            "tr_date": "22/03/04 15:23:59",
+            "tr_price": 18.0,
+            "buyer_seller": "ID: 2 | Name: client02 | Phone: 0222888883 | IBAN: CZ 17 002 00128 0000001200527600 | Status: Active ",
+            "assets_traded": [
+                "ID: 1 | Name: Green Paint | Type: Finished Goods | Sell Price: 3.00 | Assigned to: WHS Finished Goods | Amount sold: 3",
+                "ID: 2 | Name: Red Paint | Type: Finished Goods | Sell Price: 3.00 | Assigned to: WHS Finished Goods | Amount sold: 3"
+            ]
+        },
+        {
+            "tr_id": 8,
+            "tr_type": "sale",
+            "tr_date": "04/03/22 15:25:59",
+            "tr_price": 48.0,
+            "buyer_seller": "ID: 2 | Name: client02 | Phone: 0222888883 | IBAN: CZ 17 002 00128 0000001200527600 | Status: Active ",
+            "assets_traded": [
+                "ID: 1 | Name: Green Paint | Type: Finished Goods | Sell Price: 3.00 | Assigned to: WHS Finished Goods | Amount sold: 3",
+                "ID: 2 | Name: Red Paint | Type: Finished Goods | Sell Price: 3.00 | Assigned to: WHS Finished Goods | Amount sold: 3",
+                "ID: 3 | Name: Black Paint | Type: Finished Goods | Sell Price: 6.00 | Assigned to: WHS Finished Goods | Amount sold: 5"
             ]
         }
     ]

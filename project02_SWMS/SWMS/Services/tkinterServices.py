@@ -128,8 +128,40 @@ def create_listbox(parent, name, row, column, data, width=50, height=10, rowspan
 
     v_scroll = Scrollbar(lb_holder, orient="vertical")
     v_scroll.grid(row=0, column=1, sticky="ns")
+    h_scroll = Scrollbar(lb_holder, orient="horizontal")
+    h_scroll.grid(row=1, column=0, sticky="we")
 
-    list_box.config(yscrollcommand=v_scroll.set)
+    list_box.config(yscrollcommand=v_scroll.set, xscrollcommand=h_scroll.set)
     v_scroll.config(command=list_box.yview)
+    h_scroll.config(command=list_box.xview)
 
     return list_box, lb_variable
+
+
+def modify_listbox_value(listbox, list_var, old_value, new_value):
+    """
+    Update listbox value with new one
+    :param listbox: Tkinter listbox { object }
+    :param list_var: Listbox list var
+    :param old_value: The value we want to modify { string }
+    :param new_value: New listbox value { string }
+    :return: None
+    """
+    selection = list_var.get()
+    items_in_list = []
+    selection = selection[1:-1:]
+    selection = selection.split(",")
+    for item in selection:
+        if item != "":
+            if item[0] == " ":
+                items_in_list.append(item[2:-1:])
+            else:
+                items_in_list.append(item[1:-1:])
+
+    for item in range(len(items_in_list)):
+        if items_in_list[item] == old_value:
+            items_in_list[item] = new_value
+
+    listbox.delete(0, END)
+    for item in items_in_list:
+        listbox.insert(END, item)
