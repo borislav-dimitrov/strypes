@@ -37,9 +37,6 @@ def super_fly(d, v, v1, v2, e):
     train2_start_point = cities_distance
 
     # set asset current positions
-    train1_is_at = fly_is_at = train1_start_point
-    train2_is_at = train2_start_point
-    fly_is_at = fly_start_point
     fly_moving_towards_train2 = True
 
     # store asset moved km
@@ -49,18 +46,17 @@ def super_fly(d, v, v1, v2, e):
 
     # time info
     ms = 0.0003
-    second = 1
-    minnute = 60
-    hour = 3600
+    # second = 1
+    # minute = 60
+    # hour = 3600
     step = ms
     passed_time = 0
 
     while True:
-        # print(f"{passed_s} seconds passed")
         # for {t} time each asset moved {s} kilometres
-        train_1_moved += float(train_1_speed * (step / 3600))  # round(train_1_speed * round(1 / 3600, 6), 6)
-        train_2_moved += float(train_2_speed * (step / 3600))  # round(train_2_speed * round(1 / 3600, 6), 6)
-        fly_moved += float(fly_speed * (step / 3600))  # round(fly_speed * round(1 / 3600, 6), 6)
+        train_1_moved += float(train_1_speed * (step / 3600))
+        train_2_moved += float(train_2_speed * (step / 3600))
+        fly_moved += float(fly_speed * (step / 3600))
 
         # track current position for each train
         train1_is_at = train1_start_point + train_1_moved
@@ -99,9 +95,9 @@ def super_fly(d, v, v1, v2, e):
 
 
 if __name__ == '__main__':
-    distance = int(input("Input the distance between City A and City B: "))
-    fly_speed = int(input("Input the fly speed: "))
-    fly_size = float(input("Input the fly size: "))
-    train_1_speed = int(input("Input train 1 speed: "))
-    train_2_speed = int(input("Input train 2 speed: "))
-    print(super_fly(distance, fly_speed, train_1_speed, train_2_speed, fly_size))
+    d = int(input("Input the distance between City A and City B: "))
+    v = int(input("Input the fly speed: "))
+    v1 = int(input("Input train 1 speed: "))
+    v2 = int(input("Input train 2 speed: "))
+    e = float(input("Input the fly size: "))
+    print(super_fly(d, v, v1, v2, e))
