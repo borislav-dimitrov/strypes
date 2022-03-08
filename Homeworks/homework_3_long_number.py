@@ -11,6 +11,7 @@ def long_number(n: int, a: str, f: str) -> int:
     :return: int
     """
     new_f_func = str()
+    # Convert { a } to list, so we can modify it easier
     a_to_list = [str(i) for i in str(a)]
 
     # Remove intervals from f if any
