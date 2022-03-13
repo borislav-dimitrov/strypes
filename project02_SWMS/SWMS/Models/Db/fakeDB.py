@@ -11,6 +11,7 @@ import Services.warehouseServices as WhServ
 import Services.productServices as ProdServ
 
 
+my_logger = ""
 login_users = []
 products = []
 suppliers = []
@@ -26,12 +27,13 @@ curr_user = ""
 def create_users(data):
     for user in data:
         # check if user already exist
-        user_available = check_user_before_create(login_users, user["user_id"], user["user_uname"])
+        user_available = check_user_before_create(login_users, user["user_id"], user["user_uname"], my_logger)
         if user_available is True:
             # add user
             new_user = User(user["user_id"],
                             user["user_uname"],
-                            user["user_pwd"].encode("utf-8"),  # encoding because it comes as a string from the json
+                            # encoding because it comes as a string from the json
+                            user["user_pwd"].encode("utf-8"),  
                             user["user_type"],
                             user["user_status"],
                             user["user_last_login"], )
@@ -69,9 +71,9 @@ def create_products(data):
                 if p_quantity < free_space:
                     WhServ.add_product(chosen_wh, p_id, p_quantity)
                 else:
-                    print(
-                        f"Product {p_id} - {p_name} could not be assigned to {p_assigned_wh}! "
-                        f"Not enough space in warehouse! Assigning to \"none\"")
+                    msg =f"Product {p_id} - {p_name} could not be assigned to {p_assigned_wh}! "\
+                        f"Not enough space in warehouse! Assigning to \"none\""
+                    my_logger.log(__file__, msg, "WARNING")
                     p_assigned_wh = "none"
 
             # Check if product already exist
@@ -84,8 +86,11 @@ def create_products(data):
             else:
                 new_product = Product(p_id, p_name, p_type, p_buy_price, p_sell_price, p_assigned_wh, p_quantity)
                 products.append(new_product)
+
+        my_logger.log(__file__, f"Success loading products", "INFO")
         return "Success"
     except Exception as ex:
+        my_logger.log(__file__, f"Failed loading products! {ex}", "ERROR")
         return f"Fail! {ex}"
 
 
@@ -99,8 +104,11 @@ def create_suppliers(data):
                                     supplier["supplier_status"],
                                     supplier["buy_menu"])
             suppliers.append(new_supplier)
+
+        my_logger.log(__file__, f"Success loading suppliers", "INFO")
         return "Success"
     except Exception as ex:
+        my_logger.log(__file__, f"Failed loading products", "ERROR")
         return f"Fail! {ex}"
 
 
@@ -113,8 +121,11 @@ def create_clients(data):
                                 client["client_iban"],
                                 client["client_status"])
             clients.append(new_client)
+
+        my_logger.log(__file__, f"Success loading clients", "INFO")
         return "Success"
     except Exception as ex:
+        my_logger.log(__file__, f"Success loading clients", "ERROR")
         return f"Fail! {ex}"
 
 
@@ -128,8 +139,11 @@ def create_warehouses(data):
                                       [],  # warehouse["wh_stored"],
                                       warehouse["wh_status"])
             warehouses.append(new_warehouse)
+
+        my_logger.log(__file__, f"Success loading warehouses", "INFO")
         return "Success"
     except Exception as ex:
+        my_logger.log(__file__, f"Success loading warehouses", "ERROR")
         return f"Fail! {ex}"
 
 
@@ -143,8 +157,11 @@ def create_transactions(data):
                                           transaction["buyer_seller"],
                                           transaction["assets_traded"])
             transactions.append(new_transaction)
+
+        my_logger.log(__file__, f"Success loading transactions", "INFO")
         return "Success"
     except Exception as ex:
+        my_logger.log(__file__, f"Success loading transactions", "ERROR")
         return f"Fail! {ex}"
 
 
@@ -154,14 +171,15 @@ def load_and_create_users():
     login_users.clear()
     # load the new objects
     try:
-        print("Loading Users")
         users_from_file = Load.load_users()
         if users_from_file == "none":
             return "No users found!"
         status = create_users(users_from_file)
+
+        my_logger.log(__file__, f"Successfully loaded users!", "INFO")
         return status
     except TypeError as ex:
-
+        my_logger.log(__file__, f"Failed creating user! {ex}", "ERROR")
         return "Fail! Couldn't create user!"
 
 
@@ -169,89 +187,62 @@ def load_and_create_products():
     # cleanup current products
     products.clear()
     # load the new ones
-    try:
-        products_from_file = Load.load_products()
-        status = create_products(products_from_file)
-        return status
-    except Exception as ex:
-        print(f"Fail! {ex}")
+    my_logger.log(__file__, "Loading Products...", "INFO")
+    products_from_file = Load.load_products()
+    status = create_products(products_from_file)
+    return status
 
 
 def load_and_create_suppliers():
     # cleanup current products
     suppliers.clear()
     # load the new ones
-    try:
-        suppliers_from_file = Load.load_suppliers()
-        status = create_suppliers(suppliers_from_file)
-        return status
-    except Exception as ex:
-        print(f"Fail! {ex}")
+    my_logger.log(__file__, "Loading Suppliers...", "INFO")
+    suppliers_from_file = Load.load_suppliers()
+    status = create_suppliers(suppliers_from_file)
+    return status
 
 
 def load_and_create_clients():
     # cleanup current products
     clients.clear()
     # load the new ones
-    try:
-        clients_from_file = Load.load_clients()
-        status = create_clients(clients_from_file)
-        return status
-    except Exception as ex:
-        print(f"Fail! {ex}")
+    my_logger.log(__file__, "Loading Clients...", "INFO")
+    clients_from_file = Load.load_clients()
+    status = create_clients(clients_from_file)
+    return status
 
 
 def load_and_create_warehouses():
     # cleanup current products
     warehouses.clear()
     # load the new ones
-    try:
-        warehouses_from_file = Load.load_warehouses()
-        status = create_warehouses(warehouses_from_file)
-        return status
-    except Exception as ex:
-        print(f"Fail! {ex}")
+    my_logger.log(__file__, "Loading Warehouses...", "INFO")
+    warehouses_from_file = Load.load_warehouses()
+    status = create_warehouses(warehouses_from_file)
+    return status
 
 
 def load_and_create_transactions():
     # cleanup current products
     transactions.clear()
     # load the new ones
-    try:
-        transactions_from_file = Load.load_transactions()
-        status = create_transactions(transactions_from_file)
-        return status
-    except Exception as ex:
-        print(f"Fail! {ex}")
+    my_logger.log(__file__, "Loading Transactions...", "INFO")
+    transactions_from_file = Load.load_transactions()
+    status = create_transactions(transactions_from_file)
+    return status
 
 
 def load_all_entities():
-    # ToDo
-    # Log these prints in a log file
-    print("Loading Warehouses...")
-    warehouses_status = load_and_create_warehouses()
-    print(warehouses_status)
-    print("===========")
+    load_and_create_warehouses()
 
-    print("Loading Products...")
-    products_status = load_and_create_products()
-    print(products_status)
-    print("===========")
+    load_and_create_products()
 
-    print("Loading Suppliers...")
-    suppliers_status = load_and_create_suppliers()
-    print(suppliers_status)
-    print("===========")
+    load_and_create_suppliers()
 
-    print("Loading Clients...")
-    clients_status = load_and_create_clients()
-    print(clients_status)
-    print("===========")
+    load_and_create_clients()
 
-    print("Loading Transactions...")
-    transactions_status = load_and_create_transactions()
-    print(transactions_status)
-    print("===========")
+    load_and_create_transactions()
 
 
 # Saving

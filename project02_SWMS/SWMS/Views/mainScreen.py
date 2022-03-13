@@ -90,9 +90,9 @@ class MainScreen:
         # Todo - log prints in log
         DB.opened_pages = []
         DB.curr_user = ""
-        print("Saving...")
+        DB.my_logger.log(__file__, "Saving...", "INFO")
         DB.save_all_data()
-        print("Saving done!\nExiting...")
+        DB.my_logger.log(__file__, "Saving done! Exiting", "INFO")
         self.m_screen.destroy()
         quit()
 
@@ -100,9 +100,9 @@ class MainScreen:
         # Todo - log prints in log
         DB.opened_pages = []
         DB.curr_user = ""
-        print("Saving Data...")
+        DB.my_logger.log(__file__, "Saving...", "INFO")
         DB.save_all_data()
-        print("Saving done!\nLogging out...")
+        DB.my_logger.log(__file__, "Saving done! Exiting", "INFO")
         self.logged_user = "none"
         self.logout_status = True
         self.m_screen.destroy()
