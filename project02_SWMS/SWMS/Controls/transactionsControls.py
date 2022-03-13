@@ -67,7 +67,7 @@ def purchases(screen):
     row_counter = 0
 
     # The first item in the Data are the column headers
-    data = [("Row Num", "Id - Type", "Date", "Total Price", "Buyer Id - Buyer Name", "Products Sold")]
+    data = [("Row Num", "Id - Type", "Date", "Total Price", "Buyer Id - Buyer Name", "Products Bought")]
     for transaction in DB.transactions:
         if transaction.tr_type.lower() == "purchase":
             buyer_id = transaction.buyer_seller.split("|")[0].strip().split(":")[1].strip()

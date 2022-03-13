@@ -1,5 +1,5 @@
 import Models.Db.fakeDB as DB
-from tkinter import *
+import tkinter as tk
 import Services.tkinterServices as TkServ
 import Services.productServices as ProdServ
 import Services.warehouseServices as WhServ
@@ -66,10 +66,11 @@ def calc_and_set_total_price(screen, items):
             if item[0] == " ":
                 curr_price = item[::].split("|")[3].strip()
                 quantity = item[1:-1:].split("|")[4].strip()
+                total += float(curr_price) * float(quantity)
             else:
                 curr_price = item.split("|")[3].strip()
                 quantity = item.split("|")[4].strip()[:-1:]
-            total += float(curr_price) * float(quantity)
+                total += float(curr_price) * float(quantity)
 
     total_lbl.config(text=total)
 
@@ -174,7 +175,7 @@ def add_item_to_cart(screen, cart, cart_items, sellable, sellable_items, multipl
     # Add products to cart
     already_exist, item_in_cart = check_product_in_cart(cart_items, new_info)
     if not already_exist:
-        cart.insert(END, f"{new_info} | {multiplier}")
+        cart.insert(tk.END, f"{new_info} | {multiplier}")
     else:
         modify_cart_item = item_in_cart.split("|")[len(item_in_cart.split("|")) - 1].strip()
         modify_cart_item = f"{new_info} | {int(modify_cart_item) + int(multiplier)}"
@@ -215,7 +216,7 @@ def rem_item_from_cart(screen, cart, cart_items, sellable, sellable_items, multi
     # return products to sellable listbox
     already_exist, item_in_sellable = check_product_in_cart(sellable_items, new_info)
     if not already_exist:
-        sellable.insert(END, f"{new_info} | {multiplier}")
+        sellable.insert(tk.END, f"{new_info} | {multiplier}")
     else:
         modify_sellable_item = item_in_sellable.split("|")[len(item_in_sellable.split("|")) - 1].strip()
         modify_sellable_item = f"{new_info} | {int(modify_sellable_item) + int(multiplier)}"
@@ -226,16 +227,16 @@ def rem_item_from_cart(screen, cart, cart_items, sellable, sellable_items, multi
 
 
 def clear_cart(screen, cart, cart_items, sellable_lb):
-    cart.delete(0, END)
+    cart.delete(0, tk.END)
 
     # Calculate total price
     calc_and_set_total_price(screen, cart_items)
 
     # Repopulate sellable products
-    sellable_lb.delete(0, END)
+    sellable_lb.delete(0, tk.END)
     sellable_products = ProdServ.get_all_sellable_products(DB.products)
     for product in sellable_products:
-        sellable_lb.insert(END, product)
+        sellable_lb.insert(tk.END, product)
 
 
 def on_client_change():

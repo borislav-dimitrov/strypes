@@ -86,7 +86,7 @@ def stock_by_product(screen):
     # Create preview for all existing products
     # Prepare the Data for the preview
     row_counter = 0
-    all_warehouses = []
+    all_warehouses = ["none"]
     # The first item in the Data are the column headers
     data = [("Row Num", "Warehouse", "Product Id - Name")]
     for warehouse in DB.warehouses:

@@ -6,7 +6,7 @@
             "supplier_phone": "0888888888",
             "supplier_iban": "CY 17 002 00128 0000001200527600",
             "supplier_status": "Active",
-            "buy_menu": "terpentine-raw material-10.00|pigment(bk)-raw material-5.00"
+            "buy_menu": "terpentine-raw materials-10.00|pigment(bk)-raw materials-5.00"
         },
         {
             "supplier_id": 2,
@@ -14,7 +14,7 @@
             "supplier_phone": "0888888883",
             "supplier_iban": "CZ 17 002 00128 0000001200527600",
             "supplier_status": "Active",
-            "buy_menu": "pigment(m)-raw material-7.00|pigment(y)-raw material-7.00|pigment(b)-raw material-7.00"
+            "buy_menu": "pigment(m)-raw materials-7.00|pigment(y)-raw materials-7.00|pigment(b)-raw materials-7.00"
         }
     ]
 }

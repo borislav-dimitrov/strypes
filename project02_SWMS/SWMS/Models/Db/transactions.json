@@ -91,6 +91,58 @@
                 "ID: 2 | Name: Red Paint | Type: Finished Goods | Sell Price: 3.00 | Assigned to: WHS Finished Goods | Amount sold: 3",
                 "ID: 3 | Name: Black Paint | Type: Finished Goods | Sell Price: 6.00 | Assigned to: WHS Finished Goods | Amount sold: 5"
             ]
+        },
+        {
+            "tr_id": 9,
+            "tr_type": "purchase",
+            "tr_date": "13/03/22 13:54:15",
+            "tr_price": 30.0,
+            "buyer_seller": "ID: 1 | Name: supplier raw_mats 1 | Phone: 0888888888 | IBAN: CY 17 002 00128 0000001200527600 | Status: Active | Buy Menu: terpentine-raw material-10.00|pigment(bk)-raw material-5.00",
+            "assets_traded": [
+                "ID: 3 | Name: pigment(bk) | Type: raw material | Buy Price: 5.0 | Sell Price: 6.0 | Assigned to: none | Quantity: 2.0",
+                "ID: 3 | Name: terpentine | Type: raw material | Buy Price: 10.0 | Sell Price: 12.0 | Assigned to: none | Quantity: 2.0"
+            ]
+        },
+        {
+            "tr_id": 10,
+            "tr_type": "purchase",
+            "tr_date": "13/03/22 13:59:19",
+            "tr_price": 15.0,
+            "buyer_seller": "ID: 1 | Name: supplier raw_mats 1 | Phone: 0888888888 | IBAN: CY 17 002 00128 0000001200527600 | Status: Active | Buy Menu: terpentine-raw material-10.00|pigment(bk)-raw material-5.00",
+            "assets_traded": [
+                "ID: 3 | Name: terpentine | Type: raw material | Buy Price: 10.0 | Sell Price: 12.0 | Assigned to: none | Quantity: 1",
+                "ID: 3 | Name: pigment(bk) | Type: raw material | Buy Price: 5.0 | Sell Price: 6.0 | Assigned to: none | Quantity: 1"
+            ]
+        },
+        {
+            "tr_id": 11,
+            "tr_type": "purchase",
+            "tr_date": "13/03/22 14:02:48",
+            "tr_price": 20.0,
+            "buyer_seller": "ID: 1 | Name: supplier raw_mats 1 | Phone: 0888888888 | IBAN: CY 17 002 00128 0000001200527600 | Status: Active | Buy Menu: terpentine-raw material-10.00|pigment(bk)-raw material-5.00",
+            "assets_traded": [
+                "ID: 3 | Name: terpentine | Type: raw material | Buy Price: 10.0 | Sell Price: 12.0 | Assigned to: none | Quantity: 1"
+            ]
+        },
+        {
+            "tr_id": 12,
+            "tr_type": "purchase",
+            "tr_date": "13/03/22 14:04:29",
+            "tr_price": 50.0,
+            "buyer_seller": "ID: 1 | Name: supplier raw_mats 1 | Phone: 0888888888 | IBAN: CY 17 002 00128 0000001200527600 | Status: Active | Buy Menu: terpentine-raw material-10.00|pigment(bk)-raw material-5.00",
+            "assets_traded": [
+                "ID: 3 | Name: terpentine | Type: raw material | Buy Price: 10.0 | Sell Price: 12.0 | Assigned to: none | Quantity: 4"
+            ]
+        },
+        {
+            "tr_id": 13,
+            "tr_type": "purchase",
+            "tr_date": "13/03/22 14:19:50",
+            "tr_price": 21.0,
+            "buyer_seller": "ID: 2 | Name: supplier raw_mats 2 | Phone: 0888888883 | IBAN: CZ 17 002 00128 0000001200527600 | Status: Active | Buy Menu: pigment(m)-raw materials-7.00|pigment(y)-raw materials-7.00|pigment(b)-raw materials-7.00",
+            "assets_traded": [
+                "ID: 3 | Name: pigment(y) | Type: Raw Materials | Buy Price: 7.0 | Sell Price: 8.4 | Assigned to: none | Quantity: 3"
+            ]
         }
     ]
 }

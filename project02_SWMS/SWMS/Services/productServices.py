@@ -37,7 +37,7 @@ def get_all_sellable_products(all_products):
     return all_sellable
 
 
-def get_product_info_by_id(product_ids, all_products):
+def get_products_info_by_id(product_ids, all_products):
     """
     Receive a list with product id/ids
     Return list of product's info

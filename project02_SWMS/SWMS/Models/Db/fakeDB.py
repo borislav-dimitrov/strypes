@@ -10,6 +10,7 @@ from Services.userServices import check_user_before_create
 import Services.warehouseServices as WhServ
 import Services.productServices as ProdServ
 
+
 login_users = []
 products = []
 suppliers = []
@@ -43,13 +44,17 @@ def create_users(data):
 def create_products(data):
     try:
         for product in data:
-            p_id = product["product_id"]
+            p_id = ProdServ.get_id_for_new_product(products)
             p_name = product["product_name"]
             p_type = product["product_type"]
+            if p_type.lower() == "raw materials":
+                p_type = "Raw Materials"
+            if p_type.lower() == 'finished goods':
+                p_type = "Finished Goods"
             p_buy_price = product["buy_price"]
             p_sell_price = product["sell_price"]
             p_assigned_wh = product["assigned_to_wh"]
-            p_quantity = product["quantity"]
+            p_quantity = int(product["quantity"])
 
             # Check if desired warehouse assignment exists
             if not WhServ.check_whname_exist(product["assigned_to_wh"], warehouses):

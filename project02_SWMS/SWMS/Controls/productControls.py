@@ -43,35 +43,42 @@ def delete_product(screen, sel_prod):
 
 
 def save_product(screen, sel_prod, pname, ptype, pbuy, psell, pwarehouse, pquantity):
-    chosen_wh_name = pwarehouse.split("|")[0].strip()
-    chosen_wh = WhServ.get_wh_by_name(chosen_wh_name, DB.warehouses)
+    if "none" not in pwarehouse:
+        chosen_wh_name = pwarehouse.split("|")[0].strip()
+        chosen_wh = WhServ.get_wh_by_name(chosen_wh_name, DB.warehouses)
+        chosen_wh_name = chosen_wh.wh_name
+    else:
+        chosen_wh_name = "none"
+
     current_quantity = sel_prod.quantity
 
     # Change quantity and remove/add from/to warehouse
-    if int(current_quantity) > int(pquantity):
-        # Remove
-        amount_to_remove = int(current_quantity) - int(pquantity)
-        sel_prod.quantity -= amount_to_remove
-        # Remove from warehouse
-        WhServ.remove_product(chosen_wh, sel_prod.product_id, amount_to_remove)
-        # TODO - log removed amount
-    elif int(current_quantity) < int(pquantity):
-        # Add
-        sel_prod.quantity = int(pquantity)
-        # Add to warehouse
-        WhServ.add_product(chosen_wh, sel_prod.product_id, sel_prod.quantity)
-        # TODO log added amount
+    if chosen_wh_name != "none":
+        if int(current_quantity) > int(pquantity):
+            # Remove
+            amount_to_remove = int(current_quantity) - int(pquantity)
+            sel_prod.quantity -= amount_to_remove
+            # Remove from warehouse
+            WhServ.remove_product(chosen_wh, sel_prod.product_id, amount_to_remove)
+            # TODO - log removed amount
+        elif int(current_quantity) < int(pquantity):
+            # Add
+            sel_prod.quantity = int(pquantity)
+            # Add to warehouse
+            WhServ.add_product(chosen_wh, sel_prod.product_id, sel_prod.quantity)
+            # TODO log added amount
 
     try:
         sel_prod.product_name = pname
         sel_prod.product_type = ptype
         sel_prod.buy_price = pbuy
         sel_prod.sell_price = psell
-        sel_prod.assigned_to_wh = chosen_wh.wh_name
+        sel_prod.assigned_to_wh = chosen_wh_name
         save_products()
         clear_prod_screen(screen)
         TkServ.create_custom_msg(screen, "Message..", f"Product has been\nchanged successfully")
     except Exception as ex:
+        print(ex)
         TkServ.create_custom_msg(screen, "Warning!", f"Something went wrong!\n{ex}")
 
     # TODO log changed product status

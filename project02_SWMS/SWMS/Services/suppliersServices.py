@@ -29,14 +29,13 @@ def validate_supp_menu(menu):
             for item in items:
                 # Verify pattern for multiple products
                 if len(item.split("-")) != 3:
-                    print(False)
                     return False, "Invalid menu pattern!", []
             for item in items:
                 item_name = item.split("-")[0].strip()
                 item_type = item.split("-")[1].strip()
                 # Check if product type is correct (suppliers can sell only raw materials)
-                if "raw material" != item_type.lower():
-                    return False, "Invalid product type!"
+                if "raw materials" != item_type.lower():
+                    return False, "Invalid product type!", []
                 item_buy_price = float(item.split("-")[2].strip())
                 all_items.append(f"{item_name}-{item_type}-{item_buy_price}")
             return True, "Success", all_items
@@ -47,7 +46,7 @@ def validate_supp_menu(menu):
             item_name = items.split("-")[0].strip()
             item_type = items.split("-")[1].strip()
             # Check if product type is correct (suppliers can sell only raw materials)
-            if "raw material" != item_type.lower():
+            if "raw materials" != item_type.lower():
                 return False, "Invalid product type!", []
             item_buy_price = float(items.split("-")[2].strip())
             return True, "Success", all_items.append(f"{item_name}-{item_type}-{item_buy_price}")
@@ -56,4 +55,3 @@ def validate_supp_menu(menu):
         if "convert string to float" in str(ex):
             return False, "Invalid product price!", []
 
-    return False, "Invalid menu pattern!", []
