@@ -11,7 +11,7 @@ REG_WIDTH = 800
 REG_HEIGHT = 600
 
 # The key used for the password encryption
-# Usually is better to be stored somewhere less exposed
+# Usually it is better to be stored somewhere less exposed
 KEY = b'UldGNfHfPDDFdDpf-eLNx8rnoi9S-qyYEEKUI-MA3N4='
 
 

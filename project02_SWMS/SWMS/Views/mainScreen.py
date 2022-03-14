@@ -87,7 +87,6 @@ class MainScreen:
             self.m_screen.protocol("WM_DELETE_WINDOW", lambda: self.on_exit())
 
     def on_exit(self):
-        # Todo - log prints in log
         DB.opened_pages = []
         DB.curr_user = ""
         DB.my_logger.log(__file__, "Saving...", "INFO")
@@ -97,7 +96,6 @@ class MainScreen:
         quit()
 
     def logout(self):
-        # Todo - log prints in log
         DB.opened_pages = []
         DB.curr_user = ""
         DB.my_logger.log(__file__, "Saving...", "INFO")

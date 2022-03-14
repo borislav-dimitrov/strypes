@@ -60,13 +60,14 @@ def save_product(screen, sel_prod, pname, ptype, pbuy, psell, pwarehouse, pquant
             sel_prod.quantity -= amount_to_remove
             # Remove from warehouse
             WhServ.remove_product(chosen_wh, sel_prod.product_id, amount_to_remove)
-            # TODO - log removed amount
+            DB.my_logger.log(__file__, f"Removed {amount_to_remove} products from {sel_prod.product_name}", "INFO")
         elif int(current_quantity) < int(pquantity):
             # Add
             sel_prod.quantity = int(pquantity)
             # Add to warehouse
+            # TODO - check wh free space b4 continue
             WhServ.add_product(chosen_wh, sel_prod.product_id, sel_prod.quantity)
-            # TODO log added amount
+            DB.my_logger.log(__file__, f"Added {int(pquantity) - int(current_quantity)} products to {sel_prod.product_name}", "INFO")
 
     try:
         sel_prod.product_name = pname
@@ -76,12 +77,11 @@ def save_product(screen, sel_prod, pname, ptype, pbuy, psell, pwarehouse, pquant
         sel_prod.assigned_to_wh = chosen_wh_name
         save_products()
         clear_prod_screen(screen)
-        TkServ.create_custom_msg(screen, "Message..", f"Product has been\nchanged successfully")
+        DB.my_logger.log(__file__, f"Product {sel_prod.product_name} have been changed successfully!", "INFO")
+        TkServ.create_custom_msg(screen, "Message..", "Product has been changed successfully")
     except Exception as ex:
-        print(ex)
+        DB.my_logger.log(__file__, "Failed saving product! Exception: {ex}", "WARNING")
         TkServ.create_custom_msg(screen, "Warning!", f"Something went wrong!\n{ex}")
-
-    # TODO log changed product status
 
 
 def chose_wh_for_product(screen, choice):

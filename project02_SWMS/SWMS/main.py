@@ -18,7 +18,6 @@ def main():
     user = "none"
 
     # load users and data from file
-    # Todo - loading statuses may be logged in log file
     status = DB.load_and_create_users()
     DB.load_all_entities()
 

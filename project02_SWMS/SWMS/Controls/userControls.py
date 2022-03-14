@@ -28,10 +28,11 @@ def save_user(screen, user_id, uname, pwd, usr_type, usr_status):
             selected_user.user_status = usr_status.get()
             save_users()
             clear_usr_screen(screen)
-            TkServ.create_custom_msg(screen, "Message..", f"User has been\nchanged successfully")
+            DB.my_logger.log(__file__, f"User [{selected_user.user_name}] has been modified successfully!", "INFO")
+            TkServ.create_custom_msg(screen, "Message..", "User has been changed successfully!")
         except Exception as ex:
+            DB.my_logger.log(__file__, f"Something went wrong while modifying user [{selected_user.user_name}]!", "INFO")
             TkServ.create_custom_msg(screen, "Warning!", f"Something went wrong!\n{ex}")
-    # TODO - Log user changed
 
 
 def delete_user(screen, user_id):
