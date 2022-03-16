@@ -7,25 +7,16 @@
             "buy_price": "2.00",
             "sell_price": "3.00",
             "assigned_to_wh": "WHS Finished Goods",
-            "quantity": 3
+            "quantity": 93
         },
         {
             "product_id": 2,
             "product_name": "Red Paint",
             "product_type": "Finished Goods",
-            "buy_price": "2.00",
-            "sell_price": "3.00",
+            "buy_price": "3.00",
+            "sell_price": "4.00",
             "assigned_to_wh": "WHS Finished Goods",
-            "quantity": 3
-        },
-        {
-            "product_id": 3,
-            "product_name": "pigment(y)",
-            "product_type": "Raw Materials",
-            "buy_price": 7.0,
-            "sell_price": 8.4,
-            "assigned_to_wh": "none",
-            "quantity": 3
+            "quantity": 6
         }
     ]
 }

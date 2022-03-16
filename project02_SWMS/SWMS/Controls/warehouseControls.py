@@ -3,7 +3,6 @@ import tkinter.messagebox
 import Services.warehouseServices as WhServ
 import Services.tkinterServices as TkServ
 import Models.Db.fakeDB as DB
-from Models.Data.saveData import save_warehouses
 
 
 def clear_wh_screen(screen):
@@ -27,8 +26,10 @@ def create_new_wh(screen, wh_name, wh_type, wh_capacity, wh_status):
     }]
     status = DB.create_warehouses(wh_data)
     if "Success" in status:
-        save_warehouses()
+        DB.save_all_data()
+        DB.load_all_entities()
         clear_wh_screen(screen)
+        DB.my_logger.log(__file__, f"Created warehouse {wh_name}", "INFO")
         TkServ.create_custom_msg(screen, "Message..", f"Warehouse has been created successfully")
     else:
         TkServ.create_custom_msg(screen, "Warning!", status)
@@ -92,9 +93,12 @@ def delete_wh(screen, selected_wh):
         wh_index = WhServ.get_wh_index_by_id(selected_wh.wh_id, DB.warehouses)
         if wh_index:
             try:
+                name = selected_wh.wh_name
                 DB.warehouses.pop(wh_index)
-                save_warehouses()
+                DB.save_all_data()
+                DB.load_all_entities()
                 clear_wh_screen(screen)
+                DB.my_logger.log(__file__, f"Deleted warehouse {name}", "INFO")
                 TkServ.create_custom_msg(screen, "Message..", f"Warehouse has been\ndeleted successfully")
             except Exception as ex:
                 TkServ.create_custom_msg(screen, "Warning!", f"Something went wrong!\n{ex}")
@@ -106,8 +110,10 @@ def save_wh(screen, selected_wh, wh_name, wh_type, wh_capacity, wh_status):
         selected_wh.wh_type = wh_type
         selected_wh.wh_capacity = wh_capacity
         selected_wh.wh_status = wh_status
-        save_warehouses()
+        DB.save_all_data()
+        DB.load_all_entities()
         clear_wh_screen(screen)
+        DB.my_logger.log(__file__, f"Created/modified warehouse {selected_wh.wh_name}", "INFO")
         TkServ.create_custom_msg(screen, "Message..", f"Warehouse has been\nchanged successfully")
     except Exception as ex:
         TkServ.create_custom_msg(screen, "Warning!", f"Something went wrong!\n{ex}")

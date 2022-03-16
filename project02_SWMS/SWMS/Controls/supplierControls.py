@@ -1,7 +1,6 @@
 import tkinter.messagebox
 from tkinter import *
 import Models.Db.fakeDB as DB
-from Models.Data.saveData import save_suppliers
 import Services.tkinterServices as TkServ
 import Services.suppliersServices as SupServ
 
@@ -31,8 +30,10 @@ def create_new_supplier(screen, sname, sphone, siban, supmenu, supstatus):
     }]
     status = DB.create_suppliers(supp_data)
     if "Success" in status:
-        save_suppliers()
+        DB.save_all_data()
+        DB.load_all_entities()
         clear_supp_screen(screen)
+        DB.my_logger.log(__file__, f"Created supplier {sname}", "INFO")
         TkServ.create_custom_msg(screen, "Message..", f"Supplier has been\ncreated successfully")
     else:
         TkServ.create_custom_msg(screen, "Warning!", status)
@@ -99,8 +100,10 @@ def save_supplier(screen, selected_supp, spname, spphone, spiban, spstatus, spme
         selected_supp.supp_iban = spiban
         selected_supp.supp_status = spstatus
         selected_supp.buy_menu = spmenu
-        save_suppliers()
+        DB.save_all_data()
+        DB.load_all_entities()
         clear_supp_screen(screen)
+        DB.my_logger.log(__file__, f"Created/modified supplier {selected_supp.supp_name}", "INFO")
         TkServ.create_custom_msg(screen, "Message..", f"Supplier has been\nchanged successfully")
     except Exception as ex:
         TkServ.create_custom_msg(screen, "Warning!", f"Something went wrong!\n{ex}")
@@ -115,9 +118,12 @@ def del_supplier(screen, selected_supp):
         u_index = SupServ.get_supp_index_by_id(selected_supp.supp_id, DB.suppliers)
         if u_index:
             try:
+                name = selected_supp.supp_name
                 DB.suppliers.pop(u_index)
-                save_suppliers()
+                DB.save_all_data()
+                DB.load_all_entities()
                 clear_supp_screen(screen)
+                DB.my_logger.log(__file__, f"Deleted supplier {name}", "INFO")
                 TkServ.create_custom_msg(screen, "Message..", f"Supplier has been\ndeleted successfully")
             except Exception as ex:
                 TkServ.create_custom_msg(screen, "Warning!", f"Something went wrong!\n{ex}")

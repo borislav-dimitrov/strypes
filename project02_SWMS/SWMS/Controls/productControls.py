@@ -4,7 +4,6 @@ import Models.Db.fakeDB as DB
 import Services.tkinterServices as TkServ
 import Services.productServices as ProdServ
 import Services.warehouseServices as WhServ
-from Models.Data.saveData import save_products
 
 
 def clear_prod_screen(screen):
@@ -35,7 +34,8 @@ def delete_product(screen, sel_prod):
         if u_index:
             try:
                 DB.products.pop(u_index)
-                save_products()
+                DB.save_all_data()
+                DB.load_all_entities()
                 clear_prod_screen(screen)
                 TkServ.create_custom_msg(screen, "Message..", f"Product has been\ndeleted successfully")
             except Exception as ex:
@@ -51,7 +51,7 @@ def save_product(screen, sel_prod, pname, ptype, pbuy, psell, pwarehouse, pquant
         chosen_wh_name = "none"
 
     current_quantity = sel_prod.quantity
-
+    added_quantity = int(pquantity) - int(sel_prod.quantity)
     # Change quantity and remove/add from/to warehouse
     if chosen_wh_name != "none":
         if int(current_quantity) > int(pquantity):
@@ -60,14 +60,19 @@ def save_product(screen, sel_prod, pname, ptype, pbuy, psell, pwarehouse, pquant
             sel_prod.quantity -= amount_to_remove
             # Remove from warehouse
             WhServ.remove_product(chosen_wh, sel_prod.product_id, amount_to_remove)
+            DB.save_all_data()
+            DB.load_all_entities()
             DB.my_logger.log(__file__, f"Removed {amount_to_remove} products from {sel_prod.product_name}", "INFO")
         elif int(current_quantity) < int(pquantity):
-            # Add
-            sel_prod.quantity = int(pquantity)
             # Add to warehouse
-            # TODO - check wh free space b4 continue
-            WhServ.add_product(chosen_wh, sel_prod.product_id, sel_prod.quantity)
-            DB.my_logger.log(__file__, f"Added {int(pquantity) - int(current_quantity)} products to {sel_prod.product_name}", "INFO")
+            free_space = WhServ.get_wh_free_space(chosen_wh)
+            if (current_quantity + added_quantity) <= free_space:
+                WhServ.add_product(chosen_wh, sel_prod.product_id, sel_prod.quantity)
+                DB.my_logger.log(__file__, f"Added {added_quantity}{sel_prod.product_name} to {chosen_wh_name}", "INFO")
+                DB.save_all_data()
+                DB.load_all_entities()
+            else:
+                TkServ.create_custom_msg(screen, "Warning!", f"Not enough space in warehouse: {chosen_wh_name}")
 
     try:
         sel_prod.product_name = pname
@@ -175,7 +180,8 @@ def create_new_prod(screen, pname, bprice, sprice, ptype, quantity, chosenwh):
     }]
     status = DB.create_products(prod_data)
     if "Success" in status:
-        save_products()
+        DB.save_all_data()
+        DB.load_all_entities()
         clear_prod_screen(screen)
         TkServ.create_custom_msg(screen, "Message..", f"User has been\ncreated successfully")
     else:

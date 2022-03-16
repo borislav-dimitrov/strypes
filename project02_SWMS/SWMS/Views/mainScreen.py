@@ -53,7 +53,6 @@ class MainScreen:
                                   name="buy_btn",
                                   command=lambda: self.purchases())
         purchases_btn.grid(row=7, column=3)
-        # Todo - add manage warehouse stock page
 
         # render admin buttons
         if self.logged_user.user_type == "Administrator":
@@ -91,7 +90,8 @@ class MainScreen:
         DB.curr_user = ""
         DB.my_logger.log(__file__, "Saving...", "INFO")
         DB.save_all_data()
-        DB.my_logger.log(__file__, "Saving done! Exiting", "INFO")
+        DB.my_logger.log(__file__, "Saving done! Exiting..", "INFO")
+        DB.my_logger.log(__file__, f"User {self.logged_user.user_name} has logged out!", "INFO")
         self.m_screen.destroy()
         quit()
 
@@ -100,7 +100,8 @@ class MainScreen:
         DB.curr_user = ""
         DB.my_logger.log(__file__, "Saving...", "INFO")
         DB.save_all_data()
-        DB.my_logger.log(__file__, "Saving done! Exiting", "INFO")
+        DB.my_logger.log(__file__, "Saving done! Exiting..", "INFO")
+        DB.my_logger.log(__file__, f"User {self.logged_user.user_name} has logged out!", "INFO")
         self.logged_user = "none"
         self.logout_status = True
         self.m_screen.destroy()

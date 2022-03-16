@@ -2,7 +2,6 @@ import tkinter.messagebox
 from tkinter import *
 import Models.Db.fakeDB as DB
 import Services.clientServices as CliServ
-from Models.Data.saveData import save_clients
 import Services.tkinterServices as TkServ
 
 
@@ -26,8 +25,10 @@ def create_new_client(screen, client_name, client_phone, client_iban, client_sta
     }]
     status = DB.create_clients(client_data)
     if "Success" in status:
-        save_clients()
+        DB.save_all_data()
+        DB.load_all_entities()
         clear_client_screen(screen)
+        DB.my_logger.log(__file__, f"Created/modified client {client_name}", "INFO")
         TkServ.create_custom_msg(screen, "Message..", f"Client has been created successfully")
     else:
         TkServ.create_custom_msg(screen, "Warning!", status)
@@ -81,8 +82,10 @@ def save_client(screen, selected_client, client_name, client_phone, client_iban,
         selected_client.client_phone = client_phone
         selected_client.client_iban = client_iban
         selected_client.client_status = client_status
-        save_clients()
+        DB.save_all_data()
+        DB.load_all_entities()
         clear_client_screen(screen)
+        DB.my_logger.log(__file__, f"Created/modified client {selected_client.client_name}", "INFO")
         TkServ.create_custom_msg(screen, "Message..", f"Client has been\nchanged successfully")
     except Exception as ex:
         TkServ.create_custom_msg(screen, "Warning!", f"Something went wrong!\n{ex}")
@@ -97,9 +100,12 @@ def delete_client(screen, selected_client):
         client_index = CliServ.get_client_index_by_id(selected_client.client_id, DB.clients)
         if client_index:
             try:
+                name = selected_client.client_name
                 DB.clients.pop(client_index)
-                save_clients()
+                DB.save_all_data()
+                DB.load_all_entities()
                 clear_client_screen(screen)
+                DB.my_logger.log(__file__, f"Deleted client {name}", "INFO")
                 TkServ.create_custom_msg(screen, "Message..", f"Client has been\ndeleted successfully")
             except Exception as ex:
                 TkServ.create_custom_msg(screen, "Warning!", f"Something went wrong!\n{ex}")

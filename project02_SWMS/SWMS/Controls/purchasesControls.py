@@ -1,5 +1,4 @@
 import Models.Db.fakeDB as DB
-import Models.Data.saveData as Save
 import Services.tkinterServices as TkServ
 import Services.suppliersServices as SuppServ
 import Services.productServices as ProdServ
@@ -233,15 +232,16 @@ def buy(screen, cart_lb, cart_items, sellable_items, selected_supplier_var):
 
         # Create new products
         DB.create_products(new_products_info)
-        DB.save_products()
 
         # Create transaction object
         new_transaction = Transaction(TransServ.get_id_for_new_transaction(DB.transactions), "purchase", DateServ.get_time_now(), total_price,
                                       supplier.get_self_info(),
                                       ProdServ.get_products_info_by_id(newly_created_products_id, DB.products))
         DB.transactions.append(new_transaction)
-        Save.save_transactions()
 
+        DB.save_all_data()
+        DB.load_all_entities()
+        DB.my_logger.log(__file__, f"{DB.curr_user} made purchase with id: {new_transaction.tr_id}!", "INFO")
         # Clear cart and total price
         clear_cart(screen, cart_lb, cart_items)
 

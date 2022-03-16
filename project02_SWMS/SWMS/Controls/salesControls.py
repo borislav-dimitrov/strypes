@@ -7,7 +7,6 @@ from Services.clientServices import get_client_by_id
 from Services.transactionServices import get_id_for_new_transaction
 from Models.Assets.transaction import Transaction
 from Services.dateServices import get_time_now
-from Models.Data.saveData import save_transactions, save_products
 
 
 def destruct_sellable_item(item_info):
@@ -132,7 +131,10 @@ def sell(screen, cart, cart_items, sellable_lb, sellable_items, selected_client)
                                       client.get_self_info(),
                                       products_info_for_transaction)
         DB.transactions.append(new_transaction)
-        save_transactions()
+
+        DB.save_all_data()
+        DB.load_all_entities()
+        DB.my_logger.log(__file__, f"{DB.curr_user} made a sale with id: {new_transaction.tr_id}", "INFO")
 
         # Clear cart and total price and repopulate sellable items
         clear_cart(screen, cart, cart_items, sellable_lb)

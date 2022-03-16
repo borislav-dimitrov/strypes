@@ -11,7 +11,7 @@ from Models.Assets.logger import MyLogger
 def main():
     # Initialize logger
     DB.my_logger = MyLogger(CFG.LOG_ENABLED, CFG.DEFAULT_LOG_FILE,
-        CFG.LOG_LEVEL, CFG.REWRITE_LOG_ON_STARTUP)
+                            CFG.LOG_LEVEL, CFG.REWRITE_LOG_ON_STARTUP)
     # clear opened windows
     DB.opened_pages = []
     # reset the user on startup
@@ -28,7 +28,7 @@ def main():
         TkServ.create_msg("Warning!", status)
     elif status == "No users found!":
         DB.my_logger.log(__file__, "No users found! Creating new one..",
-            "INFO")        
+                         "INFO")
         # If no users found create the first admin account
         screen = tk.Tk()
         first_run = FirstUser(screen, "first_registration", "Create First User", CFG.REG_WIDTH, CFG.REG_HEIGHT, 5, 5)
@@ -38,7 +38,7 @@ def main():
         else:
             DB.create_users([first_run.tmp_user])
             DB.my_logger.log(__file__, f"Created user: {first_run.tmp_user}",
-                "INFO")
+                             "INFO")
             # save users to file if it was first login and new user has been created
             DB.save_all_data()
 

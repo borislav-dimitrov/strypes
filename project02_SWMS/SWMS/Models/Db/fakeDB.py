@@ -68,7 +68,7 @@ def create_products(data):
             if p_assigned_wh.lower() != "none":
                 chosen_wh = WhServ.get_wh_by_name(p_assigned_wh, warehouses)
                 free_space = WhServ.get_wh_free_space(chosen_wh)
-                if p_quantity < free_space:
+                if p_quantity <= free_space:
                     WhServ.add_product(chosen_wh, p_id, p_quantity)
                 else:
                     msg =f"Product {p_id} - {p_name} could not be assigned to {p_assigned_wh}! "\
@@ -87,10 +87,10 @@ def create_products(data):
                 new_product = Product(p_id, p_name, p_type, p_buy_price, p_sell_price, p_assigned_wh, p_quantity)
                 products.append(new_product)
 
-        my_logger.log(__file__, f"Success loading products", "INFO")
+        my_logger.log(__file__, f"Success creating products", "DEBUG")
         return "Success"
     except Exception as ex:
-        my_logger.log(__file__, f"Failed loading products! {ex}", "ERROR")
+        my_logger.log(__file__, f"Failed creating products! {ex}", "ERROR")
         return f"Fail! {ex}"
 
 
@@ -105,7 +105,7 @@ def create_suppliers(data):
                                     supplier["buy_menu"])
             suppliers.append(new_supplier)
 
-        my_logger.log(__file__, f"Success loading suppliers", "INFO")
+        my_logger.log(__file__, f"Success creating suppliers", "DEBUG")
         return "Success"
     except Exception as ex:
         my_logger.log(__file__, f"Failed loading products", "ERROR")
@@ -122,10 +122,10 @@ def create_clients(data):
                                 client["client_status"])
             clients.append(new_client)
 
-        my_logger.log(__file__, f"Success loading clients", "INFO")
+        my_logger.log(__file__, f"Success creating clients", "DEBUG")
         return "Success"
     except Exception as ex:
-        my_logger.log(__file__, f"Success loading clients", "ERROR")
+        my_logger.log(__file__, f"Failed creating clients", "ERROR")
         return f"Fail! {ex}"
 
 
@@ -140,10 +140,10 @@ def create_warehouses(data):
                                       warehouse["wh_status"])
             warehouses.append(new_warehouse)
 
-        my_logger.log(__file__, f"Success loading warehouses", "INFO")
+        my_logger.log(__file__, f"Success creating warehouses", "DEBUG")
         return "Success"
     except Exception as ex:
-        my_logger.log(__file__, f"Success loading warehouses", "ERROR")
+        my_logger.log(__file__, f"Failed creating warehouses", "ERROR")
         return f"Fail! {ex}"
 
 
@@ -158,10 +158,10 @@ def create_transactions(data):
                                           transaction["assets_traded"])
             transactions.append(new_transaction)
 
-        my_logger.log(__file__, f"Success loading transactions", "INFO")
+        my_logger.log(__file__, f"Success creating transactions", "DEBUG")
         return "Success"
     except Exception as ex:
-        my_logger.log(__file__, f"Success loading transactions", "ERROR")
+        my_logger.log(__file__, f"Failed creating transactions", "ERROR")
         return f"Fail! {ex}"
 
 
@@ -176,7 +176,7 @@ def load_and_create_users():
             return "No users found!"
         status = create_users(users_from_file)
 
-        my_logger.log(__file__, f"Successfully loaded users!", "INFO")
+        my_logger.log(__file__, f"Successfully loaded users!", "DEBUG")
         return status
     except TypeError as ex:
         my_logger.log(__file__, f"Failed creating user! {ex}", "ERROR")

@@ -3,7 +3,6 @@ from tkinter import *
 import Models.Db.fakeDB as DB
 import Services.tkinterServices as TkServ
 import Services.userServices as UsrServ
-from Models.Data.saveData import save_users
 
 
 def clear_usr_screen(screen):
@@ -26,7 +25,8 @@ def save_user(screen, user_id, uname, pwd, usr_type, usr_status):
             selected_user.user_pwd = UsrServ.encrypt_pwd(pwd)
             selected_user.user_type = usr_type.get()
             selected_user.user_status = usr_status.get()
-            save_users()
+            DB.save_all_data()
+            DB.load_all_entities()
             clear_usr_screen(screen)
             DB.my_logger.log(__file__, f"User [{selected_user.user_name}] has been modified successfully!", "INFO")
             TkServ.create_custom_msg(screen, "Message..", "User has been changed successfully!")
@@ -46,9 +46,12 @@ def delete_user(screen, user_id):
             return
         u_index = UsrServ.get_user_index_by_id(user_id, DB.login_users)
         if u_index:
+            name = curr_user.user_name
             DB.login_users.pop(u_index)
-            save_users()
+            DB.save_all_data()
+            DB.load_all_entities()
             clear_usr_screen(screen)
+            DB.my_logger.log(__file__, f"Deleted user {name}", "INFO")
             TkServ.create_custom_msg(screen, "Message..", f"User has been\ndeleted successfully")
 
 
@@ -133,8 +136,10 @@ def create_new_user(screen, uname, pwd, usr_type, usr_status):
     }]
     status = DB.create_users(user_data)
     if status == "Success":
-        save_users()
+        DB.save_all_data()
+        DB.load_all_entities()
         clear_usr_screen(screen)
+        DB.my_logger.log(__file__, f"Created user {uname}", "INFO")
         TkServ.create_custom_msg(screen, "Message..", f"User has been\ncreated successfully")
     else:
         TkServ.create_custom_msg(screen, "Warning!", status)
