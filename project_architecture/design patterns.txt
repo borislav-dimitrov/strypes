@@ -1,0 +1,14 @@
+project ( 4 top level entities)
+
+when logging exceptions also log traceback
+
+value object -> short living immutale object (DTO - data transfer object)
+assets -> entities (long living object persisting in db)
+aggregate -> object that can live on its own without depending on other objects
+boundery context -> separate module (user management, order management etc) that can be developed separately
+repositories -> life cycle logic (CRUD)
+services -> business logic (controllers from MVC)
+
+design patterns
+
+povedencheski -> mvvm observer{eventlistener}
