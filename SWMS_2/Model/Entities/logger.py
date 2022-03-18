@@ -32,12 +32,12 @@ class MyLogger():
         for error/critical ->
             get the exception traceback -> tb = sys.exc_info()[2].tb_frame\n
             .log(__file__, "Message", "ERROR", type(ex), tb)
-        :param source:
-        :param message:
-        :param level:
-        :param err_type:
-        :param err_traceback:
-        :return:
+        :param source: File name we are logging from
+        :param message: Message to log
+        :param level: What type of log is it
+        :param err_type: False by default, if not provide exception type
+        :param err_traceback: False by default if not provide exception traceback
+        :return: None
         """
         if not self.check_log_level(level):
             return
