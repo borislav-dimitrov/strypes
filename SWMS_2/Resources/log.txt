@@ -1,0 +1,2 @@
+Timestamp: 18/03/22 17:43:08    -    ERROR    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_2\main.py    -    ErrType: <class 'TypeError'>    -    ErrTraceback: <frame at 0x0000017E83FD2320, file 'D:\\Pitonq\\Strypes_Project_GIT\\strypes\\SWMS_2\\main.py', line 13, code main>    -    Oops!
+Timestamp: 18/03/22 17:43:55    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_2\main.py   -   Success!

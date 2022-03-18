@@ -2,7 +2,7 @@ from datetime import datetime
 
 
 class MyLogger():
-    def __init__(self, enabled, file, log_level, rewrite_on_startup):
+    def __init__(self, enabled, file, log_level, rewrite_on_startup=False):
         self.enabled = enabled
         self.file = file
         self.all_log_levels = {"DEBUG": 10,
@@ -25,10 +25,29 @@ class MyLogger():
         else:
             return False
 
-    def log(self, source, message, level):
+    def log(self, source, message, level, err_type=False, err_traceback=False):
+        """
+        Usage\n
+        for debug/info/warning -> .log(__file__, "Message!", "INFO")\n\n
+        for error/critical ->
+            get the exception traceback -> tb = sys.exc_info()[2].tb_frame\n
+            .log(__file__, "Message", "ERROR", type(ex), tb)
+        :param source:
+        :param message:
+        :param level:
+        :param err_type:
+        :param err_traceback:
+        :return:
+        """
         if not self.check_log_level(level):
             return
         now = datetime.now()
         timestamp = now.strftime("%d/%m/%y %H:%M:%S")
+        msg = f"Timestamp: {timestamp}    -    {level}    -    Logged from: {source}   -   {message}\n"
+
+        if err_type != False and err_traceback != None:
+            msg = f"Timestamp: {timestamp}    -    {level}    -    Logged from: {source}    -    " \
+                  f"ErrType: {err_type}    -    ErrTraceback: {err_traceback}    -    {message}\n"
+
         with open(self.file, "a", encoding="utf-8") as f:
-            f.write(f"Timestamp: {timestamp}    -    {level}    -    Logged from: {source}   -   {message}\n")
+            f.write(msg)
