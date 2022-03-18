@@ -1,0 +1,11 @@
+Work Flow
+
+1. views -> I. tkinter class objects (user interfaces)
+
+2. controller -> I. react to the user actions, query the model for manipulations, update view
+
+3. model -> I. on the request execute the desired method from the corresponding module
+			II. save/load to/from DB
+
+3.1 module -> I. do the business logic 
+			II. with the help of the corresponding entity repository make the modification to the desired entity
