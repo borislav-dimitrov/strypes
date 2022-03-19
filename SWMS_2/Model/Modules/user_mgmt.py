@@ -1,3 +1,5 @@
+import sys
+
 import Model.Repositories.users_repo as urep
 import Model.DataBase.my_db as db
 import json as js
@@ -94,10 +96,10 @@ def delete_user(user_id: int, all_users: list, current_user_logged_in):
     status, message = urep.delete_user(user_id, all_users, current_user_logged_in)
 
     if status:
-        # TODO log
+        db.my_logger.log(__file__, message, "INFO")
         print(status, message)
     if not status:
-        # TODO log
+        db.my_logger.log(__file__, message, "WARNING")
         print(status, message)
 
 
@@ -108,7 +110,6 @@ def edit_user_name(user_id: int, new_name: str):
         return False
     user.user_name = new_name
     save_n_load_users()
-    # TODO log
     return True
 
 
@@ -120,7 +121,6 @@ def edit_user_password(user_id: int, new_pwd: str):
         return False
     user.user_password = urep.encrypt_pwd(new_pwd)
     save_n_load_users()
-    # TODO log
     return True
 
 
@@ -136,7 +136,6 @@ def edit_user_type(user_id: int, new_type: str):
 
     user.user_type = utype
     save_n_load_users()
-    # TODO log
     return True
 
 
@@ -151,19 +150,14 @@ def edit_user_status(user_id: int, new_stat: str):
         return False
     user.user_status = ustat
     save_n_load_users()
-    #TODO log
     return True
 
 
 def edit_user_last_login(user_id: int, new_last_login: str):
-    try:
-        user = urep.get_user_by_id(user_id, db.users)
-        user.last_login = new_last_login
-        #TODO log
-        return True
-    except Exception as ex:
-        print("Fail")
-        # TODO log
+    user = urep.get_user_by_id(user_id, db.users)
+    user.last_login = new_last_login
+    return True
+
 
 # endregion
 
@@ -184,26 +178,39 @@ def save_users():
             "user_status": user.user_status,
             "last_login": user.last_login
         })
-    db.save_data_to_json(data, output_file)
+    try:
+        db.save_data_to_json(data, output_file)
+    except Exception as ex:
+        msg = "Error saving users!"
+        tb = sys.exc_info()[2].tb_frame
+        db.my_logger.log(__file__, msg, "ERROR", type(ex), tb)
 
 
 def load_users():
-    # TODO try block and logging
-    with open("./Model/DataBase/users.json", "rt", encoding="utf-8") as file:
-        data = js.load(file)
+    try:
+        with open("./Model/DataBase/users.json", "rt", encoding="utf-8") as file:
+            data = js.load(file)
+    except Exception as ex:
+        msg = "Error reading file!"
+        tb = sys.exc_info()[2].tb_frame
+        db.my_logger.log(__file__, msg, "ERROR", type(ex), tb)
 
-    # TODO try block and logging
     db.users = []
-    for usr in data["users"]:
-        new_usr_id = "auto"
-        new_usr_name = usr["user_name"]
-        new_usr_pwd = usr["user_password"].encode("utf-8")
-        new_usr_type = usr["user_type"]
-        new_usr_stat = usr["user_status"]
-        new_usr_last_login = usr["last_login"]
+    try:
+        for usr in data["users"]:
+            new_usr_id = "auto"
+            new_usr_name = usr["user_name"]
+            new_usr_pwd = usr["user_password"].encode("utf-8")
+            new_usr_type = usr["user_type"]
+            new_usr_stat = usr["user_status"]
+            new_usr_last_login = usr["last_login"]
 
-        create_new_user(new_usr_id, new_usr_name, urep.decrypt_pwd(new_usr_pwd),
-                        new_usr_type, new_usr_stat, new_usr_last_login)
+            create_new_user(new_usr_id, new_usr_name, urep.decrypt_pwd(new_usr_pwd),
+                            new_usr_type, new_usr_stat, new_usr_last_login)
+    except Exception as ex:
+        msg = "Error Loading users!"
+        tb = sys.exc_info()[2].tb_frame
+        db.my_logger.log(__file__, msg, "ERROR", type(ex), tb)
 
 
 def save_n_load_users():

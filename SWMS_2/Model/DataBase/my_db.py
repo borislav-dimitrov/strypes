@@ -13,11 +13,12 @@ users = []
 products = []
 suppliers = []
 clients = []
-warehouses = []
+warehouses = ["none", "none2"]
 transactions = []
 
-
 # endregion
+
+allowed_types = cfg.WAREHOUSE_TYPES
 
 
 def spawn_logger():
@@ -29,6 +30,11 @@ def spawn_logger():
 def print_all_users():
     for user in users:
         print(user.entity_id, user.user_name, user.user_type, user.user_status, user.last_login)
+
+
+def print_all_products():
+    for product in products:
+        print(product.entity_id, product.product_name, product.product_type, product.buy_price, product.sell_price, product.assigned_wh)
 
 
 def get_new_entity_id(all_current_entities):

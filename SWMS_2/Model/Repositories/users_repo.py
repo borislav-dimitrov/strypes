@@ -60,8 +60,7 @@ def delete_user(user_id: int, all_users: list[User], current_user_logged_in: Use
             if user == current_user_logged_in:
                 return False, f"Cannot delete currently logged in user!"
             deleted_user_name = user.user_name
-            # get user index
-            index = 0
+            index = get_user_index(user_id, all_users)
             all_users.pop(index)
             return True, f"User {deleted_user_name} deleted successfully!"
     return False, f"User with id of {user_id} not found!"
@@ -103,5 +102,12 @@ def get_user_by_id(user_id: int, all_users: list[User]):
     for user in all_users:
         if user.entity_id == user_id:
             return user
+    return None
+
+
+def get_user_index(user_id, all_users):
+    for user in all_users:
+        if user.user_id == user_id:
+            return all_users.index(user)
     return None
 # endregion

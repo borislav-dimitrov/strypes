@@ -1,0 +1,13 @@
+{
+    "products": [
+        {
+            "entity_id": 1,
+            "product_name": "red paint",
+            "product_type": "Raw Materials",
+            "buy_price": 3.5,
+            "sell_price": 4.5,
+            "quantity": 10,
+            "assigned_warehouse": "none"
+        }
+    ]
+}

@@ -1,11 +1,12 @@
 import Model.DataBase.my_db as db
-import Model.Modules.user_mgmt as umgmt
+import Model.Modules.all_modules as Modules
 
 
 def main():
-    print("Hello World!")
-    umgmt.load_users()
-    db.print_all_users()
+    db.spawn_logger()
+    print("App is running!")
+    # Fix TODOS before going on
+    print("App is closing!")
 
 
 if __name__ == '__main__':

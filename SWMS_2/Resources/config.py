@@ -1,3 +1,5 @@
+WAREHOUSE_TYPES = ["Raw Materials", "Finished Goods"]
+
 # The key used for the password encryption
 # Usually it is better to be stored somewhere less exposed
 KEY = b'UldGNfHfPDDFdDpf-eLNx8rnoi9S-qyYEEKUI-MA3N4='
