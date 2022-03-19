@@ -1,12 +1,12 @@
 {
-    "login_users": [
+    "users": [
         {
-            "user_id": 1,
-            "user_uname": "asd",
-            "user_pwd": "gAAAAABiEOHVbTSPFJzkgTe_Bw4vje0_zv3939HIz450CbjPzIdwqdxwplUK4276n91csdp1yphrgHa-Wm3NENcTE7Jz21u35A==",
+            "entity_id": 1,
+            "user_name": "bobi",
+            "user_password": "gAAAAABiNdvZXmCSw5sQXNJrjPuGj5stZS0tvfG4PnM3fNQyOcBwaencbv4iNkWffSLsqa2H7RaVLB54GS5uXxLJ8uJOngXnQg==",
             "user_type": "Administrator",
-            "user_status": "Active",
-            "user_last_login": "22/02/23 16:57:03"
+            "user_status": "ENABLED",
+            "last_login": ""
         }
     ]
 }

@@ -1,5 +1,6 @@
 from Model.Entities.logger import MyLogger
 import Resources.config as cfg
+import json as js
 
 # region Tracking
 my_logger = ""
@@ -8,7 +9,7 @@ opened_pages = []
 # endregion
 
 # region Entities
-login_users = []
+users = []
 products = []
 suppliers = []
 clients = []
@@ -23,3 +24,25 @@ def spawn_logger():
     logger = MyLogger(cfg.LOG_ENABLED, cfg.DEFAULT_LOG_FILE,
                       cfg.LOG_LEVEL, cfg.REWRITE_LOG_ON_STARTUP)
     return logger
+
+
+def print_all_users():
+    for user in users:
+        print(user.entity_id, user.user_name, user.user_type, user.user_status, user.last_login)
+
+
+def get_new_entity_id(all_current_entities):
+    current_ids = [0]
+    id = 0
+    for entity in all_current_entities:
+        current_ids.append(entity.entity_id)
+
+    while id in current_ids:
+        id += 1
+
+    return id
+
+
+def save_data_to_json(data, file):
+    with open(file, "wt", encoding="utf-8") as f:
+        f.write(js.dumps(data, indent=4))
