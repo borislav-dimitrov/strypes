@@ -43,10 +43,6 @@ def create_user(id_, name, pwd, type_, status, last_login):
     return new_user
 
 
-def edit_user():
-    pass
-
-
 def delete_user(user_id: int, all_users: list[User], current_user_logged_in: User) -> tuple[bool, str]:
     """
     Delete user buy id
@@ -107,7 +103,7 @@ def get_user_by_id(user_id: int, all_users: list[User]):
 
 def get_user_index(user_id, all_users):
     for user in all_users:
-        if user.user_id == user_id:
+        if user.entity_id == user_id:
             return all_users.index(user)
     return None
 # endregion

@@ -13,7 +13,7 @@ users = []
 products = []
 suppliers = []
 clients = []
-warehouses = ["none", "none2"]
+warehouses = []
 transactions = []
 
 # endregion
@@ -34,7 +34,14 @@ def print_all_users():
 
 def print_all_products():
     for product in products:
-        print(product.entity_id, product.product_name, product.product_type, product.buy_price, product.sell_price, product.assigned_wh)
+        print(product.entity_id, product.product_name, product.product_type, product.buy_price, product.sell_price,
+              product.assigned_wh)
+
+
+def print_all_warehouses():
+    for warehouse in warehouses:
+        print(warehouse.entity_id, warehouse.wh_name, warehouse.wh_type,
+              warehouse.wh_capacity, warehouse.wh_products, warehouse.wh_status)
 
 
 def get_new_entity_id(all_current_entities):
@@ -47,6 +54,13 @@ def get_new_entity_id(all_current_entities):
         id += 1
 
     return id
+
+
+def validate_entity_id(id_, all_entities):
+    for item in all_entities:
+        if item.entity_id == id_:
+            return False
+    return True
 
 
 def save_data_to_json(data, file):

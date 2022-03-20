@@ -1,4 +1,4 @@
-WAREHOUSE_TYPES = ["Raw Materials", "Finished Goods"]
+WAREHOUSE_TYPES = ["Virtual", "Raw Materials", "Finished Goods"]
 
 # The key used for the password encryption
 # Usually it is better to be stored somewhere less exposed

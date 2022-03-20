@@ -196,7 +196,7 @@ def load_products():
     db.products = []
     try:
         for prod in data["products"]:
-            new_prod_id = "auto"
+            new_prod_id = prod["entity_id"]
             new_prod_name = prod["product_name"]
             new_prod_type = prod["product_type"]
             new_buy_price = prod["buy_price"]
