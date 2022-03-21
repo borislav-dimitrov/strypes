@@ -41,11 +41,6 @@ def create_new_wh(id_, name, type_, capacity, products: list, status):
         print("Invalid capacity!")
         return
 
-    valid_products, msg = whrep.validate_products(products)
-    if not valid_products:
-        print(msg)
-        return
-
     status = whrep.validate_status(status)
     if status == -1:
         print("Invalid status")
@@ -132,7 +127,7 @@ def save_whs():
             "warehouse_name": warehouse.wh_name,
             "warehouse_type": warehouse.wh_type,
             "warehouse_capacity": warehouse.wh_capacity,
-            "warehouse_products": warehouse.wh_products,
+            "warehouse_products": [f"{p.product_name} x {p.quantity}" for p in warehouse.wh_products],
             "warehouse_status": warehouse.wh_status
         })
 
@@ -161,7 +156,7 @@ def load_whs():
             new_wh_name = warehouse["warehouse_name"]
             new_wh_type = warehouse["warehouse_type"]
             new_wh_capacity = warehouse["warehouse_capacity"]
-            new_wh_products = warehouse["warehouse_products"]
+            new_wh_products = []
             new_wh_status = warehouse["warehouse_status"]
 
             create_new_wh(new_wh_id, new_wh_name, new_wh_type, new_wh_capacity,

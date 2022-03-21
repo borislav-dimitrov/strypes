@@ -5,7 +5,10 @@
             "warehouse_name": "Virtual01",
             "warehouse_type": "Virtual",
             "warehouse_capacity": 99999999999999999,
-            "warehouse_products": [],
+            "warehouse_products": [
+                "red paint x 10",
+                "red paint x 1000"
+            ],
             "warehouse_status": "ENABLED"
         },
         {
@@ -21,7 +24,9 @@
             "warehouse_name": "sklad02",
             "warehouse_type": "finished goods",
             "warehouse_capacity": 1000,
-            "warehouse_products": [],
+            "warehouse_products": [
+                "red paint x 1"
+            ],
             "warehouse_status": "ENABLED"
         }
     ]

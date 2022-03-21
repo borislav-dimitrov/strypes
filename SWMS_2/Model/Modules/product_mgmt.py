@@ -52,13 +52,6 @@ def create_new_product(id_, name: str, type_: str, b_price: float, s_price: floa
         return False
     # endregion
 
-    # TODO
-    #   if same product exist:
-    #       if assigned wh have capacity:
-    #           find product, increase quantity, add the product OBJECT to warehouse assigned products
-    #       else -> create as new product
-    #   else -> create as new product
-
     exists, product = prepo.check_product_exist(name, type_, b_price, s_price, quantity, assigned_wh, db.products)
     # If product already exist
     if exists:
@@ -77,13 +70,13 @@ def create_new_product(id_, name: str, type_: str, b_price: float, s_price: floa
         wh = whmgmt.get_wh_by_name(assigned_wh)
         total, free = whmgmt.wh_capacity_info(wh)
         # If no space in assigned warehouse
-        # TODO problem here with current test scenario !!!
         if free >= quantity:
             new_prod = prepo.create_product(id_, name, type_, b_price, s_price, quantity, assigned_wh)
         # Create in virtual warehouse
         else:
             new_prod = prepo.create_product(id_, name, type_, b_price, s_price, quantity, "Virtual01")
         db.products.append(new_prod)
+        whmgmt.hook_products_to_warehouse()
         return True
 
 

@@ -16,15 +16,6 @@ def validate_type(type_, all_types):
     return -1
 
 
-def validate_products(products: list[int]):
-    for product in products:
-        if not isinstance(product, int):
-            return False, "Products list should be only numbers."
-
-    # TODO validate that products are existing
-    return True, ""
-
-
 def validate_status(status):
     if status.lower() == "enabled":
         return "ENABLED"
