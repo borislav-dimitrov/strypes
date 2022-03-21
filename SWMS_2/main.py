@@ -3,8 +3,8 @@ import Model.Modules.all_modules as Modules
 
 # region TODOs
 """
-    1.1 Implement warehouses
-        1.2 Do TODOs
+    1 think of a way of loading/creating warehouses and products
+    2 Do TODOs
 """
 
 
@@ -12,13 +12,11 @@ import Model.Modules.all_modules as Modules
 
 
 def main():
-    db.spawn_logger()
+    db.startup()
     print("App is running!")
-    Modules.whmgmt.create_new_wh("auto", "Virtual", "Virtual", 99999999999999999, [], "ENABLED")
-    Modules.whmgmt.create_new_wh("auto", "sklad01", "raw materials", 10000, [], "ENABLED")
-    Modules.whmgmt.create_new_wh("auto", "sklad02", "finished goods", 10000, [], "ENABLED")
-
+    db.print_all_users()
     db.print_all_warehouses()
+    db.print_all_products()
     print("App is closing!")
 
 

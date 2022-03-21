@@ -1,6 +1,7 @@
 from Model.Entities.logger import MyLogger
 import Resources.config as cfg
 import json as js
+import Model.Modules.all_modules as Modules
 
 # region Tracking
 my_logger = ""
@@ -48,7 +49,7 @@ def get_new_entity_id(all_current_entities):
     current_ids = [0]
     id = 0
     for entity in all_current_entities:
-        current_ids.append(entity.entity_id)
+        current_ids.append(int(entity.entity_id))
 
     while id in current_ids:
         id += 1
@@ -66,3 +67,10 @@ def validate_entity_id(id_, all_entities):
 def save_data_to_json(data, file):
     with open(file, "wt", encoding="utf-8") as f:
         f.write(js.dumps(data, indent=4))
+
+
+def startup():
+    spawn_logger()
+    Modules.umgmt.load_users()
+    Modules.whmgmt.load_whs()
+    Modules.prmgmt.load_products()

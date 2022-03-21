@@ -191,14 +191,14 @@ def load_users():
         with open("./Model/DataBase/users.json", "rt", encoding="utf-8") as file:
             data = js.load(file)
     except Exception as ex:
-        msg = "Error reading file!"
+        msg = "Error reading users file!"
         tb = sys.exc_info()[2].tb_frame
         db.my_logger.log(__file__, msg, "ERROR", type(ex), tb)
 
     db.users = []
     try:
         for usr in data["users"]:
-            new_usr_id = "auto"
+            new_usr_id = usr["entity_id"]
             new_usr_name = usr["user_name"]
             new_usr_pwd = usr["user_password"].encode("utf-8")
             new_usr_type = usr["user_type"]

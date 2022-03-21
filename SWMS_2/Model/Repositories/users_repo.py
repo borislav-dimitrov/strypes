@@ -61,7 +61,6 @@ def delete_user(user_id: int, all_users: list[User], current_user_logged_in: Use
             return True, f"User {deleted_user_name} deleted successfully!"
     return False, f"User with id of {user_id} not found!"
 
-
 # endregion
 
 # region Password

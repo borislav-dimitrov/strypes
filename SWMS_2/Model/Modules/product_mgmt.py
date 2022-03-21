@@ -11,9 +11,10 @@ def validate_id(id_):
     if id_ == "auto":
         uid = db.get_new_entity_id(db.products)
         return uid
-    if id_ != "auto" and not id_.isnumeric():
-        print("Invalid id!")
-        return False
+    else:
+        is_valid = db.validate_entity_id(id_, db.products)
+        if not is_valid:
+            return "ID already exist"
     return id_
 
 
@@ -37,9 +38,10 @@ def validate_price(price):
 
 
 def validate_assigned_wh(wh):
-    if wh not in db.warehouses:
-        return False
-    return True
+    for warehouse in db.warehouses:
+        if warehouse.wh_name.lower() == wh.lower():
+            return True
+    return False
 
 
 # endregion
@@ -58,10 +60,8 @@ def create_new_product(id_, name: str, type_: str, bprice: float, sprice: float,
     :param assigned_wh: Product assigned to warehouse
     :return: True/False
     """
-
     pid = validate_id(id_)
-    if not pid:
-        print("Invalid id!")
+    if isinstance(pid, str):
         return False
 
     ptype = validate_type(type_)
