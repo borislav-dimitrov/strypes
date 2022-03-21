@@ -12,7 +12,7 @@
             "entity_id": 2,
             "warehouse_name": "sklad01",
             "warehouse_type": "raw materials",
-            "warehouse_capacity": 10000,
+            "warehouse_capacity": 1000,
             "warehouse_products": [],
             "warehouse_status": "ENABLED"
         },
@@ -20,7 +20,7 @@
             "entity_id": 3,
             "warehouse_name": "sklad02",
             "warehouse_type": "finished goods",
-            "warehouse_capacity": 10000,
+            "warehouse_capacity": 1000,
             "warehouse_products": [],
             "warehouse_status": "ENABLED"
         }

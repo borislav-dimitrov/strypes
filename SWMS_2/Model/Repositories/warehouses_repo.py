@@ -32,11 +32,13 @@ def validate_status(status):
         return "DISABLED"
     else:
         return -1
+
+
 # endregion
 
 
 # region CRUD
-def create_warehouse(id_, name, type_, capacity, products: list[int], status):
+def create_warehouse(id_, name, type_, capacity, products: list, status):
     new_wh = Warehouse(id_, name, type_, capacity, products, status)
     return new_wh
 
@@ -72,5 +74,12 @@ def get_wh_index(id_, all_wh):
     for warehouse in all_wh:
         if warehouse.entity_id == id_:
             return all_wh.index(warehouse)
+    return None
+
+
+def get_wh_by_name(name, all_wh):
+    for warehouse in all_wh:
+        if warehouse.wh_name.lower() == name.lower():
+            return warehouse
     return None
 # endregion

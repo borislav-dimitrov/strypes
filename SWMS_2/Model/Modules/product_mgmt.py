@@ -2,79 +2,43 @@ import sys
 
 import Model.DataBase.my_db as db
 import Model.Repositories.products_repo as prepo
+import Model.Modules.warehouse_mgmt as whmgmt
 import json as js
 
 
-# region Validations
-
-def validate_id(id_):
-    if id_ == "auto":
-        uid = db.get_new_entity_id(db.products)
-        return uid
-    else:
-        is_valid = db.validate_entity_id(id_, db.products)
-        if not is_valid:
-            return "ID already exist"
-    return id_
-
-
-def validate_type(type_):
-    prod_type = "none"
-    for item in db.allowed_types:
-        if type_.lower() in item.lower():
-            prod_type = item
-    if prod_type == "none":
-        print(f"Invalid product type {type_}!")
-        return False
-    return prod_type
-
-
-def validate_price(price):
-    if isinstance(price, float):
-        return price
-    if isinstance(price, int):
-        return float(price)
-    return False
-
-
-def validate_assigned_wh(wh):
-    for warehouse in db.warehouses:
-        if warehouse.wh_name.lower() == wh.lower():
-            return True
-    return False
-
-
-# endregion
-
-
 # region CRUD
-def create_new_product(id_, name: str, type_: str, bprice: float, sprice: float, quantity: int, assigned_wh):
+def create_new_product(id_, name: str, type_: str, b_price: float, s_price: float, quantity: int, assigned_wh):
     """
     Create new product
     :param id_: Id as int or "auto"
     :param name: Product name
     :param type_: Product type
-    :param bprice: Product buy price
-    :param sprice: Product sell price
+    :param b_price: Product buy price
+    :param s_price: Product sell price
     :param quantity: Product quantity
     :param assigned_wh: Product assigned to warehouse
     :return: True/False
     """
-    pid = validate_id(id_)
-    if isinstance(pid, str):
-        return False
 
-    ptype = validate_type(type_)
-    if not ptype:
+    # region Validations
+    if id_ == "auto":
+        id_ = db.get_new_entity_id(db.products)
+    else:
+        is_valid = db.validate_entity_id(id_, db.products)
+        if not is_valid:
+            return False
+
+    type_ = prepo.validate_type(type_, db.allowed_types)
+    if not type_:
         print("Invalid type")
         return False
 
-    b_price = validate_price(bprice)
+    b_price = prepo.validate_price(b_price)
     if not b_price:
         print("Invalid buy price!")
         return False
 
-    s_price = validate_price(sprice)
+    s_price = prepo.validate_price(s_price)
     if not s_price:
         print("Invalid sell price!")
         return False
@@ -83,16 +47,44 @@ def create_new_product(id_, name: str, type_: str, bprice: float, sprice: float,
         print("Invalid quantity!")
         return False
 
-    if not validate_assigned_wh(assigned_wh):
+    if not prepo.validate_assigned_wh(assigned_wh, db.warehouses):
         print("Invalid warehouse to assign!")
         return False
+    # endregion
 
-    # TODO assign wh id not object !!!!
-    # TODO check if there is enough space in the assigned warehouse
-    # TODO if not create with assigned none
-    new_prod = prepo.create_product(pid, name, ptype, b_price, s_price, quantity, assigned_wh)
-    db.products.append(new_prod)
-    return True
+    # TODO
+    #   if same product exist:
+    #       if assigned wh have capacity:
+    #           find product, increase quantity, add the product OBJECT to warehouse assigned products
+    #       else -> create as new product
+    #   else -> create as new product
+
+    exists, product = prepo.check_product_exist(name, type_, b_price, s_price, quantity, assigned_wh, db.products)
+    # If product already exist
+    if exists:
+        wh = whmgmt.get_wh_by_name(assigned_wh)
+        total, free = whmgmt.wh_capacity_info(wh)
+        # Increase quantity if possible
+        if free >= quantity:
+            product.quantity += quantity
+        # Else create as new product with new id and assigned to virtual warehouse
+        else:
+            new_prod = prepo.create_product(db.get_new_entity_id(db.products), name,
+                                            type_, b_price, s_price, quantity, "Virtual01")
+            db.products.append(new_prod)
+    # Else create new product
+    else:
+        wh = whmgmt.get_wh_by_name(assigned_wh)
+        total, free = whmgmt.wh_capacity_info(wh)
+        # If no space in assigned warehouse
+        # TODO problem here with current test scenario !!!
+        if free >= quantity:
+            new_prod = prepo.create_product(id_, name, type_, b_price, s_price, quantity, assigned_wh)
+        # Create in virtual warehouse
+        else:
+            new_prod = prepo.create_product(id_, name, type_, b_price, s_price, quantity, "Virtual01")
+        db.products.append(new_prod)
+        return True
 
 
 def delete_product(id_):
@@ -110,7 +102,7 @@ def edit_product_name(id_, new_name):
 
 def edit_product_type(id_, new_type):
     product = prepo.get_product_by_id(id_, db.products)
-    ptype = validate_type(new_type)
+    ptype = prepo.validate_type(new_type, db.allowed_types)
     if not ptype:
         print("Invalid type")
         return False
@@ -120,7 +112,7 @@ def edit_product_type(id_, new_type):
 
 def edit_product_bprice(id_, new_price):
     product = prepo.get_product_by_id(id_, db.products)
-    price = validate_price(new_price)
+    price = prepo.validate_price(new_price)
     if not price:
         print("Invalid buy price!")
         return False
@@ -129,7 +121,7 @@ def edit_product_bprice(id_, new_price):
 
 def edit_product_sprice(id_, new_price):
     product = prepo.get_product_by_id(id_, db.products)
-    price = validate_price(new_price)
+    price = prepo.validate_price(new_price)
     if not price:
         print("Invalid buy price!")
         return False
@@ -141,22 +133,25 @@ def edit_product_quantity(id_, new_quantity):
     if not isinstance(new_quantity, int):
         print("Invalid quantity!")
         return False
-    # TODO check if assigned_wh have space
-    have_space = True
-    if have_space:
+    wh = whmgmt.get_wh_by_name(product.assigned_wh)
+    total, free = whmgmt.wh_capacity_info(wh)
+    if free >= (new_quantity - product.quantity):
         product.quantity = new_quantity
         return True
     else:
-        print("Not enough room in assigned warehouse!")
-        return False
+        create_new_product("auto", product.product_name, product.product_type,
+                           product.buy_price, product.sell_price, new_quantity - product.quantity, "Virtual01")
+        whmgmt.hook_products_to_warehouse()
+        return True
 
 
-def edit_product_assigned_warehouse(id_, new_wh):
+def edit_product_assigned_warehouse(id_, new_wh_name):
     product = prepo.get_product_by_id(id_, db.products)
-    if not validate_assigned_wh(new_wh):
+    if not prepo.validate_assigned_wh(new_wh_name, db.warehouses):
         print("Invalid warehouse to assign!")
         return False
-    product.assigned_wh = new_wh
+    product.assigned_wh = new_wh_name
+    whmgmt.hook_products_to_warehouse()
     return True
 
 

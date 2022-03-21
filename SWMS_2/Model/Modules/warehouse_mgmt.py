@@ -5,8 +5,20 @@ import Model.DataBase.my_db as db
 import json as js
 
 
+# region CHECKS
+def wh_capacity_info(warehouse):
+    total = 0
+    for product in warehouse.wh_products:
+        total += product.quantity
+    free = warehouse.wh_capacity - total
+    return warehouse.wh_capacity, free
+
+
+# endregion
+
+
 # region CRUD
-def create_new_wh(id_, name, type_, capacity, products: list[int], status):
+def create_new_wh(id_, name, type_, capacity, products: list, status):
     # region Validations
     if id_ == "auto":
         id_ = db.get_new_entity_id(db.warehouses)
@@ -83,12 +95,15 @@ def edit_wh_capacity(id_, new_capacity):
     return True, "Success"
 
 
-def edit_wh_stored_products(id_, new_products: list[int]):
+def edit_wh_stored_products(id_, new_products: list):
     warehouse = whrep.get_wh_by_id(id_, db.warehouses)
-    valid_products, msg = whrep.validate_products(new_products)
-    if not valid_products:
-        return False, msg
     warehouse.wh_products = new_products
+    return True, "Success"
+
+
+def add_product_to_wh(id_, new_product):
+    warehouse = whrep.get_wh_by_id(id_, db.warehouses)
+    warehouse.wh_products.append(new_product)
     return True, "Success"
 
 
@@ -161,4 +176,25 @@ def load_whs():
 def reload_whs():
     save_whs()
     load_whs()
+
+
+# endregion
+
+
+# region OTHER
+def hook_products_to_warehouse():
+    for warehouse in db.warehouses:
+        warehouse.wh_products = []
+
+        for product in db.products:
+            if product.assigned_wh.lower() == warehouse.wh_name.lower():
+                warehouse.wh_products.append(product)
+
+
+def get_wh_by_name(name):
+    return whrep.get_wh_by_name(name, db.warehouses)
+
+
+def get_wh_by_id(id_):
+    return whrep.get_wh_by_id(id_, db.warehouses)
 # endregion

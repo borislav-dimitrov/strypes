@@ -28,6 +28,7 @@ def spawn_logger():
     return logger
 
 
+# region Prints
 def print_all_users():
     for user in users:
         print(user.entity_id, user.user_name, user.user_type, user.user_status, user.last_login)
@@ -36,13 +37,16 @@ def print_all_users():
 def print_all_products():
     for product in products:
         print(product.entity_id, product.product_name, product.product_type, product.buy_price, product.sell_price,
-              product.assigned_wh)
+              product.quantity, product.assigned_wh)
 
 
 def print_all_warehouses():
     for warehouse in warehouses:
         print(warehouse.entity_id, warehouse.wh_name, warehouse.wh_type,
               warehouse.wh_capacity, warehouse.wh_products, warehouse.wh_status)
+
+
+# endregion
 
 
 def get_new_entity_id(all_current_entities):
@@ -74,3 +78,4 @@ def startup():
     Modules.umgmt.load_users()
     Modules.whmgmt.load_whs()
     Modules.prmgmt.load_products()
+    Modules.whmgmt.hook_products_to_warehouse()
