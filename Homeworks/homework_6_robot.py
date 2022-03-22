@@ -43,10 +43,9 @@ def test_starting_point(board, r, c, rows, columns):
     curr_cell = board[r][c]
 
     try:
-        while (row, col) not in passed_through:
+        while (row, col) not in passed_through:  # Robot shutdown
             passed_through.append((row, col))
 
-            # Check the direction
             if curr_cell.lower() == "r":
                 curr_cell, row, col = move_bot_to(row, col, board, "r")
             elif curr_cell.lower() == "l":
@@ -57,6 +56,7 @@ def test_starting_point(board, r, c, rows, columns):
                 curr_cell, row, col = move_bot_to(row, col, board, "d")
 
             if row < 0 or col < 0 or row > rows - 1 or col > columns - 1:
+                # Robot fell
                 break
 
     except IndexError as ex:
@@ -65,7 +65,6 @@ def test_starting_point(board, r, c, rows, columns):
     except Exception as ex:
         print("Ooops!", type(ex), ex)
     finally:
-        # Robot shutdown
         return [r + 1, c + 1, len(passed_through)]
 
 
