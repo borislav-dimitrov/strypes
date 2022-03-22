@@ -1,3 +1,7 @@
+import os.path
+import sys
+
+
 def read_whole_file(file):
     with open(file, "rt", encoding="utf-8") as f:
         lines = f.readlines()
@@ -108,17 +112,26 @@ def test_robot(info):
     return format_tests(results)
 
 
-def main():
-    info = r_file_and_prep_info("./files/robot.txt")
-    answer = test_robot(info)
-    for answ in answer:
-        if len(answ) == 1:
-            print(*answ[0])
+def main(file):
+    info = r_file_and_prep_info(file)
+    answers = test_robot(info)
+    for answer in answers:
+        if len(answer) == 1:
+            print(*answer[0])
         else:
-            tmp_answ = ""
-            for i in answ:
-                tmp_answ += f"{i[0]} {i[1]} {i[2]};"
-            print(tmp_answ[:-1])
+            tmp_answer = ""
+            for i in answer:
+                tmp_answer += f"{i[0]} {i[1]} {i[2]};"
+            print(tmp_answer[:-1])
 
 
-main()
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        filename = sys.argv[1]
+    else:
+        filename = input("Input file name: ")
+
+    if not os.path.exists(filename):
+        print(f"File '{filename}' not found!")
+    else:
+        main(filename)
