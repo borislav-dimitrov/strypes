@@ -1,3 +1,6 @@
+import operator
+
+
 def read_whole_file(file):
     with open(file, "rt", encoding="utf-8") as f:
         lines = f.readlines()
@@ -65,14 +68,33 @@ def test_starting_point(board, r, c):
 
 
 def filter_tests(tests):
+    current_tests = []
+    for item in tests:
+        current_tests.append([int(num) for num in item.split(" ")])
+
+    sorted_ = sorted(current_tests, key=operator.itemgetter(2), reverse=True)
+    final = []
+    for i in sorted_:
+        if i[2] == sorted_[0][2]:
+            final.append(i)
+
+    print(final)
+    # final = []
+    # for item in sorted_:
+    #     if item[2] == sorted_[0][2]:
+    #         final.append(item)
+    # print(final)
+
+
+def format_tests(tests):
     answers = []
     for i in tests:
         if len(i) > 1:
-            tmp = []
+            current = []
             for a in i:
-                tmp.append(" ".join(a))
-            answers.append(tmp)
-            # TODO filter tmp answers
+                current.append(" ".join(a))
+            filter_tests(current)
+            answers.append(current)
         else:
             answers.append(" ".join(i[0]))
     return answers
@@ -104,7 +126,7 @@ def test_robot(info):
             r = ", ".join(str(z) for z in a)
             tmp_res.append(r.split(", "))
         answer.append(tmp_res)
-    return filter_tests(answer)
+    return format_tests(answer)
 
 
 def main():
