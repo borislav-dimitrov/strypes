@@ -64,6 +64,20 @@ def test_starting_point(board, r, c):
         return {"start_row": r + 1, "start_col": c + 1, "total_moves": len(passed_through)}
 
 
+def filter_tests(tests):
+    answers = []
+    for i in tests:
+        if len(i) > 1:
+            tmp = []
+            for a in i:
+                tmp.append(" ".join(a))
+            answers.append(tmp)
+            # TODO filter tmp answers
+        else:
+            answers.append(" ".join(i[0]))
+    return answers
+
+
 def test_case(case):
     rows = int(case["height"])
     columns = int(case["width"])
@@ -73,11 +87,8 @@ def test_case(case):
         for col in range(0, columns):
             tst = test_starting_point(board, row, col)
             case_tests.append(tst)
-    final_cases = []
-    for i in case_tests:
-        final_cases.append((i["start_row"], i["start_col"], i["total_moves"]))
-    print(final_cases)
-    return final_cases
+
+    return case_tests
 
 
 def test_robot(info):
@@ -85,12 +96,24 @@ def test_robot(info):
     for case in info["cases"]:
         results.append(test_case(case))
 
-    return results
+    answer = []
+    for res in results:
+        tmp_res = []
+        for r in res:
+            a = r.values()
+            r = ", ".join(str(z) for z in a)
+            tmp_res.append(r.split(", "))
+        answer.append(tmp_res)
+    return filter_tests(answer)
 
 
 def main():
     info = r_file_and_prep_info("./files/robot.txt")
     for result in test_robot(info):
-        pass
+        if isinstance(result, list):
+            print(";".join(result))
+        else:
+            print(result)
+
 
 main()
