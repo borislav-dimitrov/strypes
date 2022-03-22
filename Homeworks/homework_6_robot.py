@@ -1,6 +1,3 @@
-import operator
-
-
 def read_whole_file(file):
     with open(file, "rt", encoding="utf-8") as f:
         lines = f.readlines()
@@ -27,77 +24,68 @@ def r_file_and_prep_info(file):
     return task
 
 
-def move_bot_to(pos, board, direction):
+def move_bot_to(row, col, board, direction):
     if direction == "r":
-        pos[1] += 1
-    if direction == "l":
-        pos[1] -= 1
-    if direction == "u":
-        pos[0] -= 1
-    if direction == "d":
-        pos[0] += 1
-    return board[pos[0]][pos[1]]
+        col += 1
+    elif direction == "l":
+        col -= 1
+    elif direction == "u":
+        row -= 1
+    elif direction == "d":
+        row += 1
+    return board[row][col], row, col
 
 
-def test_starting_point(board, r, c):
+def test_starting_point(board, r, c, rows, columns):
     passed_through = []
-    steps = 0
-    curr_pos = [r, c]
+    row = r
+    col = c
     curr_cell = board[r][c]
 
     try:
-        while tuple(curr_pos) not in passed_through:
-            passed_through.append(tuple(curr_pos))
+        while (row, col) not in passed_through:
+            passed_through.append((row, col))
 
-            if curr_cell.lower() == "r" and (curr_pos[0], curr_pos[1] + 1) not in passed_through:
-                curr_cell = move_bot_to(curr_pos, board, "r")
-            if curr_cell.lower() == "l" and (curr_pos[0], curr_pos[1] - 1) not in passed_through:
-                curr_cell = move_bot_to(curr_pos, board, "l")
-            if curr_cell.lower() == "u" and (curr_pos[0] + 1, curr_pos[1]) not in passed_through:
-                curr_cell = move_bot_to(curr_pos, board, "u")
-            if curr_cell.lower() == "d" and (curr_pos[0] - 1, curr_pos[1]) not in passed_through:
-                curr_cell = move_bot_to(curr_pos, board, "d")
+            # Check the direction
+            if curr_cell.lower() == "r":
+                curr_cell, row, col = move_bot_to(row, col, board, "r")
+            elif curr_cell.lower() == "l":
+                curr_cell, row, col = move_bot_to(row, col, board, "l")
+            elif curr_cell.lower() == "u":
+                curr_cell, row, col = move_bot_to(row, col, board, "u")
+            elif curr_cell.lower() == "d":
+                curr_cell, row, col = move_bot_to(row, col, board, "d")
+
+            if row < 0 or col < 0 or row > rows - 1 or col > columns - 1:
+                break
+
     except IndexError as ex:
         # Robot fell off the table
-        return {"start_row": r + 1, "start_col": c + 1, "total_moves": len(passed_through) + 1}
+        return [r + 1, c + 1, len(passed_through) + 1]
     except Exception as ex:
         print("Ooops!", type(ex), ex)
     finally:
         # Robot shutdown
-        return {"start_row": r + 1, "start_col": c + 1, "total_moves": len(passed_through)}
-
-
-def filter_tests(tests):
-    current_tests = []
-    for item in tests:
-        current_tests.append([int(num) for num in item.split(" ")])
-
-    sorted_ = sorted(current_tests, key=operator.itemgetter(2), reverse=True)
-    final = []
-    for i in sorted_:
-        if i[2] == sorted_[0][2]:
-            final.append(i)
-
-    print(final)
-    # final = []
-    # for item in sorted_:
-    #     if item[2] == sorted_[0][2]:
-    #         final.append(item)
-    # print(final)
+        return [r + 1, c + 1, len(passed_through)]
 
 
 def format_tests(tests):
-    answers = []
-    for i in tests:
-        if len(i) > 1:
-            current = []
-            for a in i:
-                current.append(" ".join(a))
-            filter_tests(current)
-            answers.append(current)
-        else:
-            answers.append(" ".join(i[0]))
-    return answers
+    answer = []
+    for test in tests:
+        highest_moves = 0
+        for case in test:
+            if case[2] > highest_moves:
+                highest_moves = case[2]
+
+        top_cases = []
+        for case in test:
+            if case[2] == highest_moves:
+                top_cases.append(case)
+
+        if top_cases:
+            answer.append(top_cases)
+
+    return answer
 
 
 def test_case(case):
@@ -107,7 +95,7 @@ def test_case(case):
     case_tests = []
     for row in range(0, rows):
         for col in range(0, columns):
-            tst = test_starting_point(board, row, col)
+            tst = test_starting_point(board, row, col, rows, columns)
             case_tests.append(tst)
 
     return case_tests
@@ -118,24 +106,20 @@ def test_robot(info):
     for case in info["cases"]:
         results.append(test_case(case))
 
-    answer = []
-    for res in results:
-        tmp_res = []
-        for r in res:
-            a = r.values()
-            r = ", ".join(str(z) for z in a)
-            tmp_res.append(r.split(", "))
-        answer.append(tmp_res)
-    return format_tests(answer)
+    return format_tests(results)
 
 
 def main():
     info = r_file_and_prep_info("./files/robot.txt")
-    for result in test_robot(info):
-        if isinstance(result, list):
-            print(";".join(result))
+    answer = test_robot(info)
+    for answ in answer:
+        if len(answ) == 1:
+            print(*answ[0])
         else:
-            print(result)
+            tmp_answ = ""
+            for i in answ:
+                tmp_answ += f"{i[0]} {i[1]} {i[2]};"
+            print(tmp_answ[:-1])
 
 
 main()

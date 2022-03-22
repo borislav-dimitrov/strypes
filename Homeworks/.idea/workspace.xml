@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5d61a798-1ddb-4c70-91b5-8341390f1970" name="Changes" comment="hw 6">
+    <list default="true" id="5d61a798-1ddb-4c70-91b5-8341390f1970" name="Changes" comment="hw 6 robot , format the output">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/homework_6_robot.py" beforeDir="false" afterPath="$PROJECT_DIR$/homework_6_robot.py" afterDir="false" />
     </list>
@@ -20,7 +20,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="26jGSrmeS6X5qSzzfqIglp1zrAO" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -98,16 +100,5 @@
     <MESSAGE value="init homeworks project on laptop" />
     <MESSAGE value="hw 6" />
     <option name="LAST_COMMIT_MESSAGE" value="hw 6" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/homework_6_robot.py</url>
-          <line>80</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
