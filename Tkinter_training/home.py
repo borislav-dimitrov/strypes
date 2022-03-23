@@ -17,6 +17,7 @@ class MyHome:
         self.text_bold = ("Arial", 12, "bold")
         self.heading = ("Arial", 15, "bold")
         self.admin = True
+
         # region Styles
 
         # region Buttons
@@ -40,8 +41,7 @@ class MyHome:
         self.cancel_btn_style.map('Red.TButton', background=[('active', 'red')])
 
         self.normal_btn_style.configure('Normal.TButton', background='#4bb8ff', foreground='black', width=15,
-                                        borderwidth=1,
-                                        font=self.text_bold,
+                                        borderwidth=1, font=self.text_bold,
                                         focusthickness=5, focuscolor='#98ff61')
         self.normal_btn_style.map('Normal.TButton', background=[('active', '#4bb8ff')])
         # endregion
@@ -49,6 +49,7 @@ class MyHome:
         # endregion
 
         self.m_screen.iconbitmap("./images/main_ico.ico")
+
         # Set Geometry
         self.m_screen.geometry(f"{self.width}x{self.height}+{int(self.x)}+{int(self.y)}")
         self.m_screen.resizable(False, False)
@@ -57,10 +58,9 @@ class MyHome:
         # Setup Grid
         self.setup_grid()
         # Create GUI
-        if self.admin:
-            self.bg_img = tk.PhotoImage(file="./images/home/home_admin.png")
-        else:
-            self.bg_img = tk.PhotoImage(file="./images/home/home_user.png")
+
+        self.bg_img = tk.PhotoImage(file="./images/home/home2.png")
+
         self.canvas = tk.Canvas(self.m_screen, width=self.width, height=self.height)
         self.canvas.grid(row=0, column=0, columnspan=self.grid_cols, rowspan=self.grid_rows, sticky="nesw")
         # Draw BG
@@ -76,30 +76,28 @@ class MyHome:
 
         # Create User Buttons
         self.btn1 = ttk.Button(self.m_screen, text="Warehouses", style="Normal.TButton")
-        self.btn1.grid(row=7, column=4, columnspan=15, sticky="w")
+        self.btn1.grid(row=9, column=4, rowspan=2, columnspan=15, sticky="wns")
         self.btn1 = ttk.Button(self.m_screen, text="Purchases", style="Normal.TButton")
-        self.btn1.grid(row=7, column=10, columnspan=15, sticky="w")
+        self.btn1.grid(row=9, column=10, rowspan=2, columnspan=15, sticky="wns")
         self.btn1 = ttk.Button(self.m_screen, text="Sales", style="Normal.TButton")
-        self.btn1.grid(row=7, column=16, columnspan=15, sticky="w")
+        self.btn1.grid(row=9, column=16, rowspan=2, columnspan=15, sticky="wns")
         self.btn1 = ttk.Button(self.m_screen, text="Transactions", style="Normal.TButton")
-        self.btn1.grid(row=7, column=22, columnspan=15, sticky="w")
+        self.btn1.grid(row=9, column=22, rowspan=2, columnspan=15, sticky="wns")
 
         if self.admin:
             # Create Admin Buttons
             self.btn1 = ttk.Button(self.m_screen, text="User\nManagement", style="Normal.TButton")
-            self.btn1.grid(row=15, column=4, columnspan=15, sticky="w")
+            self.btn1.grid(row=17, column=4, rowspan=2, columnspan=15, sticky="wns")
             self.btn1 = ttk.Button(self.m_screen, text="Warehouse\nManagement", style="Normal.TButton")
-            self.btn1.grid(row=15, column=10, columnspan=15, sticky="w")
+            self.btn1.grid(row=17, column=10, rowspan=2, columnspan=15, sticky="wns")
             self.btn1 = ttk.Button(self.m_screen, text="Product\nManagement", style="Normal.TButton")
-            self.btn1.grid(row=15, column=16, columnspan=15, sticky="w")
+            self.btn1.grid(row=17, column=16, rowspan=2, columnspan=15, sticky="wns")
             self.btn1 = ttk.Button(self.m_screen, text="Supplier\nManagement", style="Normal.TButton")
-            self.btn1.grid(row=15, column=22, columnspan=15, sticky="w")
+            self.btn1.grid(row=17, column=22, rowspan=2, columnspan=15, sticky="wns")
             self.btn1 = ttk.Button(self.m_screen, text="Client\nManagement", style="Normal.TButton")
-            self.btn1.grid(row=18, column=4, columnspan=15, sticky="w")
+            self.btn1.grid(row=21, column=4, rowspan=2, columnspan=15, sticky="wns")
             self.btn1 = ttk.Button(self.m_screen, text="Invoice\nManagement", style="Normal.TButton")
-            self.btn1.grid(row=18, column=10, columnspan=15, sticky="w")
-
-
+            self.btn1.grid(row=21, column=10, rowspan=2, columnspan=15, sticky="wns")
 
     def setup_grid(self):
         # set rows
