@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5d61a798-1ddb-4c70-91b5-8341390f1970" name="Changes" comment="hw 6 done / needs refactor">
+    <list default="true" id="5d61a798-1ddb-4c70-91b5-8341390f1970" name="Changes" comment="hw 6 done - reviewed once">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -95,12 +95,12 @@
       <option name="project" value="LOCAL" />
       <updated>1647958886263</updated>
     </task>
-    <task id="LOCAL-00005" summary="hw 6 done / needs refactor">
-      <created>1647961194984</created>
+    <task id="LOCAL-00005" summary="hw 6 done - reviewed once">
+      <created>1648016098284</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1647961194984</updated>
+      <updated>1648016098284</updated>
     </task>
     <option name="localTasksCounter" value="6" />
     <servers />
@@ -120,6 +120,7 @@
     <MESSAGE value="init homeworks project on laptop" />
     <MESSAGE value="hw 6" />
     <MESSAGE value="hw 6 done / needs refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="hw 6 done / needs refactor" />
+    <MESSAGE value="hw 6 done - reviewed once" />
+    <option name="LAST_COMMIT_MESSAGE" value="hw 6 done - reviewed once" />
   </component>
 </project>

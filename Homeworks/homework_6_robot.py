@@ -29,6 +29,8 @@ def r_file_and_prep_info(file):
 
 
 def move_bot_to(row, col, board, direction):
+    # Тук row и col не би ли следвало да са референции към подадените параметри ?
+    # Докато не ги включих в return клаузата не се променяха.
     if direction == "r":
         col += 1
     elif direction == "l":
@@ -60,7 +62,7 @@ def test_starting_point(board, r, c, rows, columns):
                 curr_cell, row, col = move_bot_to(row, col, board, "d")
 
             if row < 0 or col < 0 or row > rows - 1 or col > columns - 1:
-                # Robot fell
+                # Robot fell  off the table
                 break
 
     except IndexError as ex:
@@ -75,14 +77,11 @@ def test_starting_point(board, r, c, rows, columns):
 def format_tests(tests):
     answer = []
     for test in tests:
-        highest_moves = 0
-        for case in test:
-            if case[2] > highest_moves:
-                highest_moves = case[2]
-
+        # test[0] is the list with current test scenarios
+        # test[1] are the highest moves in the current list with test scenarios
         top_cases = []
-        for case in test:
-            if case[2] == highest_moves:
+        for case in test[0]:
+            if case[2] == test[1]:
                 top_cases.append(case)
 
         if top_cases:
@@ -96,12 +95,15 @@ def test_case(case):
     columns = int(case["width"])
     board = case["board"]
     case_tests = []
+    most_moves = 0
     for row in range(0, rows):
         for col in range(0, columns):
             tst = test_starting_point(board, row, col, rows, columns)
             case_tests.append(tst)
+            if tst[2] > most_moves:
+                most_moves = tst[2]
 
-    return case_tests
+    return case_tests, most_moves
 
 
 def test_robot(info):
@@ -114,15 +116,15 @@ def test_robot(info):
 
 def main(file):
     info = r_file_and_prep_info(file)
-    answers = test_robot(info)
-    for answer in answers:
-        if len(answer) == 1:
-            print(*answer[0])
+    tests = test_robot(info)
+    for scenario in tests:
+        if len(scenario) == 1:
+            print(*scenario[0])
         else:
-            tmp_answer = ""
-            for i in answer:
-                tmp_answer += f"{i[0]} {i[1]} {i[2]};"
-            print(tmp_answer[:-1])
+            multiple_scenarios = ""
+            for single in scenario:
+                multiple_scenarios += f"{single[0]} {single[1]} {single[2]};"
+            print(multiple_scenarios[:-1])
 
 
 if __name__ == '__main__':
