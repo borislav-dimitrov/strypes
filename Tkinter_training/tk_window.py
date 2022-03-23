@@ -39,6 +39,7 @@ class MyWindow():
 
         # endregion
 
+        self.m_screen.iconbitmap("./images/login/login_ico.ico")
         # Set Geometry
         self.m_screen.geometry(f"{self.width}x{self.height}+{int(self.x)}+{int(self.y)}")
         self.m_screen.resizable(False, False)
