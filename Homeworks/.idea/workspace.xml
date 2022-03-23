@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5d61a798-1ddb-4c70-91b5-8341390f1970" name="Changes" comment="hw 6 done - reviewed once">
+      <change afterPath="$PROJECT_DIR$/../Tkinter_training/images/home/home.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/homework_6_robot.py" beforeDir="false" afterPath="$PROJECT_DIR$/homework_6_robot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +31,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Tkinter_training" />
   </component>
   <component name="RunManager">
     <configuration name="homework_6_robot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">

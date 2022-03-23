@@ -28,6 +28,13 @@ def r_file_and_prep_info(file):
     return task
 
 
+def get_boards_size(info):
+    total_boards_size = 0
+    for i in info["cases"]:
+        total_boards_size += int(i["height"]) * int(i["width"])
+    return total_boards_size
+
+
 def move_bot_to(row, col, board, direction):
     # Тук row и col не би ли следвало да са референции към подадените параметри ?
     # Докато не ги включих в return клаузата не се променяха.
@@ -114,17 +121,22 @@ def test_robot(info):
     return format_tests(results)
 
 
-def main(file):
+def main(file, allowed_boards_size):
     info = r_file_and_prep_info(file)
-    tests = test_robot(info)
-    for scenario in tests:
-        if len(scenario) == 1:
-            print(*scenario[0])
-        else:
-            multiple_scenarios = ""
-            for single in scenario:
-                multiple_scenarios += f"{single[0]} {single[1]} {single[2]};"
-            print(multiple_scenarios[:-1])
+    if 0 < get_boards_size(info) <= allowed_boards_size:
+        print("Valid boards size!")
+        tests = test_robot(info)
+        for scenario in tests:
+            if len(scenario) == 1:
+                print(*scenario[0])
+            else:
+                multiple_scenarios = ""
+                for single in scenario:
+                    multiple_scenarios += f"{single[0]} {single[1]} {single[2]};"
+                print(multiple_scenarios[:-1])
+    else:
+        print(f"Invalid boards size! Total boards size should be > 0 and < {allowed_boards_size}")
+        return
 
 
 if __name__ == '__main__':
@@ -136,4 +148,5 @@ if __name__ == '__main__':
     if not os.path.exists(filename):
         print(f"File '{filename}' not found!")
     else:
-        main(filename)
+        valid_boards_size = 4 * pow(10, 6)
+        main(filename, valid_boards_size)
