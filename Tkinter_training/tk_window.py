@@ -62,8 +62,8 @@ class MyWindow():
         # Create Entry Fields
         self.entry1 = ttk.Entry(self.m_screen)
         self.entry1.grid(row=13, column=10, columnspan=8, sticky="we")
-        self.entry1 = ttk.Entry(self.m_screen)
-        self.entry1.grid(row=15, column=10, columnspan=8, sticky="we")
+        self.entry2 = ttk.Entry(self.m_screen, show="*")
+        self.entry2.grid(row=15, column=10, columnspan=8, sticky="we")
 
         # Create Buttons
         self.btn1 = ttk.Button(self.m_screen, text="Login", style="Green.TButton")
