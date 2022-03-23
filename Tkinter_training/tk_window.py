@@ -59,11 +59,13 @@ class MyWindow():
         self.canvas.create_text(230, 180, text="Username :", font=self.text_bold, fill="white")
         self.canvas.create_text(230, 215, text="Password :", font=self.text_bold, fill="white")
 
+        # Create Entry Fields
         self.entry1 = ttk.Entry(self.m_screen)
         self.entry1.grid(row=13, column=10, columnspan=8, sticky="we")
         self.entry1 = ttk.Entry(self.m_screen)
         self.entry1.grid(row=15, column=10, columnspan=8, sticky="we")
 
+        # Create Buttons
         self.btn1 = ttk.Button(self.m_screen, text="Login", style="Green.TButton")
         self.btn1.grid(row=19, column=7, columnspan=5, sticky="w")
         self.btn2 = ttk.Button(self.m_screen, text="Cancel", style="Red.TButton")
