@@ -195,10 +195,11 @@ def save_n_load_inv():
 def generate_invoice(id_):
     invoice = invrepo.get_inv_by_id(id_, db.invoices)
     curr_dir = os.getcwd()
-    path = os.path.join(curr_dir, f"Resources\\invoices\\{invoice.invoice_number}.xlsx")
-    status = invrepo.generate_xls(invoice, db.my_logger, path=path)
+    path = os.path.join(curr_dir, f"Resources\\invoices\\{invoice.invoice_number}.pdf")
+    status = invrepo.generate_pdf(invoice, db.my_logger, path=path)
 
     if status:
         os.startfile(path)
+        pass
     else:
         return False, "Failed to generate invoice!"

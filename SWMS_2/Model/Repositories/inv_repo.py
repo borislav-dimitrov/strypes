@@ -1,6 +1,6 @@
 import sys
 
-import xlsxwriter as xl
+from fpdf import FPDF
 from Model.Entities.invoices import Invoice
 from datetime import datetime as dt
 
@@ -103,152 +103,111 @@ def get_total_price(items):
 # endregion
 
 # region INVOICING
-def generate_xls(invoice, logger, path="./Resources/invoices/default_inv.xlsx"):
-    workbook = xl.Workbook(path)
-    worksheet = workbook.add_worksheet()
-    # region FORMATS
-    border = workbook.add_format({"border": 1})
-    border_align_l = workbook.add_format({
-        "border": 1,
-        "align": "left",
-        "valign": "vcenter"
-    })
-    border_align_r = workbook.add_format({
-        "border": 1,
-        "align": "right",
-        "valign": "vcenter"
-    })
-    bold = workbook.add_format({"bold": True})
-    bold_align_l = workbook.add_format({
-        "bold": True,
-        "align": "left",
-        "valign": "vcenter"
-    })
-    bold_border = workbook.add_format({"bold": True, "border": 1})
-    bold_border_align_l = workbook.add_format({"bold": True,
-                                               "border": 1,
-                                               "align": "right",
-                                               "valign": "vright"})
-    bold_border_align_r = workbook.add_format({"bold": True,
-                                               "border": 1,
-                                               "align": "right",
-                                               "valign": "vright"})
-    bold_border_align_c = workbook.add_format({"bold": True,
-                                               "border": 1,
-                                               "align": "center",
-                                               "valign": "vcenter"})
-    align_l = workbook.add_format({
-        "align": "left",
-        "valign": "vcenter"
-    })
-    align_r = workbook.add_format({
-        "align": "right",
-        "valign": "vcenter"
-    })
-    title_merge = workbook.add_format({
-        "bold": 1,
-        "align": "center",
-        "valign": "vcenter",
-        "font_size": 24
-    })
-    # endregion
-    status = False
-    try:
-        xls_bill_to(invoice.to_info, worksheet, bold_border, bold_align_l, align_r)
-        xls_invoice_date(invoice.invoice_date, worksheet, bold_align_l, align_r)
-        xls_invoice_title(invoice.invoice_number, worksheet, title_merge)
-        xls_items_title(worksheet, bold_border_align_c)
-        for index, item in enumerate(invoice.items):
-            xls_items_info(item, index, worksheet, border)
-        current_row = 14 + len(invoice.items)
-        xls_invoice_total(current_row, invoice.total_price, worksheet, bold_border_align_r)
-        current_row = current_row + 5
-        xls_from(current_row, invoice.from_info, worksheet, bold_align_l, align_r)
-
-        xls_set_col_width(worksheet)
-        status = True
-    except Exception as ex:
-        msg = "Error occurred while writing to xlsx file!"
-        tb = sys.exc_info()[2].tb_frame
-        logger.log(__file__, msg, "ERROR", type(ex), tb)
-    finally:
-        try:
-            workbook.close()
-        except Exception as ex:
-            msg = "Error occurred while writing to xlsx file!"
-            tb = sys.exc_info()[2].tb_frame
-            logger.log(__file__, msg, "ERROR", type(ex), tb)
-        return status
+def generate_pdf(invoice, logger, path="./Resources/invoices/default_inv.pdf"):
+    pdf = FPDF("P", "mm", (210, 297))
+    pdf.add_page()
+    # Set cursor position
+    x = 20.0
+    y = 30.0
+    inv_logo(x, 10, pdf)
+    y = inv_bill_to(x, y, pdf, invoice.to_info)
+    inv_date(x + 120, y - 15, pdf, invoice.invoice_date)
+    y += 6
+    pdf.line(10, y - 1, 200, y)
+    inv_title(x, y, pdf, invoice.invoice_number)
+    y += 21
+    pdf.line(10, y - 1, 200, y)
+    y = inv_items(x, y, pdf, invoice.items, invoice.total_price)
+    pdf.line(10, y - 1, 200, y)
+    inv_from(x, y, pdf, invoice.from_info)
+    pdf.output(path, "F")
+    return True
 
 
-def xls_bill_to(info, sheet, bold, align_l, align_r):
-    # [company_name, address1, address2, city, state / province, zip / postal, phone]
-    sheet.write("A1", "Bill To:", bold)
-    sheet.write("A2", "Company Name:", align_l)
-    sheet.write("A3", "Payment nr:", align_l)
-    sheet.write("A4", "DDS:", align_l)
-    sheet.write("A5", "City", align_l)
-    sheet.write("A6", "State/Province", align_l)
-    sheet.write("A7", "zip/postal", align_l)
-    sheet.write("A8", "Phone", align_l)
-
-    sheet.write("B2", info[0], align_r)
-    sheet.write("B3", info[1], align_r)
-    sheet.write("B4", info[2], align_r)
-    sheet.write("B5", info[3], align_r)
-    sheet.write("B6", info[4], align_r)
-    sheet.write("B7", int(info[5]), align_r)
-    sheet.write("B8", int(info[6]), align_r)
+def add_txt_to_pdf(x, y, pdf, txt="", font_family='Arial', font_style='', font_size=11, alignment='L',
+                   fill=False, link='', border=0, new_line=1, cell_width=0,  # 0 takes the whole line
+                   cell_height=10):
+    if pdf:
+        pdf.set_xy(x, y)
+        pdf.set_font(font_family, font_style, font_size)
+        pdf.cell(cell_width, cell_height, txt, border, new_line, alignment, fill, link)
+    else:
+        print("Invalid pdf!")
 
 
-def xls_invoice_date(info, sheet, align_l, align_r):
-    sheet.write("H5", "Invoice Date:", align_l)
-    sheet.write("I5", info.split(" ")[0], align_r)
+def inv_logo(x, y, pdf):
+    add_txt_to_pdf(x, y, pdf, "SWMS", cell_width=20, font_style="B", font_size=24)
 
 
-def xls_invoice_title(info, sheet, format_):
-    sheet.merge_range("B11:H11", f"INVOICE # {info.split('-')[1]}", format_)
+def inv_bill_to(x, y, pdf, info):
+    add_txt_to_pdf(x, y, pdf, "Bill To:", cell_width=20, font_style="B")
+    y += 5
+    add_txt_to_pdf(x, y, pdf, "Company Name:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 40, y, pdf, info[0], cell_width=20)
+    y += 5
+    add_txt_to_pdf(x, y, pdf, "Address:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 40, y, pdf, info[1], cell_width=20)
+    y += 5
+    add_txt_to_pdf(x, y, pdf, "Payment nr:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 40, y, pdf, info[2], cell_width=20)
+    y += 5
+    add_txt_to_pdf(x, y, pdf, "City:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 40, y, pdf, info[3], cell_width=20)
+    y += 5
+    add_txt_to_pdf(x, y, pdf, "State/Province:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 40, y, pdf, info[4], cell_width=20)
+    y += 5
+    add_txt_to_pdf(x, y, pdf, "ZIP/Postal:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 40, y, pdf, info[5], cell_width=20)
+    y += 5
+    add_txt_to_pdf(x, y, pdf, "Phone:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 40, y, pdf, info[6], cell_width=20)
+    y += 5
+    return y
 
 
-def xls_items_title(sheet, format_):
-    sheet.merge_range("A14:D14", "Item", format_)
-    sheet.merge_range("E14:F14", "Qty", format_)
-    sheet.merge_range("G14:H14", "Unit Price", format_)
-    sheet.write("I14", "Subtotal", format_)
+def inv_date(x, y, pdf, info):
+    add_txt_to_pdf(x, y, pdf, "Invoice Date:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 30, y, pdf, info.split(" ")[0], cell_width=20)
 
 
-def xls_items_info(item, item_num, sheet, format_):
-    row = 14 + item_num
-    sheet.merge_range(row, 0, row, 3, item[0], format_)
-    sheet.merge_range(row, 4, row, 5, item[1], format_)
-    sheet.merge_range(row, 6, row, 7, item[2], format_)
-    sheet.write(row, 8, item[1] * item[2], format_)
+def inv_title(x, y, pdf, info):
+    add_txt_to_pdf(x + 60, y + 5, pdf, f"INVOICE # {info.split('-')[1]}", font_style="B", font_size=20)
 
 
-def xls_invoice_total(row, info, sheet, format_):
-    sheet.write(row, 8, f"TOTAL: {info}лв", format_)
+def inv_items(x, y, pdf, items, total):
+    add_txt_to_pdf(x, y, pdf, "Item", font_style="BU")
+    add_txt_to_pdf(x + 70, y, pdf, "Qty", font_style="BU")
+    add_txt_to_pdf(x + 100, y, pdf, "Unit Price", font_style="BU")
+    add_txt_to_pdf(x + 140, y, pdf, "Subtotal", font_style="BU")
+
+    for item in items:
+        y += 5
+        add_txt_to_pdf(x, y, pdf, item[0])
+        add_txt_to_pdf(x + 70, y, pdf, str(item[1]))
+        add_txt_to_pdf(x + 100, y, pdf, str(item[2]))
+        add_txt_to_pdf(x + 140, y, pdf, str(float(item[1]) * int(item[2])))
+    y += 10
+    add_txt_to_pdf(x + 140, y, pdf, f"TOTAL: {total} BGN", font_style="BU")
+    return y + 10
 
 
-def xls_from(row, info, sheet, align_l, align_r):
-    # [company_name, address1, address2, city, state / province, zip / postal, phone]
-    sheet.write(row, 0, "Company Name:", align_l)
-    sheet.write(row + 1, 0, "Address1:", align_l)
-    sheet.write(row + 2, 0, "Payment nr:", align_l)
-    sheet.write(row + 3, 0, "City:", align_l)
-    sheet.write(row, 4, "State/Province:", align_l)
-    sheet.write(row + 1, 4, "zip/postal:", align_l)
-    sheet.write(row + 2, 4, "Phone:", align_l)
-
-    sheet.write(row, 1, info[0], align_r)
-    sheet.write(row + 1, 1, info[1], align_r)
-    sheet.write(row + 2, 1, info[2], align_r)
-    sheet.write(row + 3, 1, info[3], align_r)
-    sheet.write(row, 5, info[4], align_r)
-    sheet.write(row + 1, 5, int(info[5]), align_r)
-    sheet.write(row + 2, 5, int(info[6]), align_r)
-
-
-def xls_set_col_width(sheet):
-    for col in range(0, 9):
-        sheet.set_column(0, col, 15)
+def inv_from(x, y, pdf, info):
+    add_txt_to_pdf(x, y, pdf, "Company Name:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 40, y, pdf, info[0], cell_width=20)
+    add_txt_to_pdf(x + 100, y, pdf, "City:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 140, y, pdf, info[3], cell_width=20)
+    y += 5
+    add_txt_to_pdf(x, y, pdf, "Address:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 40, y, pdf, info[1], cell_width=20)
+    add_txt_to_pdf(x + 100, y, pdf, "State/Province:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 140, y, pdf, info[4], cell_width=20)
+    y += 5
+    add_txt_to_pdf(x, y, pdf, "Payment nr:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 40, y, pdf, info[2], cell_width=20)
+    add_txt_to_pdf(x + 100, y, pdf, "ZIP/Postal:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 140, y, pdf, info[5], cell_width=20)
+    y += 5
+    add_txt_to_pdf(x, y, pdf, "Phone:", cell_width=20, font_style="B")
+    add_txt_to_pdf(x + 40, y, pdf, info[6], cell_width=20)
 # endregion
