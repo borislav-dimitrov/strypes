@@ -23,9 +23,9 @@ allowed_types = cfg.WAREHOUSE_TYPES
 
 
 def spawn_logger():
-    logger = MyLogger(cfg.LOG_ENABLED, cfg.DEFAULT_LOG_FILE,
-                      cfg.LOG_LEVEL, cfg.REWRITE_LOG_ON_STARTUP)
-    return logger
+    global my_logger
+    my_logger = MyLogger(cfg.LOG_ENABLED, cfg.DEFAULT_LOG_FILE,
+                         cfg.LOG_LEVEL, cfg.REWRITE_LOG_ON_STARTUP)
 
 
 # region Prints
@@ -86,3 +86,4 @@ def startup():
     Modules.whmgmt.load_whs()
     Modules.prmgmt.load_products()
     Modules.whmgmt.hook_products_to_warehouse()
+    Modules.invmgmt.load_inv()

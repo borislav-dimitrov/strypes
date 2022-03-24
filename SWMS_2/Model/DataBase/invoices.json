@@ -6,7 +6,7 @@
             "invoice_from": [
                 "My Company",
                 "my addr",
-                "",
+                "BG12312",
                 "my city",
                 "BG",
                 "7000",
@@ -15,23 +15,23 @@
             "invoice_to": [
                 "other Company",
                 "other addr",
-                "",
+                "BG12312",
                 "other city",
                 "EN",
                 "155",
                 "088"
             ],
-            "invoice_date": "24-03-22 09:53:06",
+            "invoice_date": "24-03-2022 09:53:06",
             "invoice_items": [
                 [
-                    "some product",
-                    "some quantity",
-                    "some price"
+                    "red paint",
+                    5,
+                    2.00
                 ],
                 [
-                    "some product",
-                    "some quantity",
-                    "some price"
+                    "green paint",
+                    3,
+                    3.00
                 ]
             ],
             "invoice_total_price": 3,
@@ -45,7 +45,7 @@
             "invoice_from": [
                 "My Company",
                 "my addr",
-                "",
+                "BG12312",
                 "my city",
                 "BG",
                 "7000",
@@ -54,23 +54,23 @@
             "invoice_to": [
                 "other Company",
                 "other addr",
-                "",
+                "BG12312",
                 "other city",
                 "EN",
                 "155",
                 "088"
             ],
-            "invoice_date": "24-03-22 09:53:06",
+            "invoice_date": "24-03-2022 09:53:06",
             "invoice_items": [
                 [
-                    "some product",
-                    "some quantity",
-                    "some price"
+                    "red paint",
+                    5,
+                    2.00
                 ],
                 [
-                    "some product",
-                    "some quantity",
-                    "some price"
+                    "green paint",
+                    3,
+                    3.00
                 ]
             ],
             "invoice_total_price": 500,
@@ -84,7 +84,7 @@
             "invoice_from": [
                 "My Company",
                 "my addr",
-                "",
+                "BG12312",
                 "my city",
                 "BG",
                 "7000",
@@ -93,23 +93,23 @@
             "invoice_to": [
                 "other Company",
                 "other addr",
-                "",
+                "BG12312",
                 "other city",
                 "EN",
                 "155",
                 "088"
             ],
-            "invoice_date": "24-03-22 09:53:06",
+            "invoice_date": "24-03-2022 09:53:06",
             "invoice_items": [
                 [
-                    "some product",
-                    "some quantity",
-                    "some price"
+                    "red paint",
+                    5,
+                    2.00
                 ],
                 [
-                    "some product",
-                    "some quantity",
-                    "some price"
+                    "green paint",
+                    3,
+                    3.00
                 ]
             ],
             "invoice_total_price": 500,
@@ -123,7 +123,7 @@
             "invoice_from": [
                 "My Company",
                 "my addr",
-                "",
+                "BG12312",
                 "my city",
                 "BG",
                 "7000",
@@ -132,23 +132,23 @@
             "invoice_to": [
                 "other Company",
                 "other addr",
-                "",
+                "BG12312",
                 "other city",
                 "EN",
                 "155",
                 "088"
             ],
-            "invoice_date": "24-03-22 09:53:06",
+            "invoice_date": "24-03-2022 09:53:06",
             "invoice_items": [
                 [
-                    "some product",
-                    "some quantity",
-                    "some price"
+                    "red paint",
+                    5,
+                    2.00
                 ],
                 [
-                    "some product",
-                    "some quantity",
-                    "some price"
+                    "green paint",
+                    3,
+                    3.00
                 ]
             ],
             "invoice_total_price": 500,
@@ -162,7 +162,7 @@
             "invoice_from": [
                 "My Company",
                 "my addr",
-                "",
+                "BG12312",
                 "my city",
                 "BG",
                 "7000",
@@ -171,23 +171,23 @@
             "invoice_to": [
                 "other Company",
                 "other addr",
-                "",
+                "BG12312",
                 "other city",
                 "EN",
                 "155",
                 "088"
             ],
-            "invoice_date": "24-03-22 09:53:06",
+            "invoice_date": "24-03-2022 09:53:06",
             "invoice_items": [
                 [
-                    "some product",
-                    "some quantity",
-                    "some price"
+                    "red paint",
+                    5,
+                    2.00
                 ],
                 [
-                    "some product",
-                    "some quantity",
-                    "some price"
+                    "green paint",
+                    3,
+                    3.00
                 ]
             ],
             "invoice_total_price": 500,

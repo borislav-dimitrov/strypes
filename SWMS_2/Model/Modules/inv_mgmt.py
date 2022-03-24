@@ -1,3 +1,4 @@
+import os
 import sys
 
 import Model.DataBase.my_db as db
@@ -6,7 +7,7 @@ import json as js
 
 
 # region CRUD
-def create_new_inv(id_, num, from_, to_, date, items, price, descr, terms, status):
+def create_new_inv(id_, num, from_, to_, date, items, descr, terms, status):
     # region Validations
     if id_ == "auto":
         id_ = db.get_new_entity_id(db.invoices)
@@ -44,8 +45,7 @@ def create_new_inv(id_, num, from_, to_, date, items, price, descr, terms, statu
         if len(item) < 3:
             return False, f"Invalid item - {item}"
 
-    if not isinstance(price, int) or price <= 0 or not price:
-        return False, "Invalid Invoice price!"
+    price = invrepo.get_total_price(items)
 
     state, status = invrepo.valid_inv_status(status)
     if not state:
@@ -112,14 +112,6 @@ def edit_inv_items(id_, items):
     return True, "Success"
 
 
-def edit_inv_price(id_, price):
-    if not isinstance(price, int) or price <= 0 or not price:
-        return False, "Invalid Invoice price!"
-    invoice = invrepo.get_inv_by_id(id_, db.invoices)
-    invoice.total_price = price
-    return True, "Success"
-
-
 def edit_inv_status(id_, status):
     state, status = invrepo.valid_inv_status(status)
     if not state:
@@ -179,13 +171,12 @@ def load_inv():
             new_inv_to = invoice["invoice_to"]
             new_inv_date = invoice["invoice_date"]
             new_inv_items = invoice["invoice_items"]
-            new_inv_total_price = invoice["invoice_total_price"]
             new_inv_description = invoice["invoice_description"]
             new_inv_terms = invoice["invoice_terms"]
             new_inv_status = invoice["invoice_status"]
 
             create_new_inv(new_inv_id, int(new_inv_number.split("-")[1]), new_inv_from, new_inv_to, new_inv_date,
-                           new_inv_items, new_inv_total_price, new_inv_description,
+                           new_inv_items, new_inv_description,
                            new_inv_terms, new_inv_status)
     except Exception as ex:
         msg = "Error Loading invoices!"
@@ -197,4 +188,17 @@ def save_n_load_inv():
     save_inv()
     load_inv()
 
+
 # endregion
+
+
+def generate_invoice(id_):
+    invoice = invrepo.get_inv_by_id(id_, db.invoices)
+    curr_dir = os.getcwd()
+    path = os.path.join(curr_dir, f"Resources\\invoices\\{invoice.invoice_number}.xlsx")
+    status = invrepo.generate_xls(invoice, db.my_logger, path=path)
+
+    if status:
+        os.startfile(path)
+    else:
+        return False, "Failed to generate invoice!"
