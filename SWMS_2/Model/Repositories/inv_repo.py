@@ -4,6 +4,8 @@ from datetime import datetime as dt
 
 # region Validations
 def valid_inv_status(status):
+    if not isinstance(status, str):
+        return False, "Invalid Status!"
     valid_statuses = ["PENDING", "PAID", "OVERDUE"]
     for st in valid_statuses:
         if st.lower() == status.lower():
@@ -16,7 +18,6 @@ def valid_new_inv_num(num, all_inv):
         if int(invoice.invoice_number.split("-")[1]) == num:
             return False, f"Invoice number INV-{num} already exists!"
     return True, f"Invoice number INV-{num} is free!"
-
 
 
 # endregion
@@ -82,7 +83,7 @@ def validate_date(full_date):
         year_now = int(now_date.split("-")[2])
 
         if year < year_now - 1:
-            return False, "Cannot create Invoices more than a year behind!"
+            return False, "Invoice date too old!"
         return True, "Valid"
     except Exception as ex:
         return False, "Date is invalid format!"
