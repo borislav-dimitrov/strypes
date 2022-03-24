@@ -2,10 +2,6 @@ from Model.Entities.product import Product
 
 
 # region Validations
-def validate_id(id_):
-    return id_
-
-
 def validate_type(type_, types):
     prod_type = "none"
     for item in types:
@@ -37,6 +33,7 @@ def check_product_exist(name, type_, b_price, s_price, quantity, assigned_wh, al
         if product.product_name == name and product.product_type == type_ and product.buy_price == b_price and product.sell_price == s_price and product.quantity == quantity and product.assigned_wh == assigned_wh:
             return True, product
     return False, -1
+
 
 # endregion
 

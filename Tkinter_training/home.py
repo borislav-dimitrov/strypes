@@ -60,7 +60,6 @@ class MyHome:
         # Create GUI
 
         self.bg_img = tk.PhotoImage(file="./images/home/home2.png")
-
         self.canvas = tk.Canvas(self.m_screen, width=self.width, height=self.height)
         self.canvas.grid(row=0, column=0, columnspan=self.grid_cols, rowspan=self.grid_rows, sticky="nesw")
         # Draw BG

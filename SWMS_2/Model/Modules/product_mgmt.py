@@ -77,7 +77,7 @@ def create_new_product(id_, name: str, type_: str, b_price: float, s_price: floa
             new_prod = prepo.create_product(id_, name, type_, b_price, s_price, quantity, "Virtual01")
         db.products.append(new_prod)
         whmgmt.hook_products_to_warehouse()
-        return True
+        return True, "Success"
 
 
 def delete_product(id_):

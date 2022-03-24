@@ -15,7 +15,7 @@ products = []
 suppliers = []
 clients = []
 warehouses = []
-transactions = []
+invoices = []
 
 # endregion
 
@@ -44,6 +44,13 @@ def print_all_warehouses():
     for warehouse in warehouses:
         print(warehouse.entity_id, warehouse.wh_name, warehouse.wh_type,
               warehouse.wh_capacity, warehouse.wh_products, warehouse.wh_status)
+
+
+def print_all_inv():
+    for invoice in invoices:
+        print(invoice.entity_id, invoice.invoice_number, "\n", invoice.from_info, "\n", invoice.to_info,
+              "\n", invoice.invoice_date, invoice.items, invoice.total_price, invoice.description, "\n",
+              invoice.terms_conditions, invoice.status)
 
 
 # endregion
