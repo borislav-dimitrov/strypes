@@ -70,6 +70,7 @@ def edit_wh_name(id_, new_name):
     if not is_valid:
         return msg
     warehouse.wh_name = new_name
+    reload_whs()
     return True, "Success"
 
 
@@ -79,6 +80,7 @@ def edit_wh_type(id_, new_type):
     if is_valid == -1:
         return False, "Invalid warehouse type!"
     warehouse.wh_type = new_type
+    reload_whs()
     return True, "Success"
 
 
@@ -87,18 +89,21 @@ def edit_wh_capacity(id_, new_capacity):
     if not isinstance(new_capacity, int):
         return False, "Invalid capacity!"
     warehouse.wh_capacity = new_capacity
+    reload_whs()
     return True, "Success"
 
 
 def edit_wh_stored_products(id_, new_products: list):
     warehouse = whrep.get_wh_by_id(id_, db.warehouses)
     warehouse.wh_products = new_products
+    reload_whs()
     return True, "Success"
 
 
 def add_product_to_wh(id_, new_product):
     warehouse = whrep.get_wh_by_id(id_, db.warehouses)
     warehouse.wh_products.append(new_product)
+    reload_whs()
     return True, "Success"
 
 
@@ -108,6 +113,7 @@ def edit_wh_status(id_, new_status):
     if new_status == -1:
         return False, "Invalid status"
     warehouse.wh_status = new_status
+    reload_whs()
     return True, "Success"
 
 

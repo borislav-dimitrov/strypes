@@ -4,17 +4,20 @@ import json as js
 import Model.Modules.all_modules as Modules
 
 # region Tracking
-my_logger = ""
-curr_user = ""
+my_logger = None
+curr_user = None
+my_firm = None
 opened_pages = []
 # endregion
 
 # region Entities
 users = []
-products = []
-suppliers = []
-clients = []
+
 warehouses = []
+products = []
+
+counterparties = []
+transactions = []
 invoices = []
 
 # endregion
@@ -53,6 +56,12 @@ def print_all_inv():
               invoice.terms_conditions, invoice.status)
 
 
+def print_all_counterparties():
+    for cprty in counterparties:
+        print(cprty.entity_id, cprty.name, cprty.phone, cprty.payment_nr,
+              cprty.status, cprty.type_, cprty.description)
+
+
 # endregion
 
 
@@ -69,6 +78,8 @@ def get_new_entity_id(all_current_entities):
 
 
 def validate_entity_id(id_, all_entities):
+    if not isinstance(id_, int):
+        return False
     for item in all_entities:
         if item.entity_id == id_:
             return False
@@ -86,4 +97,5 @@ def startup():
     Modules.whmgmt.load_whs()
     Modules.prmgmt.load_products()
     Modules.whmgmt.hook_products_to_warehouse()
+    Modules.cpmgmt.load_cprty()
     # Modules.invmgmt.load_inv()

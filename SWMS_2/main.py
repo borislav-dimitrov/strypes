@@ -15,6 +15,11 @@ import Model.Modules.all_modules as Modules
 def main():
     db.startup()
     print("App is running!\n\n")
+    # state, msg = Modules.cpmgmt.create_new_cprty("auto", "M&BM", "1234567", "BG123", "enabled", "Supplier",
+    #                                              {"sellable": [("terpentine", 2.0), ("thinner", 4.0),
+    #                                                            ("pigment(BK)", 10.0)]})
+    db.print_all_counterparties()
+
     print("\n\nApp is closing!")
 
 

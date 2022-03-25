@@ -70,6 +70,7 @@ def edit_inv_num(id_, number):
         return False, msg
     invoice = invrepo.get_inv_by_id(id_, db.invoices)
     invoice.invoice_number = f"INV-{number}"
+    reload_inv()
     return True, "Success"
 
 
@@ -78,6 +79,7 @@ def edit_inv_from(id_, from_):
         return False, "Invalid Invoice issuer(to) parameters!"
     invoice = invrepo.get_inv_by_id(id_, db.invoices)
     invoice.to_info = from_
+    reload_inv()
     return True, "Success"
 
 
@@ -86,6 +88,7 @@ def edit_inv_to(id_, to_):
         return False, "Invalid Invoice issuer(to) parameters!"
     invoice = invrepo.get_inv_by_id(id_, db.invoices)
     invoice.to_info = to_
+    reload_inv()
     return True, "Success"
 
 
@@ -98,6 +101,7 @@ def edit_inv_date(id_, date):
             return False, msg
     invoice = invrepo.get_inv_by_id(id_, db.invoices)
     invoice.invoice_date = date
+    reload_inv()
     return True, "Success"
 
 
@@ -109,6 +113,7 @@ def edit_inv_items(id_, items):
             return False, f"Invalid item - {item}"
     invoice = invrepo.get_inv_by_id(id_, db.invoices)
     invoice.items = items
+    reload_inv()
     return True, "Success"
 
 
@@ -118,6 +123,7 @@ def edit_inv_status(id_, status):
         return False, status
     invoice = invrepo.get_inv_by_id(id_, db.invoices)
     invoice.status = status
+    reload_inv()
     return True, "Success"
 
 
@@ -161,7 +167,7 @@ def load_inv():
         tb = sys.exc_info()[2].tb_frame
         db.my_logger.log(__file__, msg, "ERROR", type(ex), tb)
 
-    db.invoices = []
+    db.invoices.clear()
 
     try:
         for invoice in data["invoices"]:
@@ -184,7 +190,7 @@ def load_inv():
         db.my_logger.log(__file__, msg, "ERROR", type(ex), tb)
 
 
-def save_n_load_inv():
+def reload_inv():
     save_inv()
     load_inv()
 

@@ -1,0 +1,28 @@
+{
+    "counterparties": [
+        {
+            "entity_id": 1,
+            "name": "New Supplier Name",
+            "phone": "1234567",
+            "payment_nr": "BG123",
+            "status": "ENABLED",
+            "type": "Supplier",
+            "description": {
+                "sellable": [
+                    [
+                        "terpentine",
+                        2.0
+                    ],
+                    [
+                        "thinner",
+                        4.0
+                    ],
+                    [
+                        "pigment(BK)",
+                        10.0
+                    ]
+                ]
+            }
+        }
+    ]
+}
