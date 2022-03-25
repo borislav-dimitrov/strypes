@@ -45,7 +45,7 @@ def create_transact(id_, type_, counterparty, assets: list[str, int, float], inv
     # endregion
     new_transact = trepo.create_transact(id_, type_, date, price, counterparty, assets, invoice)
     db.transactions.append(new_transact)
-    return True, "Success"
+    return True, "Success", new_transact
 
 
 def del_transact(id_):
@@ -89,12 +89,19 @@ def edit_transact_assets(id_, assets):
 
 
 def edit_transact_invoice(id_, invoice=None):
+    """
+
+    :param id_: transaction id
+    :param invoice: invoice number
+    :return:
+    """
     if invoice:
-        state, msg = trepo.validate_inv_exist(invoice, db.invoices)
+        state, msg, invoice = trepo.validate_inv_exist(invoice, db.invoices)
         if not state:
             return False, msg
+    new_invoice = invoice
     transaction = trepo.get_transact_by_id(id_, db.transactions)
-    transaction.invoice = None
+    transaction.invoice = new_invoice
     reload_transact()
     return True, "Success"
 
@@ -115,12 +122,15 @@ def edit_transact_date(id_, date="auto"):
 # endregion
 
 
-# regon Save/Load/Reload
+# region Save/Load/Reload
 def save_transact():
     output_file = "./Model/DataBase/transactions.json"
     data = {"transactions": []}
 
     for transaction in db.transactions:
+        invoice = None
+        if transaction.invoice:
+            invoice = transaction.invoice.invoice_number
         data["transactions"].append({
             "entity_id": transaction.entity_id,
             "type": transaction.type_,
@@ -128,7 +138,7 @@ def save_transact():
             "price": transaction.price,
             "counterparty": transaction.counterparty.entity_id,
             "assets": transaction.assets,
-            "invoice": transaction.invoice  # TODO save invoice number here
+            "invoice": invoice
         })
 
     try:

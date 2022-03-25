@@ -18,7 +18,7 @@ def valid_inv_status(status):
 
 def valid_new_inv_num(num, all_inv):
     for invoice in all_inv:
-        if int(invoice.invoice_number.split("-")[1]) == num:
+        if int(invoice.invoice_number) == num:
             return False, f"Invoice number INV-{num} already exists!"
     return True, f"Invoice number INV-{num} is free!"
 
@@ -61,12 +61,12 @@ def get_inv_index(id_, all_inv):
 def get_new_inv_number(all_inv):
     highest = 0
     if len(all_inv) == 0:
-        return f"INV-{1}"
+        return 1
     else:
         for invoice in all_inv:
             if int(invoice.invoice_number.split("-")[1]) > highest:
                 highest = int(invoice.invoice_number.split("-")[1])
-        return f"INV-{highest + 1}"
+        return highest + 1
 
 
 def get_inv_date():
@@ -76,28 +76,13 @@ def get_inv_date():
 
 
 def validate_date(full_date):
+    valid_format = "%d-%m-%Y %H:%M:%S"
     try:
-        date = full_date.split(" ")[0]
-        year = int(date.split("-")[2])
-        time = full_date.split(" ")[1]
-        now = get_inv_date()
-        now_date = now.split(" ")[0]
-        year_now = int(now_date.split("-")[2])
-
-        if year < year_now - 1:
-            return False, "Invoice date too old!"
-        return True, "Valid"
+        return bool(dt.strptime(full_date, valid_format)), "Success"
+    except ValueError:
+        return False, "Invalid date format"
     except Exception as ex:
-        return False, "Date is invalid format!"
-
-
-def get_total_price(items):
-    total = 0
-    for item in items:
-        qty = item[1]
-        unit_price = item[2]
-        total += int(qty) * int(unit_price)
-    return total
+        return False, f"Something went wrong! Err:{ex}\nErrType:{type(ex)}"
 
 
 # endregion

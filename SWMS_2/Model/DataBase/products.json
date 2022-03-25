@@ -8,6 +8,15 @@
             "sell_price": 4.5,
             "quantity": 10,
             "assigned_warehouse": "Virtual01"
+        },
+        {
+            "entity_id": 2,
+            "product_name": "green paint",
+            "product_type": "Finished Goods",
+            "buy_price": 4.0,
+            "sell_price": 5.0,
+            "quantity": 15,
+            "assigned_warehouse": "sklad02"
         }
     ]
 }

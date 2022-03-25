@@ -183,15 +183,6 @@ def reload_whs():
 
 
 # region OTHER
-def hook_products_to_warehouse():
-    for warehouse in db.warehouses:
-        warehouse.wh_products = []
-
-        for product in db.products:
-            if product.assigned_wh.lower() == warehouse.wh_name.lower():
-                warehouse.wh_products.append(product)
-
-
 def get_wh_by_name(name):
     return whrep.get_wh_by_name(name, db.warehouses)
 

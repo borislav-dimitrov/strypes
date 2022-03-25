@@ -32,8 +32,8 @@ def validate_date(full_date):
 def validate_inv_exist(inv_number, all_inv):
     for invoice in all_inv:
         if invoice.invoice_number == inv_number:
-            return True, invoice
-    return False, "Invoice not found!"
+            return True, "Success", invoice
+    return False, "Invoice not found!", None
 
 
 # endregion

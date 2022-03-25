@@ -6,8 +6,7 @@
             "warehouse_type": "Virtual",
             "warehouse_capacity": 99999999999999999,
             "warehouse_products": [
-                "red paint x 10",
-                "red paint x 1000"
+                "red paint x 10"
             ],
             "warehouse_status": "ENABLED"
         },
@@ -25,7 +24,7 @@
             "warehouse_type": "finished goods",
             "warehouse_capacity": 1000,
             "warehouse_products": [
-                "red paint x 1"
+                "green paint x 15"
             ],
             "warehouse_status": "ENABLED"
         }

@@ -76,7 +76,7 @@ def create_new_product(id_, name: str, type_: str, b_price: float, s_price: floa
         else:
             new_prod = prepo.create_product(id_, name, type_, b_price, s_price, quantity, "Virtual01")
         db.products.append(new_prod)
-        whmgmt.hook_products_to_warehouse()
+        hook_products_to_warehouse()
         return True, "Success"
 
 
@@ -152,6 +152,14 @@ def edit_product_assigned_warehouse(id_, new_wh_name):
 
 
 # region Save/Load/Reload
+def hook_products_to_warehouse():
+    for warehouse in db.warehouses:
+        warehouse.wh_products.clear()
+
+        for product in db.products:
+            if product.assigned_wh.lower() == warehouse.wh_name.lower():
+                warehouse.wh_products.append(product)
+
 def save_products():
     output_file = "./Model/DataBase/products.json"
     data = {
@@ -166,7 +174,7 @@ def save_products():
             "buy_price": product.buy_price,
             "sell_price": product.sell_price,
             "quantity": product.quantity,
-            "assigned_warehouse": "none"
+            "assigned_warehouse": product.assigned_wh
         })
 
     db.save_data_to_json(data, output_file)
@@ -193,6 +201,9 @@ def load_products():
             new_assigned_wh = prod["assigned_warehouse"]
             create_new_product(new_prod_id, new_prod_name, new_prod_type, new_buy_price,
                                new_sell_price, new_quantity, new_assigned_wh)
+
+        hook_products_to_warehouse()
+        whmgmt.save_whs()
     except Exception as ex:
         msg = "Error loading products!"
         tb = sys.exc_info()[2].tb_frame

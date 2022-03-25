@@ -3,12 +3,29 @@ import sys
 
 import Model.DataBase.my_db as db
 import Model.Repositories.inv_repo as invrepo
+import Model.Modules.sales.transaction_mgmt as trmgmt
+from Model.Entities.counterparty import Counterparty
 import json as js
+
 
 # TODO modify this and implement hook invoices to transactions func
 
 # region CRUD
-def create_new_inv(id_, num, from_, to_, date, items, descr, terms, status):
+def create_new_inv(id_, num, from_, to_, date, due_to, items: list[str, int, float], descr, terms, status):
+    """
+
+    :param id_: "auto" or int
+    :param num: "auto" or int
+    :param from_:
+    :param to_:
+    :param date: "auto" or date
+    :param due_to: "auto" or date
+    :param items:
+    :param descr:
+    :param terms:
+    :param status:
+    :return:
+    """
     # region Validations
     if id_ == "auto":
         id_ = db.get_new_entity_id(db.invoices)
@@ -25,13 +42,12 @@ def create_new_inv(id_, num, from_, to_, date, items, descr, terms, status):
         stat, msg = invrepo.valid_new_inv_num(num, db.invoices)
         if not stat:
             return False, msg
-        num = f"INV-{num}"
 
-    if not isinstance(from_, list) or len(from_) != 7:
-        return False, "Invalid Invoice issuer(from) parameters!"
+    if not isinstance(from_, Counterparty):
+        return False, "Invalid invoicer counterparty!"
 
-    if not isinstance(to_, list) or len(to_) != 7:
-        return False, "Invalid Invoice issuer(to) parameters!"
+    if not isinstance(to_, Counterparty):
+        return False, "Invalid invoice bill to counterparty!"
 
     if date == "auto":
         date = invrepo.get_inv_date()
@@ -40,13 +56,19 @@ def create_new_inv(id_, num, from_, to_, date, items, descr, terms, status):
         if not is_valid:
             return False, msg
 
-    if not isinstance(items, list) or not items:
-        return False, "Invalid Invoice item list!"
-    for item in items:
-        if len(item) < 3:
-            return False, f"Invalid item - {item}"
+    if due_to == "auto":
+        due_to = invrepo.get_inv_date()
+    else:
+        is_valid, msg = invrepo.validate_date(due_to)
+        if not is_valid:
+            return False, msg
 
-    price = invrepo.get_total_price(items)
+    price = 0
+
+    for item in items:
+        if not isinstance(item[0], str) and not isinstance(item[1], int) and not isinstance(item[2], float):
+            return False, "Invalid transaction assets!"
+        price += item[1] * item[2]
 
     state, status = invrepo.valid_inv_status(status)
     if not state:
@@ -55,7 +77,8 @@ def create_new_inv(id_, num, from_, to_, date, items, descr, terms, status):
 
     new_inv = invrepo.create_invoice(id_, num, from_, to_, date, items, price, descr, terms, status)
     db.invoices.append(new_inv)
-    return True, "Success"
+    hook_invoices_to_transactions()
+    return True, "Success", new_inv
 
 
 def delete_inv(id_):
@@ -70,14 +93,14 @@ def edit_inv_num(id_, number):
     if not status:
         return False, msg
     invoice = invrepo.get_inv_by_id(id_, db.invoices)
-    invoice.invoice_number = f"INV-{number}"
+    invoice.invoice_number = number
     reload_inv()
     return True, "Success"
 
 
 def edit_inv_from(id_, from_):
-    if not isinstance(from_, list) or len(from_) != 7:
-        return False, "Invalid Invoice issuer(to) parameters!"
+    if not isinstance(from_, Counterparty):
+        return False, "Invalid invoicer counterparty!"
     invoice = invrepo.get_inv_by_id(id_, db.invoices)
     invoice.to_info = from_
     reload_inv()
@@ -85,8 +108,8 @@ def edit_inv_from(id_, from_):
 
 
 def edit_inv_to(id_, to_):
-    if not isinstance(to_, list) or len(to_) != 7:
-        return False, "Invalid Invoice issuer(to) parameters!"
+    if not isinstance(to_, Counterparty):
+        return False, "Invalid invoicer counterparty!"
     invoice = invrepo.get_inv_by_id(id_, db.invoices)
     invoice.to_info = to_
     reload_inv()
@@ -132,6 +155,12 @@ def edit_inv_status(id_, status):
 
 
 # region Save/Load/Reload
+def hook_invoices_to_transactions():
+    for transaction in db.transactions:
+        for invoice in db.invoices:
+            if invoice.invoice_number == transaction.invoice:
+                transaction.invoice == invoice
+
 
 def save_inv():
     output_file = "./Model/DataBase/invoices.json"
@@ -185,6 +214,8 @@ def load_inv():
             create_new_inv(new_inv_id, int(new_inv_number.split("-")[1]), new_inv_from, new_inv_to, new_inv_date,
                            new_inv_items, new_inv_description,
                            new_inv_terms, new_inv_status)
+        hook_invoices_to_transactions()
+        trmgmt.save_transact()
     except Exception as ex:
         msg = "Error Loading invoices!"
         tb = sys.exc_info()[2].tb_frame
