@@ -34,7 +34,7 @@ def create_new_wh(id_, name, type_, capacity, products: list, status):
 
     is_valid = whrep.validate_type(type_, db.allowed_types)
     if is_valid == -1:
-        print("Invalid warehouse type!")
+        print("Invalid warehousing type!")
         return
 
     if not isinstance(capacity, int):
@@ -78,7 +78,7 @@ def edit_wh_type(id_, new_type):
     warehouse = whrep.get_wh_by_id(id_, db.warehouses)
     is_valid = whrep.validate_type(new_type, db.allowed_types)
     if is_valid == -1:
-        return False, "Invalid warehouse type!"
+        return False, "Invalid warehousing type!"
     warehouse.wh_type = new_type
     reload_whs()
     return True, "Success"

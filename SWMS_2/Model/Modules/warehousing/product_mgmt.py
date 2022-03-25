@@ -2,7 +2,7 @@ import sys
 
 import Model.DataBase.my_db as db
 import Model.Repositories.products_repo as prepo
-import Model.Modules.warehouse_mgmt as whmgmt
+import Model.Modules.warehousing.warehouse_mgmt as whmgmt
 import json as js
 
 
@@ -16,7 +16,7 @@ def create_new_product(id_, name: str, type_: str, b_price: float, s_price: floa
     :param b_price: Product buy price
     :param s_price: Product sell price
     :param quantity: Product quantity
-    :param assigned_wh: Product assigned to warehouse
+    :param assigned_wh: Product assigned to warehousing
     :return: True/False
     """
 
@@ -48,7 +48,7 @@ def create_new_product(id_, name: str, type_: str, b_price: float, s_price: floa
         return False
 
     if not prepo.validate_assigned_wh(assigned_wh, db.warehouses):
-        print("Invalid warehouse to assign!")
+        print("Invalid warehousing to assign!")
         return False
     # endregion
 
@@ -60,7 +60,7 @@ def create_new_product(id_, name: str, type_: str, b_price: float, s_price: floa
         # Increase quantity if possible
         if free >= quantity:
             product.quantity += quantity
-        # Else create as new product with new id and assigned to virtual warehouse
+        # Else create as new product with new id and assigned to virtual warehousing
         else:
             new_prod = prepo.create_product(db.get_new_entity_id(db.products), name,
                                             type_, b_price, s_price, quantity, "Virtual01")
@@ -69,10 +69,10 @@ def create_new_product(id_, name: str, type_: str, b_price: float, s_price: floa
     else:
         wh = whmgmt.get_wh_by_name(assigned_wh)
         total, free = whmgmt.wh_capacity_info(wh)
-        # If no space in assigned warehouse
+        # If no space in assigned warehousing
         if free >= quantity:
             new_prod = prepo.create_product(id_, name, type_, b_price, s_price, quantity, assigned_wh)
-        # Create in virtual warehouse
+        # Create in virtual warehousing
         else:
             new_prod = prepo.create_product(id_, name, type_, b_price, s_price, quantity, "Virtual01")
         db.products.append(new_prod)
@@ -141,7 +141,7 @@ def edit_product_quantity(id_, new_quantity):
 def edit_product_assigned_warehouse(id_, new_wh_name):
     product = prepo.get_product_by_id(id_, db.products)
     if not prepo.validate_assigned_wh(new_wh_name, db.warehouses):
-        print("Invalid warehouse to assign!")
+        print("Invalid warehousing to assign!")
         return False
     product.assigned_wh = new_wh_name
     whmgmt.hook_products_to_warehouse()
