@@ -105,10 +105,8 @@ def startup():
     # Warehousing
     Modules.whmgmt.load_whs()
     Modules.prmgmt.load_products()
-    # Modules.prmgmt.hook_products_to_warehouse()
 
     # Sales
     Modules.cpmgmt.load_cprty()
     Modules.trmgmt.load_transact()
     Modules.invmgmt.load_inv()
-    Modules.invmgmt.hook_invoices_to_transactions()

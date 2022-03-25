@@ -16,6 +16,8 @@ import Model.Modules.all_modules as Modules
 def main():
     db.startup()
     print("App is running!\n\n")
+    db.print_all_inv()
+    db.print_all_transactions()
     print("\n\nApp is closing!")
 
 
