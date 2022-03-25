@@ -3,7 +3,9 @@ import Model.Modules.all_modules as Modules
 
 # region TODOs
 """
-    Continue with client, supplier modules.
+    client module/repo
+    supplier module/repo
+    transaction module/repo
 """
 
 
