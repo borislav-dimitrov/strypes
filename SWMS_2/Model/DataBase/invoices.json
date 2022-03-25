@@ -1,0 +1,27 @@
+{
+    "invoices": [
+        {
+            "entity_id": 1,
+            "invoice_number": 1,
+            "invoice_from": 1,
+            "invoice_to": 1,
+            "invoice_date": "25-03-2022 16:42:29",
+            "invoice_items": [
+                [
+                    "asset53",
+                    5,
+                    10.0
+                ],
+                [
+                    "asset20",
+                    1,
+                    15.0
+                ]
+            ],
+            "invoice_total_price": 65.0,
+            "invoice_description": "",
+            "invoice_terms": "",
+            "invoice_status": "PENDING"
+        }
+    ]
+}

@@ -5,6 +5,7 @@ import Model.DataBase.my_db as db
 import Model.Repositories.inv_repo as invrepo
 import Model.Modules.sales.transaction_mgmt as trmgmt
 from Model.Entities.counterparty import Counterparty
+import Model.Modules.sales.counterparty_mgmt as ctrpmgmt
 import json as js
 
 
@@ -170,8 +171,8 @@ def save_inv():
         data["invoices"].append({
             "entity_id": invoice.entity_id,
             "invoice_number": invoice.invoice_number,
-            "invoice_from": invoice.from_info,
-            "invoice_to": invoice.to_info,
+            "invoice_from": invoice.from_info.entity_id,
+            "invoice_to": invoice.to_info.entity_id,
             "invoice_date": invoice.invoice_date,
             "invoice_items": invoice.items,
             "invoice_total_price": invoice.total_price,
@@ -203,8 +204,8 @@ def load_inv():
         for invoice in data["invoices"]:
             new_inv_id = invoice["entity_id"]
             new_inv_number = invoice["invoice_number"]
-            new_inv_from = invoice["invoice_from"]
-            new_inv_to = invoice["invoice_to"]
+            new_inv_from = ctrpmgmt.cptrepo.get_cprty_by_id(invoice["invoice_from"], db.counterparties)
+            new_inv_to = ctrpmgmt.cptrepo.get_cprty_by_id(invoice["invoice_to"], db.counterparties)
             new_inv_date = invoice["invoice_date"]
             new_inv_items = invoice["invoice_items"]
             new_inv_description = invoice["invoice_description"]

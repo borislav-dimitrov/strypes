@@ -7,7 +7,7 @@ import json as js
 
 
 # region CRUD
-def create_transact(id_, type_, counterparty, assets: list[str, int, float], invoice=None, date="auto"):
+def create_transact(id_, type_, counterparty, assets: list[list], invoice=None, date="auto"):
     # region Validations
     if id_ == "auto":
         id_ = db.get_new_entity_id(db.transactions)
@@ -38,7 +38,7 @@ def create_transact(id_, type_, counterparty, assets: list[str, int, float], inv
         price += item[1] * item[2]
 
     if invoice:
-        state, msg = trepo.validate_inv_exist(invoice, db.invoices)
+        state, msg, invoice = trepo.validate_inv_exist(invoice, db.invoices)
         if not state:
             return False, msg
 
@@ -49,7 +49,7 @@ def create_transact(id_, type_, counterparty, assets: list[str, int, float], inv
 
 
 def del_transact(id_):
-    trepo.del_new_transact(id_, db.transactions)
+    trepo.del_transact(id_, db.transactions)
     reload_transact()
     return True, "Success"
 
