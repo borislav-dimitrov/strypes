@@ -1,4 +1,3 @@
-import os
 import sys
 import Model.DataBase.my_db as db
 import Model.Repositories.counterparty_repo as cptrepo
@@ -36,6 +35,12 @@ def create_new_cprty(id_, name, phone, payment_nr, status, type_, descr=""):
 
     new_crpty = cptrepo.create_counterparty(id_, name, phone, payment_nr, status, type_, descr)
     db.counterparties.append(new_crpty)
+    return True, "Success"
+
+
+def del_cprty(id_):
+    cptrepo.del_counterpart(id_, db.counterparties)
+    reload_cprty()
     return True, "Success"
 
 

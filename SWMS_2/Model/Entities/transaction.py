@@ -1,6 +1,6 @@
 class Transaction:
     def __init__(self, id_, type_, date, price, counterparty, assets, invoice):
-        self.id_ = id_
+        self.entity_id = id_
         self.type_ = type_
         self.date = date
         self.price = price

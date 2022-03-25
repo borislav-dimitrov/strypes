@@ -62,6 +62,12 @@ def print_all_counterparties():
               cprty.status, cprty.type_, cprty.description)
 
 
+def print_all_transactions():
+    for transaction in transactions:
+        print(transaction.entity_id, transaction.type_, transaction.date, transaction.price,
+              transaction.counterparty, transaction.assets, transaction.invoice)
+
+
 # endregion
 
 
@@ -93,9 +99,16 @@ def save_data_to_json(data, file):
 
 def startup():
     spawn_logger()
+    # Users
     Modules.umgmt.load_users()
+
+    # Warehousing
     Modules.whmgmt.load_whs()
     Modules.prmgmt.load_products()
     Modules.whmgmt.hook_products_to_warehouse()
+
+    # Sales
     Modules.cpmgmt.load_cprty()
+    Modules.trmgmt.load_transact()
     # Modules.invmgmt.load_inv()
+    # Modules.invmgmt.hook_inv_to_transact()  # TODO

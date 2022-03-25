@@ -5,6 +5,7 @@ import Model.DataBase.my_db as db
 import Model.Repositories.inv_repo as invrepo
 import json as js
 
+# TODO modify this and implement hook invoices to transactions func
 
 # region CRUD
 def create_new_inv(id_, num, from_, to_, date, items, descr, terms, status):

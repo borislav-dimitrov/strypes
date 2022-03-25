@@ -1,0 +1,24 @@
+{
+    "transactions": [
+        {
+            "entity_id": 1,
+            "type": "SALE",
+            "date": "25-03-2022 13:37:19",
+            "price": 29.0,
+            "counterparty": 1,
+            "assets": [
+                [
+                    "asset1",
+                    3,
+                    5.0
+                ],
+                [
+                    "asset2",
+                    2,
+                    7.0
+                ]
+            ],
+            "invoice": null
+        }
+    ]
+}
