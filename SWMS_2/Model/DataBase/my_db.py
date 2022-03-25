@@ -86,4 +86,4 @@ def startup():
     Modules.whmgmt.load_whs()
     Modules.prmgmt.load_products()
     Modules.whmgmt.hook_products_to_warehouse()
-    Modules.invmgmt.load_inv()
+    # Modules.invmgmt.load_inv()

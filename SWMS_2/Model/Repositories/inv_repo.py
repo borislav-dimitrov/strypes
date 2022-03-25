@@ -9,7 +9,7 @@ from datetime import datetime as dt
 def valid_inv_status(status):
     if not isinstance(status, str):
         return False, "Invalid Status!"
-    valid_statuses = ["NEW", "PENDING", "PAID", "OVERDUE"]
+    valid_statuses = ["PENDING", "PAID", "OVERDUE"]
     for st in valid_statuses:
         if st.lower() == status.lower():
             return True, st
