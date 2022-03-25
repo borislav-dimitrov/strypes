@@ -16,7 +16,6 @@ import Model.Modules.all_modules as Modules
 def main():
     db.startup()
     print("App is running!\n\n")
-
     print("\n\nApp is closing!")
 
 

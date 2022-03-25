@@ -110,5 +110,5 @@ def startup():
     # Sales
     Modules.cpmgmt.load_cprty()
     Modules.trmgmt.load_transact()
-    # Modules.invmgmt.load_inv()
-    # Modules.invmgmt.hook_inv_to_transact()  # TODO
+    Modules.invmgmt.load_inv()
+    Modules.invmgmt.hook_invoices_to_transactions()

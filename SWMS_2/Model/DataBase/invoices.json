@@ -6,6 +6,7 @@
             "invoice_from": 1,
             "invoice_to": 1,
             "invoice_date": "25-03-2022 16:42:29",
+            "due_to": "01-04-2022 16:42:29",
             "invoice_items": [
                 [
                     "asset53",

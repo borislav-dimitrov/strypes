@@ -9,8 +9,6 @@ import Model.Modules.sales.counterparty_mgmt as ctrpmgmt
 import json as js
 
 
-# TODO modify this and implement hook invoices to transactions func
-
 # region CRUD
 def create_new_inv(id_, num, from_, to_, date, due_to, items: list[str, int, float], descr, terms, status):
     """
@@ -160,7 +158,7 @@ def hook_invoices_to_transactions():
     for transaction in db.transactions:
         for invoice in db.invoices:
             if invoice.invoice_number == transaction.invoice:
-                transaction.invoice == invoice
+                transaction.invoice = invoice
 
 
 def save_inv():
@@ -174,6 +172,7 @@ def save_inv():
             "invoice_from": invoice.from_info.entity_id,
             "invoice_to": invoice.to_info.entity_id,
             "invoice_date": invoice.invoice_date,
+            "due_to": invoice.due_to,
             "invoice_items": invoice.items,
             "invoice_total_price": invoice.total_price,
             "invoice_description": invoice.description,
@@ -207,13 +206,14 @@ def load_inv():
             new_inv_from = ctrpmgmt.cptrepo.get_cprty_by_id(invoice["invoice_from"], db.counterparties)
             new_inv_to = ctrpmgmt.cptrepo.get_cprty_by_id(invoice["invoice_to"], db.counterparties)
             new_inv_date = invoice["invoice_date"]
+            new_inv_due_to = invoice["due_to"]
             new_inv_items = invoice["invoice_items"]
             new_inv_description = invoice["invoice_description"]
             new_inv_terms = invoice["invoice_terms"]
             new_inv_status = invoice["invoice_status"]
 
-            create_new_inv(new_inv_id, int(new_inv_number.split("-")[1]), new_inv_from, new_inv_to, new_inv_date,
-                           new_inv_items, new_inv_description,
+            create_new_inv(new_inv_id, new_inv_number, new_inv_from, new_inv_to, new_inv_date,
+                           new_inv_due_to, new_inv_items, new_inv_description,
                            new_inv_terms, new_inv_status)
         hook_invoices_to_transactions()
         trmgmt.save_transact()

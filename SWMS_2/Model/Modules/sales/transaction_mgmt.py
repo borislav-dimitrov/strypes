@@ -37,10 +37,8 @@ def create_transact(id_, type_, counterparty, assets: list[list], invoice=None, 
             return False, "Invalid transaction assets!"
         price += item[1] * item[2]
 
-    if invoice:
-        state, msg, invoice = trepo.validate_inv_exist(invoice, db.invoices)
-        if not state:
-            return False, msg
+    if not isinstance(invoice, int):
+        return False, "Invalid invoice number"
 
     # endregion
     new_transact = trepo.create_transact(id_, type_, date, price, counterparty, assets, invoice)
@@ -169,7 +167,9 @@ def load_transact():
             assets = transaction["assets"]
             invoice = transaction["invoice"]
 
-            create_transact(id_, type_, counterparty, assets, invoice, date=date)
+            state, msg, tr = create_transact(id_, type_, counterparty, assets, invoice, date=date)
+            if not state:
+                db.my_logger.log(__file__, "Error creating transaction", "ERROR", msg)
     except Exception as ex:
         msg = "Error Loading transactions!"
         tb = sys.exc_info()[2].tb_frame
