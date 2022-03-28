@@ -6,9 +6,6 @@ class GenericRepository:
         self._entities = {}
         self._id_generator = id_generator
 
-    def entities_getter(self):
-        return self._entities
-
     def find_all(self):
         return self._entities.values()
 
