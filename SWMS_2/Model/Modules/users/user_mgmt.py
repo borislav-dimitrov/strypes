@@ -7,6 +7,12 @@ import json as js
 
 # region Verifications
 def verify_user(username, password):
+    """
+    Verify user\n
+    :param username: username
+    :param password: plain text password
+    :return: user or string "Unauthorized"
+    """
     for user in db.users:
         if user.user_name.lower() == username.lower() and urep.compare_pwd(password, user.user_password):
             return user
@@ -42,15 +48,13 @@ def create_new_user(id_, name: str, pwd: str, type_: str, stat: str, last_login:
 
     # region Check if username is free
     if not urep.check_uname_available(name, db.users):
-        print("Username already exists!")
-        return False
+        return False, "Username already exists!"
     # endregion
 
     # region Check strong pwd
     status = verify_password(pwd)
     if status != "":
-        print(status)
-        return False
+        return False, status
     # endregion
 
     # region Check user type
@@ -59,8 +63,7 @@ def create_new_user(id_, name: str, pwd: str, type_: str, stat: str, last_login:
     elif "operator" in type_.lower():
         utype = "Operator"
     else:
-        print(f"Invalid user type {type_}!")
-        return False
+        return False, f"Invalid user type {type_}!"
     # endregion
 
     # region Check user status
@@ -69,8 +72,7 @@ def create_new_user(id_, name: str, pwd: str, type_: str, stat: str, last_login:
     elif "disabled" in stat.lower():
         ustat = "DISABLED"
     else:
-        print(f"Invalid user status {stat}!")
-        return False
+        return False, f"Invalid user status {stat}!"
     # endregion
 
     # Generate id
@@ -82,7 +84,7 @@ def create_new_user(id_, name: str, pwd: str, type_: str, stat: str, last_login:
 
     # add to db users
     db.users.append(new_usr)
-    return True
+    return True, new_usr
 
 
 def delete_user(user_id: int, all_users: list, current_user_logged_in):
@@ -205,8 +207,10 @@ def load_users():
             new_usr_stat = usr["user_status"]
             new_usr_last_login = usr["last_login"]
 
-            create_new_user(new_usr_id, new_usr_name, urep.decrypt_pwd(new_usr_pwd),
-                            new_usr_type, new_usr_stat, new_usr_last_login)
+            state, output = create_new_user(new_usr_id, new_usr_name, urep.decrypt_pwd(new_usr_pwd),
+                                          new_usr_type, new_usr_stat, new_usr_last_login)
+            if not state:
+                raise Exception
     except Exception as ex:
         msg = "Error Loading users!"
         tb = sys.exc_info()[2].tb_frame

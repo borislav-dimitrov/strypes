@@ -74,7 +74,7 @@ def create_new_inv(id_, num, from_, to_, date, due_to, items: list[str, int, flo
         return False, status
     # endregion
 
-    new_inv = invrepo.create_invoice(id_, num, from_, to_, date, items, price, descr, terms, status)
+    new_inv = invrepo.create_invoice(id_, num, from_, to_, date, due_to, items, price, descr, terms, status)
     db.invoices.append(new_inv)
     hook_invoices_to_transactions()
     return True, "Success", new_inv

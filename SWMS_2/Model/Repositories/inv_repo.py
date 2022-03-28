@@ -26,8 +26,8 @@ def valid_new_inv_num(num, all_inv):
 # endregion
 
 # region CRUD
-def create_invoice(id_, num, from_, to_, date, items, price, descr, terms, status):
-    new_inv = Invoice(id_, num, from_, to_, date, items, price, descr, terms, status)
+def create_invoice(id_, num, from_, to_, date, due_to, items, price, descr, terms, status):
+    new_inv = Invoice(id_, num, from_, to_, date, due_to, items, price, descr, terms, status)
     return new_inv
 
 

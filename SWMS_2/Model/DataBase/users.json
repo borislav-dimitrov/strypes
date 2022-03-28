@@ -3,7 +3,15 @@
         {
             "entity_id": 1,
             "user_name": "bobi",
-            "user_password": "gAAAAABiNdvZXmCSw5sQXNJrjPuGj5stZS0tvfG4PnM3fNQyOcBwaencbv4iNkWffSLsqa2H7RaVLB54GS5uXxLJ8uJOngXnQg==",
+            "user_password": "gAAAAABiQX_OtuqMcQ_c_prFGDKZJ5-PQ51Rt3S8DDr5mKn9j4MBQpBQg42j1QgrurzI32GMIFqrTThO0adUz8l9AJBfQBl3aQ==",
+            "user_type": "Administrator",
+            "user_status": "ENABLED",
+            "last_login": ""
+        },
+        {
+            "entity_id": 2,
+            "user_name": "asd",
+            "user_password": "gAAAAABiQX_OKz-qGBC_gtJ6Y8nRJkp67z5vwjAn_l0y4cFJDvLmUwAS-pQ8psNhG88T-6ba4mxgmitzocuQwQfbRVCzM7HAEg==",
             "user_type": "Administrator",
             "user_status": "ENABLED",
             "last_login": ""

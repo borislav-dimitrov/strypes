@@ -98,7 +98,12 @@ def save_data_to_json(data, file):
 
 
 def startup():
+    global curr_user
+
+    opened_pages.clear()
+    curr_user = None
     spawn_logger()
+
     # Users
     Modules.umgmt.load_users()
 
@@ -110,3 +115,22 @@ def startup():
     Modules.cpmgmt.load_cprty()
     Modules.trmgmt.load_transact()
     Modules.invmgmt.load_inv()
+
+
+def on_exit():
+    global curr_user
+
+    # Users
+    Modules.umgmt.save_users()
+
+    # Warehousing
+    Modules.whmgmt.save_whs()
+    Modules.prmgmt.save_products()
+
+    # Sales
+    Modules.cpmgmt.save_cprty()
+    Modules.trmgmt.save_transact()
+    Modules.invmgmt.save_inv()
+
+    opened_pages.clear()
+    curr_user = None

@@ -1,5 +1,5 @@
 class Invoice:
-    def __init__(self, entity_id, invoice_number, from_info, to_info, invoice_date, items, total_price, description,
+    def __init__(self, entity_id, invoice_number, from_info, to_info, invoice_date, due_to, items, total_price, description,
                  terms_conditions, status):
         """
         :param entity_id:
@@ -18,6 +18,7 @@ class Invoice:
         self.from_info = from_info
         self.to_info = to_info
         self.invoice_date = invoice_date
+        self.due_to = due_to
         self.items = items
         self.total_price = total_price
         self.description = description
