@@ -4,9 +4,9 @@ from model.exceptions import EntityNotFoundException, EntityAttributeNotFoundExc
 
 
 class GenericRepository:
-    def __init__(self, id_generator):
+    def __init__(self, IdGenerator):
         self._entities = {}
-        self._id_generator = id_generator
+        self._IdGenerator = IdGenerator
 
     # region FIND
     def find_all(self):
@@ -15,7 +15,6 @@ class GenericRepository:
     def find_by_id(self, id_: int):
         found = self._entities.get(id_)
         if found is None:
-            # TODO log
             raise EntityNotFoundException(f"Entity with ID: {id_} not found!")
         return found
 
@@ -31,10 +30,9 @@ class GenericRepository:
             for entity in self._entities:
                 found = getattr(self._entities[entity], attr_name, "<attr not found>")
                 if found == "<attr not found>":
-                    # TODO log
                     raise EntityAttributeNotFoundException(f"Entity doesn't have attribute {attr_name}!")
 
-                if found.lower() == attr_val.lower():
+                if found == attr_val:
                     result.append(self._entities[entity])
 
             if len(result) > 0:
@@ -50,7 +48,7 @@ class GenericRepository:
 
     # region CRUD
     def create(self, entity):
-        entity.id = self._id_generator.get_next_id()
+        entity.id = self._IdGenerator.get_next_id()
         self._entities[entity.id] = entity
         return entity
 
@@ -68,4 +66,7 @@ class GenericRepository:
     # region OTHER
     def count(self):
         return len(self._entities)
+
+    def get_entities(self):
+        return self._entities
     # endregion

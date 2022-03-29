@@ -4,3 +4,7 @@ class EntityNotFoundException(Exception):
 
 class EntityAttributeNotFoundException(Exception):
     pass
+
+
+class EntityIsAlreadyInWarehouseException(Exception):
+    pass

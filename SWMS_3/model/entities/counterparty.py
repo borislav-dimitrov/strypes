@@ -5,5 +5,5 @@ class Counterparty:
         self.phone = phone
         self.payment_nr = payment_nr
         self.status = status
-        self.type_ = type_
+        self.type = type_
         self.description = descr
