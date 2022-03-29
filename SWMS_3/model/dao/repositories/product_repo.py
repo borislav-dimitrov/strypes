@@ -14,10 +14,12 @@ class ProductRepository(GenericRepository):
         try:
             if old_wh is new_wh:
                 raise EntityIsAlreadyInWarehouseException(f"Current item '{entity.name}' is already in '{new_wh.name}'")
+
             # remove item from old wh
-            for product in old_wh.products:
-                if product is entity:
-                    old_wh.products.remove(entity)
+            if old_wh is not None:
+                for product in old_wh.products:
+                    if product is entity:
+                        old_wh.products.remove(entity)
 
             # change product assigned warehouse
             entity.assigned_wh = new_wh

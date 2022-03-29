@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a4badc72-ecb9-4eef-a37a-99e80829d6be" name="Changes" comment="project objects and generic repo { added some docstring }">
-      <change afterPath="$PROJECT_DIR$/model/dao/repositories/product_repo.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/dao/repositories/warehouse_repo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="a4badc72-ecb9-4eef-a37a-99e80829d6be" name="Changes" comment="updated warehouses/projects repositories">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/dao/generic_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/generic_repo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/counterparty.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/counterparty.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/exceptions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/dao/repositories/product_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/product_repo.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +109,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648535953679</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="updated warehouses/projects repositories">
+      <created>1648551726852</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1648551726852</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -132,7 +134,8 @@
     <MESSAGE value="hw objects and generic repo" />
     <MESSAGE value="hw objects and generic repo { added todo }" />
     <MESSAGE value="project objects and generic repo { added some docstring }" />
-    <option name="LAST_COMMIT_MESSAGE" value="project objects and generic repo { added some docstring }" />
+    <MESSAGE value="updated warehouses/projects repositories" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated warehouses/projects repositories" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -47,7 +47,7 @@ def create_objects_and_link_them():
     pr2 = Product("Red Paint", "Finished Goods", 10.0, 12.0, 200, "sklad01")
     pr3 = Product("Turpentine", "Raw Materials", 5.0, 7.0, 200, "sklad02")
     pr4 = Product("Thinner", "Raw Materials", 5.0, 7.0, 200, "sklad02")
-    pr5 = Product("material1", "Raw Materials", 10.0, 12.0, 100, "sklad02")
+    pr5 = Product("Purple Paint", "Raw Materials", 10.0, 12.0, 100, "sklad02")
     pr6 = Product("material2", "Raw Materials", 10.0, 12.0, 300, "sklad02")
     pr7 = Product("material3", "Finished Goods", 10.0, 12.0, 300, None)
     pr8 = Product("material4", "Finished Goods", 10.0, 12.0, 300, None)
@@ -195,38 +195,6 @@ def product_test_repo():
     global pr_repo, wh_repo
     print("### Testing product repository ###")
 
-    # region TEST CRUD
-    print("\n# Repository update entity: #")
-    to_update = pr_repo.find_by_id(1)
-    print("    Old: ", vars(to_update), to_update.assigned_wh.name)
-    to_update.name = "Purple Paint"
-    to_update.sell_price = 100.0
-    pr_repo.update(to_update)
-    print("    New: ", vars(pr_repo.find_by_id(1)), pr_repo.find_by_id(1).assigned_wh.name)
-
-    print("\n# Repository update product assigned warehouse: #")
-    to_update = pr_repo.find_by_id(1)
-    print("    Old: ", vars(to_update), to_update.assigned_wh.name)
-    pr_repo.update_assigned_wh(to_update, warehouses[2])
-    print("    New: ", vars(pr_repo.find_by_id(1)), pr_repo.find_by_id(1).assigned_wh.name)
-    print("\n# Repository update product assigned warehouse to the same warehouse: #")
-    to_update = pr_repo.find_by_id(1)
-    print("    Old: ", vars(to_update), to_update.assigned_wh.name)
-    pr_repo.update_assigned_wh(to_update, warehouses[2])
-    print("    New: ", vars(pr_repo.find_by_id(1)), pr_repo.find_by_id(1).assigned_wh.name)
-
-    print("\n# Repository delete entity: #")
-    print("Repository all Entities: ")
-    found = pr_repo.find_all()
-    print_all(found)
-
-    pr_repo.delete_by_id(3)
-
-    print("Repository all Entities after deleted {3}: ")
-    found = pr_repo.find_all()
-    print_all(found)
-    # endregion
-
     # region TEST FIND
     print("\n# Repository find all: #")
     found = pr_repo.find_all()
@@ -245,6 +213,39 @@ def product_test_repo():
 
     print("\n# Repository find by non existing attribute {nameE - Ivan}: #")
     found = pr_repo.find_by_attribute("nameE", "Ivan")
+    print_all(found)
+    # endregion
+
+    # region TEST CRUD
+    print("\n# Repository update entity: #")
+    to_update = pr_repo.find_by_id(1)
+    print("    Old: ", vars(to_update), to_update.assigned_wh.name)
+    to_update.name = "Purple Paint"
+    to_update.sell_price = 100.0
+    pr_repo.update(to_update)
+    print("    New: ", vars(pr_repo.find_by_id(1)), pr_repo.find_by_id(1).assigned_wh.name)
+
+    print("\n# Repository update product assigned warehouse: #")
+    to_update = pr_repo.find_by_id(1)
+    print("    Old: ", vars(to_update), to_update.assigned_wh.name)
+    pr_repo.update_assigned_wh(to_update, wh_repo.find_by_id(2))
+    print("    New: ", vars(pr_repo.find_by_id(1)), pr_repo.find_by_id(1).assigned_wh.name)
+
+    print("\n# Repository update product assigned warehouse to the same warehouse: #")
+    to_update = pr_repo.find_by_id(1)
+    print("    Old: ", vars(to_update), to_update.assigned_wh.name)
+    pr_repo.update_assigned_wh(to_update, wh_repo.find_by_id(2))
+    print("    New: ", vars(pr_repo.find_by_id(1)), pr_repo.find_by_id(1).assigned_wh.name)
+
+    print("\n# Repository delete entity: #")
+    print("Repository all Entities: ")
+    found = pr_repo.find_all()
+    print_all(found)
+
+    pr_repo.delete_by_id(3)
+
+    print("Repository all Entities after deleted {3}: ")
+    found = pr_repo.find_all()
     print_all(found)
     # endregion
 
