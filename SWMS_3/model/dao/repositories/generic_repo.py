@@ -30,7 +30,7 @@ class GenericRepository:
             for entity in self._entities:
                 found = getattr(self._entities[entity], attr_name, "<attr not found>")
                 if found == "<attr not found>":
-                    raise EntityAttributeNotFoundException(f"Entity doesn't have attribute {attr_name}!")
+                    raise EntityAttributeNotFoundException(f"Entity doesn't have attribute '{attr_name}'!")
 
                 if found == attr_val:
                     result.append(self._entities[entity])

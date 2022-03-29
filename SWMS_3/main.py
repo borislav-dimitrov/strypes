@@ -6,7 +6,8 @@ from model.entities.product import Product
 from model.entities.user import User
 from model.entities.warehouse import Warehouse
 
-# TODO password encrypt/decrypt class
+# TODO password manager class
+# TODO remove_products_from_wh method in warehouse repo
 
 usr_id_seq = IdGeneratorInt()
 usr_repo = GenericRepository(usr_id_seq)
@@ -21,6 +22,7 @@ pr_repo = ProductRepository(pr_id_seq)
 def create_objects_and_link_them():
     global usr_repo, wh_repo, pr_repo
     print("### Start creating entities and links between them ###")
+
     # region USERS
     user1 = User("Ivan", "!@#asd", "Administrator", "Enabled", "")
     usr_repo.create(user1)
@@ -78,7 +80,7 @@ def print_all(data):
 
 def user_test_repo():
     global usr_repo
-    print("### Testing user repository ###")
+    print("\n\n### Testing user repository ###")
 
     # region TEST FIND
     print("\n# Repository find all: #")
@@ -130,7 +132,7 @@ def user_test_repo():
 
 def warehouse_test_repo():
     global wh_repo, pr_repo
-    print("### Testing warehouse repository ###")
+    print("\n\n### Testing warehouse repository ###")
 
     # region TEST FIND
     print("\n# Repository find all: #")
@@ -193,7 +195,7 @@ def warehouse_test_repo():
 
 def product_test_repo():
     global pr_repo, wh_repo
-    print("### Testing product repository ###")
+    print("\n\n### Testing product repository ###")
 
     # region TEST FIND
     print("\n# Repository find all: #")
@@ -272,7 +274,7 @@ if __name__ == '__main__':
     # user_test_repo()
     # print()
     # print()
-    # warehouse_test_repo()
+    warehouse_test_repo()
     # print()
     # print()
     # product_test_repo()
