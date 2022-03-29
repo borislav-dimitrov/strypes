@@ -12,7 +12,7 @@ class GenericRepository:
     def find_all(self):
         return self._entities.values()
 
-    def find_by_id(self, id_):
+    def find_by_id(self, id_: int):
         found = self._entities.get(id_)
         if found is None:
             # TODO log
@@ -20,6 +20,12 @@ class GenericRepository:
         return found
 
     def find_by_attribute(self, attr_name: str, attr_val):
+        """
+        Return all entities that match the given criteria\n
+        :param attr_name: attribute we want to search
+        :param attr_val: attribute value we want to filter with
+        :return: all entities matching the criteria or None
+        """
         result = []
         try:
             for entity in self._entities:
