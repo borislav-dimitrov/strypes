@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from PIL import Image, ImageTk
 
 
 class MyHome:
@@ -52,22 +53,28 @@ class MyHome:
 
         # Set Geometry
         self.m_screen.geometry(f"{self.width}x{self.height}+{int(self.x)}+{int(self.y)}")
-        self.m_screen.resizable(False, False)
+        # self.m_screen.resizable(False, False)
         # Set Title
         self.m_screen.title(title)
         # Setup Grid
         self.setup_grid()
         # Create GUI
 
-        self.bg_img = tk.PhotoImage(file="./images/home/home2.png")
+        # self.bg_img = tk.PhotoImage(file="./images/home/home2.png")
+        self.img = Image.open("./images/home/home2.png")
+        self.img_copy = self.img.copy()
+
+        self.bg_img = ImageTk.PhotoImage(self.img)
+
         self.canvas = tk.Canvas(self.m_screen, width=self.width, height=self.height)
-        self.canvas.grid(row=0, column=0, columnspan=self.grid_cols, rowspan=self.grid_rows, sticky="nesw")
+        self.canvas.grid(row=0, column=0, columnspan=self.grid_cols, rowspan=self.grid_rows, sticky="nsew")
         # Draw BG
         self.canvas.create_image(0, 0, image=self.bg_img, anchor="nw")
         # Draw Header
         self.canvas.create_text(self.width / 2, 50, text=self.page_name, font=self.heading, fill="white")
         # Draw Labels
         self.canvas.create_text(100, 50, text=f"Hello, user.", font=self.text_bold, fill="white")
+        self.canvas.bind("<Configure>", self._redraw_canvas)
 
         # Logout Btn
         self.btn1 = ttk.Button(self.m_screen, text="Logout", style="Red.TButton")
@@ -98,11 +105,28 @@ class MyHome:
             self.btn1 = ttk.Button(self.m_screen, text="Invoice\nManagement", style="Normal.TButton")
             self.btn1.grid(row=21, column=10, rowspan=2, columnspan=15, sticky="wns")
 
+    def _redraw_canvas(self, event):
+        new_width = event.width
+        new_height = event.height
+
+        self.img = self.img_copy.resize((new_width, new_height))
+        self.bg_img = ImageTk.PhotoImage(self.img)
+        self.canvas.delete("all")
+
+        # Draw BG
+        self.canvas.create_image(0, 0, image=self.bg_img, anchor="nw")
+        # Draw Header
+        self.canvas.create_text(new_width / 2, 50, text=self.page_name, font=self.heading, fill="white")
+        # Draw Labels
+        self.canvas.create_text(100, 50, text=f"Hello, user.", font=self.text_bold, fill="white")
+
     def setup_grid(self):
         # set rows
         for row in range(self.grid_rows):
-            self.m_screen.grid_rowconfigure(row, minsize=self.height / self.grid_rows)
+            tk.Grid.rowconfigure(self.m_screen, row, weight=1)
+            # self.m_screen.grid_rowconfigure(row, minsize=self.height / self.grid_rows)
 
         # set columns
         for col in range(self.grid_cols):
-            self.m_screen.grid_columnconfigure(col, minsize=self.width / self.grid_cols)
+            tk.Grid.columnconfigure(self.m_screen, col, weight=1)
+            # self.m_screen.grid_columnconfigure(col, minsize=self.width / self.grid_cols)
