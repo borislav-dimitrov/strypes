@@ -34,9 +34,9 @@ class UserManagement:
         self.header.grid(row=0, column=0, columnspan=self.cols, sticky="we")
 
         # Create User Buttons
-        self.create_btn = ctk.CTkButton(self.m_screen, text="Warehouses", text_font=self.text_bold)
+        self.create_btn = ctk.CTkButton(self.m_screen, text="Create User", text_font=self.text_bold)
         self.create_btn.grid(row=2, column=4, columnspan=2, sticky="we")
-        self.edit_btn = ctk.CTkButton(self.m_screen, text="Purchases", text_font=self.text_bold)
+        self.edit_btn = ctk.CTkButton(self.m_screen, text="Update User", text_font=self.text_bold)
         self.edit_btn.grid(row=2, column=self.cols - 6, columnspan=2, sticky="we")
 
         self.create_btn_click()

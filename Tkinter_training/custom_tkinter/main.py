@@ -7,7 +7,7 @@ from custom_tkinter.user_mgmt_view import UserManagement
 
 
 def main():
-    ctk.set_appearance_mode("system")
+    ctk.set_appearance_mode("dark")
     ctk.set_default_color_theme("blue")
 
     root = ctk.CTk()
