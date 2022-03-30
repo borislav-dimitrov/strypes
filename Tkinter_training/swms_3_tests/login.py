@@ -48,7 +48,7 @@ class MyLogin:
         # Setup Grid
         self.setup_grid()
         # Create GUI
-        self.bg_img = tk.PhotoImage(file=r"./images/login/login3.png")
+        self.bg_img = tk.PhotoImage(file=r"images/login/login3.png")
         self.canvas = tk.Canvas(self.m_screen, width=self.width, height=self.height)
         self.canvas.grid(row=0, column=0, columnspan=self.grid_cols, rowspan=self.grid_rows, sticky="nesw")
         # Draw BG

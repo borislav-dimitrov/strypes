@@ -1,10 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
+import customtkinter as ctk
 import time
 
 
 class Loading:
-    def __init__(self, root, resolution: tuple, rows: int = 30, cols: int = 30):
+    def __init__(self, root, resolution: tuple, rows: int = 30, cols: int = 30, time_s=2):
         root.title("Loading....")
         self.ww = resolution[0]
         self.wh = resolution[1]
@@ -18,7 +19,7 @@ class Loading:
 
         self.set_grid()
 
-        self.bar(2)
+        self.bar(5)
 
     def set_grid(self):
         for row in range(0, self.rows):
@@ -26,37 +27,25 @@ class Loading:
         for col in range(0, self.cols):
             tk.Grid.columnconfigure(self.root, col, weight=1)
 
-    def bar(self, time_s: int = None):
-        color1 = "#249794"
-        color2 = "white"
-        color3 = "gray"  # unloaded area color
+    def bar(self, time_s: int):
+        BLUE = "#1C94CF"
         font_text = ("Calibri (Body)", 40, "bold")
 
         style = ttk.Style()
         style.theme_use("clam")
-        # style.configure("my.Horizontal.TProgressbar", foreground=color1, background=color1,
-        #                 bordercolor=color2, troughcolor=color3)
-        style.layout("LabeledProgressbar",
-                     [('LabeledProgressbar.trough',
-                       {'children': [('LabeledProgressbar.pbar', {'side': 'left', 'sticky': 'ns'}),
-                                     ("LabeledProgressbar.label",  # label inside the bar
-                                      {"sticky": ""})], 'sticky': 'nswe'})])
 
-        lbl_info = tk.Label(self.root, text="Loading please wait!", fg="orange", bg=color1, font=font_text)
+        lbl_info = ctk.CTkLabel(self.root, text="Loading...\nPlease wait!", text_color=BLUE,
+                                text_font=font_text)
         lbl_info.grid(row=0, rowspan=self.rows - 1, column=0, columnspan=self.cols, sticky="nsew")
-        bar = ttk.Progressbar(self.root, orient="horizontal", mode="determinate", style="LabeledProgressbar")
-        bar.grid(row=self.rows - 1, column=0, columnspan=self.cols, sticky="nsew")
+        bar = ctk.CTkProgressBar(self.root)
+        bar.grid(row=self.rows - 2, rowspan=2, column=0, columnspan=self.cols, sticky="nsew")
 
-        if time_s:
-            step = time_s / 200
-        else:
-            step = 0.01
+        step = time_s / 200
         r = 0
-        while r <= 100:
-            bar["value"] = r
-            style.configure("LabeledProgressbar", text=f"{r}%")
+        while r <= 1:
+            # bar["variable"] = r
+            bar.set(r)
             self.root.update()
             time.sleep(step)
-            r += 1
-
+            r += 0.01
         self.root.destroy()

@@ -1,7 +1,7 @@
 import tkinter as tk
 import customtkinter as ctk
-
-from loading_screen.loading import Loading
+from ctk_class import MyCustomTkinter
+from custom_tkinter.login import MyCtkLogin
 
 
 def main():
@@ -9,7 +9,8 @@ def main():
     ctk.set_default_color_theme("blue")
 
     root = ctk.CTk()
-    loading = Loading(root, (640, 360))
+    # main_win = MyCustomTkinter(root, (1280, 768))
+    login = MyCtkLogin(root, "Login", "Login", (640, 360), grid_rows=6, grid_cols=10)
     root.mainloop()
 
 

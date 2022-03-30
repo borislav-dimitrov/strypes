@@ -61,7 +61,7 @@ class MyHome:
         # Create GUI
 
         # self.bg_img = tk.PhotoImage(file="./images/home/home2.png")
-        self.img = Image.open("./images/home/home2.png")
+        self.img = Image.open("images/home/home2.png")
         self.img_copy = self.img.copy()
 
         self.bg_img = ImageTk.PhotoImage(self.img)

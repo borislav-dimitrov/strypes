@@ -199,7 +199,7 @@ if __name__ == '__main__':
     # Suggestion:
     #   Lots of prints, review one by one
     #
-    users_repo_example(usr_repo, print_all)
+    # users_repo_example(usr_repo, print_all)
     # warehouses_repo_example(wh_repo, pr_repo, print_all)
     # products_repo_example(pr_repo, wh_repo, print_all)
     # counterparties_repo_example(cpty_repo, print_all)
