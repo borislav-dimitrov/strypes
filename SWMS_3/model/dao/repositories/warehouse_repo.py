@@ -33,6 +33,19 @@ class WarehouseRepository(GenericRepository):
             tb = sys.exc_info()[2].tb_frame
             print(f"Something went wrong!\nErrType: {type(ex)}\nErr: {ex}\nTraceBack: {tb}")
 
+    @staticmethod
+    def rem_warehouse_products(warehouse, products: list):
+        try:
+            for product in products:
+                if product in warehouse.products:
+                    warehouse.products.remove(product)
+                    product.assigned_wh = None
+
+        except Exception as ex:
+            # TODO log
+            tb = sys.exc_info()[2].tb_frame
+            print(f"Something went wrong!\nErrType: {type(ex)}\nErr: {ex}\nTraceBack: {tb}")
+
     def delete_by_id(self, id_):
         try:
             old = self.find_by_id(id_)

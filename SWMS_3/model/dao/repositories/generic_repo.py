@@ -18,11 +18,12 @@ class GenericRepository:
             raise EntityNotFoundException(f"Entity with ID: {id_} not found!")
         return found
 
-    def find_by_attribute(self, attr_name: str, attr_val):
+    def find_by_attribute(self, attr_name: str, attr_val, exact_val=True):
         """
         Return all entities that match the given criteria\n
         :param attr_name: attribute we want to search
         :param attr_val: attribute value we want to filter with
+        :param exact_val: match exact value or contain
         :return: all entities matching the criteria or None
         """
         result = []
@@ -32,8 +33,12 @@ class GenericRepository:
                 if found == "<attr not found>":
                     raise EntityAttributeNotFoundException(f"Entity doesn't have attribute '{attr_name}'!")
 
-                if found == attr_val:
-                    result.append(self._entities[entity])
+                if exact_val:
+                    if attr_val == found:
+                        result.append(self._entities[entity])
+                else:
+                    if attr_val in found:
+                        result.append(self._entities[entity])
 
             if len(result) > 0:
                 return result

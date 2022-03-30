@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3c4036c6-fe4d-4d30-8f17-2d9f4eb82bc2" name="Changes" comment="hw creating entities / repositories">
+    <list default="true" id="cfbf51c8-3f99-4643-9d50-caafba9c8cd8" name="Changes" comment="hw creating entities / repositories">
+      <change afterPath="$PROJECT_DIR$/model/dao/password_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/dao/repositories/invoice_repo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/dao/repositories/transaction_repo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/entities/tmp_products.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repositories_examples/counterparties_repo_examples.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repositories_examples/invoices_repo_examples.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repositories_examples/products_repo_examples.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repositories_examples/transactions_repo_examples.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repositories_examples/users_repo_examples.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repositories_examples/warehouses_repo_examples.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../project_architecture/~$main_Objects.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/dao/repositories/generic_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/generic_repo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project_architecture/~$main_Objects.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project_architecture/~WRL1578.tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/dao/repositories/warehouse_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/warehouse_repo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entities/counterparty.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/counterparty.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entities/invoices.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/invoices.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entities/transaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/transaction.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,10 +59,11 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -137,6 +151,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="hw objects and generic repo" />
     <MESSAGE value="hw objects and generic repo { added todo }" />
     <MESSAGE value="project objects and generic repo { added some docstring }" />

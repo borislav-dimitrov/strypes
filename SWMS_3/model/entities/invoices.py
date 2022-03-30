@@ -3,13 +3,13 @@ class Invoice:
                  invoice_date: str, due_to: str, items: list, total_price: float, description: str, terms: str,
                  status: str, id_: int = None):
         self.id = id_
-        self.invoice_number = invoice_number
-        self.from_info = invoicer
-        self.to_info = invoice_to
+        self.number = invoice_number
+        self.from_ = invoicer
+        self.to = invoice_to
         self.date = invoice_date
         self.due_to = due_to
-        self.items = items
-        self.total_price = total_price
+        self.assets = items
+        self.price = total_price
         self.description = description
-        self.terms_conditions = terms
+        self.terms = terms
         self.status = status
