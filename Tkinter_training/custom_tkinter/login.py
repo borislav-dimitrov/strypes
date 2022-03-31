@@ -1,5 +1,6 @@
 import tkinter as tk
 import customtkinter as ctk
+import theme_cfg as cfg
 
 
 class MyCtkLogin:
@@ -12,6 +13,8 @@ class MyCtkLogin:
         self.text_bold = ("Arial", 12, "bold")
         self.heading = ("Arial", 15, "bold")
         self.colors = {"BLUE": "#1C94CF", "RED": "#871313", "LRED": "#823030", "DRED": "#731616"}
+        self.MAIN_COLOR = cfg._MAIN_COLOR
+        self.HOVER_COLOR = cfg._HOVER_COLOR
 
         # Set Geometry
         self.ww = resolution[0]
@@ -32,15 +35,15 @@ class MyCtkLogin:
         # Create GUI
         # Create Header
         self.header = ctk.CTkLabel(self.m_screen, text=self.page_name, text_font=self.heading,
-                                   text_color=self.colors["BLUE"])
+                                   text_color=self.MAIN_COLOR)
         self.header.grid(row=0, column=1, columnspan=self.cols - 2, sticky="we")
 
         # Create Labels
         self.uname_lbl = ctk.CTkLabel(self.m_screen, text="Username:", text_font=self.text_bold,
-                                      text_color=self.colors["BLUE"])
+                                      text_color=self.MAIN_COLOR)
         self.uname_lbl.grid(row=2, column=1, columnspan=2, sticky="we")
         self.pwd_lbl = ctk.CTkLabel(self.m_screen, text="Password:", text_font=self.text_bold,
-                                    text_color=self.colors["BLUE"])
+                                    text_color=self.MAIN_COLOR)
         self.pwd_lbl.grid(row=3, column=1, columnspan=2, sticky="we")
 
         # Create Entry Fields
@@ -50,9 +53,11 @@ class MyCtkLogin:
         self.entry2.grid(row=3, column=3, columnspan=5, sticky="we")
 
         # Create Buttons
-        self.btn1 = ctk.CTkButton(self.m_screen, text="Login", text_font=self.text_bold)
+        self.btn1 = ctk.CTkButton(self.m_screen, text="Login", text_font=self.text_bold, fg_color=self.MAIN_COLOR,
+                                  hover_color=self.HOVER_COLOR)
         self.btn1.grid(row=4, column=2, sticky="we")
-        self.btn2 = ctk.CTkButton(self.m_screen, text="Cancel", text_font=self.text_bold)
+        self.btn2 = ctk.CTkButton(self.m_screen, text="Cancel", text_font=self.text_bold, fg_color=self.MAIN_COLOR,
+                                  hover_color=self.HOVER_COLOR)
         self.btn2.grid(row=4, column=7, sticky="we")
 
     def setup_grid(self):
