@@ -6,6 +6,7 @@ class TransactionRepository(GenericRepository):
     def __init__(self, IdGenerator):
         super().__init__(IdGenerator)
 
+    # TODO this should be in service layer
     @staticmethod
     def update_tr_products(transaction, products_info: list[list[str, str, float, int]]):
         tr_invoice = transaction.invoice
@@ -19,6 +20,3 @@ class TransactionRepository(GenericRepository):
         if tr_invoice is not None:
             tr_invoice.assets = new_products
             tr_invoice.price = transaction.price
-
-
-

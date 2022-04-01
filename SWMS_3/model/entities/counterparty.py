@@ -1,3 +1,6 @@
+from utils.data_utils import to_json_helper
+
+
 class Counterparty:
     def __init__(self, name: str, phone: str, payment_nr: str, status: str, type_: str, descr, id_: int = None):
         """
@@ -17,3 +20,16 @@ class Counterparty:
         self.status = status
         self.type = type_
         self.description = descr
+
+    def to_json(self):
+        """Prepare data to be written to json """
+        descr = to_json_helper(self.description)
+        return {
+            "id": self.id,
+            "name": self.name,
+            "phone": self.phone,
+            "payment_nr": self.payment_nr,
+            "status": self.status,
+            "type": self.type,
+            "description": descr
+        }

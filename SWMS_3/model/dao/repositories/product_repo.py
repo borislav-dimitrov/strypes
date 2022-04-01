@@ -8,6 +8,7 @@ class ProductRepository(GenericRepository):
     def __init__(self, IdGenerator):
         super().__init__(IdGenerator)
 
+    # TODO this should be in service layer
     @staticmethod
     def update_assigned_wh(entity, new_wh):
         old_wh = entity.assigned_wh

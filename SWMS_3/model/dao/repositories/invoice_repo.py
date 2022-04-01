@@ -12,6 +12,7 @@ class InvoiceRepository(GenericRepository):
                 next_inv_num = self._entities[invoice].number
         return next_inv_num + 1
 
+    # TODO this should be in service layer
     def delete_by_id(self, id_, transaction):
         super().delete_by_id(id_)
         transaction.invoice = None

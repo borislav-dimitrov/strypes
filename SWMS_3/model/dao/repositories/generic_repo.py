@@ -37,7 +37,10 @@ class GenericRepository:
                     if attr_val == found:
                         result.append(self._entities[entity])
                 else:
-                    if attr_val in found:
+                    if isinstance(attr_val, str):
+                        if attr_val.lower() in found.lower():
+                            result.append(self._entities[entity])
+                    elif attr_val in found:
                         result.append(self._entities[entity])
 
             if len(result) > 0:

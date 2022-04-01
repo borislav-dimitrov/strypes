@@ -8,6 +8,7 @@ class WarehouseRepository(GenericRepository):
     def __init__(self, IdGenerator):
         super().__init__(IdGenerator)
 
+    # TODO all of these -> in service layer
     @staticmethod
     def add_warehouse_products(warehouse, products: list):
         try:
