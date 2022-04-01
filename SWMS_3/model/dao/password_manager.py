@@ -45,4 +45,4 @@ class PasswordManager:
         if validations_failed == "":
             return "Ok"
         else:
-            return validations_failed
+            return validations_failed.strip()

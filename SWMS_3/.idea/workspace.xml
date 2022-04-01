@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7e277300-8a92-46b5-b5c7-5b3198458699" name="Changes" comment="hw 9 done">
-      <change afterPath="$PROJECT_DIR$/utils/data_utils.py" afterDir="false" />
+    <list default="true" id="7e277300-8a92-46b5-b5c7-5b3198458699" name="Changes" comment="dao/entities reworked">
+      <change afterPath="$PROJECT_DIR$/model/dao/my_db.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/dao/repositories/json_repo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/data/counterparties.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/data/invoices.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/data/products.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/data/transactions.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/data/users.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/data/warehouses.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/data2/counterparties.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/data2/invoices.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/data2/products.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/data2/transactions.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/data2/users.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/data2/warehouses.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/service/modules/sales_module.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/service/modules/user_module.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/service/startup.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/dao/password_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/password_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/dao/repositories/generic_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/generic_repo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/dao/repositories/invoice_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/invoice_repo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/dao/repositories/product_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/product_repo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/dao/repositories/transaction_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/transaction_repo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/dao/repositories/warehouse_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/warehouse_repo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/counterparty.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/counterparty.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/invoices.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/invoices.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/entities/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/tmp_products.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/tmp_products.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/transaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/transaction.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/entities/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/warehouse.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/warehouse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories_examples/counterparties_repo_examples.py" beforeDir="false" afterPath="$PROJECT_DIR$/some of the service logic maybe/counterparties_repo_examples.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories_examples/invoices_repo_examples.py" beforeDir="false" afterPath="$PROJECT_DIR$/some of the service logic maybe/invoices_repo_examples.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories_examples/products_repo_examples.py" beforeDir="false" afterPath="$PROJECT_DIR$/some of the service logic maybe/products_repo_examples.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories_examples/transactions_repo_examples.py" beforeDir="false" afterPath="$PROJECT_DIR$/some of the service logic maybe/transactions_repo_examples.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories_examples/users_repo_examples.py" beforeDir="false" afterPath="$PROJECT_DIR$/some of the service logic maybe/users_repo_examples.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories_examples/warehouses_repo_examples.py" beforeDir="false" afterPath="$PROJECT_DIR$/some of the service logic maybe/warehouses_repo_examples.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/exceptions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,10 +76,15 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/model" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Strypes_Project\strypes\SWMS_3\model" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Strypes_Project\strypes\SWMS_3\model\data" />
       <recent name="D:\Strypes_Project\strypes\SWMS_3\model\dao\repositories" />
       <recent name="D:\Strypes_Project\strypes\SWMS_3\model\dao" />
     </key>
@@ -154,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648630479932</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="dao/entities reworked">
+      <created>1648797591992</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1648797591992</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -175,17 +196,11 @@
     <MESSAGE value="project objects and generic repo { added some docstring }" />
     <MESSAGE value="updated warehouses/projects repositories" />
     <MESSAGE value="hw 9 done" />
-    <option name="LAST_COMMIT_MESSAGE" value="hw 9 done" />
+    <MESSAGE value="dao/entities reworked" />
+    <option name="LAST_COMMIT_MESSAGE" value="dao/entities reworked" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model/entities/product.py</url>
-          <line>29</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

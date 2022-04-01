@@ -1,12 +1,14 @@
 import sys
 
+from model.dao.repositories.json_repo import JsonOperations
 from model.exceptions import EntityNotFoundException, EntityAttributeNotFoundException
 
 
-class GenericRepository:
-    def __init__(self, IdGenerator):
+class GenericRepository(JsonOperations):
+    def __init__(self, id_generator):
+        super().__init__()
         self._entities = {}
-        self._IdGenerator = IdGenerator
+        self._id_generator = id_generator
 
     # region FIND
     def find_all(self):
@@ -56,7 +58,11 @@ class GenericRepository:
 
     # region CRUD
     def create(self, entity):
-        entity.id = self._IdGenerator.get_next_id()
+        if entity.id is None:
+            entity.id = self._id_generator.get_next_id()
+        else:
+            self._id_generator._nextId += 1
+
         self._entities[entity.id] = entity
         return entity
 
@@ -77,4 +83,12 @@ class GenericRepository:
 
     def get_entities(self):
         return self._entities
+
+    def print_all(self):
+        data = self.find_all()
+        if data is not None:
+            for i in data:
+                print(f"    {vars(i)}")
+        else:
+            print(f"    {data}")
     # endregion

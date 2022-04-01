@@ -1,0 +1,122 @@
+{
+    "1": {
+        "id": 1,
+        "type": "Sale",
+        "date": "29/03/2022 08:40:32",
+        "counterparty": [
+            "id",
+            "name",
+            "phone",
+            "payment_nr",
+            "status",
+            "type",
+            "descr"
+        ],
+        "assets": [
+            [
+                "material4",
+                "Finished Goods",
+                12.3,
+                5
+            ],
+            [
+                "material5",
+                "Finished Goods",
+                12.65,
+                7
+            ]
+        ],
+        "price": 150.05,
+        "invoice": 1
+    },
+    "2": {
+        "id": 2,
+        "type": "Sale",
+        "date": "30/03/2022 10:40:32",
+        "counterparty": [
+            "id",
+            "name",
+            "phone",
+            "payment_nr",
+            "status",
+            "type",
+            "descr"
+        ],
+        "assets": [
+            [
+                "material4",
+                "Finished Goods",
+                12.2,
+                5
+            ],
+            [
+                "material5",
+                "Finished Goods",
+                12.15,
+                7
+            ]
+        ],
+        "price": 146.05,
+        "invoice": 2
+    },
+    "3": {
+        "id": 3,
+        "type": "Purchase",
+        "date": "29/03/2022 11:40:32",
+        "counterparty": [
+            "id",
+            "name",
+            "phone",
+            "payment_nr",
+            "status",
+            "type",
+            "descr"
+        ],
+        "assets": [
+            [
+                "material4",
+                "Finished Goods",
+                10.5,
+                5
+            ],
+            [
+                "material5",
+                "Finished Goods",
+                10.3,
+                7
+            ]
+        ],
+        "price": 124.6,
+        "invoice": 3
+    },
+    "4": {
+        "id": 4,
+        "type": "Purchase",
+        "date": "30/03/2022 12:40:32",
+        "counterparty": [
+            "id",
+            "name",
+            "phone",
+            "payment_nr",
+            "status",
+            "type",
+            "descr"
+        ],
+        "assets": [
+            [
+                "material4",
+                "Finished Goods",
+                10.9,
+                5
+            ],
+            [
+                "material5",
+                "Finished Goods",
+                10.3,
+                7
+            ]
+        ],
+        "price": 126.6,
+        "invoice": 4
+    }
+}

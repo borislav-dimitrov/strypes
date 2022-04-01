@@ -16,8 +16,8 @@ class Product:
         """Prepare data to be written to json """
         wh = self.assigned_wh
         conditions = [isinstance(wh, list), isinstance(wh, tuple), isinstance(wh, dict),
-                      isinstance(wh, str), isinstance(wh, int)]
-        if not all(conditions):
+                      isinstance(wh, str), isinstance(wh, int), wh is None]
+        if not any(conditions):
             wh = {"id": self.assigned_wh.id, "name": self.assigned_wh.name}
 
         return {

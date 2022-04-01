@@ -5,8 +5,8 @@ from model.exceptions import EntityIsAlreadyInWarehouseException
 
 
 class WarehouseRepository(GenericRepository):
-    def __init__(self, IdGenerator):
-        super().__init__(IdGenerator)
+    def __init__(self, id_generator):
+        super().__init__(id_generator)
 
     # TODO all of these -> in service layer
     @staticmethod

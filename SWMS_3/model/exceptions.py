@@ -8,3 +8,15 @@ class EntityAttributeNotFoundException(Exception):
 
 class EntityIsAlreadyInWarehouseException(Exception):
     pass
+
+
+class WeakPasswordException(Exception):
+    pass
+
+
+class InvalidUserStatusException(Exception):
+    pass
+
+
+class InvalidUserRoleException(Exception):
+    pass

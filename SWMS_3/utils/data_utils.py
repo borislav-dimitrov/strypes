@@ -10,8 +10,9 @@ def to_json_helper(a):
         result = []
         for item in a:
             conditions = [isinstance(item, list), isinstance(item, tuple),
-                          isinstance(item, dict), isinstance(item, str), isinstance(item, int)]
-            if all(conditions):
+                          isinstance(item, dict), isinstance(item, str), isinstance(item, int), isinstance(item, float),
+                          item is None]
+            if any(conditions):
                 result.append(item)
             else:
                 result.append(item.to_json())

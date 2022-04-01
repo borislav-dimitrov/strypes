@@ -1,0 +1,18 @@
+{
+    "1": {
+        "id": 1,
+        "name": "sklad01",
+        "type": "Finished Goods",
+        "capacity": 5000,
+        "products": [],
+        "status": "Enabled"
+    },
+    "2": {
+        "id": 2,
+        "name": "sklad02",
+        "type": "Raw Materials",
+        "capacity": 4555,
+        "products": [],
+        "status": "Enabled"
+    }
+}

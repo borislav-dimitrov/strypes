@@ -2,8 +2,8 @@ from model.dao.repositories.generic_repo import GenericRepository
 
 
 class InvoiceRepository(GenericRepository):
-    def __init__(self, IdGenerator):
-        super().__init__(IdGenerator)
+    def __init__(self, id_generator):
+        super().__init__(id_generator)
 
     def gen_inv_num(self):
         next_inv_num = 0

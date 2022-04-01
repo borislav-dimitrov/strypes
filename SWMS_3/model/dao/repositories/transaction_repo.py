@@ -3,8 +3,8 @@ from model.entities.tmp_products import TempProduct
 
 
 class TransactionRepository(GenericRepository):
-    def __init__(self, IdGenerator):
-        super().__init__(IdGenerator)
+    def __init__(self, id_generator):
+        super().__init__(id_generator)
 
     # TODO this should be in service layer
     @staticmethod
