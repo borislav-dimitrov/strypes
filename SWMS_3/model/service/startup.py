@@ -11,19 +11,13 @@ from model.entities.counterparty import Counterparty
 from model.entities.invoices import Invoice
 from model.entities.product import Product
 from model.entities.transaction import Transaction
-from model.entities.user import User
 from model.entities.warehouse import Warehouse
 from model.service.modules.sales_module import SalesModule
-from model.service.modules.user_module import UserModule
+from model.service.modules.users_module import UserModule
 from model.service.modules.warehousing_module import WarehousingModule
 
 
 def create_entities_from_loaded(data, repo, entity_type):
-    if entity_type is User:
-        for item in data:
-            id_, name, pwd, type_, status, last_login = data[item].values()
-            new = User(name, pwd, type_, status, last_login, id_)
-            repo.create(new)
     if entity_type is Product:
         for item in data:
             id_, name, type_, b_price, s_price, qty, wh = data[item].values()
@@ -294,16 +288,15 @@ def create_entities_from_loaded(data, repo, entity_type):
 #     # endregion
 
 
-def load_and_create_entities(usr_repo, pr_repo, wh_repo, cpty_repo, tr_repo, inv_repo):
+def load_and_create_entities(pr_repo, wh_repo, cpty_repo, tr_repo, inv_repo):
     # LOAD
-    loaded_users = usr_repo.load("./model/data/users.json")
+
     loaded_products = pr_repo.load("./model/data/products.json")
     loaded_warehouses = wh_repo.load("./model/data/warehouses.json")
     loaded_counterparties = cpty_repo.load("./model/data/counterparties.json")
     loaded_transactions = tr_repo.load("./model/data/transactions.json")
     loaded_invoices = inv_repo.load("./model/data/invoices.json")
 
-    create_entities_from_loaded(loaded_users, usr_repo, User)
     create_entities_from_loaded(loaded_products, pr_repo, Product)
     create_entities_from_loaded(loaded_warehouses, wh_repo, Warehouse)
     create_entities_from_loaded(loaded_counterparties, cpty_repo, Counterparty)
@@ -341,7 +334,8 @@ def start_up():
 
     # endregion
 
-    load_and_create_entities(usr_repo, pr_repo, wh_repo, cpty_repo, tr_repo, inv_repo)
+    db.user_module.load()
+    load_and_create_entities(pr_repo, wh_repo, cpty_repo, tr_repo, inv_repo)
 
 
 def before_exit():

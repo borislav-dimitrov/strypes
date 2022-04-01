@@ -9,4 +9,11 @@ class User:
         self.last_login = last_login
 
     def to_json(self):
-        return vars(self)
+        return {
+            "id": self.id,
+            "name": self.name,
+            "password": self.password.decode(),
+            "type": self.type,
+            "status": self.status,
+            "last_login": self.last_login
+        }

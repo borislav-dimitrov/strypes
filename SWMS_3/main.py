@@ -5,12 +5,11 @@ from model.service.startup import start_up
 def main():
     start_up()
     db.user_module.print_all()
-    new_usr = db.user_module.create("Joro", "Parola!@#", "ozperator", "enabled", "")
-    print("exception" in str(type(new_usr)).lower())
-    db.user_module.print_all()
 
 
 if __name__ == '__main__':
+    main()
+
     # create_objects()
 
     # a = wh_repo.find_by_id(2)
@@ -27,5 +26,3 @@ if __name__ == '__main__':
     # cpty_repo.save("./model/data/counterparties.json")
     # tr_repo.save("./model/data/transactions.json")
     # inv_repo.save("./model/data/invoices.json")
-
-    main()

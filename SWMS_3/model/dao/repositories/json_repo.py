@@ -7,8 +7,14 @@ class JsonOperations:
             json.dump(self._entities, f, indent=4, default=dumper)
 
     def load(self, file_path):
-        with open(file_path, "rt", encoding="utf-8") as f:
-            data = json.load(f)
+        data = None
+        try:
+            with open(file_path, "rt", encoding="utf-8") as f:
+                data = json.load(f)
+                return data
+        except Exception as ex:
+            print(ex)
+        finally:
             return data
 
 
