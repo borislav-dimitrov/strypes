@@ -20,3 +20,7 @@ class InvalidUserStatusException(Exception):
 
 class InvalidUserRoleException(Exception):
     pass
+
+
+class InvalidObjectTypeException(Exception):
+    pass

@@ -18,16 +18,16 @@ from model.service.modules.warehousing_module import WarehousingModule
 
 
 def create_entities_from_loaded(data, repo, entity_type):
-    if entity_type is Product:
-        for item in data:
-            id_, name, type_, b_price, s_price, qty, wh = data[item].values()
-            new = Product(name, type_, b_price, s_price, qty, wh, id_)
-            repo.create(new)
-    if entity_type is Warehouse:
-        for item in data:
-            id_, name, type_, capacity, products, status = data[item].values()
-            new = Warehouse(name, type_, capacity, products, status, id_)
-            repo.create(new)
+    # if entity_type is Product:
+    #     for item in data:
+    #         id_, name, type_, b_price, s_price, qty, wh = data[item].values()
+    #         new = Product(name, type_, b_price, s_price, qty, wh, id_)
+    #         repo.create(new)
+    # if entity_type is Warehouse:
+    #     for item in data:
+    #         id_, name, type_, capacity, products, status = data[item].values()
+    #         new = Warehouse(name, type_, capacity, products, status, id_)
+    #         repo.create(new)
     if entity_type is Counterparty:
         for item in data:
             id_, name, phone, pay_nr, status, type_, descr = data[item].values()
@@ -45,77 +45,6 @@ def create_entities_from_loaded(data, repo, entity_type):
             repo.create(new)
 
 
-#
-# def create_objects():
-#     global usr_repo, wh_repo, pr_repo
-#     print("### Start creating entities ###")
-#
-#     # region USERS
-#     user1 = User("Ivan", "!@#asd", "Administrator", "Enabled")
-#     usr_repo.create(user1)
-#     user2 = User("Ivan", "!@#asd", "Administrator", "Enabled")
-#     usr_repo.create(user2)
-#     user3 = User("Andrei", "asd#@!", "Operator", "Enabled")
-#     usr_repo.create(user3)
-#     user4 = User("Petar", "asd#@!", "Operator", "Enabled")
-#     usr_repo.create(user4)
-#
-#     print("# User Repository Created Entities #")
-#     # endregion
-#
-#     # region WAREHOUSES
-#     wh1 = Warehouse("sklad01", "Finished Goods", 5000, [], "Enabled")
-#     wh_repo.create(wh1)
-#     wh2 = Warehouse("sklad02", "Raw Materials", 4555, [], "Enabled")
-#     wh_repo.create(wh2)
-#     print("# Warehouse Repository Created Entities #")
-#     # endregion
-#
-#     # region PRODUCTS
-#     pr1 = Product("Red Paint", "Finished Goods", 10.0, 12.0, 200, {
-#         "id": 1,
-#         "name": "sklad01",
-#     })
-#     pr2 = Product("Red Paint", "Finished Goods", 10.0, 12.0, 200, {
-#         "id": 1,
-#         "name": "sklad01",
-#     })
-#     pr3 = Product("Turpentine", "Raw Materials", 5.0, 7.0, 200, {
-#         "id": 2,
-#         "name": "sklad02",
-#     })
-#     pr4 = Product("Thinner", "Raw Materials", 5.0, 7.0, 200, {
-#         "id": 2,
-#         "name": "sklad02",
-#     })
-#     pr5 = Product("Purple Paint", "Raw Materials", 10.0, 12.0, 100, {
-#         "id": 2,
-#         "name": "sklad02",
-#     })
-#     pr6 = Product("material2", "Raw Materials", 10.0, 12.0, 300, {
-#         "id": 2,
-#         "name": "sklad02",
-#     })
-#     pr7 = Product("material3", "Finished Goods", 10.0, 12.0, 300, None)
-#     pr8 = Product("material4", "Finished Goods", 10.0, 12.0, 300, None)
-#     all_products = [pr1, pr2, pr3, pr4, pr5, pr6, pr7, pr8]
-#     for product in all_products:
-#         pr_repo.create(product)
-#
-#     # TODO should go in service layer
-#     # for product in all_products:
-#     #     new_pr = pr_repo.create(product)
-#     #     if new_pr.assigned_wh is not None:
-#     #         found = wh_repo.find_by_attribute("name", new_pr.assigned_wh)
-#     #         new_pr.assigned_wh = found[0]
-#     #         found[0].products.append(new_pr)
-#     #
-#     #         pr_repo.update(new_pr)
-#     #         wh_repo.update(found[0])
-#
-#     print("# Product Repository Created Entities #")
-#     # endregion
-#
 #     # region COUNTERPARTIES
 #     cpty1 = Counterparty("Firm1", "+35988215743", "BG123456", "Enabled", "Client", "")
 #     cpty2 = Counterparty("Firm2", "+35988215743", "BG123456", "Enabled", "Client", "")
@@ -288,17 +217,13 @@ def create_entities_from_loaded(data, repo, entity_type):
 #     # endregion
 
 
-def load_and_create_entities(pr_repo, wh_repo, cpty_repo, tr_repo, inv_repo):
+def load_and_create_entities(cpty_repo, tr_repo, inv_repo):
     # LOAD
 
-    loaded_products = pr_repo.load("./model/data/products.json")
-    loaded_warehouses = wh_repo.load("./model/data/warehouses.json")
     loaded_counterparties = cpty_repo.load("./model/data/counterparties.json")
     loaded_transactions = tr_repo.load("./model/data/transactions.json")
     loaded_invoices = inv_repo.load("./model/data/invoices.json")
 
-    create_entities_from_loaded(loaded_products, pr_repo, Product)
-    create_entities_from_loaded(loaded_warehouses, wh_repo, Warehouse)
     create_entities_from_loaded(loaded_counterparties, cpty_repo, Counterparty)
     create_entities_from_loaded(loaded_transactions, tr_repo, Transaction)
     create_entities_from_loaded(loaded_invoices, inv_repo, Invoice)
@@ -334,8 +259,12 @@ def start_up():
 
     # endregion
 
+    # Load entities from file
     db.user_module.load()
-    load_and_create_entities(pr_repo, wh_repo, cpty_repo, tr_repo, inv_repo)
+    db.warehousing_module.load_all()
+
+
+    load_and_create_entities(cpty_repo, tr_repo, inv_repo)
 
 
 def before_exit():

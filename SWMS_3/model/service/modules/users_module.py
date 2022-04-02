@@ -6,18 +6,18 @@ from model.exceptions import WeakPasswordException, InvalidUserStatusException, 
 
 class UserModule:
     def __init__(self, users_repository, password_manager):
-        self._users = users_repository
+        self._usr_repo = users_repository
         self._pwd_mgr = password_manager
 
     # region FIND
     def find_all(self):
-        return self._users.find_all()
+        return self._usr_repo.find_all()
 
     def find_by_id(self, id_):
-        return self._users.find_by_id(id_)
+        return self._usr_repo.find_by_id(id_)
 
     def find_by_attribute(self, attr_name: str, attr_val, exact_val=True):
-        return self._users.find_by_attribute(attr_name, attr_val, exact_val)
+        return self._usr_repo.find_by_attribute(attr_name, attr_val, exact_val)
 
     # endregion
 
@@ -52,7 +52,7 @@ class UserModule:
             # encrypt pwd
             pwd = self._pwd_mgr.encrypt_pwd(pwd)
             user = User(uname, pwd, role_, status_, last_login, id_)
-            return self._users.create(user)
+            return self._usr_repo.create(user)
         except Exception as ex:
             # TODO log
             tb = sys.exc_info()[2].tb_frame
@@ -60,11 +60,11 @@ class UserModule:
             return ex
 
     def update(self, new_entity):
-        entity = self._users.find_by_id(new_entity.id)
+        entity = self._usr_repo.find_by_id(new_entity.id)
         entity = new_entity
 
     def delete_by_id(self, id_):
-        return self._users.delete_by_id(id_)
+        return self._usr_repo.delete_by_id(id_)
 
     # endregion
 
@@ -88,23 +88,26 @@ class UserModule:
     # region OTHER
     @property
     def entities(self):
-        return self._users.get_entities()
+        return self._usr_repo.get_entities()
 
     def print_all(self):
-        self._users.print_all()
+        self._usr_repo.print_all()
 
     def count(self):
-        return self._users.count()
+        return self._usr_repo.count()
 
+    # endregion
+
+    # region Save/Load
     def save(self):
-        self._users.save("./model/data/users.json")
+        self._usr_repo.save("./model/data/users.json")
 
     def load(self):
-        loaded = self._users.load("./model/data/users.json")
+        loaded = self._usr_repo.load("./model/data/users.json")
         if loaded is not None:
             for item in loaded:
                 id_, name, pwd, type_, status, last_login = loaded[item].values()
                 new = User(name, pwd.encode("utf-8"), type_, status, last_login, id_)
-                self._users.create(new)
+                self._usr_repo.create(new)
 
     # endregion
