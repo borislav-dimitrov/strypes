@@ -30,13 +30,13 @@ class SalesModule:
     def find_all_counterparties(self):
         return self._cpty_repo.find_all()
 
-    def find_counterparty_by_id(self, id_: int) -> Counterparty | Exception:
+    def find_counterparty_by_id(self, id_: int):
         try:
             return self._cpty_repo.find_by_id(id_)
         except Exception as ex:
             return ex
 
-    def find_counterparty_by_attr(self, attr_name: str, attr_val, exact_val: bool = True) -> Counterparty | Exception:
+    def find_counterparty_by_attr(self, attr_name: str, attr_val, exact_val: bool = True):
         try:
             return self._cpty_repo.find_by_attribute(attr_name, attr_val, exact_val)
         except Exception as ex:
@@ -46,13 +46,13 @@ class SalesModule:
     def find_all_transactions(self):
         return self._tr_repo.find_all()
 
-    def find_transaction_by_id(self, id_) -> Transaction | Exception:
+    def find_transaction_by_id(self, id_):
         try:
             return self._tr_repo.find_by_id(id_)
         except Exception as ex:
             return ex
 
-    def find_transaction_by_attr(self, attr_name: str, attr_val, exact_val: bool = True) -> Transaction | Exception:
+    def find_transaction_by_attr(self, attr_name: str, attr_val, exact_val: bool = True):
         try:
             return self._tr_repo.find_by_attribute(attr_name, attr_val, exact_val)
         except Exception as ex:
@@ -62,13 +62,13 @@ class SalesModule:
     def find_all_invoices(self):
         return self._inv_repo.find_all()
 
-    def find_invoice_by_id(self, id_: int) -> Invoice | Exception:
+    def find_invoice_by_id(self, id_: int):
         try:
             return self._inv_repo.find_by_id(id_)
         except Exception as ex:
             return ex
 
-    def find_invoices_by_attr(self, attr_name: str, attr_val, exact_val: bool = True) -> Invoice | Exception:
+    def find_invoices_by_attr(self, attr_name: str, attr_val, exact_val: bool = True):
         try:
             return self._inv_repo.find_by_attribute(attr_name, attr_val, exact_val)
         except Exception as ex:
@@ -143,7 +143,7 @@ class SalesModule:
     # endregion
 
     # region Transactions
-    def create_tr(self, type_: str, counterparty: Counterparty, assets: list[list[str, str, float, int]], id_=None):
+    def create_tr(self, type_: str, counterparty: Counterparty, assets: list, id_=None):
         try:
             # region Validations
             if not isinstance(type_, str):
@@ -194,12 +194,15 @@ class SalesModule:
     def _create_inv(self, entity):
         return self._inv_repo.create(entity)
 
-    def gen_inv_from_tr(self, transaction: Transaction, invoicer: Counterparty = None) -> Invoice | Exception:
+    def gen_inv_from_tr(self, transaction: Transaction) -> Invoice | Exception:
         try:
             if not isinstance(transaction, Transaction):
                 raise TypeError(f"Generating invoice failed! Invalid transaction type!")
-            if invoicer is None:
-                invoicer = self.find_counterparty_by_attr("type", "MyCo")[0]
+
+            if transaction.type == "Purchase":
+                raise TypeError(f"Generating invoice failed! You can generate invoices only for Sales!")
+
+            invoicer = self.find_counterparty_by_attr("type", "MyCo")[0]
             now = datetime.now()
             now = now.strftime("%m/%d/%Y %H:%M:%S")
             # TODO default due_to date
@@ -215,11 +218,10 @@ class SalesModule:
         except Exception as ex:
             # TODO log
             tb = sys.exc_info()[2].tb_frame
-            print(f"Something went wrong!\nErrType: {type(ex)}\nErr: {ex}\nTraceBack: {tb}")
+            # print(f"Something went wrong!\nErrType: {type(ex)}\nErr: {ex}\nTraceBack: {tb}")
             return ex
 
     def del_inv_by_id(self, id_):
-        # self._inv_repo.delete_by_id(id_)
         inv = self.find_invoice_by_id(id_)
         tr = self.find_transaction_by_attr("invoice", inv)[0]
         tr.invoice = None

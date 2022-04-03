@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7e277300-8a92-46b5-b5c7-5b3198458699" name="Changes" comment="done warehousing module in service layer { relations, save/load, CRUD }">
+    <list default="true" id="7e277300-8a92-46b5-b5c7-5b3198458699" name="Changes" comment="done sales module in service layer { relations, save/load, CRUD }">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/dao/repositories/invoice_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/invoice_repo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/dao/repositories/transaction_repo.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data/invoices.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/invoices.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data/transactions.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/transactions.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/data2/invoices.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data2/invoices.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/data2/products.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data2/products.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data2/transactions.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data2/transactions.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/transaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/transaction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/data2/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data2/users.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/data2/warehouses.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data2/warehouses.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/service/modules/sales_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/sales_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/service/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/startup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/data_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +61,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\model" />
       <recent name="D:\Strypes_Project\strypes\SWMS_3\model" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -171,7 +170,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648886690138</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="done sales module in service layer { relations, save/load, CRUD }">
+      <created>1648992689473</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1648992689473</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -195,7 +201,8 @@
     <MESSAGE value="dao/entities reworked" />
     <MESSAGE value="done users module in service layer" />
     <MESSAGE value="done warehousing module in service layer { relations, save/load, CRUD }" />
-    <option name="LAST_COMMIT_MESSAGE" value="done warehousing module in service layer { relations, save/load, CRUD }" />
+    <MESSAGE value="done sales module in service layer { relations, save/load, CRUD }" />
+    <option name="LAST_COMMIT_MESSAGE" value="done sales module in service layer { relations, save/load, CRUD }" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -9,6 +9,12 @@ from model.service.startup import start_up
 def main():
     start_up()
 
+    transactions = db.sales_module.find_transaction_by_attr("type", "purchase", exact_val=False)
+    for transaction in transactions:
+        inv = db.sales_module.gen_inv_from_tr(transaction)
+        print(inv)
+
+
 
 if __name__ == '__main__':
     main()

@@ -1,0 +1,18 @@
+{
+    "1": {
+        "id": 1,
+        "name": "pencho",
+        "password": "gAAAAABiRwNdagbIjAXQ-rLYi724kHaiOixkGJuLmwZRHFQfbqfPEt3FuhIubS7dMIRtOaaOy0hK7UBUmlEwhDlal_YjTzKNQw==",
+        "type": "Operator",
+        "status": "Enabled",
+        "last_login": ""
+    },
+    "2": {
+        "id": 2,
+        "name": "asd",
+        "password": "gAAAAABiRwOyk5V_XtlBvgEI7JLCir6gIMaWcA-r9AAb-xHEDPfj4zEzer59Mwis9AsxSIYxrTmGdHvkp2_aoT1ToS8G2vRwXA==",
+        "type": "Operator",
+        "status": "Enabled",
+        "last_login": ""
+    }
+}
