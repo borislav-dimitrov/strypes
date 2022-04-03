@@ -1,4 +1,5 @@
 import sys
+import model.dao.my_db as db
 
 from model.entities.user import User
 from model.exceptions import WeakPasswordException, InvalidUserStatusException, InvalidUserRoleException
@@ -54,9 +55,9 @@ class UserModule:
             user = User(uname, pwd, role_, status_, last_login, id_)
             return self._usr_repo.create(user)
         except Exception as ex:
-            # TODO log
             tb = sys.exc_info()[2].tb_frame
-            print(f"Something went wrong!\nErrType: {type(ex)}\nErr: {ex}\nTraceBack: {tb}")
+            msg = "Something went wrong!"
+            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     def update(self, new_entity):

@@ -11,7 +11,7 @@
         "id": 2,
         "name": "asd",
         "password": "gAAAAABiRwOyk5V_XtlBvgEI7JLCir6gIMaWcA-r9AAb-xHEDPfj4zEzer59Mwis9AsxSIYxrTmGdHvkp2_aoT1ToS8G2vRwXA==",
-        "type": "Operator",
+        "type": "Administrator",
         "status": "Enabled",
         "last_login": ""
     }

@@ -1,4 +1,5 @@
 import sys
+import model.dao.my_db as db
 
 from model.entities.product import Product
 from model.entities.warehouse import Warehouse
@@ -63,12 +64,12 @@ class WarehousingModule:
             # endregion
             pr = Product(name, type_, b_price, s_price, qty, wh, id_)
             pr = self._pr_repo.create(pr)
-            self.product_set_wh(pr, wh)
+            self.product_change_wh(pr, wh)
             return pr
         except Exception as ex:
-            # TODO log
             tb = sys.exc_info()[2].tb_frame
-            print(f"Something went wrong!\nErrType: {type(ex)}\nErr: {ex}\nTraceBack: {tb}")
+            msg = "Something went wrong!"
+            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     def create_wh(self, name: str, type_: str, capacity: int, products_: list, status: str,
@@ -99,53 +100,89 @@ class WarehousingModule:
             wh = Warehouse(name, type_, capacity, products_, status, id_)
             return self._wh_repo.create(wh)
         except Exception as ex:
-            # TODO log
             tb = sys.exc_info()[2].tb_frame
-            print(f"Something went wrong!\nErrType: {type(ex)}\nErr: {ex}\nTraceBack: {tb}")
+            msg = "Something went wrong!"
+            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
-    def update_product(self, new_entity):
+    def update_product(self, new_entity: Product):
         entity = self._pr_repo.find_by_id(new_entity.id)
         entity = new_entity
 
-    def update_warehouse(self, new_entity):
+    def update_warehouse(self, new_entity: Warehouse):
         entity = self._wh_repo.find_by_id(new_entity.id)
         entity = new_entity
 
-    def delete_product_by_id(self, id_):
-        return self._pr_repo.delete_by_id(id_)
+    def delete_product_by_id(self, id_: int):
+        try:
+            old_prod = self._pr_repo.find_by_id(id_)
 
-    def delete_wh_by_id(self, id_):
-        return self._wh_repo.delete_by_id(id_)
+            if old_prod.assigned_wh is not None:
+                old_prod.assigned_wh.products.remove(old_prod)
 
-    @staticmethod
-    def product_set_wh(product: Product, wh: Warehouse):
-        product.assigned_wh = wh
-        wh.products.append(product)
+            return self._pr_repo.delete_by_id(id_)
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            msg = "Something went wrong!"
+            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            return ex
+
+    def delete_wh_by_id(self, id_: int):
+        try:
+            old = self._wh_repo.find_by_id(id_)
+
+            # remove products assigned warehouse
+            for product in old.products:
+                product.assigned_wh = None
+
+            return self._wh_repo.delete_by_id(id_)
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            msg = "Something went wrong!"
+            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            return ex
+
+    def product_change_wh(self, product: Product, wh: Warehouse | None):
+        if wh is None:
+            self.wh_remove_product(product.assigned_wh, product)
+        else:
+            self.wh_add_product(wh, product)
 
     def wh_add_product(self, warehouse: Warehouse, product: Product):
         try:
             if product.assigned_wh is None:
                 warehouse.products.append(product)
+                product.assigned_wh = warehouse
             elif product.assigned_wh is warehouse:
                 raise EntityIsAlreadyInWarehouseException(
                     f"Product {product.name} is already in warehouse {warehouse.name}!")
             else:
-                old_wh = product.assigned_wh
+                if isinstance(product.assigned_wh, dict):  # On startup when loading from file it is dict
+                    old_wh = self.find_wh_by_id(product.assigned_wh["id"])
+                else:
+                    old_wh = product.assigned_wh
                 self.wh_remove_product(old_wh, product)
-                self.product_set_wh(product, warehouse)
+                warehouse.products.append(product)
+                product.assigned_wh = warehouse
         except Exception as ex:
-            # TODO log
             tb = sys.exc_info()[2].tb_frame
-            print(f"Something went wrong!\nErrType: {type(ex)}\nErr: {ex}\nTraceBack: {tb}")
+            msg = "Something went wrong!"
+            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     @staticmethod
     def wh_remove_product(warehouse: Warehouse, product: Product):
-        if product.assigned_wh is None:
-            return
-        product.assigned_wh = None
-        warehouse.products.remove(product)
+        try:
+            if product.assigned_wh is None:
+                return
+            product.assigned_wh = None
+            if product in warehouse.products:
+                warehouse.products.remove(product)
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            msg = "Something went wrong!"
+            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            return ex
 
     # endregion
 
@@ -199,7 +236,7 @@ class WarehousingModule:
         for product in all_products:
             if product.assigned_wh is not None:
                 found_wh = self.find_wh_by_attribute("name", product.assigned_wh["name"])[0]
-                self.product_set_wh(product, found_wh)
+                self.product_change_wh(product, found_wh)
 
     # endregion
 

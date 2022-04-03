@@ -1,8 +1,9 @@
 import sys
+import model.dao.my_db as db
 
 from model.entities.counterparty import Counterparty
 from model.entities.invoices import Invoice
-from model.entities.tmp_products import TempProduct
+from model.entities.dto.tmp_products import TempProduct
 from model.entities.transaction import Transaction
 from datetime import datetime
 
@@ -103,9 +104,9 @@ class SalesModule:
             new_cpty = Counterparty(name, phone, payment_nr, status, type_, descr, id_)
             return self._cpty_repo.create(new_cpty)
         except Exception as ex:
-            # TODO log
             tb = sys.exc_info()[2].tb_frame
-            # print(f"Something went wrong!\nErrType: {type(ex)}\nErr: {ex}\nTraceBack: {tb}")
+            msg = "Something went wrong!"
+            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     def update_cpty(self, entity: Counterparty):
@@ -135,9 +136,9 @@ class SalesModule:
 
             return self._cpty_repo.delete_by_id(id_)
         except Exception as ex:
-            # TODO log
             tb = sys.exc_info()[2].tb_frame
-            # print(f"Something went wrong!\nErrType: {type(ex)}\nErr: {ex}\nTraceBack: {tb}")
+            msg = "Something went wrong!"
+            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     # endregion
@@ -172,9 +173,9 @@ class SalesModule:
             new_tr = Transaction(type_, date, counterparty, new_assets, None, id_)
             return self._tr_repo.create(new_tr)
         except Exception as ex:
-            # TODO log
             tb = sys.exc_info()[2].tb_frame
-            # print(f"Something went wrong!\nErrType: {type(ex)}\nErr: {ex}\nTraceBack: {tb}")
+            msg = "Something went wrong!"
+            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     def del_tr_by_id(self, id_):
@@ -216,9 +217,9 @@ class SalesModule:
             transaction.invoice = new_inv
             return new_inv
         except Exception as ex:
-            # TODO log
             tb = sys.exc_info()[2].tb_frame
-            # print(f"Something went wrong!\nErrType: {type(ex)}\nErr: {ex}\nTraceBack: {tb}")
+            msg = "Something went wrong!"
+            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     def del_inv_by_id(self, id_):

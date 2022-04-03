@@ -1,7 +1,9 @@
+import resources.config as cfg
 import model.dao.my_db as db
 
 # DAO's
 from model.dao.id_generator_int import IdGeneratorInt
+from model.dao.logger import MyLogger
 from model.dao.password_manager import PasswordManager
 from model.dao.repositories.generic_repo import GenericRepository
 from model.dao.repositories.invoice_repo import InvoiceRepository
@@ -12,9 +14,8 @@ from model.service.modules.users_module import UserModule
 from model.service.modules.warehousing_module import WarehousingModule
 
 
-def start_up():
-    # region INIT
-    # region INIT REPOS
+def init_repos_and_modules():
+    # REPOSITORIES
     usr_id_seq = IdGeneratorInt()
     usr_repo = GenericRepository(usr_id_seq)
 
@@ -32,15 +33,20 @@ def start_up():
 
     inv_id_seq = IdGeneratorInt()
     inv_repo = InvoiceRepository(inv_id_seq)
-    # endregion
 
-    # region INIT MODULES
+    # MODULES
     db.user_module = UserModule(usr_repo, PasswordManager())
     db.warehousing_module = WarehousingModule(pr_repo, wh_repo)
     db.sales_module = SalesModule(cpty_repo, tr_repo, inv_repo)
-    # endregion
 
-    # endregion
+
+def init_services():
+    db.logger = MyLogger(cfg.LOG_ENABLED, cfg.DEFAULT_LOG_FILE, cfg.LOG_LEVEL, cfg.REWRITE_LOG_ON_STARTUP)
+
+
+def start_up():
+    init_repos_and_modules()
+    init_services()
 
     # Load entities from file
     db.user_module.load()
@@ -49,4 +55,6 @@ def start_up():
 
 
 def before_exit():
-    pass
+    db.user_module.save()
+    db.warehousing_module.save_all()
+    db.sales_module.save_all()

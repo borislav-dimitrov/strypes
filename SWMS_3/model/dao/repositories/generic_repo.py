@@ -1,4 +1,5 @@
 import sys
+import model.dao.my_db as db
 
 from model.dao.repositories.json_repo import JsonOperations
 from model.exceptions import EntityNotFoundException, EntityAttributeNotFoundException
@@ -50,9 +51,9 @@ class GenericRepository(JsonOperations):
             else:
                 return None
         except Exception as ex:
-            # TODO log
             tb = sys.exc_info()[2].tb_frame
-            print(f"Something went wrong!\nErrType: {type(ex)}\nErr: {ex}\nTraceBack: {tb}")
+            msg = "Something went wrong!"
+            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
 
     # endregion
 
