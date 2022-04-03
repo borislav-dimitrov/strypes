@@ -3,15 +3,15 @@
         "id": 1,
         "type": "Sale",
         "date": "29/03/2022 08:40:32",
-        "counterparty": [
-            "id",
-            "name",
-            "phone",
-            "payment_nr",
-            "status",
-            "type",
-            "descr"
-        ],
+        "counterparty": {
+            "id": 1,
+            "name": "Firm1",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Client",
+            "description": ""
+        },
         "assets": [
             [
                 "material4",
@@ -33,15 +33,15 @@
         "id": 2,
         "type": "Sale",
         "date": "30/03/2022 10:40:32",
-        "counterparty": [
-            "id",
-            "name",
-            "phone",
-            "payment_nr",
-            "status",
-            "type",
-            "descr"
-        ],
+        "counterparty": {
+            "id": 1,
+            "name": "Firm1",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Client",
+            "description": ""
+        },
         "assets": [
             [
                 "material4",
@@ -63,15 +63,15 @@
         "id": 3,
         "type": "Purchase",
         "date": "29/03/2022 11:40:32",
-        "counterparty": [
-            "id",
-            "name",
-            "phone",
-            "payment_nr",
-            "status",
-            "type",
-            "descr"
-        ],
+        "counterparty": {
+            "id": 1,
+            "name": "Firm1",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Client",
+            "description": ""
+        },
         "assets": [
             [
                 "material4",
@@ -93,15 +93,15 @@
         "id": 4,
         "type": "Purchase",
         "date": "30/03/2022 12:40:32",
-        "counterparty": [
-            "id",
-            "name",
-            "phone",
-            "payment_nr",
-            "status",
-            "type",
-            "descr"
-        ],
+        "counterparty": {
+            "id": 1,
+            "name": "Firm1",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Client",
+            "description": ""
+        },
         "assets": [
             [
                 "material4",

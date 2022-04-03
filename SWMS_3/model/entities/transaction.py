@@ -17,8 +17,7 @@ class Transaction:
     def calc_price(self):
         # Calc price
         for product in self.assets:
-            # price = price * amount to sell/buy
-            self.price += round(float(product[2] * product[3]), 2)
+            self.price += round(float(product.price * product.quantity), 2)
 
     def to_json(self):
         """Prepare data to be written to json """

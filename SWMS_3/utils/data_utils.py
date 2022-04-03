@@ -8,10 +8,12 @@ def to_json_helper(a):
     """
     if isinstance(a, list) or isinstance(a, tuple) or isinstance(a, dict):
         result = []
+        if isinstance(a, dict):
+            return a
         for item in a:
             conditions = [isinstance(item, list), isinstance(item, tuple),
-                          isinstance(item, dict), isinstance(item, str), isinstance(item, int), isinstance(item, float),
-                          item is None]
+                          isinstance(item, str), isinstance(item, int),
+                          isinstance(item, float), item is None]
             if any(conditions):
                 result.append(item)
             else:
@@ -20,5 +22,7 @@ def to_json_helper(a):
 
     elif isinstance(a, str) or isinstance(a, int):
         return a
+    elif a is None:
+        return None
     else:
         return a.to_json()

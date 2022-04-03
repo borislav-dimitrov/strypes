@@ -6,43 +6,10 @@ from model.dao.password_manager import PasswordManager
 from model.dao.repositories.generic_repo import GenericRepository
 from model.dao.repositories.invoice_repo import InvoiceRepository
 
-# Entities
-from model.entities.counterparty import Counterparty
-from model.entities.invoices import Invoice
-from model.entities.product import Product
-from model.entities.transaction import Transaction
-from model.entities.warehouse import Warehouse
+# Modules
 from model.service.modules.sales_module import SalesModule
 from model.service.modules.users_module import UserModule
 from model.service.modules.warehousing_module import WarehousingModule
-
-
-def create_entities_from_loaded(data, repo, entity_type):
-    # if entity_type is Product:
-    #     for item in data:
-    #         id_, name, type_, b_price, s_price, qty, wh = data[item].values()
-    #         new = Product(name, type_, b_price, s_price, qty, wh, id_)
-    #         repo.create(new)
-    # if entity_type is Warehouse:
-    #     for item in data:
-    #         id_, name, type_, capacity, products, status = data[item].values()
-    #         new = Warehouse(name, type_, capacity, products, status, id_)
-    #         repo.create(new)
-    if entity_type is Counterparty:
-        for item in data:
-            id_, name, phone, pay_nr, status, type_, descr = data[item].values()
-            new = Counterparty(name, phone, pay_nr, status, type_, descr, id_)
-            repo.create(new)
-    if entity_type is Transaction:
-        for item in data:
-            id_, type_, date, cpty, assets, price, invoice = data[item].values()
-            new = Transaction(type_, date, cpty, assets, invoice, id_)
-            repo.create(new)
-    if entity_type is Invoice:
-        for item in data:
-            id_, num, from_, to, date, due_date, assets, price, descr, terms, stat = data[item].values()
-            new = Invoice(num, from_, to, date, due_date, assets, price, descr, terms, stat, id_)
-            repo.create(new)
 
 
 #     # region COUNTERPARTIES
@@ -216,19 +183,6 @@ def create_entities_from_loaded(data, repo, entity_type):
 #     print("# Invoice Repository Created Entities #")
 #     # endregion
 
-
-def load_and_create_entities(cpty_repo, tr_repo, inv_repo):
-    # LOAD
-
-    loaded_counterparties = cpty_repo.load("./model/data/counterparties.json")
-    loaded_transactions = tr_repo.load("./model/data/transactions.json")
-    loaded_invoices = inv_repo.load("./model/data/invoices.json")
-
-    create_entities_from_loaded(loaded_counterparties, cpty_repo, Counterparty)
-    create_entities_from_loaded(loaded_transactions, tr_repo, Transaction)
-    create_entities_from_loaded(loaded_invoices, inv_repo, Invoice)
-
-
 def start_up():
     # region INIT
     # region INIT REPOS
@@ -262,9 +216,7 @@ def start_up():
     # Load entities from file
     db.user_module.load()
     db.warehousing_module.load_all()
-
-
-    load_and_create_entities(cpty_repo, tr_repo, inv_repo)
+    db.sales_module.load_all()
 
 
 def before_exit():

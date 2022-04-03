@@ -18,7 +18,7 @@ class WarehousingModule:
     def find_product_by_id(self, id_):
         return self._pr_repo.find_by_id(id_)
 
-    def find_product_by_attribute(self, attr_name: str, attr_val, exact_val=True):
+    def find_product_by_attribute(self, attr_name: str, attr_val, exact_val: bool = True):
         return self._pr_repo.find_by_attribute(attr_name, attr_val, exact_val)
 
     # Warehouses
@@ -99,7 +99,7 @@ class WarehousingModule:
             wh = Warehouse(name, type_, capacity, products_, status, id_)
             return self._wh_repo.create(wh)
         except Exception as ex:
-    # TODO log
+            # TODO log
             tb = sys.exc_info()[2].tb_frame
             print(f"Something went wrong!\nErrType: {type(ex)}\nErr: {ex}\nTraceBack: {tb}")
             return ex
