@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e277300-8a92-46b5-b5c7-5b3198458699" name="Changes" comment="Documentation">
+      <change afterPath="$PROJECT_DIR$/controler/sales_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controler/user_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controler/warehousing_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/exceptions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/startup_exit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/data_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
