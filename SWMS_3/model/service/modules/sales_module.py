@@ -1,5 +1,5 @@
 import sys
-import utils.my_db as db
+from model.dao.logger import MyLogger
 
 from model.entities.counterparty import Counterparty
 from model.entities.invoices import Invoice
@@ -11,10 +11,11 @@ from datetime import datetime
 class SalesModule:
     """Module that handles all the business logic for sales operations"""
 
-    def __init__(self, counterparties_repository, transactions_repository, invoices_repository):
+    def __init__(self, counterparties_repository, transactions_repository, invoices_repository, logger: MyLogger):
         self._cpty_repo = counterparties_repository
         self._tr_repo = transactions_repository
         self._inv_repo = invoices_repository
+        self._logger = logger
 
     @property
     def counterparties(self) -> dict:
@@ -52,7 +53,7 @@ class SalesModule:
 
     # Transactions
     def _find_all_transactions(self):
-        return self._tr_repo._find_all()
+        return self._tr_repo.find_all()
 
     def find_transaction_by_id(self, id_: int) -> Transaction | Exception:
         """Get Transaction by ID"""
@@ -70,7 +71,7 @@ class SalesModule:
 
     # Invoices
     def _find_all_invoices(self):
-        return self._inv_repo._find_all()
+        return self._inv_repo.find_all()
 
     def find_invoice_by_id(self, id_: int) -> Invoice | Exception:
         """Get Invoice by ID"""
@@ -118,7 +119,7 @@ class SalesModule:
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
-            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     def update_cpty(self, entity: Counterparty):
@@ -151,7 +152,7 @@ class SalesModule:
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
-            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     # endregion
@@ -189,7 +190,7 @@ class SalesModule:
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
-            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     def del_tr_by_id(self, id_: int) -> Transaction:
@@ -234,7 +235,7 @@ class SalesModule:
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
-            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     def del_inv_by_id(self, id_: int) -> Invoice:

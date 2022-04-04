@@ -1,5 +1,5 @@
 import sys
-import utils.my_db as db
+from model.dao.logger import MyLogger
 
 from model.entities.user import User
 from model.exceptions import WeakPasswordException, InvalidUserStatusException, InvalidUserRoleException
@@ -8,9 +8,10 @@ from model.exceptions import WeakPasswordException, InvalidUserStatusException, 
 class UserModule:
     """Module that handles all the business logic for the Users"""
 
-    def __init__(self, users_repository, password_manager):
+    def __init__(self, users_repository, password_manager, logger: MyLogger):
         self._usr_repo = users_repository
         self._pwd_mgr = password_manager
+        self._logger = logger
 
     # region FIND
     def _find_all(self) -> dict:
@@ -53,7 +54,7 @@ class UserModule:
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
-            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     def update(self, new_entity):

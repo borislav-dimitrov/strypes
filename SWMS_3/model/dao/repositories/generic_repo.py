@@ -1,5 +1,5 @@
 import sys
-import utils.my_db as db
+from model.dao.logger import MyLogger
 
 from model.dao.repositories.json_repo import JsonOperations
 from model.exceptions import EntityNotFoundException, EntityAttributeNotFoundException
@@ -11,10 +11,11 @@ class GenericRepository(JsonOperations):
     Extends JsonOperations class, which takes care for the save/load operations.
     """
 
-    def __init__(self, id_generator):
+    def __init__(self, id_generator, logger: MyLogger):
         super().__init__()
         self._entities = {}
         self._id_generator = id_generator
+        self._logger = logger
 
     # region FIND
     def find_all(self):
@@ -60,7 +61,7 @@ class GenericRepository(JsonOperations):
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
-            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
 
     # endregion
 

@@ -1,5 +1,5 @@
 import sys
-import utils.my_db as db
+from model.dao.logger import MyLogger
 
 from model.entities.product import Product
 from model.entities.warehouse import Warehouse
@@ -9,15 +9,16 @@ from model.exceptions import EntityIsAlreadyInWarehouseException, EntityNotFound
 class WarehousingModule:
     """Module that handles all the business logic for the Warehouse and Product operations"""
 
-    def __init__(self, product_repository, warehouse_repository):
+    def __init__(self, product_repository, warehouse_repository, logger: MyLogger):
         self._pr_repo = product_repository
         self._wh_repo = warehouse_repository
+        self._logger = logger
 
     # region FIND
     # Products
     def _find_all_products(self) -> dict:
         """Get all existing Products"""
-        return self._pr_repo._find_all()
+        return self._pr_repo.find_all()
 
     def find_product_by_id(self, id_: int) -> Product:
         """Get Product by ID"""
@@ -34,7 +35,7 @@ class WarehousingModule:
     # Warehouses
     def _find_all_warehouses(self) -> dict:
         """Get all Warehouses"""
-        return self._wh_repo._find_all()
+        return self._wh_repo.find_all()
 
     def find_wh_by_id(self, id_: int) -> Warehouse:
         """Get Warehouse by ID"""
@@ -73,6 +74,9 @@ class WarehousingModule:
                     raise TypeError(f"Creating Product Failed! Invalid Warehouse!")
                 if not self.warehouse_exists(wh):
                     raise EntityNotFoundException(f"Creating Product Failed! Warehouse does not exist!")
+            if self.wh_free_space(wh) < qty:
+                print("wh have no space, assigning none wh")
+                wh = None
             # endregion
             pr = Product(name, type_, b_price, s_price, qty, wh, id_)
             pr = self._pr_repo.create(pr)
@@ -81,7 +85,7 @@ class WarehousingModule:
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
-            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     def create_wh(self, name: str, type_: str, capacity: int, products_: list, status: str,
@@ -111,7 +115,7 @@ class WarehousingModule:
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
-            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     def update_product(self, new_entity: Product):
@@ -136,7 +140,7 @@ class WarehousingModule:
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
-            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     def delete_wh_by_id(self, id_: int) -> Warehouse | Exception:
@@ -152,7 +156,7 @@ class WarehousingModule:
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
-            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     def product_change_wh(self, product: Product, wh: Warehouse | None):
@@ -182,11 +186,10 @@ class WarehousingModule:
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
-            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
-    @staticmethod
-    def wh_remove_product(warehouse: Warehouse, product: Product):
+    def wh_remove_product(self, warehouse: Warehouse, product: Product):
         """Remove Product from Warehouse"""
         try:
             if product.assigned_wh is None:
@@ -197,7 +200,7 @@ class WarehousingModule:
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
-            db.logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
     # endregion
@@ -219,7 +222,7 @@ class WarehousingModule:
             if tp.lower() == type_.lower():
                 return tp
 
-    def warehouse_exists(self, warehouse) -> bool:
+    def warehouse_exists(self, warehouse: Warehouse) -> bool:
         """Verify if Warehouse is existing in current Repository"""
         all_whs = self._find_all_warehouses()
         for wh in all_whs:
@@ -233,7 +236,7 @@ class WarehousingModule:
     @property
     def products(self) -> dict:
         """Products getter"""
-        return self._pr_repo._find_all()
+        return self._pr_repo.find_all()
 
     def print_all_products(self):
         """Print all Products. For debugging purposes."""
@@ -246,7 +249,7 @@ class WarehousingModule:
     @property
     def warehouses(self) -> dict:
         """Warehouses getter"""
-        return self._wh_repo._find_all()
+        return self._wh_repo.find_all()
 
     def print_all_wh(self):
         """Print all Warehouses. For debugging purposes."""
@@ -256,13 +259,25 @@ class WarehousingModule:
         """Get the count of all existing Warehouses"""
         return self._wh_repo.count()
 
+    @staticmethod
+    def wh_free_space(warehouse: Warehouse) -> int:
+        # if not isinstance(warehouse, Warehouse):
+        #     raise TypeError(f"Invalid warehouse")
+        tmp_count = 0
+        for product in warehouse.products:
+            tmp_count += product.quantity
+        return warehouse.capacity - 0
+
     def link_products_with_wh(self):
         """Create the relations between Product <-> Warehouse"""
         all_products = self._find_all_products()
         for product in all_products:
             if product.assigned_wh is not None:
                 found_wh = self.find_wh_by_attribute("name", product.assigned_wh["name"])[0]
-                self.product_change_wh(product, found_wh)
+                if self.wh_free_space(found_wh) >= product.quantity:
+                    self.product_change_wh(product, found_wh)
+                else:
+                    self.product_change_wh(product, None)
 
     # endregion
 
