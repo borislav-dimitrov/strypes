@@ -1,8 +1,7 @@
 import utils.my_db as db
-from model.service.startup import start_up
+from model.service.startup_exit import start_up
 
 # TODO
-#   Warehousing module documentation
 #   Implement warehouses capacity
 
 

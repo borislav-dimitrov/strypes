@@ -1,3 +1,6 @@
+"""Custom Exceptions"""
+
+
 class EntityNotFoundException(Exception):
     pass
 

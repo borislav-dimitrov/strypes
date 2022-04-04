@@ -1,3 +1,5 @@
+"""Functions to execute on Startup and before Exit"""
+
 import resources.config as cfg
 import utils.my_db as db
 
@@ -15,6 +17,7 @@ from model.service.modules.warehousing_module import WarehousingModule
 
 
 def init_repos_and_modules():
+    """Initialize all repositories and modules"""
     # REPOSITORIES
     usr_id_seq = IdGeneratorInt()
     usr_repo = GenericRepository(usr_id_seq)
@@ -41,10 +44,12 @@ def init_repos_and_modules():
 
 
 def init_services():
+    """Initialize all Services"""
     db.logger = MyLogger(cfg.LOG_ENABLED, cfg.DEFAULT_LOG_FILE, cfg.LOG_LEVEL, cfg.REWRITE_LOG_ON_STARTUP)
 
 
 def start_up():
+    """Execute on Startup"""
     init_repos_and_modules()
     init_services()
 
@@ -55,6 +60,7 @@ def start_up():
 
 
 def before_exit():
+    """Execute before exit"""
     db.user_module.save()
     db.warehousing_module.save_all()
     db.sales_module.save_all()

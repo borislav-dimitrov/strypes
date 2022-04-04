@@ -1,27 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7e277300-8a92-46b5-b5c7-5b3198458699" name="Changes" comment="done sales module in service layer { relations, save/load, CRUD }">
+    <list default="true" id="7e277300-8a92-46b5-b5c7-5b3198458699" name="Changes" comment="Documentation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/dao/id_generator_int.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/id_generator_int.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/dao/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/logger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/dao/my_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/my_db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/dao/password_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/password_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/dao/repositories/generic_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/generic_repo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/dao/repositories/invoice_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/invoice_repo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/dao/repositories/json_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/json_repo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/counterparty.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/counterparty.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/dto/tmp_products.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/dto/tmp_products.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/invoices.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/invoices.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/transaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/transaction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/warehouse.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/warehouse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/sales_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/sales_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/users_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/users_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/exceptions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/startup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/service/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/startup_exit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +196,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648993586511</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Documentation">
+      <created>1649066180069</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1649066180069</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -234,7 +228,9 @@
     <MESSAGE value="done users module in service layer" />
     <MESSAGE value="done warehousing module in service layer { relations, save/load, CRUD }" />
     <MESSAGE value="done sales module in service layer { relations, save/load, CRUD }" />
-    <option name="LAST_COMMIT_MESSAGE" value="done sales module in service layer { relations, save/load, CRUD }" />
+    <MESSAGE value="dao/entities reworked, started implementing service layer" />
+    <MESSAGE value="Documentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Documentation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
