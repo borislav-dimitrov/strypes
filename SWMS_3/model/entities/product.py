@@ -2,8 +2,19 @@ from utils.data_utils import to_json_helper
 
 
 class Product:
+    """Class, keeping the information about the Products"""
     def __init__(self, prod_name: str, prod_type: str, buy_price: float, sell_price: float,
                  quantity: int, assigned_wh, id_: int = None):
+        """
+        Initialize Product object
+        :param prod_name:
+        :param prod_type: "Raw Materials" or "Finished Goods"
+        :param buy_price:
+        :param sell_price:
+        :param quantity: amount of the same product
+        :param assigned_wh: assigned warehouse: Warehouse
+        :param id_:
+        """
         self.id = id_
         self.name = prod_name
         self.type = prod_type

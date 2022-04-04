@@ -1,4 +1,7 @@
 class TempProduct:
+    """
+    TempProduct class, used to link the products between the transactions and invoices
+    """
     def __init__(self, name: str, type_: str, price: float, quantity: int):
         self.name = name
         self.type_ = type_

@@ -1,3 +1,5 @@
+"""Module that is used to access all the modules and systems needed for the business logic"""
+
 from model.dao.logger import MyLogger
 from model.service.modules.sales_module import SalesModule
 from model.service.modules.users_module import UserModule

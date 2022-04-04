@@ -1,5 +1,5 @@
 import resources.config as cfg
-import model.dao.my_db as db
+import utils.my_db as db
 
 # DAO's
 from model.dao.id_generator_int import IdGeneratorInt

@@ -1,5 +1,5 @@
 import sys
-import model.dao.my_db as db
+import utils.my_db as db
 
 from model.entities.counterparty import Counterparty
 from model.entities.invoices import Invoice
@@ -9,67 +9,78 @@ from datetime import datetime
 
 
 class SalesModule:
+    """Module that handles all the business logic for sales operations"""
+
     def __init__(self, counterparties_repository, transactions_repository, invoices_repository):
         self._cpty_repo = counterparties_repository
         self._tr_repo = transactions_repository
         self._inv_repo = invoices_repository
 
     @property
-    def counterparties(self):
-        return self.find_all_counterparties()
+    def counterparties(self) -> dict:
+        """Get all Counterparties"""
+        return self._find_all_counterparties()
 
     @property
-    def transactions(self):
-        return self.find_all_transactions()
+    def transactions(self) -> dict:
+        """Get all Transactions"""
+        return self._find_all_transactions()
 
     @property
-    def invoices(self):
-        return self.find_all_invoices()
+    def invoices(self) -> dict:
+        """Get all Invoices"""
+        return self._find_all_invoices()
 
     # region FIND
     # Counterparties
-    def find_all_counterparties(self):
-        return self._cpty_repo.find_all()
+    def _find_all_counterparties(self):
+        return self._cpty_repo._find_all()
 
-    def find_counterparty_by_id(self, id_: int):
+    def find_counterparty_by_id(self, id_: int) -> Counterparty | Exception:
+        """Get Counterparty by ID"""
         try:
             return self._cpty_repo.find_by_id(id_)
         except Exception as ex:
             return ex
 
-    def find_counterparty_by_attr(self, attr_name: str, attr_val, exact_val: bool = True):
+    def find_counterparty_by_attr(self, attr_name: str, attr_val, exact_val: bool = True) -> list | Exception | None:
+        """Return all entities that match the given criteria"""
         try:
             return self._cpty_repo.find_by_attribute(attr_name, attr_val, exact_val)
         except Exception as ex:
             return ex
 
     # Transactions
-    def find_all_transactions(self):
-        return self._tr_repo.find_all()
+    def _find_all_transactions(self):
+        return self._tr_repo._find_all()
 
-    def find_transaction_by_id(self, id_):
+    def find_transaction_by_id(self, id_: int) -> Transaction | Exception:
+        """Get Transaction by ID"""
         try:
             return self._tr_repo.find_by_id(id_)
         except Exception as ex:
             return ex
 
-    def find_transaction_by_attr(self, attr_name: str, attr_val, exact_val: bool = True):
+    def find_transaction_by_attr(self, attr_name: str, attr_val, exact_val: bool = True) -> list | Exception | None:
+        """Return all entities that match the given criteria"""
         try:
             return self._tr_repo.find_by_attribute(attr_name, attr_val, exact_val)
         except Exception as ex:
             return ex
 
     # Invoices
-    def find_all_invoices(self):
-        return self._inv_repo.find_all()
+    def _find_all_invoices(self):
+        return self._inv_repo._find_all()
 
-    def find_invoice_by_id(self, id_: int):
+    def find_invoice_by_id(self, id_: int) -> Invoice | Exception:
+        """Get Invoice by ID"""
         try:
             return self._inv_repo.find_by_id(id_)
         except Exception as ex:
             return ex
 
-    def find_invoices_by_attr(self, attr_name: str, attr_val, exact_val: bool = True):
+    def find_invoices_by_attr(self, attr_name: str, attr_val, exact_val: bool = True) -> list | Exception | None:
+        """Return all entities that match the given criteria"""
         try:
             return self._inv_repo.find_by_attribute(attr_name, attr_val, exact_val)
         except Exception as ex:
@@ -82,6 +93,7 @@ class SalesModule:
     # region Counterparties
     def create_cpty(self, name: str, phone: str, payment_nr: str, status: str, type_: str, descr: str = "",
                     id_=None) -> Counterparty | Exception:
+        """Create new Counterparty"""
         try:
             # region Validations
             if not isinstance(name, str):
@@ -110,11 +122,12 @@ class SalesModule:
             return ex
 
     def update_cpty(self, entity: Counterparty):
+        """Update existing Counterparty"""
         if not isinstance(entity, Counterparty):
             raise TypeError("Invalid entity!")
         self._cpty_repo.update(entity)
 
-    def _del_cpty_by_id(self, id_: int):
+    def _del_cpty_by_id(self, id_: int) -> Counterparty | Exception:
         """
         Be careful!\n
         This will delete the counterparty with all of his transactions/invoices.\n
@@ -125,7 +138,7 @@ class SalesModule:
             if not isinstance(id_, int):
                 raise TypeError("Invalid ID!")
             cpty = self.find_counterparty_by_id(id_)
-            all_tr = self.find_all_transactions()
+            all_tr = self._find_all_transactions()
             to_del = []
             # delete transactions
             for tr in all_tr:
@@ -144,7 +157,8 @@ class SalesModule:
     # endregion
 
     # region Transactions
-    def create_tr(self, type_: str, counterparty: Counterparty, assets: list, id_=None):
+    def create_tr(self, type_: str, counterparty: Counterparty, assets: list, id_=None) -> Transaction | Exception:
+        """Create new Transaction"""
         try:
             # region Validations
             if not isinstance(type_, str):
@@ -178,7 +192,7 @@ class SalesModule:
             db.logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
-    def del_tr_by_id(self, id_):
+    def del_tr_by_id(self, id_: int) -> Transaction:
         """
         Caution!\n
         This will also delete the transaction invoice if there is any!
@@ -196,6 +210,7 @@ class SalesModule:
         return self._inv_repo.create(entity)
 
     def gen_inv_from_tr(self, transaction: Transaction) -> Invoice | Exception:
+        """Generate Invoice from existing Transaction"""
         try:
             if not isinstance(transaction, Transaction):
                 raise TypeError(f"Generating invoice failed! Invalid transaction type!")
@@ -222,7 +237,8 @@ class SalesModule:
             db.logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
-    def del_inv_by_id(self, id_):
+    def del_inv_by_id(self, id_: int) -> Invoice:
+        """Delete Invoice by ID"""
         inv = self.find_invoice_by_id(id_)
         tr = self.find_transaction_by_attr("invoice", inv)[0]
         tr.invoice = None
@@ -234,28 +250,32 @@ class SalesModule:
 
     # region Validations
     @staticmethod
-    def validate_cpty_status(status):
+    def validate_cpty_status(status) -> str | None:
+        """Validate Counterparty status"""
         valid = ("Enabled", "Disabled")
         for st in valid:
             if st.lower() == status.lower():
                 return st
 
     @staticmethod
-    def validate_cpty_type(type_):
+    def validate_cpty_type(type_) -> str | None:
+        """Validate Counterparty type"""
         valid = ("Supplier", "Client", "MyCo")
         for tp in valid:
             if tp.lower() == type_.lower():
                 return tp
 
-    def counterparty_exists(self, counterparty: Counterparty):
-        all_cpty = self.find_all_counterparties()
+    def counterparty_exists(self, counterparty: Counterparty) -> bool:
+        """Verify if Counterparty is existing in the Counterparty Repository"""
+        all_cpty = self._find_all_counterparties()
         for cpty in all_cpty:
             if counterparty is cpty:
                 return True
         return False
 
     @staticmethod
-    def validate_tr_type(type_):
+    def validate_tr_type(type_) -> str | None:
+        """Validate Transaction Type"""
         valid = ("Sale", "Purchase")
         for tp in valid:
             if tp.lower() == type_.lower():
@@ -265,15 +285,22 @@ class SalesModule:
 
     # region Other
     def print_all_counterparties(self):
+        """Print all Counterparties on the console. For debugging purposes"""
         self._cpty_repo.print_all()
 
     def print_all_transactions(self):
+        """Print all Transactions on the console. For debugging purposes"""
         self._tr_repo.print_all()
 
     def print_all_invoices(self):
+        """Print all Invoices on the console. For debugging purposes"""
         self._inv_repo.print_all()
 
     def make_relations(self):
+        """
+        After loading Entities from file,\n
+        make the relations between the Counterparties <- Transactions <-> Invoices
+        """
         all_tr = self.transactions
         all_inv = self.invoices
 
@@ -301,19 +328,23 @@ class SalesModule:
                 if to is not None:
                     inv.to = to
 
-    def counterparties_count(self):
+    def counterparties_count(self) -> int:
+        """Get the count of all Counterparties in the CounterpartyRepository"""
         return self._cpty_repo.count()
 
-    def transactions_count(self):
+    def transactions_count(self) -> int:
+        """Get the count of all Transactions in the TransactionRepository"""
         return self._tr_repo.count()
 
-    def invoices_count(self):
+    def invoices_count(self) -> int:
+        """Get the count of all Invoices in the InvoiceRepository"""
         return self._inv_repo.count()
 
     # endregion
 
     # region Save/Load
     def load_counterparties(self):
+        """Load and create all Counterparties from the file"""
         loaded = self._cpty_repo.load("./model/data/counterparties.json")
         if loaded is not None:
             for item in loaded:
@@ -322,6 +353,7 @@ class SalesModule:
                 self._cpty_repo.create(new)
 
     def load_transactions(self):
+        """Load and create all Transactions from the file"""
         loaded = self._tr_repo.load("./model/data/transactions.json")
         if loaded is not None:
             for item in loaded:
@@ -334,6 +366,7 @@ class SalesModule:
                 self._tr_repo.create(new)
 
     def load_invoices(self):
+        """Load and create all Invoices from the file"""
         loaded = self._inv_repo.load("./model/data/invoices.json")
         if loaded is not None:
             for item in loaded:
@@ -342,21 +375,26 @@ class SalesModule:
                 self._inv_repo.create(new)
 
     def load_all(self):
+        """Load all Entities for the SalesModule from the files and make the relations between them"""
         self.load_counterparties()
         self.load_transactions()
         self.load_invoices()
         self.make_relations()
 
     def save_counterparties(self):
+        """Save all Counterparties to file"""
         self._cpty_repo.save("./model/data/counterparties.json")
 
     def save_transactions(self):
+        """Save all Transactions to file"""
         self._tr_repo.save("./model/data/transactions.json")
 
     def save_invoices(self):
+        """Save all Invoices to file"""
         self._inv_repo.save("./model/data/invoices.json")
 
     def save_all(self):
+        """Save all Entities from the SalesModule to their files"""
         self.save_counterparties()
         self.save_transactions()
         self.save_invoices()

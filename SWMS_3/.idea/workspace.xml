@@ -2,16 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e277300-8a92-46b5-b5c7-5b3198458699" name="Changes" comment="done sales module in service layer { relations, save/load, CRUD }">
-      <change afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/dao/logger.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/dao/my_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/my_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/dao/id_generator_int.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/id_generator_int.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/dao/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/logger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/dao/my_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/my_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/dao/password_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/password_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/dao/repositories/generic_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/generic_repo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/dao/repositories/product_repo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/dao/repositories/warehouse_repo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/data/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/users.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/dao/repositories/invoice_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/invoice_repo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/dao/repositories/json_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/json_repo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entities/counterparty.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/counterparty.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entities/dto/tmp_products.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/dto/tmp_products.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entities/invoices.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/invoices.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entities/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/product.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entities/transaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/transaction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entities/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entities/warehouse.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/warehouse.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/service/modules/sales_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/sales_module.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/service/modules/users_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/users_module.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" afterDir="false" />
@@ -69,6 +75,7 @@
       <recent name="D:\Strypes_Project\strypes\SWMS_3\model" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Strypes_Project\strypes\SWMS_3\utils" />
       <recent name="D:\Strypes_Project\strypes\SWMS_3\model\data" />
       <recent name="D:\Strypes_Project\strypes\SWMS_3\model\dao\repositories" />
       <recent name="D:\Strypes_Project\strypes\SWMS_3\model\dao" />

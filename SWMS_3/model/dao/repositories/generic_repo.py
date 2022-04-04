@@ -1,11 +1,16 @@
 import sys
-import model.dao.my_db as db
+import utils.my_db as db
 
 from model.dao.repositories.json_repo import JsonOperations
 from model.exceptions import EntityNotFoundException, EntityAttributeNotFoundException
 
 
 class GenericRepository(JsonOperations):
+    """
+    Generic Repository class that takes care for the most part of the entities lifecycle.\n
+    Extends JsonOperations class, which takes care for the save/load operations.
+    """
+
     def __init__(self, id_generator):
         super().__init__()
         self._entities = {}
@@ -13,15 +18,17 @@ class GenericRepository(JsonOperations):
 
     # region FIND
     def find_all(self):
+        """Return all entities values from repo"""
         return self._entities.values()
 
     def find_by_id(self, id_: int):
+        """Find entity by selected id"""
         found = self._entities.get(id_)
         if found is None:
             raise EntityNotFoundException(f"Entity with ID: {id_} not found!")
         return found
 
-    def find_by_attribute(self, attr_name: str, attr_val, exact_val=True):
+    def find_by_attribute(self, attr_name: str, attr_val: any, exact_val=True) -> list | None | Exception:
         """
         Return all entities that match the given criteria\n
         :param attr_name: attribute we want to search
@@ -59,6 +66,11 @@ class GenericRepository(JsonOperations):
 
     # region CRUD
     def create(self, entity):
+        """
+        Create new entity in the repository
+        :param entity: entity object User | Product | Warehouse | Counterparty | Transaction | Invoice
+        :return: newly created Entity
+        """
         if entity.id is None:
             entity.id = self._id_generator.get_next_id()
         else:
@@ -67,11 +79,21 @@ class GenericRepository(JsonOperations):
         self._entities[entity.id] = entity
         return entity
 
-    def update(self, entity):
+    def update(self, entity) -> None:
+        """
+        Update already existing entity in the repo
+        :param entity: entity object User | Product | Warehouse | Counterparty | Transaction | Invoice
+        :return: None
+        """
         entity = self.find_by_id(entity.id)
         self._entities[entity.id] = entity
 
-    def delete_by_id(self, id_):
+    def delete_by_id(self, id_: int):
+        """
+        Delete entity by selected id
+        :param id_: entity id
+        :return: deleted entity
+        """
         old = self.find_by_id(id_)
         del self._entities[id_]
         return old
@@ -79,13 +101,15 @@ class GenericRepository(JsonOperations):
     # endregion
 
     # region OTHER
-    def count(self):
+    def count(self) -> int:
+        """Find the count of the entities in current repo"""
         return len(self._entities)
 
-    def get_entities(self):
-        return self._entities
-
-    def print_all(self):
+    def print_all(self) -> None:
+        """
+        Print all entities in the repo. Mainly for debugging purposes.
+        :return: None
+        """
         data = self.find_all()
         if data is not None:
             for i in data:

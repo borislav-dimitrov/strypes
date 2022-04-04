@@ -1,5 +1,5 @@
 import sys
-import model.dao.my_db as db
+import utils.my_db as db
 
 from model.entities.product import Product
 from model.entities.warehouse import Warehouse
@@ -14,7 +14,7 @@ class WarehousingModule:
     # region FIND
     # Products
     def find_all_products(self):
-        return self._pr_repo.find_all()
+        return self._pr_repo._find_all()
 
     def find_product_by_id(self, id_):
         return self._pr_repo.find_by_id(id_)
@@ -24,7 +24,7 @@ class WarehousingModule:
 
     # Warehouses
     def find_all_warehouses(self):
-        return self._wh_repo.find_all()
+        return self._wh_repo._find_all()
 
     def find_wh_by_id(self, id_):
         return self._wh_repo.find_by_id(id_)
@@ -213,7 +213,7 @@ class WarehousingModule:
     # region OTHER
     @property
     def products(self):
-        return self._pr_repo.get_entities()
+        return self._pr_repo._find_all()
 
     def print_all_products(self):
         self._pr_repo.print_all()
@@ -223,7 +223,7 @@ class WarehousingModule:
 
     @property
     def warehouses(self):
-        return self._wh_repo.get_entities()
+        return self._wh_repo._find_all()
 
     def print_all_wh(self):
         self._wh_repo.print_all()
