@@ -41,8 +41,8 @@ class InfoMessage:
 
     def disable_btns(self):
         for btn in self.buttons:
-            if btn["state"] == "normal":
-                btn.configure(state="disabled")
+            btn.configure(state="disabled")
+        self.root.update()
 
     def enable_btns(self):
         for btn in self.buttons:

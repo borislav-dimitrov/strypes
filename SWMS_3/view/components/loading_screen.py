@@ -5,12 +5,11 @@ import time
 import resources.theme_cfg as tcfg
 
 
-class Loading:
+class MyLoading:
     def __init__(self, root, resolution: tuple = (640, 360), rows: int = 30, cols: int = 30, time_s=1):
-        root.title("Loading....")
+        self.root = root
         self.ww = resolution[0]
         self.wh = resolution[1]
-        self.root = root
         self.rows = rows
         self.cols = cols
         self.MAIN_COLOR = tcfg._MAIN_COLOR
@@ -21,6 +20,7 @@ class Loading:
         root.geometry("%dx%d+%d+%d" % (self.ww, self.wh, x, y))
         # root.overrideredirect(1)
 
+        self.root.title("Loading....")
         self.set_grid()
 
         self.bar(time_s)
@@ -51,4 +51,5 @@ class Loading:
             self.root.update()
             time.sleep(step)
             r += 0.01
+
         self.root.destroy()

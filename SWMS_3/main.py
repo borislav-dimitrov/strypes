@@ -1,11 +1,12 @@
 from model.service.startup_exit import start_up
 import customtkinter as ctk
 
-from view.components.loading_screen import Loading
+from view.components.loading_screen import MyLoading
 from view.home_view import HomeView
 import resources.theme_cfg as tcfg
 
 # TODO
+#   enable disabled buttons in info msg
 #   sample project in GIT at intro-python\09-library-mvc
 from view.login import Login
 
@@ -24,7 +25,7 @@ def main():
     systems = start_up()
 
     root = ctk.CTk()
-    Loading(root, time_s=1)
+    loading = MyLoading(root, time_s=1)
     root = ctk.CTk()
     login = Login(root, "Login", (640, 360), systems["user_controller"], systems["home_controller"], grid_rows=6,
                   grid_cols=10)

@@ -1,38 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cc044ea0-7cf7-4378-8295-f411665f8376" name="Changes" comment="peparing for return homework">
-      <change afterPath="$PROJECT_DIR$/../SWMS_3.7z" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controler/home_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/data_bkp/counterparties.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/data_bkp/invoices.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/data_bkp/products.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/data_bkp/transactions.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/data_bkp/users.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/data_bkp/warehouses.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/icons/i.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/icons/login_ico.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/icons/main_ico.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/icons/sett_ico.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/theme_cfg.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/base_view.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/components/info_message.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/components/loading_screen.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/components/window_menu.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/home_view.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/login.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/utils/tkinter_utils.py" afterDir="false" />
+    <list default="true" id="cc044ea0-7cf7-4378-8295-f411665f8376" name="Changes" comment="creating gui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controler/user_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/user_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/counterparty.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/counterparty.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/invoices.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/invoices.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/transaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/transaction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/entities/warehouse.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/warehouse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/users_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/users_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/startup_exit.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/startup_exit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/data_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/utils/data_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/components/info_message.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/info_message.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/components/loading_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/loading_screen.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649134828252</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="creating gui">
+      <created>1649149507600</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1649149507600</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -272,7 +252,8 @@
     <MESSAGE value="Documentation" />
     <MESSAGE value="init controllers" />
     <MESSAGE value="peparing for return homework" />
-    <option name="LAST_COMMIT_MESSAGE" value="peparing for return homework" />
+    <MESSAGE value="creating gui" />
+    <option name="LAST_COMMIT_MESSAGE" value="creating gui" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
