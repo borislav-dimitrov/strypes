@@ -1,4 +1,6 @@
 import sys
+
+from model.dao.password_manager import PasswordManager
 from model.service.logger import MyLogger
 
 from model.entities.user import User
@@ -8,7 +10,7 @@ from model.exceptions import WeakPasswordException, InvalidUserStatusException, 
 class UserModule:
     """Module that handles all the business logic for the Users"""
 
-    def __init__(self, users_repository, password_manager, logger: MyLogger):
+    def __init__(self, users_repository, password_manager: PasswordManager, logger: MyLogger):
         self._usr_repo = users_repository
         self._pwd_mgr = password_manager
         self._logger = logger

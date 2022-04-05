@@ -7,6 +7,16 @@ class UserController:
         self._module = user_module
         self._logger = logger
 
+    def login(self, username, password):
+        user = self._module.find_by_attribute("name", username.lower())
+        if user is not None:
+            valid_pwd = self._module._pwd_mgr.compare(password, user[0].password)
+            if valid_pwd:
+                return True, "Login successful!", user[0]
+            else:
+                return False, "Wrong password!", None
+        return False, "User not found!", None
+
     def load(self):
         self._module.load()
 

@@ -1,6 +1,3 @@
-from utils.data_utils import to_json_helper
-
-
 class Product:
     """Class, keeping the information about the Products"""
     def __init__(self, prod_name: str, prod_type: str, buy_price: float, sell_price: float,

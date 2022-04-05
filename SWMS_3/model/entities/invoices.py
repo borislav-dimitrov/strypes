@@ -1,4 +1,4 @@
-from utils.data_utils import to_json_helper
+from model.utils.data_utils import to_json_helper
 
 
 class Invoice:

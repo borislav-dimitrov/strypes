@@ -3,6 +3,7 @@
 import resources.config as cfg
 
 # DAO's
+from controler.home_controller import HomeController
 from model.dao.id_generator_int import IdGeneratorInt
 from model.service.logger import MyLogger
 from model.dao.password_manager import PasswordManager
@@ -53,24 +54,32 @@ def init():
     user_controller = UserController(user_module, logger)
     warehousing_controller = WarehousingController(warehousing_module, logger)
     sales_controller = SalesController(sales_module, logger)
+    home_controller = HomeController(logger)
 
-    return user_controller, warehousing_controller, sales_controller, logger
+    systems = {
+        "user_controller": user_controller,
+        "warehousing_controller": warehousing_controller,
+        "sales_controller": sales_controller,
+        "home_controller": home_controller,
+        "logger": logger
+    }
+    return systems
 
 
 def start_up():
     """Execute on Startup"""
-    usr_ctrl, wh_ctrl, sls_ctrl, logger = init()
+    systems = init()
 
     # Load entities from file
-    usr_ctrl.load()
-    wh_ctrl.load_all()
-    sls_ctrl.load_all()
+    systems["user_controller"].load()
+    systems["warehousing_controller"].load_all()
+    systems["sales_controller"].load_all()
 
-    return usr_ctrl, wh_ctrl, sls_ctrl, logger
+    return systems
 
 
-def before_exit(usr_ctrl, wh_ctrl, sls_ctrl):
+def before_exit(systems):
     """Execute before exit"""
-    usr_ctrl.save()
-    wh_ctrl.save_all()
-    sls_ctrl.save_all()
+    systems["user_controller"].save()
+    systems["warehousing_controller"].save_all()
+    systems["sales_controller"].save_all()
