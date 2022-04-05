@@ -1,4 +1,4 @@
-from model.dao.logger import MyLogger
+from model.service.logger import MyLogger
 from model.dao.repositories.generic_repo import GenericRepository
 
 

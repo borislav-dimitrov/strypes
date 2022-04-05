@@ -4,7 +4,7 @@ import resources.config as cfg
 
 # DAO's
 from model.dao.id_generator_int import IdGeneratorInt
-from model.dao.logger import MyLogger
+from model.service.logger import MyLogger
 from model.dao.password_manager import PasswordManager
 from model.dao.repositories.generic_repo import GenericRepository
 from model.dao.repositories.invoice_repo import InvoiceRepository

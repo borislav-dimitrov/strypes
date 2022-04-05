@@ -1,4 +1,4 @@
-from model.dao.logger import MyLogger
+from model.service.logger import MyLogger
 from model.service.modules.users_module import UserModule
 
 
@@ -13,5 +13,6 @@ class UserController:
     def save(self):
         self._module.save()
 
-    def print_all(self):
-        self._module.print_all()
+    def reload(self):
+        self.save()
+        self.load()

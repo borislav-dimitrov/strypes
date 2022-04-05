@@ -1,5 +1,5 @@
 import sys
-from model.dao.logger import MyLogger
+from model.service.logger import MyLogger
 
 from model.dao.repositories.json_repo import JsonOperations
 from model.exceptions import EntityNotFoundException, EntityAttributeNotFoundException

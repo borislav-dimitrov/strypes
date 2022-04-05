@@ -6,7 +6,6 @@ from model.service.startup_exit import start_up
 
 def main():
     user_controller, warehousing_controller, sales_controller, logger = start_up()
-    # warehousing_controller.print_all()
 
 
 if __name__ == '__main__':

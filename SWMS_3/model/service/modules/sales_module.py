@@ -1,9 +1,9 @@
 import sys
-from model.dao.logger import MyLogger
+from model.service.logger import MyLogger
 
 from model.entities.counterparty import Counterparty
 from model.entities.invoices import Invoice
-from model.entities.dto.tmp_products import TempProduct
+from model.entities.dto.tmp_product import TempProduct
 from model.entities.transaction import Transaction
 from datetime import datetime
 

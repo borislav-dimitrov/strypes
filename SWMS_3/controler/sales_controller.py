@@ -1,4 +1,4 @@
-from model.dao.logger import MyLogger
+from model.service.logger import MyLogger
 from model.service.modules.sales_module import SalesModule
 
 
@@ -12,3 +12,7 @@ class SalesController:
 
     def save_all(self):
         self._module.save_all()
+
+    def reload(self):
+        self.load_all()
+        self.save_all()

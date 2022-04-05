@@ -1,5 +1,5 @@
 import sys
-from model.dao.logger import MyLogger
+from model.service.logger import MyLogger
 
 from model.entities.user import User
 from model.exceptions import WeakPasswordException, InvalidUserStatusException, InvalidUserRoleException
