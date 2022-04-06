@@ -1,9 +1,7 @@
 import view.utils.tkinter_utils as tkutil
 import tkinter as tk
-import customtkinter as ctk
+from tkinter import ttk
 
-import resources.theme_cfg as tcfg
-from view.components.window_menu import MyMenu
 from view.utils.open_views_track import _OPENED_VIEWS
 
 
@@ -19,9 +17,6 @@ class BaseView:
         self.text = ("Arial", 12)
         self.text_bold = ("Arial", 12, "bold")
         self.heading = ("Arial", 15, "bold")
-        self._MAIN_COLOR = tcfg._MAIN_COLOR
-        self._HOVER_COLOR = tcfg._HOVER_COLOR
-        self._TEXT_COLOR = tcfg._TEXT_COLOR
         self.colors = {"BLUE": "#1C94CF", "RED": "#871313", "LRED": "#823030", "DRED": "#731616"}
 
         # Center window
@@ -37,13 +32,9 @@ class BaseView:
         # Setup Grid
         tkutil.setup_grid(self.m_screen, self.cols, self.rows)
 
-        # Create Menu
-        self.menu = MyMenu(self.m_screen)
-
         # Header
-        self.header = ctk.CTkLabel(self.m_screen, text=self.page_name, text_font=self.heading,
-                                   text_color=self._TEXT_COLOR)
-        self.header.grid(row=0, column=0, columnspan=self.cols, sticky="we")
+        self.header = ttk.Label(self.m_screen, text=self.page_name, font=self.heading, anchor="center")
+        self.header.grid(row=0, rowspan=2, column=0, columnspan=self.cols, sticky="we")
 
     def default_exit(self):
         _OPENED_VIEWS.remove(self.page_name)

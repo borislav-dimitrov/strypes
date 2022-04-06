@@ -1,47 +1,39 @@
 import tkinter as tk
 from tkinter import ttk
-import customtkinter as ctk
+
 import view.utils.tkinter_utils as tkutil
 from controler.user_controller import UserController
 from view.base_view import BaseView
+from view.commands.users.show_add_user_command import ShowAddUserCommand
+from view.components.item_list import ItemList
 
 
 class UserManagementView(BaseView):
     def __init__(self, m_screen, page_name, controller: UserController, resolution: tuple = (1280, 728), grid_rows=30,
-                 grid_cols=30,
-                 icon=None):
+                 grid_cols=30, icon=None):
         super().__init__(m_screen, page_name, resolution, grid_rows, grid_cols, icon)
         self.m_screen = m_screen
-        self._controller = controller
+        self.controller = controller
+        self.show_add_user_command = ShowAddUserCommand(self.controller)
+        self.controller.view = self
 
         # Create GUI
-        # Create User Buttons
-        self.create_btn = ctk.CTkButton(self.m_screen, text="Create User", text_font=self.text_bold,
-                                        fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR,
-                                        command=lambda: self.create_user_click())
-        self.create_btn.grid(row=2, column=4, columnspan=2, sticky="nsew")
-        self.edit_btn = ctk.CTkButton(self.m_screen, text="Update User", text_font=self.text_bold,
-                                      fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR,
-                                      command=lambda: self.update_user_click())
-        self.edit_btn.grid(row=2, column=self.cols - 6, columnspan=2, sticky="nsew")
 
-        self._controller.create_user_btn_click(self.m_screen, self.header, self.text, self.text_bold, self._TEXT_COLOR,
-                                               self._MAIN_COLOR, self._HOVER_COLOR, self.cols)
+        # Users dropdown
+        users_var = self.controller.users
+        users = ItemList(self.m_screen, users_var, 7, 2, colspan=self.cols - 5)
+
+        # Create Button
+        self.create_btn = ttk.Button(self.m_screen, text="Create User", command=lambda: self.show_add_user_command)
+        self.create_btn.grid(row=20, column=5, columnspan=3, sticky="nsew")
+
+        # Update Button
+        self.edit_btn = ttk.Button(self.m_screen, text="Update User", command=lambda: print("edit"))
+        self.edit_btn.grid(row=20, column=14, columnspan=3, sticky="nsew")
+
+        # Delete Button
+        self.del_btn = ttk.Button(self.m_screen, text="Delete User", command=lambda: print("delete"))
+        self.del_btn.grid(row=20, column=23, columnspan=3, sticky="nsew")
+
         # Exit protocol override
         self.m_screen.protocol("WM_DELETE_WINDOW", lambda: self.default_exit())
-
-    def create_user_click(self):
-        # Clear Screen
-        tkutil.clear_widgets(self.m_screen, [self.header, self.create_btn, self.edit_btn])
-
-        # Create new GUI
-        self._controller.create_user_btn_click(self.m_screen, self.header, self.text, self.text_bold, self._TEXT_COLOR,
-                                               self._MAIN_COLOR, self._HOVER_COLOR, self.cols)
-
-    def update_user_click(self):
-        # Clear Screen
-        tkutil.clear_widgets(self.m_screen, [self.header, self.create_btn, self.edit_btn])
-
-        # Create new GUI
-        self._controller.update_user_btn_click(self.m_screen, self.header, self.text, self.text_bold, self._TEXT_COLOR,
-                                               self._MAIN_COLOR, self._HOVER_COLOR, self.cols)

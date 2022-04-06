@@ -92,7 +92,7 @@ class UserModule:
     @property
     def users(self) -> dict:
         """users getter"""
-        return self._usr_repo._find_all()
+        return self._usr_repo.find_all()
 
     def print_all(self):
         """Print all Users. For Debugging purposes"""

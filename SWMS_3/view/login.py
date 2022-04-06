@@ -1,11 +1,9 @@
 import tkinter as tk
+from tkinter import ttk
 
-import customtkinter as ctk
-import resources.theme_cfg as tcfg
 import view.utils.tkinter_utils as tkutil
 from controler.home_controller import HomeController
 from controler.user_controller import UserController
-from view.components.warning_message import MyWarningMessage
 
 
 class Login:
@@ -21,8 +19,6 @@ class Login:
         self.text_bold = ("Arial", 12, "bold")
         self.heading = ("Arial", 15, "bold")
         self.colors = {"BLUE": "#1C94CF", "RED": "#871313", "LRED": "#823030", "DRED": "#731616"}
-        self.MAIN_COLOR = tcfg._MAIN_COLOR
-        self.HOVER_COLOR = tcfg._HOVER_COLOR
 
         # Set Geometry
         self.w = resolution[0]
@@ -40,32 +36,26 @@ class Login:
 
         # Create GUI
         # Create Header
-        self.header = ctk.CTkLabel(self.m_screen, text=self.page_name, text_font=self.heading,
-                                   text_color=self.MAIN_COLOR)
+        self.header = ttk.Label(self.m_screen, text=self.page_name, font=self.heading, anchor="center")
         self.header.grid(row=0, column=1, columnspan=self.cols - 2, sticky="we")
 
         # Create Labels
-        self.uname_lbl = ctk.CTkLabel(self.m_screen, text="Username:", text_font=self.text_bold,
-                                      text_color=self.MAIN_COLOR)
+        self.uname_lbl = ttk.Label(self.m_screen, text="Username:", font=self.text_bold)
         self.uname_lbl.grid(row=2, column=1, columnspan=2, sticky="we")
-        self.pwd_lbl = ctk.CTkLabel(self.m_screen, text="Password:", text_font=self.text_bold,
-                                    text_color=self.MAIN_COLOR)
+        self.pwd_lbl = ttk.Label(self.m_screen, text="Password:", font=self.text_bold)
         self.pwd_lbl.grid(row=3, column=1, columnspan=2, sticky="we")
 
         # Create Entry Fields
-        self.uname_entry = ctk.CTkEntry(self.m_screen, text_font=self.text_bold)
+        self.uname_entry = ttk.Entry(self.m_screen)
         self.uname_entry.grid(row=2, column=3, columnspan=5, sticky="we")
-        self.pwd_entry = ctk.CTkEntry(self.m_screen, show="*", text_font=self.text_bold)
+        self.pwd_entry = ttk.Entry(self.m_screen, show="*")
         self.pwd_entry.grid(row=3, column=3, columnspan=5, sticky="we")
 
         # Create Buttons
-        self.login_btn = ctk.CTkButton(self.m_screen, text="Login", text_font=self.text_bold, fg_color=self.MAIN_COLOR,
-                                       hover_color=self.HOVER_COLOR, command=lambda: self.login())
-        self.login_btn.grid(row=4, column=2, sticky="we")
-        self.cancel_btn = ctk.CTkButton(self.m_screen, text="Cancel", text_font=self.text_bold,
-                                        fg_color=self.MAIN_COLOR,
-                                        hover_color=self.HOVER_COLOR, command=lambda: tkutil.close_all(self.m_screen))
-        self.cancel_btn.grid(row=4, column=7, sticky="we")
+        self.login_btn = ttk.Button(self.m_screen, text="Login", command=lambda: self.login())
+        self.login_btn.grid(row=4, rowspan=2, column=2, sticky="we")
+        self.cancel_btn = ttk.Button(self.m_screen, text="Cancel", command=lambda: tkutil.close_all(self.m_screen))
+        self.cancel_btn.grid(row=4, rowspan=2, column=7, sticky="we")
 
         # Exit protocol override
         self.m_screen.protocol("WM_DELETE_WINDOW", lambda: exit(0))
@@ -87,4 +77,5 @@ class Login:
             self._home_controller._logged_user = user
             self.m_screen.destroy()
         else:
-            MyWarningMessage(msg)
+            # TODO warning
+            print(msg)

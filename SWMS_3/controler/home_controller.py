@@ -1,14 +1,14 @@
-import customtkinter as ctk
+import tkinter as tk
 
 from model.entities.user import User
 from model.service.logger import MyLogger
-from view.components.warning_message import MyWarningMessage
 from view.user_management_view import UserManagementView
 from view.utils.open_views_track import _OPENED_VIEWS
 
 
 class HomeController:
     def __init__(self, logger: MyLogger):
+        self.view = None
         self._logger = logger
         self._logged_user: User = None
         self._logging_out = False
@@ -34,10 +34,11 @@ class HomeController:
         """Static method called from home view with the specific controller for each page"""
         page_name = "User Management"
         if page_name in _OPENED_VIEWS:
-            MyWarningMessage("User Management is already opened!")
+            # TODO Warning
+            print(f"Page {page_name} is already opened!")
 
         _OPENED_VIEWS.append(page_name)
-        root = ctk.CTk()
+        root = tk.Tk()
         user_mgmt_view = UserManagementView(root, page_name, controller)
         root.mainloop()
 

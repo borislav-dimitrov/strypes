@@ -20,7 +20,7 @@ class GenericRepository(JsonOperations):
     # region FIND
     def find_all(self):
         """Return all entities values from repo"""
-        return self._entities.values()
+        return list(self._entities.values())
 
     def find_by_id(self, id_: int):
         """Find entity by selected id"""
