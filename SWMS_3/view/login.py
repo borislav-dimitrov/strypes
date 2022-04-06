@@ -67,7 +67,8 @@ class Login:
                                         hover_color=self.HOVER_COLOR, command=lambda: tkutil.close_all(self.m_screen))
         self.cancel_btn.grid(row=4, column=7, sticky="we")
 
-        self.m_screen.protocol("WM_DELETE_WINDOW", lambda: tkutil.close_all(self.m_screen))
+        # Exit protocol override
+        self.m_screen.protocol("WM_DELETE_WINDOW", lambda: exit(0))
 
     def setup_grid(self):
         # set rows

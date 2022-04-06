@@ -4,6 +4,7 @@ import customtkinter as ctk
 
 import resources.theme_cfg as tcfg
 from view.components.window_menu import MyMenu
+from view.utils.open_views_track import _OPENED_VIEWS
 
 
 class BaseView:
@@ -43,3 +44,7 @@ class BaseView:
         self.header = ctk.CTkLabel(self.m_screen, text=self.page_name, text_font=self.heading,
                                    text_color=self._TEXT_COLOR)
         self.header.grid(row=0, column=0, columnspan=self.cols, sticky="we")
+
+    def default_exit(self):
+        _OPENED_VIEWS.remove(self.page_name)
+        self.m_screen.destroy()

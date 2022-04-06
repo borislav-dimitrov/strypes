@@ -4,12 +4,12 @@ from model.entities.user import User
 from model.service.logger import MyLogger
 from view.components.warning_message import MyWarningMessage
 from view.user_management_view import UserManagementView
+from view.utils.open_views_track import _OPENED_VIEWS
 
 
 class HomeController:
     def __init__(self, logger: MyLogger):
         self._logger = logger
-        self._opened_views = []
         self._logged_user: User = None
         self._logging_out = False
 
@@ -29,15 +29,17 @@ class HomeController:
     def transactions(self):
         pass
 
-    def user_mgmt(self, controller):
-        if "user_mgmt" in self._opened_views:
+    @staticmethod
+    def user_mgmt(controller) -> None:
+        """Static method called from home view with the specific controller for each page"""
+        page_name = "User Management"
+        if page_name in _OPENED_VIEWS:
             MyWarningMessage("User Management is already opened!")
 
-        self._opened_views.append("user_mgmt")
+        _OPENED_VIEWS.append(page_name)
         root = ctk.CTk()
-        user_mgmt_view = UserManagementView(root, "User Management", controller)
+        user_mgmt_view = UserManagementView(root, page_name, controller)
         root.mainloop()
-        self._opened_views.remove("user_mgmt")
 
     def warehouse_mgmt(self):
         pass

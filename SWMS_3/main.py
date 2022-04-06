@@ -24,7 +24,7 @@ def main():
     setup_theme()
     systems = start_up()
 
-    loading = MyLoading(time_s=1)
+    # loading = MyLoading(time_s=1)
 
     root = ctk.CTk()
     login = Login(root, "Login", (640, 360), systems["user_controller"], systems["home_controller"], grid_rows=6,

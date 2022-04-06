@@ -1,6 +1,12 @@
 import tkinter as tk
 
 
+def clear_widgets(root, exceptions: list[tk.Widget]):
+    for widget in root.grid_slaves():
+        if widget not in exceptions:
+            widget.destroy()
+
+
 def center_window(root, w=600, h=400):
     x = (root.winfo_screenwidth() // 2) - (w // 2)
     y = (root.winfo_screenheight() // 2) - (h // 2)

@@ -13,7 +13,7 @@ class HomeView(BaseView):
                  icon=None):
         super().__init__(m_screen, page_name, resolution, grid_rows, grid_cols, icon)
         self._controller: HomeController = systems["home_controller"]
-
+        self._systems = systems
         # Create GUI
         self.welcome = ctk.CTkLabel(self.m_screen, text=f"Welcome, {self._controller._logged_user.name}.",
                                     text_font=self.text_bold, text_color=self._TEXT_COLOR)
@@ -48,7 +48,7 @@ class HomeView(BaseView):
             # Create Admin Buttons
             self.umgmt_btn = ctk.CTkButton(self.m_screen, text="User\nManagement", text_font=self.text_bold,
                                            fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR,
-                                           command=lambda: self._controller.user_mgmt(systems["user_controller"]))
+                                           command=lambda: self._controller.user_mgmt(self._systems["user_controller"]))
             self.umgmt_btn.grid(row=17, column=4, rowspan=2, columnspan=2, sticky="nsew")
             self.whmgmt_btn = ctk.CTkButton(self.m_screen, text="Warehouse\nManagement", text_font=self.text_bold,
                                             fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR,
@@ -71,6 +71,9 @@ class HomeView(BaseView):
                                              command=lambda: self._controller.transaction_mgmt())
             self.invmgmt_btn.grid(row=21, column=10, rowspan=2, columnspan=2, sticky="nsew")
         # endregion
+
+        # Exit protocol override
+        self.m_screen.protocol("WM_DELETE_WINDOW", lambda: tkutil.close_all(self.m_screen, self._systems))
 
     def logout(self):
         self._controller._logging_out = True
