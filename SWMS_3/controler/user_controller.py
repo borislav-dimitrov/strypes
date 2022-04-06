@@ -1,3 +1,4 @@
+from model.entities.user import User
 from model.service.logger import MyLogger
 from model.service.modules.users_module import UserModule
 from view.components.item_form import ItemForm
@@ -6,16 +7,16 @@ from view.components.item_form import ItemForm
 class UserController:
     def __init__(self, user_module: UserModule, logger: MyLogger):
         self.view = None
-        self._module = user_module
+        self.service = user_module
         self._logger = logger
 
     # region Save/Load/Reload
 
     def load(self):
-        self._module.load()
+        self.service.load()
 
     def save(self):
-        self._module.save()
+        self.service.save()
 
     def reload(self):
         self.save()
@@ -26,9 +27,9 @@ class UserController:
     # region Login/Auth
 
     def login(self, username, password):
-        user = self._module.find_by_attribute("name", username.lower())
+        user = self.service.find_by_attribute("name", username.lower())
         if user is not None:
-            valid_pwd = self._module._pwd_mgr.compare(password, user[0].password)
+            valid_pwd = self.service._pwd_mgr.compare(password, user[0].password)
             if valid_pwd:
                 return True, "Login successful!", user[0]
             else:
@@ -40,15 +41,45 @@ class UserController:
     # region FIND
     @property
     def users(self):
-        return self._module.users
+        return self.service.users
 
     # endregion
 
     # region CRUD
     def create_user(self, uname, pwd, role, status, last_login=""):
-        result = self._module.create(uname, pwd, role, status, last_login)
+        result = self.service.create(uname, pwd, role, status, last_login)
+        if isinstance(result, User):
+            self.reload()
+            self.view.refresh()
+        return result
+
+    def update_user(self, uname, pwd, role, status, last_login, id_):
+        user = self.service.find_by_id(int(id_))
+        result = self.service.update(user, uname, pwd, role, status, last_login)
+        if isinstance(result, User):
+            self.reload()
+            self.view.refresh()
+        return result
+
+    def del_user(self, items, current_user):
+        user_id = int(items[0][0])
+        user_to_del = self.service.find_by_id(user_id)
+        if current_user is user_to_del:
+            return Exception(f"You can't delete the current user!")
+        result = self.service.delete_by_id(user_id)
+        if isinstance(result, User):
+            self.reload()
+            self.view.refresh()
+        return result
 
     # endregion
 
+    # region VIEW commands
     def show_add_user(self):
-        form = ItemForm(self.view, (0, "", bytes, "", "", ""), self.create_user())
+        form = ItemForm(self.view.parent, User("", "", "", "", ""), self, height=250)
+
+    def show_edit_user(self, items):
+        user_id = int(items[0][0])
+        user = self.service.find_by_id(user_id)
+        form = ItemForm(self.view.parent, user, self, height=250, edit=True)
+    # endregion

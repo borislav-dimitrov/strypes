@@ -1,6 +1,6 @@
 class User:
     """Class, keeping the information about the Users"""
-    def __init__(self, user_name: str, user_password: str, user_type: str, status: str,
+    def __init__(self, user_name: str, user_password, user_type: str, status: str,
                  last_login: str = "", id_: int = None):
         """
         Initialize User Object

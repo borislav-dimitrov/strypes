@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="05fafd60-ec6a-4d31-828a-d9d7d1dea710" name="Changes" comment="Working on User Management View">
-      <change afterPath="$PROJECT_DIR$/view/commands/users/show_add_user_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/components/item_form.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/components/item_list.py" afterDir="false" />
+    <list default="true" id="05fafd60-ec6a-4d31-828a-d9d7d1dea710" name="Changes" comment="creating gui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controler/home_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/home_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controler/user_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/user_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/dao/repositories/generic_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/generic_repo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/data/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/users.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/entities/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/entities/user.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/service/modules/users_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/users_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/theme_cfg.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/view/base_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/base_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/components/info_message.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/components/loading_screen.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/components/warning_message.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/components/window_menu.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/commands/users/show_add_user_command.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/components/item_form.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/item_form.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/components/item_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/item_list.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/home_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/home_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/login.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/user_management_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/user_management_view.py" afterDir="false" />
@@ -280,6 +277,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/view/components/item_list.py</url>
+          <line>38</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

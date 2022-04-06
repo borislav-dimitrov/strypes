@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 
 from model.entities.user import User
 from model.service.logger import MyLogger
@@ -29,17 +30,16 @@ class HomeController:
     def transactions(self):
         pass
 
-    @staticmethod
-    def user_mgmt(controller) -> None:
+    def user_mgmt(self, controller) -> None:
         """Static method called from home view with the specific controller for each page"""
         page_name = "User Management"
         if page_name in _OPENED_VIEWS:
-            # TODO Warning
-            print(f"Page {page_name} is already opened!")
+            messagebox.showwarning("Warning!", f"Page {page_name} is already opened!")
+            return
 
         _OPENED_VIEWS.append(page_name)
-        root = tk.Tk()
-        user_mgmt_view = UserManagementView(root, page_name, controller)
+        root = tk.Toplevel()
+        user_mgmt_view = UserManagementView(root, page_name, controller, self._logged_user)
         root.mainloop()
 
     def warehouse_mgmt(self):

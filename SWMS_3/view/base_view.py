@@ -7,7 +7,7 @@ from view.utils.open_views_track import _OPENED_VIEWS
 
 class BaseView:
     def __init__(self, m_screen, page_name, resolution: tuple, grid_rows=30, grid_cols=30, icon=None):
-        self.m_screen = m_screen
+        self.parent = m_screen
         self.page_name = page_name
         self.rows = grid_rows
         self.cols = grid_cols
@@ -20,22 +20,22 @@ class BaseView:
         self.colors = {"BLUE": "#1C94CF", "RED": "#871313", "LRED": "#823030", "DRED": "#731616"}
 
         # Center window
-        tkutil.center_window(self.m_screen, self.width, self.height)
+        tkutil.center_window(self.parent, self.width, self.height)
 
         # Set title
-        self.m_screen.title(self.page_name)
+        self.parent.title(self.page_name)
 
         # Set icon
         if icon:
-            self.m_screen.iconbitmap(icon)
+            self.parent.iconbitmap(icon)
 
         # Setup Grid
-        tkutil.setup_grid(self.m_screen, self.cols, self.rows)
+        tkutil.setup_grid(self.parent, self.cols, self.rows)
 
         # Header
-        self.header = ttk.Label(self.m_screen, text=self.page_name, font=self.heading, anchor="center")
+        self.header = ttk.Label(self.parent, text=self.page_name, font=self.heading, anchor="center")
         self.header.grid(row=0, rowspan=2, column=0, columnspan=self.cols, sticky="we")
 
     def default_exit(self):
         _OPENED_VIEWS.remove(self.page_name)
-        self.m_screen.destroy()
+        self.parent.destroy()

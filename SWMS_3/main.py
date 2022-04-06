@@ -3,16 +3,11 @@ from model.service.startup_exit import start_up, before_exit
 
 from view.home_view import HomeView
 
-# TODO
-#   enable disabled buttons in info msg
-#   sample project in GIT at intro-python\09-library-mvc
 from view.login import Login
 
 
 def main():
     systems = start_up()
-
-    # loading = MyLoading(time_s=1)
 
     root = tk.Tk()
     login = Login(root, "Login", (640, 360), systems["user_controller"], systems["home_controller"], grid_rows=6,

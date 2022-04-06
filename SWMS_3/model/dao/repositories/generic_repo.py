@@ -73,7 +73,13 @@ class GenericRepository(JsonOperations):
         :return: newly created Entity
         """
         if entity.id is None:
-            entity.id = self._id_generator.get_next_id()
+            new_id = self._id_generator.get_next_id()
+            highest_id = self.highest_id()
+            if highest_id < new_id:
+                entity.id = highest_id
+                self._id_generator._nextId = highest_id
+            else:
+                entity.id = new_id
         else:
             self._id_generator._nextId += 1
 
@@ -88,6 +94,7 @@ class GenericRepository(JsonOperations):
         """
         entity = self.find_by_id(entity.id)
         self._entities[entity.id] = entity
+        return self._entities[entity.id]
 
     def delete_by_id(self, id_: int):
         """
@@ -102,6 +109,15 @@ class GenericRepository(JsonOperations):
     # endregion
 
     # region OTHER
+    def highest_id(self) -> int:
+        """Find current highest ID from all existing entities"""
+        all_entities = self.find_all()
+        highest_id = 0
+        for entity in all_entities:
+            if entity.id > highest_id:
+                highest_id = entity.id
+        return highest_id + 1
+
     def count(self) -> int:
         """Find the count of the entities in current repo"""
         return len(self._entities)

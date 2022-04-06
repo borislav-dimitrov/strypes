@@ -7,6 +7,7 @@ from model.entities.user import User
 from model.exceptions import WeakPasswordException, InvalidUserStatusException, InvalidUserRoleException
 
 
+# TODO validate login date and include in crud operations
 class UserModule:
     """Module that handles all the business logic for the Users"""
 
@@ -18,7 +19,7 @@ class UserModule:
     # region FIND
     def _find_all(self) -> dict:
         """Get all Users in the Repository"""
-        return self._usr_repo._find_all()
+        return self._usr_repo.find_all()
 
     def find_by_id(self, id_: int) -> User:
         """Get User by ID"""
@@ -34,6 +35,9 @@ class UserModule:
     def create(self, uname, pwd, role, status, last_login="", id_=None) -> User | Exception:
         """Create new user in the user repo"""
         try:
+            # validate uname
+            if len(uname) < 4:
+                raise Exception(f"Failed creating user!\nUsername too short!")
             # validate pwd
             validation = self._pwd_mgr.check_strong_pwd(pwd)
             if validation != "Ok":
@@ -59,13 +63,57 @@ class UserModule:
             self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
-    def update(self, new_entity):
+    def update(self, user, uname, pwd, role, status, last_login):
         """Update existing User in the Repository with new one"""
-        entity = self._usr_repo.find_by_id(new_entity.id)
-        entity = new_entity
+        try:
+            # region Validations
 
-    def delete_by_id(self, id_):
-        return self._usr_repo.delete_by_id(id_)
+            # validate uname
+            if len(uname) < 4:
+                raise Exception(f"Failed updating user!\nUsername too short!")
+
+            # validate pwd
+            validation = self._pwd_mgr.check_strong_pwd(pwd)
+            if validation != "Ok":
+                raise WeakPasswordException(f"Failed updating user!\nPassword too weak!\n{validation}")
+
+            # validate role
+            role_ = self.validate_role(role)
+            if role_ is None:
+                raise InvalidUserRoleException(f"Failed updating user!\nRole {role} is not valid!")
+
+            # validate status
+            status_ = self.validate_status(status)
+            if status_ is None:
+                raise InvalidUserStatusException(f"Failed updating user!\nStatus {status} is not valid!")
+
+            # encrypt pwd
+            pwd = self._pwd_mgr.encrypt_pwd(pwd)
+
+            # endregion
+
+            # Change props
+            user.name = uname
+            user.password = pwd
+            user.type = role_
+            user.status = status_
+            user.last_login = last_login
+
+            return user
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            msg = "Something went wrong!"
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            return ex
+
+    def delete_by_id(self, id_) -> User | str:
+        try:
+            return self._usr_repo.delete_by_id(id_)
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            msg = "Something went wrong!"
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            return msg
 
     # endregion
 

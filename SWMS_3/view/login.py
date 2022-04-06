@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 
 import view.utils.tkinter_utils as tkutil
 from controler.home_controller import HomeController
@@ -54,7 +55,7 @@ class Login:
         # Create Buttons
         self.login_btn = ttk.Button(self.m_screen, text="Login", command=lambda: self.login())
         self.login_btn.grid(row=4, rowspan=2, column=2, sticky="we")
-        self.cancel_btn = ttk.Button(self.m_screen, text="Cancel", command=lambda: tkutil.close_all(self.m_screen))
+        self.cancel_btn = ttk.Button(self.m_screen, text="Cancel", command=lambda: exit(0))
         self.cancel_btn.grid(row=4, rowspan=2, column=7, sticky="we")
 
         # Exit protocol override
@@ -77,5 +78,4 @@ class Login:
             self._home_controller._logged_user = user
             self.m_screen.destroy()
         else:
-            # TODO warning
-            print(msg)
+            messagebox.showwarning("Warning!", msg)

@@ -14,8 +14,8 @@ class ItemList:
 
         self.frame = ttk.Frame(self.parent)
         self.frame.grid(row=row, column=col, rowspan=rowspan, columnspan=colspan, sticky=sticky)
-
-        columns = tuple(self.items[0].__dict__.keys())
+        columns = tuple(key for key in self.items[0].__dict__.keys() if key != "password")
+        # columns = tuple(self.items[0].__dict__.keys())
         self.tree = ttk.Treeview(self.frame, columns=columns, selectmode='extended', show='headings')
         for column in columns:
             self.tree.heading(column, text=column.title())
@@ -38,7 +38,7 @@ class ItemList:
 
     def set_items(self, items):
         def set_item(item):
-            values = list(item.__dict__.values())
+            values = list(val for val in item.__dict__.values() if not isinstance(val, bytes))
             for i, val in enumerate(values):
                 if isinstance(val, (list, tuple)):
                     values[i] = ', '.join(val)
