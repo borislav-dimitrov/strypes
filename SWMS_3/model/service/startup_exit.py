@@ -80,6 +80,7 @@ def start_up():
 
 def before_exit(systems):
     """Execute before exit"""
+    print("Saving")
     systems["user_controller"].save()
     systems["warehousing_controller"].save_all()
     systems["sales_controller"].save_all()

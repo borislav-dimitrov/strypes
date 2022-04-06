@@ -2,10 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cc044ea0-7cf7-4378-8295-f411665f8376" name="Changes" comment="creating gui">
+      <change afterPath="$PROJECT_DIR$/resources/icons/w.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/components/warning_message.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/user_management_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controler/home_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/home_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/service/startup_exit.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/startup_exit.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/components/info_message.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/info_message.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/components/loading_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/loading_screen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/home_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/home_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/login.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/utils/tkinter_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/utils/tkinter_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,11 +58,12 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/view/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/icons" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\resources\icons" />
       <recent name="D:\Strypes_Project\strypes\SWMS_3\view\components" />
       <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\model" />
       <recent name="D:\Strypes_Project\strypes\SWMS_3\model" />

@@ -1,10 +1,11 @@
 import tkinter as tk
+
 import customtkinter as ctk
 import resources.theme_cfg as tcfg
 import view.utils.tkinter_utils as tkutil
 from controler.home_controller import HomeController
 from controler.user_controller import UserController
-from view.components.info_message import InfoMessage
+from view.components.warning_message import MyWarningMessage
 
 
 class Login:
@@ -85,4 +86,4 @@ class Login:
             self._home_controller._logged_user = user
             self.m_screen.destroy()
         else:
-            msg = InfoMessage(msg, [self.login_btn, self.cancel_btn])
+            MyWarningMessage(msg)

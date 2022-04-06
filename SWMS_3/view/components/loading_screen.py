@@ -6,8 +6,8 @@ import resources.theme_cfg as tcfg
 
 
 class MyLoading:
-    def __init__(self, root, resolution: tuple = (640, 360), rows: int = 30, cols: int = 30, time_s=1):
-        self.root = root
+    def __init__(self,resolution: tuple = (640, 360), rows: int = 30, cols: int = 30, time_s=1):
+        self.root = ctk.CTk()
         self.ww = resolution[0]
         self.wh = resolution[1]
         self.rows = rows
@@ -15,9 +15,9 @@ class MyLoading:
         self.MAIN_COLOR = tcfg._MAIN_COLOR
         self.HOVER_COLOR = tcfg._HOVER_COLOR
         self.TEXT_COLOR = tcfg._TEXT_COLOR
-        x = (root.winfo_screenwidth() / 2) - (self.ww / 2)
-        y = (root.winfo_screenheight() / 2) - (self.wh / 2)
-        root.geometry("%dx%d+%d+%d" % (self.ww, self.wh, x, y))
+        x = (self.root.winfo_screenwidth() / 2) - (self.ww / 2)
+        y = (self.root.winfo_screenheight() / 2) - (self.wh / 2)
+        self.root.geometry("%dx%d+%d+%d" % (self.ww, self.wh, x, y))
         # root.overrideredirect(1)
 
         self.root.title("Loading....")

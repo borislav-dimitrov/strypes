@@ -21,6 +21,9 @@ def close_win(root):
     root.destroy()
 
 
-def close_all(root):
+def close_all(root, systems):
+    systems["user_controller"].save()
+    systems["warehousing_controller"].save_all()
+    systems["sales_controller"].save_all()
     root.destroy()
     exit(0)

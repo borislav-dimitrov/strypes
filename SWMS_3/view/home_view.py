@@ -8,11 +8,11 @@ from view.base_view import BaseView
 
 
 class HomeView(BaseView):
-    def __init__(self, m_screen, page_name, resolution: tuple, controller: HomeController, grid_rows=30,
+    def __init__(self, m_screen, page_name, systems: dict, resolution: tuple = (1280, 728), grid_rows=30,
                  grid_cols=30,
                  icon=None):
         super().__init__(m_screen, page_name, resolution, grid_rows, grid_cols, icon)
-        self._controller = controller
+        self._controller: HomeController = systems["home_controller"]
 
         # Create GUI
         self.welcome = ctk.CTkLabel(self.m_screen, text=f"Welcome, {self._controller._logged_user.name}.",
@@ -28,37 +28,47 @@ class HomeView(BaseView):
 
         # Create Buttons
         self.wh_btn = ctk.CTkButton(self.m_screen, text="Warehouses", text_font=self.text_bold,
-                                    fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR)
+                                    fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR,
+                                    command=lambda: self._controller.warehouses())
         self.wh_btn.grid(row=9, column=4, rowspan=2, columnspan=2, sticky="nsew")
         self.pur_btn = ctk.CTkButton(self.m_screen, text="Purchases", text_font=self.text_bold,
-                                     fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR)
+                                     fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR,
+                                     command=lambda: self._controller.purchases())
         self.pur_btn.grid(row=9, column=10, rowspan=2, columnspan=2, sticky="nsew")
         self.sls_btn = ctk.CTkButton(self.m_screen, text="Sales", text_font=self.text_bold,
-                                     fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR)
+                                     fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR,
+                                     command=lambda: self._controller.sales())
         self.sls_btn.grid(row=9, column=16, rowspan=2, columnspan=2, sticky="nsew")
         self.tr_btn = ctk.CTkButton(self.m_screen, text="Transactions", text_font=self.text_bold,
-                                    fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR)
+                                    fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR,
+                                    command=lambda: self._controller.transactions())
         self.tr_btn.grid(row=9, column=22, rowspan=2, columnspan=2, sticky="nsew")
 
         if self._controller._logged_user.type == "Administrator":
             # Create Admin Buttons
             self.umgmt_btn = ctk.CTkButton(self.m_screen, text="User\nManagement", text_font=self.text_bold,
-                                           fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR)
+                                           fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR,
+                                           command=lambda: self._controller.user_mgmt(systems["user_controller"]))
             self.umgmt_btn.grid(row=17, column=4, rowspan=2, columnspan=2, sticky="nsew")
             self.whmgmt_btn = ctk.CTkButton(self.m_screen, text="Warehouse\nManagement", text_font=self.text_bold,
-                                            fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR)
+                                            fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR,
+                                            command=lambda: self._controller.warehouse_mgmt())
             self.whmgmt_btn.grid(row=17, column=10, rowspan=2, columnspan=2, sticky="nsew")
             self.prmgmt_btn = ctk.CTkButton(self.m_screen, text="Product\nManagement", text_font=self.text_bold,
-                                            fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR)
+                                            fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR,
+                                            command=lambda: self._controller.product_mgmt())
             self.prmgmt_btn.grid(row=17, column=16, rowspan=2, columnspan=2, sticky="nsew")
             self.spmgmt_btn = ctk.CTkButton(self.m_screen, text="Supplier\nManagement", text_font=self.text_bold,
-                                            fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR)
+                                            fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR,
+                                            command=lambda: self._controller.supplier_mgmt())
             self.spmgmt_btn.grid(row=17, column=22, rowspan=2, columnspan=2, sticky="nsew")
             self.clmgmt_btn = ctk.CTkButton(self.m_screen, text="Client\nManagement", text_font=self.text_bold,
-                                            fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR)
+                                            fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR,
+                                            command=lambda: self._controller.client_mgmt())
             self.clmgmt_btn.grid(row=21, column=4, rowspan=2, columnspan=2, sticky="nsew")
-            self.invmgmt_btn = ctk.CTkButton(self.m_screen, text="Invoice\nManagement", text_font=self.text_bold,
-                                             fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR)
+            self.invmgmt_btn = ctk.CTkButton(self.m_screen, text="Transaction\nManagement", text_font=self.text_bold,
+                                             fg_color=self._MAIN_COLOR, hover_color=self._HOVER_COLOR,
+                                             command=lambda: self._controller.transaction_mgmt())
             self.invmgmt_btn.grid(row=21, column=10, rowspan=2, columnspan=2, sticky="nsew")
         # endregion
 

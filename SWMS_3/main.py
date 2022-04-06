@@ -1,4 +1,4 @@
-from model.service.startup_exit import start_up
+from model.service.startup_exit import start_up, before_exit
 import customtkinter as ctk
 
 from view.components.loading_screen import MyLoading
@@ -24,8 +24,8 @@ def main():
     setup_theme()
     systems = start_up()
 
-    root = ctk.CTk()
-    loading = MyLoading(root, time_s=1)
+    loading = MyLoading(time_s=1)
+
     root = ctk.CTk()
     login = Login(root, "Login", (640, 360), systems["user_controller"], systems["home_controller"], grid_rows=6,
                   grid_cols=10)
@@ -33,10 +33,12 @@ def main():
 
     if systems["home_controller"]._logged_user is not None:
         root = ctk.CTk()
-        home_view = HomeView(root, "Home", (1280, 720), systems["home_controller"], icon="resources/icons/main_ico.ico")
+        home_view = HomeView(root, "Home", systems, icon="resources/icons/main_ico.ico")
         root.mainloop()
 
+    before_exit(systems)
     if systems["home_controller"]._logging_out:
+        systems["home_controller"]._logging_out = False
         main()
 
 
