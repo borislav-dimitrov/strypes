@@ -1,26 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4ee086f1-c539-457d-b31d-f6642290db7f" name="Changes" comment="Reworked project controllers / implementing Command Pattern">
-      <change afterPath="$PROJECT_DIR$/view/commands/home_view_commands/open_product_management_commands.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/commands/product_commands/close_product_management_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/commands/product_commands/del_product_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/commands/product_commands/show_create_product_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/commands/product_commands/show_edit_product_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/product_management_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controler/main_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/main_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controler/user_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/user_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controler/warehousing_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/warehousing_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/data/products.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/products.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/data/warehouses.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/warehouses.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/users_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/users_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/commands/warehouse_commands/close_warehouse_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/commands/warehouse_commands/close_warehouse_management.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/components/item_form.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/item_form.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/components/item_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/item_list.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/home_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/home_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/user_management_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/user_management_view.py" afterDir="false" />
+    <list default="true" id="4ee086f1-c539-457d-b31d-f6642290db7f" name="Changes" comment="Implemented basic product management">
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649355780752</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Implemented basic product management">
+      <created>1649363807382</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1649363807382</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -286,7 +275,8 @@
     <MESSAGE value="creating gui" />
     <MESSAGE value="Working on User Management View" />
     <MESSAGE value="Reworked project controllers / implementing Command Pattern" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reworked project controllers / implementing Command Pattern" />
+    <MESSAGE value="Implemented basic product management" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented basic product management" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

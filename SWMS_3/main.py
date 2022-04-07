@@ -3,7 +3,6 @@ import tkinter as tk
 from controler.main_controller import MainController
 
 from view.home_view import HomeView
-
 from view.login import Login
 
 
