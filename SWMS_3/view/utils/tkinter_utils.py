@@ -13,21 +13,17 @@ def center_window(root, w=600, h=400):
     root.geometry("%dx%d+%d+%d" % (w, h, x, y))
 
 
-def setup_grid(root, rows, cols):
+def setup_grid(parent, rows, cols):
     # set rows
     for row in range(rows):
-        tk.Grid.rowconfigure(root, row, weight=1)
+        tk.Grid.rowconfigure(parent, row, weight=1)
 
     # set columns
     for col in range(cols):
-        tk.Grid.columnconfigure(root, col, weight=1)
+        tk.Grid.columnconfigure(parent, col, weight=1)
 
 
-def close_win(root):
-    root.destroy()
-
-
-def close_all(root, systems):
+def close_all_(root, systems):
     systems["user_controller"].save()
     systems["warehousing_controller"].save_all()
     systems["sales_controller"].save_all()

@@ -176,7 +176,7 @@ class WarehousingModule:
             self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
-    def delete_wh_by_id(self, id_: int) -> Warehouse | Exception:
+    def delete_wh_by_id(self, id_: int) -> Warehouse | str:
         """Delete Warehouse by ID"""
         try:
             old = self._wh_repo.find_by_id(id_)
@@ -190,7 +190,7 @@ class WarehousingModule:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
             self._logger.log(__file__, msg, "ERROR", type(ex), tb)
-            return ex
+            return msg
 
     def product_change_wh(self, product: Product, wh: Warehouse | None):
         """Change Product assigned Warehouse"""

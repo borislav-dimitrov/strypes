@@ -2,8 +2,6 @@ import view.utils.tkinter_utils as tkutil
 import tkinter as tk
 from tkinter import ttk
 
-from view.utils.open_views_track import _OPENED_VIEWS
-
 
 class BaseView:
     def __init__(self, m_screen, page_name, resolution: tuple, grid_rows=30, grid_cols=30, icon=None):
@@ -35,7 +33,3 @@ class BaseView:
         # Header
         self.header = ttk.Label(self.parent, text=self.page_name, font=self.heading, anchor="center")
         self.header.grid(row=0, rowspan=2, column=0, columnspan=self.cols, sticky="we")
-
-    def default_exit(self):
-        _OPENED_VIEWS.remove(self.page_name)
-        self.parent.destroy()

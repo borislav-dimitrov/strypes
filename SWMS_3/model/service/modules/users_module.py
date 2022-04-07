@@ -7,7 +7,7 @@ from model.entities.user import User
 from model.exceptions import WeakPasswordException, InvalidUserStatusException, InvalidUserRoleException
 
 
-# TODO validate login date and include in crud operations
+# TODO validate login_commands date and include in crud operations
 class UserModule:
     """Module that handles all the business logic for the Users"""
 

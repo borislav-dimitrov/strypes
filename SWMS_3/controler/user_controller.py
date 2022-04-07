@@ -1,12 +1,15 @@
+from tkinter import messagebox
+
 from model.entities.user import User
 from model.service.logger import MyLogger
 from model.service.modules.users_module import UserModule
 from view.components.item_form import ItemForm
+from view.user_management_view import UserManagementView
 
 
 class UserController:
     def __init__(self, user_module: UserModule, logger: MyLogger):
-        self.view = None
+        self.view: UserManagementView = None
         self.service = user_module
         self._logger = logger
 
@@ -61,25 +64,46 @@ class UserController:
             self.view.refresh()
         return result
 
-    def del_user(self, items, current_user):
-        user_id = int(items[0][0])
+    def del_user(self):
+        selected = self.view.item_list.get_selected_items()
+
+        if len(selected) < 1:
+            messagebox.showwarning("Warning!", "Please make a selection first!", parent=self.view.parent)
+            return
+
+        user_id = int(selected[0][0])
         user_to_del = self.service.find_by_id(user_id)
-        if current_user is user_to_del:
+        if self.view.curr_user is user_to_del:
             return Exception(f"You can't delete the current user!")
         result = self.service.delete_by_id(user_id)
+
         if isinstance(result, User):
             self.reload()
             self.view.refresh()
-        return result
+            messagebox.showinfo("Info!", f"User {result.name} successfully deleted!", parent=self.view.parent)
+        else:
+            messagebox.showwarning("Warning", result, parent=self.view.parent)
 
-    # endregion
+        # endregion
 
-    # region VIEW commands
-    def show_add_user(self):
+        # region VIEW
+
+    def show_create_user(self):
         form = ItemForm(self.view.parent, User("", "", "", "", ""), self, height=250)
 
-    def show_edit_user(self, items):
-        user_id = int(items[0][0])
+    def show_edit_user(self):
+        selected = self.view.item_list.get_selected_items()
+
+        if len(selected) < 1:
+            messagebox.showerror("Warning!", "Please make a selection first!", parent=self.view.parent)
+            return
+
+        user_id = int(selected[0][0])
         user = self.service.find_by_id(user_id)
         form = ItemForm(self.view.parent, user, self, height=250, edit=True)
+
     # endregion
+
+    def close(self):
+        self.view.open_views.remove(self.view.page_name)
+        self.view.parent.destroy()

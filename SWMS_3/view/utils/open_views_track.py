@@ -1,1 +1,0 @@
-_OPENED_VIEWS = []
