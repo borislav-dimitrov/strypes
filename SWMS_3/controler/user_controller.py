@@ -54,6 +54,9 @@ class UserController:
         if isinstance(result, User):
             self.reload()
             self.view.refresh()
+            messagebox.showinfo("Info!", f"User {result.name} has been created successfully!", parent=self.view.parent)
+        else:
+            messagebox.showerror("Error!", result, parent=self.view.parent)
         return result
 
     def update_user(self, uname, pwd, role, status, last_login, id_):
@@ -62,6 +65,9 @@ class UserController:
         if isinstance(result, User):
             self.reload()
             self.view.refresh()
+            messagebox.showinfo("Info!", f"User {result.name} has been updated successfully!", parent=self.view.parent)
+        else:
+            messagebox.showerror("Error!", result, parent=self.view.parent)
         return result
 
     def del_user(self):
@@ -82,7 +88,7 @@ class UserController:
             self.view.refresh()
             messagebox.showinfo("Info!", f"User {result.name} successfully deleted!", parent=self.view.parent)
         else:
-            messagebox.showwarning("Warning", result, parent=self.view.parent)
+            messagebox.showerror("Error!", result, parent=self.view.parent)
 
         # endregion
 

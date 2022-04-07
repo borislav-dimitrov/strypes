@@ -7,7 +7,6 @@ from model.entities.user import User
 from model.exceptions import WeakPasswordException, InvalidUserStatusException, InvalidUserRoleException
 
 
-# TODO validate login_commands date and include in crud operations
 class UserModule:
     """Module that handles all the business logic for the Users"""
 
@@ -63,7 +62,7 @@ class UserModule:
             self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
-    def update(self, user, uname, pwd, role, status, last_login):
+    def update(self, user, uname, pwd, role, status, last_login)-> User | Exception:
         """Update existing User in the Repository with new one"""
         try:
             # region Validations
@@ -106,14 +105,14 @@ class UserModule:
             self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
-    def delete_by_id(self, id_) -> User | str:
+    def delete_by_id(self, id_) -> User | Exception:
         try:
             return self._usr_repo.delete_by_id(id_)
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
             self._logger.log(__file__, msg, "ERROR", type(ex), tb)
-            return msg
+            return ex
 
     # endregion
 

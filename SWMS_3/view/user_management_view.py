@@ -1,9 +1,5 @@
-import tkinter as tk
 from tkinter import ttk
-from tkinter import messagebox
 
-import view.utils.tkinter_utils as tkutil
-from model.entities.user import User
 from view.base_view import BaseView
 from view.commands.user_commands.del_user_command import DelUserCommand
 from view.commands.user_commands.show_create_user_command import ShowCreateUserCommand

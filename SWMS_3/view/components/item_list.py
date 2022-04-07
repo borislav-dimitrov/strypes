@@ -18,9 +18,14 @@ class ItemList:
 
         self.frame = ttk.Frame(self.parent)
         self.frame.grid(row=row, column=col, rowspan=rowspan, columnspan=colspan, sticky=sticky)
-        columns = tuple(key for key in self.items[0].__dict__.keys() if key != "password")
-        # columns = tuple(self.items[0].__dict__.keys())
+
+        columns = []
+        for key in self.items[0].__dict__.keys():
+            if key != "password":  # If password fields, don't show them in the item list
+                columns.append(key)
+
         self.tree = ttk.Treeview(self.frame, columns=columns, selectmode='extended', show='headings')
+
         for column in columns:
             self.tree.heading(column, text=column.title())
             self.tree.column(column, width=DEFAULT_COLUMN_WIDTH_PX)
@@ -42,16 +47,18 @@ class ItemList:
 
     def set_items(self, items):
         def set_item(item):
-            values = list(val for val in item.__dict__.values() if not isinstance(val, bytes))
+            values = list(val for val in item.__dict__.values() if not isinstance(val, bytes))  # Passwords case
             for i, val in enumerate(values):
                 if isinstance(val, (list, tuple)):
-                    if len(val) > 0 and isinstance(val[0], Product):
+                    if len(val) > 0 and isinstance(val[0], Product):  # Products in warehouses case
                         total = 0
                         for product in val:
                             total += product.quantity
                         values[i] = total
                     else:
                         values[i] = ', '.join(val)
+                if isinstance(item, Product) and isinstance(val, Warehouse):  # Product assigned warehouse case
+                    values[i] = val.name
 
             return self.tree.insert('', tk.END, values=tuple(values))
 

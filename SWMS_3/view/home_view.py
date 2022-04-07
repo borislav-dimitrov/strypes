@@ -1,20 +1,21 @@
 from tkinter import ttk
-import view.utils.tkinter_utils as tkutil
 
-from controler.main_controller import MainController
 from view.base_view import BaseView
+
+# Commands
 from view.commands.exit_command import ExitCommand
 from view.commands.home_view_commands.logout_command import LogoutCommand
+from view.commands.home_view_commands.open_product_management_commands import OpenProductMgmtCommand
 from view.commands.home_view_commands.open_user_management_commands import OpenUserManagementCommand
 from view.commands.home_view_commands.open_wh_management_commands import OpenWhMgmtCommand
 
 
 class HomeView(BaseView):
-    def __init__(self, m_screen, page_name, controller: MainController, resolution: tuple = (1280, 728), grid_rows=30,
+    def __init__(self, m_screen, page_name, controller, resolution: tuple = (1280, 728), grid_rows=30,
                  grid_cols=30,
                  icon=None):
         super().__init__(m_screen, page_name, resolution, grid_rows, grid_cols, icon)
-        self.controller: MainController = controller
+        self.controller = controller
 
         # Create GUI
         self.welcome = ttk.Label(self.parent, text=f"Welcome, {self.controller.logged_user.name}.",
@@ -45,7 +46,7 @@ class HomeView(BaseView):
                                          command=OpenWhMgmtCommand(self.controller))
             self.whmgmt_btn.grid(row=17, column=10, rowspan=2, columnspan=2, sticky="nsew")
             self.prmgmt_btn = ttk.Button(self.parent, text="Product\nManagement",
-                                         command=lambda: print())
+                                         command=OpenProductMgmtCommand(self.controller))
             self.prmgmt_btn.grid(row=17, column=16, rowspan=2, columnspan=2, sticky="nsew")
             self.spmgmt_btn = ttk.Button(self.parent, text="Supplier\nManagement",
                                          command=lambda: print())

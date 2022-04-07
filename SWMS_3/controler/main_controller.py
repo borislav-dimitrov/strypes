@@ -22,6 +22,7 @@ from model.service.modules.warehousing_module import WarehousingModule
 
 from view.user_management_view import UserManagementView
 from view.warehouse_management_view import WarehouseManagementView
+from view.product_management_view import ProductManagementView
 
 
 class MainController:
@@ -138,11 +139,21 @@ class MainController:
         self.opened_views.append(page_name)
         root = tk.Toplevel()
         whs_mgmt_view = WarehouseManagementView(root, page_name, self.warehousing_controller, self.opened_views)
-        self.warehousing_controller.management_view = whs_mgmt_view
+        self.warehousing_controller.wh_management_view = whs_mgmt_view
         root.mainloop()
 
     def product_mgmt(self):
-        pass
+        """Initialize Product Management View"""
+        page_name = "Product Management"
+        if page_name in self.opened_views:
+            messagebox.showerror("Warning!", f"Page {page_name} is already opened!")
+            return
+
+        self.opened_views.append(page_name)
+        root = tk.Toplevel()
+        product_mgmt_view = ProductManagementView(root, page_name, self.warehousing_controller, self.opened_views)
+        self.warehousing_controller.pr_management_view = product_mgmt_view
+        root.mainloop()
 
     def supplier_mgmt(self):
         pass

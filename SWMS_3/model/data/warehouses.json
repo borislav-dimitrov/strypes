@@ -106,7 +106,20 @@
         "name": "sklad03",
         "type": "Raw Materials",
         "capacity": 100,
-        "products": [],
+        "products": [
+            {
+                "id": 10,
+                "name": "test productt",
+                "type": "Raw Materials",
+                "buy_price": 3.0,
+                "sell_price": 4.0,
+                "quantity": 5,
+                "assigned_wh": {
+                    "id": 3,
+                    "name": "sklad03"
+                }
+            }
+        ],
         "status": "Enabled"
     }
 }

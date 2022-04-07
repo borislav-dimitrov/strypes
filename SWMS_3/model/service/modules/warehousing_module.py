@@ -60,13 +60,15 @@ class WarehousingModule:
             if type_ is None:
                 raise TypeError(f"Creating Product Failed! Invalid Product type!")
 
-            if not isinstance(b_price, float):
+            if not isinstance(b_price, float) or b_price == 0.0:
                 raise TypeError(f"Creating Product Failed! Invalid Product buy price!")
 
-            if not isinstance(s_price, float):
+            if not isinstance(s_price, float) or s_price == 0.0:
                 raise TypeError(f"Creating Product Failed! Invalid Product sell price!")
+            if s_price < b_price:
+                raise TypeError(f"Creating Product Failed! Sell Price can't be lower than Buy Price!")
 
-            if not isinstance(qty, int):
+            if not isinstance(qty, int) or qty == 0:
                 raise TypeError(f"Creating Product Failed! Invalid Product quantity!")
 
             if wh is not None:
@@ -74,13 +76,12 @@ class WarehousingModule:
                     raise TypeError(f"Creating Product Failed! Invalid Warehouse!")
                 if not self.warehouse_exists(wh):
                     raise EntityNotFoundException(f"Creating Product Failed! Warehouse does not exist!")
-            if self.wh_free_space(wh) < qty:
-                print("wh have no space, assigning none wh")
-                wh = None
+                if self.wh_free_space(wh) < qty:
+                    print("wh have no space, assigning none wh")
+                    wh = None
             # endregion
             pr = Product(name, type_, b_price, s_price, qty, wh, id_)
             pr = self._pr_repo.create(pr)
-            self.product_change_wh(pr, wh)
             return pr
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
@@ -121,10 +122,48 @@ class WarehousingModule:
             self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
-    def update_product(self, new_entity: Product):
-        """Update existing Product with another one"""
-        entity = self._pr_repo.find_by_id(new_entity.id)
-        entity = new_entity
+    def update_product(self, product: Product, name: str, type_: str, b_price: float, s_price: float, qty: int,
+                       wh: Warehouse | None, id_=None) -> Product | Exception:
+        """Update existing Product"""
+        try:
+            # region validate
+            type_ = self.validate_type(type_)
+            if type_ is None:
+                raise TypeError(f"Creating Product Failed! Invalid Product type!")
+
+            if not isinstance(b_price, float) or b_price == 0.0:
+                raise TypeError(f"Creating Product Failed! Invalid Product buy price!")
+
+            if not isinstance(s_price, float) or s_price == 0.0:
+                raise TypeError(f"Creating Product Failed! Invalid Product sell price!")
+            if s_price < b_price:
+                raise TypeError(f"Creating Product Failed! Sell Price can't be lower than Buy Price!")
+
+            if not isinstance(qty, int) or qty == 0:
+                raise TypeError(f"Creating Product Failed! Invalid Product quantity!")
+
+            if wh is not None:
+                if not isinstance(wh, Warehouse):
+                    raise TypeError(f"Creating Product Failed! Invalid Warehouse!")
+                if not self.warehouse_exists(wh):
+                    raise EntityNotFoundException(f"Creating Product Failed! Warehouse does not exist!")
+                if self.wh_free_space(wh) < qty:
+                    print("wh have no space, assigning none wh")
+                    wh = None
+            # endregion
+
+            product.name = name
+            product.type = type_
+            product.buy_price = b_price
+            product.sell_price = s_price
+            product.quantity = qty
+            product.assigned_wh = wh
+            return product
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            msg = "Something went wrong!"
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            return ex
 
     def update_warehouse(self, wh: Warehouse, name: str, type_: str, capacity: int, products_: list, status: str,
                          id_=None) -> Warehouse | Exception:
@@ -161,7 +200,7 @@ class WarehousingModule:
             self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
-    def delete_product_by_id(self, id_: int) -> Product | Exception:
+    def delete_product_by_id(self, id_: int) -> Product | str:
         """Delete Product by ID"""
         try:
             old_prod = self._pr_repo.find_by_id(id_)
@@ -174,7 +213,7 @@ class WarehousingModule:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
             self._logger.log(__file__, msg, "ERROR", type(ex), tb)
-            return ex
+            return msg
 
     def delete_wh_by_id(self, id_: int) -> Warehouse | str:
         """Delete Warehouse by ID"""

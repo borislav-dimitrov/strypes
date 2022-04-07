@@ -4,6 +4,7 @@ from tkinter import messagebox
 from typing import Iterable
 
 import view.utils.tkinter_utils as tkutil
+from model.entities.product import Product
 from model.entities.user import User
 from model.entities.warehouse import Warehouse
 
@@ -11,7 +12,7 @@ DEFAULT_ENTRY_WIDTH_PX = 250
 
 
 class ItemForm(tk.Toplevel):
-    def __init__(self, parent, item, controller, width=600, height=400, edit=False):
+    def __init__(self, parent, item, controller, title="", width=600, height=400, edit=False):
         super().__init__(parent)
         self.parent = parent
         self.item = item
@@ -19,7 +20,7 @@ class ItemForm(tk.Toplevel):
         self.edit = edit
 
         self.frame = ttk.Frame(self, padding="30 30 30 30")
-        self.title("Add Book")
+        self.title(title)
         self.frame.grid(row=0, column=0, sticky="nsew")
         tkutil.center_window(self, width, height)
 
@@ -30,27 +31,34 @@ class ItemForm(tk.Toplevel):
         self.columns = tuple(self.item.__dict__.keys())
 
         for i, col in enumerate(self.columns):
-            if isinstance(self.item, Warehouse) and col == "products":
+            if isinstance(self.item, Warehouse) and col == "products":  # Don't include products field for warehouses
                 continue
             else:
-                # add view models
+                # Add view models
                 attr = getattr(self.item, col)
-                if isinstance(attr, int):
-                    self.types.append("int")
-                elif isinstance(attr, float):
-                    self.types.append("float")
-                elif isinstance(attr, (tuple, list)):
-                    self.types.append("list")
-                else:
+                if self.edit and isinstance(self.item, Product) and col == "assigned_wh":
+                    # Product assigned warehouse case when editing
+                    model = tk.StringVar()
+                    model.set(attr.name)
                     self.types.append("str")
-                model = tk.StringVar()
-                model.set(attr)
-                self.models.append(model)
+                    self.models.append(model)
+                else:
+                    if isinstance(attr, int):
+                        self.types.append("int")
+                    elif isinstance(attr, float):
+                        self.types.append("float")
+                    elif isinstance(attr, (tuple, list)):
+                        self.types.append("list")
+                    else:
+                        self.types.append("str")
+                    model = tk.StringVar()
+                    model.set(attr)
+                    self.models.append(model)
 
-                # add labels
+                # Add labels
                 ttk.Label(self.frame, text=col.title(), justify="left").grid(column=0, row=i, sticky="we")
 
-                # add entries
+                # Add entries
                 if col == "password":
                     entry = ttk.Entry(self.frame, textvariable=model, show="*")
                     if self.edit:
@@ -59,8 +67,7 @@ class ItemForm(tk.Toplevel):
                         entry.insert(0, plain_pwd)
                 else:
                     entry = ttk.Entry(self.frame, textvariable=model)
-                    # if self.edit:
-                    #     entry.insert(0, getattr(item, col))
+
                 entry.grid(column=1, row=i, sticky="we")
 
                 if col == 'id':
@@ -102,7 +109,7 @@ class ItemForm(tk.Toplevel):
         info = cls(*info)
         i = 0
         for col in self.columns:
-            if isinstance(self.item, Warehouse) and col == "products":
+            if isinstance(self.item, Warehouse) and col == "products":  # Skip warehouse products
                 continue
             else:
                 self.models[i].set(self.entries[i].get())
@@ -128,12 +135,6 @@ class ItemForm(tk.Toplevel):
 
         if isinstance(result, cls):
             self.dismiss()
-            if self.edit:
-                messagebox.showinfo("Info", f"{result.name} updated successfully!", parent=self.parent)
-            else:
-                messagebox.showinfo("Info", f"{result.name} created successfully!", parent=self.parent)
-        else:
-            messagebox.showwarning("Warning!", result, parent=self)
 
     def reset(self):
         for entry in self.entries:
@@ -148,6 +149,8 @@ class ItemForm(tk.Toplevel):
             result = self.controller.create_user(*attributes)
         elif isinstance(self.item, Warehouse):
             result = self.controller.create_warehouse(*attributes)
+        elif isinstance(self.item, Product):
+            result = self.controller.create_product(*attributes)
         return result
 
     def call_controller_update(self, attributes):
@@ -155,4 +158,6 @@ class ItemForm(tk.Toplevel):
             result = self.controller.update_user(*attributes)
         elif isinstance(self.item, Warehouse):
             result = self.controller.update_warehouse(*attributes)
+        elif isinstance(self.item, Product):
+            result = self.controller.update_product(*attributes)
         return result

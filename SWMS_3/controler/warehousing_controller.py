@@ -1,5 +1,6 @@
 from tkinter import messagebox
 
+from model.entities.product import Product
 from model.entities.warehouse import Warehouse
 from model.service.logger import MyLogger
 from model.service.modules.warehousing_module import WarehousingModule
@@ -10,7 +11,8 @@ class WarehousingController:
     def __init__(self, warehousing_module: WarehousingModule, logger: MyLogger):
         self.module = warehousing_module
         self.logger = logger
-        self.management_view = None
+        self.wh_management_view = None
+        self.pr_management_view = None
         self.warehousing_view = None
 
     @property
@@ -48,11 +50,17 @@ class WarehousingController:
     # endregion
 
     # region CRUD
+
+    # region Warehouse Management
     def create_warehouse(self, name, type_, capacity, products, status):
         result = self.module.create_wh(name, type_, capacity, [], status)
         if isinstance(result, Warehouse):
             self.reload()
-            self.management_view.refresh()
+            self.wh_management_view.refresh()
+            messagebox.showinfo("Info!", f"Warehouse {result.name} has been created successfully!",
+                                parent=self.wh_management_view.parent)
+        else:
+            messagebox.showerror("Error!", result, parent=self.wh_management_view.parent)
         return result
 
     def update_warehouse(self, name, type_, capacity, products, status, id_):
@@ -60,43 +68,131 @@ class WarehousingController:
         result = self.module.update_warehouse(old, name, type_, capacity, products, status)
         if isinstance(result, Warehouse):
             self.reload()
-            self.management_view.refresh()
+            self.wh_management_view.refresh()
+            messagebox.showinfo("Info!", f"Warehouse {result.name} successfully updated!",
+                                parent=self.wh_management_view.parent)
+        else:
+            messagebox.showerror("Error!", result, parent=self.wh_management_view.parent)
         return result
 
     def del_warehouse(self):
-        selected = self.management_view.item_list.get_selected_items()
+        selected = self.wh_management_view.item_list.get_selected_items()
         if len(selected) < 1:
-            messagebox.showwarning("Warning!", "Please make a selection first!", parent=self.management_view.parent)
+            messagebox.showwarning("Warning!", "Please make a selection first!", parent=self.wh_management_view.parent)
             return
 
         wh_id = int(selected[0][0])
         result = self.module.delete_wh_by_id(wh_id)
         if isinstance(result, Warehouse):
             self.reload()
-            self.management_view.refresh()
+            self.wh_management_view.refresh()
             messagebox.showinfo("Info!", f"Warehouse {result.name} successfully deleted!",
-                                parent=self.management_view.parent)
+                                parent=self.wh_management_view.parent)
         else:
-            messagebox.showwarning("Warning", result, parent=self.management_view.parent)
+            messagebox.showerror("Error!", result, parent=self.wh_management_view.parent)
+        return result
+
+    # endregion
+
+    # region Product Management
+    def create_product(self, name, type_, b_price, s_price, qty, warehouse):
+        if warehouse != "None":
+            warehouse = self.module.find_wh_by_attribute("name", warehouse, exact_val=False)
+            if warehouse is None:
+                messagebox.showerror("Error!", "Warehouse not found!", parent=self.pr_management_view.parent)
+                return "Warehouse not found!"
+            warehouse = warehouse[0]
+        else:
+            warehouse = None
+
+        result = self.module.create_product(name, type_, b_price, s_price, qty, warehouse)
+
+        if isinstance(result, Product):
+            self.reload()
+            self.pr_management_view.refresh()
+            messagebox.showinfo("Info!", f"Product {result.name} has been created successfully!",
+                                parent=self.pr_management_view.parent)
+        else:
+            messagebox.showerror("Error!", result, parent=self.pr_management_view.parent)
+        return result
+
+    def update_product(self, name, type_, b_price, s_price, qty, warehouse, id_):
+        if warehouse != "None":
+            warehouse = self.module.find_wh_by_attribute("name", warehouse, exact_val=False)
+            if warehouse is None:
+                messagebox.showerror("Error!", "Warehouse not found!", parent=self.pr_management_view.parent)
+                return "Warehouse not found!"
+            warehouse = warehouse[0]
+        else:
+            warehouse = None
+
+        product = self.module.find_product_by_id(id_)
+        result = self.module.update_product(product, name, type_, b_price, s_price, qty, warehouse)
+
+        if isinstance(result, Product):
+            self.reload()
+            self.pr_management_view.refresh()
+            messagebox.showinfo("Info!", f"Product {result.name} has been updated successfully!",
+                                parent=self.pr_management_view.parent)
+        else:
+            messagebox.showerror("Info!", result, parent=self.pr_management_view.parent)
+        return result
+
+    def del_product(self):
+        selected = self.pr_management_view.item_list.get_selected_items()
+        if len(selected) < 1:
+            messagebox.showerror("Warning!", "Please make a selection first!", parent=self.pr_management_view.parent)
+            return
+
+        pr_id = int(selected[0][0])
+        result = self.module.delete_product_by_id(pr_id)
+        if isinstance(result, Product):
+            self.reload()
+            self.pr_management_view.refresh()
+            messagebox.showinfo("Info!", f"Product {result.name} successfully deleted!",
+                                parent=self.pr_management_view.parent)
+        else:
+            messagebox.showerror("Warning", result, parent=self.pr_management_view.parent)
+        return result
+
+    # endregion
 
     # endregion
 
     # region GUI
     def show_create_warehouse(self):
-        form = ItemForm(self.management_view.parent, Warehouse("", "", 0, [], ""), self, height=250)
+        form = ItemForm(self.wh_management_view.parent, Warehouse("", "", 0, [], ""), self, "Create Warehouse",
+                        height=250)
 
     def show_edit_warehouse(self):
-        selected = self.management_view.item_list.get_selected_items()
+        selected = self.wh_management_view.item_list.get_selected_items()
         if len(selected) < 1:
-            messagebox.showwarning("Warning!", "Please make a selection first!", parent=self.management_view.parent)
+            messagebox.showerror("Warning!", "Please make a selection first!", parent=self.wh_management_view.parent)
             return
 
         wh_id = int(selected[0][0])
         warehouse = self.module.find_wh_by_id(wh_id)
-        form = ItemForm(self.management_view.parent, warehouse, self, height=250, edit=True)
+        form = ItemForm(self.wh_management_view.parent, warehouse, self, "Edit Warehouse", height=250, edit=True)
+
+    def show_create_product(self):
+        form = ItemForm(self.pr_management_view.parent, Product("", "", 0.0, 0.0, 0, ""), self, "Create Product")
+
+    def show_edit_product(self):
+        selected = self.pr_management_view.item_list.get_selected_items()
+        if len(selected) < 1:
+            messagebox.showerror("Warning!", "Please make a selection first!", parent=self.pr_management_view.parent)
+            return
+
+        pr_id = int(selected[0][0])
+        product = self.module.find_product_by_id(pr_id)
+        form = ItemForm(self.pr_management_view.parent, product, self, "Edit Product", edit=True)
 
     # endregion
 
-    def close(self):
-        self.management_view.open_views.remove(self.management_view.page_name)
-        self.management_view.parent.destroy()
+    def close_wh_mgmt(self):
+        self.wh_management_view.open_views.remove(self.wh_management_view.page_name)
+        self.wh_management_view.parent.destroy()
+
+    def close_product_mgmt(self):
+        self.pr_management_view.open_views.remove(self.pr_management_view.page_name)
+        self.pr_management_view.parent.destroy()
