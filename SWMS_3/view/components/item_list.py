@@ -1,6 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
-from typing import Iterable
+
+from model.entities.dto.tmp_product import TempProduct
+from model.entities.invoices import Invoice
+from model.entities.product import Product
+from model.entities.warehouse import Warehouse
 
 DEFAULT_COLUMN_WIDTH_PX = 40
 
@@ -41,7 +45,14 @@ class ItemList:
             values = list(val for val in item.__dict__.values() if not isinstance(val, bytes))
             for i, val in enumerate(values):
                 if isinstance(val, (list, tuple)):
-                    values[i] = ', '.join(val)
+                    if len(val) > 0 and isinstance(val[0], Product):
+                        total = 0
+                        for product in val:
+                            total += product.quantity
+                        values[i] = total
+                    else:
+                        values[i] = ', '.join(val)
+
             return self.tree.insert('', tk.END, values=tuple(values))
 
         if self.item_pos_ids is not None:

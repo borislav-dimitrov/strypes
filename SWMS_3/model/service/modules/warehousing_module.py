@@ -93,6 +93,9 @@ class WarehousingModule:
         """Create new Warehouse in the WarehouseRepository"""
         try:
             # region validations
+            if len(name) < 2:
+                raise Exception(f"Creating Warehouse Failed! Name is too short!")
+
             type_ = self.validate_type(type_)
             if type_ is None:
                 raise TypeError(f"Creating Warehouse Failed! Invalid Warehouse type!")
@@ -123,10 +126,40 @@ class WarehousingModule:
         entity = self._pr_repo.find_by_id(new_entity.id)
         entity = new_entity
 
-    def update_warehouse(self, new_entity: Warehouse):
-        """Update existing Warehouse with another one"""
-        entity = self._wh_repo.find_by_id(new_entity.id)
-        entity = new_entity
+    def update_warehouse(self, wh: Warehouse, name: str, type_: str, capacity: int, products_: list, status: str,
+                         id_=None) -> Warehouse | Exception:
+        """Update existing Warehouse"""
+        try:
+            # region validations
+            if len(name) < 2:
+                raise Exception(f"Updating Warehouse Failed! Name is too short!")
+
+            type_ = self.validate_type(type_)
+            if type_ is None:
+                raise TypeError(f"Updating Warehouse Failed! Invalid Warehouse type!")
+
+            if not isinstance(capacity, int):
+                raise TypeError(f"Updating Warehouse Failed! Invalid Warehouse capacity!")
+
+            if not isinstance(products_, list):
+                raise TypeError(f"Updating Warehouse Failed! Invalid products type!")
+            # TODO validate products
+
+            status = self.validate_wh_status(status)
+            if status is None:
+                raise TypeError(f"Updating Warehouse Failed! Invalid Warehouse status!")
+
+            # endregion
+            wh.name = name
+            wh.type = type_
+            wh.capacity = capacity
+            wh.status = status
+            return wh
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            msg = "Something went wrong!"
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            return ex
 
     def delete_product_by_id(self, id_: int) -> Product | Exception:
         """Delete Product by ID"""

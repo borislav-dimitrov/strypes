@@ -41,7 +41,8 @@ class HomeView(BaseView):
                                         command=lambda: self._controller.user_mgmt(self._systems["user_controller"]))
             self.umgmt_btn.grid(row=17, column=4, rowspan=2, columnspan=2, sticky="nsew")
             self.whmgmt_btn = ttk.Button(self.parent, text="Warehouse\nManagement",
-                                         command=lambda: self._controller.warehouse_mgmt())
+                                         command=lambda: self._controller.warehouse_mgmt(
+                                             self._systems["warehousing_controller"]))
             self.whmgmt_btn.grid(row=17, column=10, rowspan=2, columnspan=2, sticky="nsew")
             self.prmgmt_btn = ttk.Button(self.parent, text="Product\nManagement",
                                          command=lambda: self._controller.product_mgmt())

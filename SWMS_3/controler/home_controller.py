@@ -5,6 +5,7 @@ from model.entities.user import User
 from model.service.logger import MyLogger
 from view.user_management_view import UserManagementView
 from view.utils.open_views_track import _OPENED_VIEWS
+from view.warehouse_management_view import WarehouseManagementView
 
 
 class HomeController:
@@ -42,8 +43,17 @@ class HomeController:
         user_mgmt_view = UserManagementView(root, page_name, controller, self._logged_user)
         root.mainloop()
 
-    def warehouse_mgmt(self):
-        pass
+    def warehouse_mgmt(self, controller) -> None:
+        """Static method called from home view with the specific controller for each page"""
+        page_name = "Warehouse Management"
+        if page_name in _OPENED_VIEWS:
+            messagebox.showwarning("Warning!", f"Page {page_name} is already opened!")
+            return
+
+        _OPENED_VIEWS.append(page_name)
+        root = tk.Toplevel()
+        user_mgmt_view = WarehouseManagementView(root, page_name, controller)
+        root.mainloop()
 
     def product_mgmt(self):
         pass

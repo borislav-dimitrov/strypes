@@ -1,18 +1,81 @@
+from model.entities.warehouse import Warehouse
 from model.service.logger import MyLogger
 from model.service.modules.warehousing_module import WarehousingModule
+from view.components.item_form import ItemForm
 
 
 class WarehousingController:
     def __init__(self, warehousing_module: WarehousingModule, logger: MyLogger):
-        self._module = warehousing_module
-        self._logger = logger
+        self.module = warehousing_module
+        self.logger = logger
+        self.view = None
 
+    @property
+    def warehouses(self):
+        return self.module.warehouses
+
+    @property
+    def products(self):
+        return self.module.products
+
+    # region Load/Save/Reload
     def load_all(self):
-        self._module.load_all()
+        self.module.load_all()
 
     def save_all(self):
-        self._module.save_all()
+        self.module.save_all()
 
     def reload(self):
         self.save_all()
         self.load_all()
+
+    # endregion
+
+    # region FIND
+    def find_wh_by_id(self, id_):
+        return self.module.find_wh_by_id(id_)
+
+    def products_in_wh_count(self, wh_id) -> int:
+        warehouse = self.find_wh_by_id(wh_id)
+        total = 0
+        for product in warehouse.products:
+            total += product.quantity
+        return total
+
+    # endregion
+
+    # region CRUD
+    def create_warehouse(self, name, type_, capacity, products, status):
+        result = self.module.create_wh(name, type_, capacity, [], status)
+        if isinstance(result, Warehouse):
+            self.reload()
+            self.view.refresh()
+        return result
+
+    def update_warehouse(self, name, type_, capacity, products, status, id_):
+        old = self.module.find_wh_by_id(id_)
+        result = self.module.update_warehouse(old, name, type_, capacity, products, status)
+        if isinstance(result, Warehouse):
+            self.reload()
+            self.view.refresh()
+        return result
+
+    def del_warehouse(self, selected):
+        wh_id = int(selected[0][0])
+        result = self.module.delete_wh_by_id(wh_id)
+        if isinstance(result, Warehouse):
+            self.reload()
+            self.view.refresh()
+        return result
+
+    # endregion
+
+    # region GUI
+    def show_add_warehouse(self):
+        form = ItemForm(self.view.parent, Warehouse("", "", 0, [], ""), self, height=250)
+
+    def show_edit_warehouse(self, selected):
+        wh_id = int(selected[0][0])
+        warehouse = self.module.find_wh_by_id(wh_id)
+        form = ItemForm(self.view.parent, warehouse, self, height=250, edit=True)
+    # endregion

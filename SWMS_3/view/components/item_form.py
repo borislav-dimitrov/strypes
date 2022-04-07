@@ -4,6 +4,8 @@ from tkinter import messagebox
 from typing import Iterable
 
 import view.utils.tkinter_utils as tkutil
+from model.entities.user import User
+from model.entities.warehouse import Warehouse
 
 DEFAULT_ENTRY_WIDTH_PX = 250
 
@@ -28,40 +30,42 @@ class ItemForm(tk.Toplevel):
         self.columns = tuple(self.item.__dict__.keys())
 
         for i, col in enumerate(self.columns):
-            # add view models
-            attr = getattr(self.item, col)
-            if isinstance(attr, int):
-                self.types.append("int")
-            elif isinstance(attr, float):
-                self.types.append("float")
-            elif isinstance(attr, (tuple, list)):
-                self.types.append("list")
+            if isinstance(self.item, Warehouse) and col == "products":
+                continue
             else:
-                self.types.append("str")
-            model = tk.StringVar()
-            model.set(attr)
-            self.models.append(model)
+                # add view models
+                attr = getattr(self.item, col)
+                if isinstance(attr, int):
+                    self.types.append("int")
+                elif isinstance(attr, float):
+                    self.types.append("float")
+                elif isinstance(attr, (tuple, list)):
+                    self.types.append("list")
+                else:
+                    self.types.append("str")
+                model = tk.StringVar()
+                model.set(attr)
+                self.models.append(model)
 
-            # add labels
-            ttk.Label(self.frame, text=col.title(), justify="left").grid(column=0, row=i, sticky="we")
+                # add labels
+                ttk.Label(self.frame, text=col.title(), justify="left").grid(column=0, row=i, sticky="we")
 
-            # add entries
-            if col == "password":
-                entry = ttk.Entry(self.frame, textvariable=model, show="*")
-                if self.edit:
-                    plain_pwd = self.controller.service._pwd_mgr.decrypt_pwd(getattr(item, col))
-                    print(plain_pwd, 1)
-                    entry.delete(0, "end")
-                    entry.insert(0, plain_pwd)
-            else:
-                entry = ttk.Entry(self.frame, textvariable=model)
-                # if self.edit:
-                #     entry.insert(0, getattr(item, col))
-            entry.grid(column=1, row=i, sticky="we")
+                # add entries
+                if col == "password":
+                    entry = ttk.Entry(self.frame, textvariable=model, show="*")
+                    if self.edit:
+                        plain_pwd = self.controller.service._pwd_mgr.decrypt_pwd(getattr(item, col))
+                        entry.delete(0, "end")
+                        entry.insert(0, plain_pwd)
+                else:
+                    entry = ttk.Entry(self.frame, textvariable=model)
+                    # if self.edit:
+                    #     entry.insert(0, getattr(item, col))
+                entry.grid(column=1, row=i, sticky="we")
 
-            if col == 'id':
-                entry.configure(state="disabled")
-            self.entries.append(entry)
+                if col == 'id':
+                    entry.configure(state="disabled")
+                self.entries.append(entry)
 
         # make form resizable
         rows, cols = self.frame.grid_size()
@@ -96,33 +100,38 @@ class ItemForm(tk.Toplevel):
         info = list(self.item.__dict__.values())
         id_ = info.pop(0)
         info = cls(*info)
-        for i, col in enumerate(self.columns):
-            self.models[i].set(self.entries[i].get())
-            str_val = self.models[i].get()
-            if self.types[i] == "int":
-                value = int(str_val)
-            elif self.types[i] == "float":
-                value = float(str_val)
-            elif self.types[i] == "str":
-                value = str_val
-            elif self.types[i] == "list":
-                value = [s.strip() for s in str_val.split(',')]
-            setattr(info, col, value)
+        i = 0
+        for col in self.columns:
+            if isinstance(self.item, Warehouse) and col == "products":
+                continue
+            else:
+                self.models[i].set(self.entries[i].get())
+                str_val = self.models[i].get()
+                if self.types[i] == "int":
+                    value = int(str_val)
+                elif self.types[i] == "float":
+                    value = float(str_val)
+                elif self.types[i] == "str":
+                    value = str_val
+                elif self.types[i] == "list":
+                    value = [s.strip() for s in str_val.split(',')]
+                setattr(info, col, value)
+            i += 1
 
         info = list(info.__dict__.values())
         id_ = info.pop(0)
         if self.edit:
             info.append(id_)
-            result = self.controller.update_user(*info)
+            result = self.call_controller_update(info)
         else:
-            result = self.controller.create_user(*info)
+            result = self.call_controller_create(info)
 
         if isinstance(result, cls):
             self.dismiss()
             if self.edit:
-                messagebox.showinfo("Info", f"User {result.name} updated successfully!", parent=self.parent)
+                messagebox.showinfo("Info", f"{result.name} updated successfully!", parent=self.parent)
             else:
-                messagebox.showinfo("Info", f"User {result.name} created successfully!", parent=self.parent)
+                messagebox.showinfo("Info", f"{result.name} created successfully!", parent=self.parent)
         else:
             messagebox.showwarning("Warning!", result, parent=self)
 
@@ -133,3 +142,17 @@ class ItemForm(tk.Toplevel):
     def dismiss(self):
         self.grab_release()
         self.destroy()
+
+    def call_controller_create(self, attributes):
+        if isinstance(self.item, User):
+            result = self.controller.create_user(*attributes)
+        elif isinstance(self.item, Warehouse):
+            result = self.controller.create_warehouse(*attributes)
+        return result
+
+    def call_controller_update(self, attributes):
+        if isinstance(self.item, User):
+            result = self.controller.update_user(*attributes)
+        elif isinstance(self.item, Warehouse):
+            result = self.controller.update_warehouse(*attributes)
+        return result
