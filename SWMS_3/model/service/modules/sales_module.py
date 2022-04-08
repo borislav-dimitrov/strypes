@@ -35,7 +35,7 @@ class SalesModule:
     # region FIND
     # Counterparties
     def _find_all_counterparties(self):
-        return self._cpty_repo._find_all()
+        return self._cpty_repo.find_all()
 
     def find_counterparty_by_id(self, id_: int) -> Counterparty | Exception:
         """Get Counterparty by ID"""
@@ -92,14 +92,14 @@ class SalesModule:
     # region CRUD
 
     # region Counterparties
-    def create_cpty(self, name: str, phone: str, payment_nr: str, status: str, type_: str, descr: str = "",
+    def create_cpty(self, name: str, phone: str, payment_nr: str, status: str, type_: str, descr: str | list[list] = "",
                     id_=None) -> Counterparty | Exception:
         """Create new Counterparty"""
         try:
             # region Validations
-            if not isinstance(name, str):
+            if not isinstance(name, str) or len(name) < 3:
                 raise TypeError("Failed creating Counterparty! Invalid name!")
-            if not isinstance(phone, str):
+            if not isinstance(phone, str) or len(phone) <= 5:
                 raise TypeError("Failed creating Counterparty! Invalid phone number!")
             if not isinstance(payment_nr, str) or len(payment_nr) <= 5:
                 raise TypeError("Failed creating Counterparty! Invalid payment number!")
@@ -113,7 +113,15 @@ class SalesModule:
             type_ = self.validate_cpty_type(type_)
             if type_ is None:
                 raise TypeError("Failed creating Counterparty! Invalid type!")
+            if type_ == "Supplier":
+                if len(descr) == 0:
+                    raise Exception("Failed creating Counterparty! Suppliers must have at least one product for sell!")
+                descr = self.validate_supplier_products(descr)
+                if isinstance(descr, Exception):
+                    raise descr
+
             # endregion
+
             new_cpty = Counterparty(name, phone, payment_nr, status, type_, descr, id_)
             return self._cpty_repo.create(new_cpty)
         except Exception as ex:
@@ -122,11 +130,47 @@ class SalesModule:
             self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
-    def update_cpty(self, entity: Counterparty):
+    def update_cpty(self, entity: Counterparty, name, phone, payment_nr, status, type_, descr):
         """Update existing Counterparty"""
-        if not isinstance(entity, Counterparty):
-            raise TypeError("Invalid entity!")
-        self._cpty_repo.update(entity)
+        try:
+            # region Validations
+            if not isinstance(name, str) or len(name) < 3:
+                raise TypeError("Failed creating Counterparty! Invalid name!")
+            if not isinstance(phone, str) or len(phone) <= 5:
+                raise TypeError("Failed creating Counterparty! Invalid phone number!")
+            if not isinstance(payment_nr, str) or len(payment_nr) <= 5:
+                raise TypeError("Failed creating Counterparty! Invalid payment number!")
+            if not isinstance(status, str):
+                raise TypeError("Failed creating Counterparty! Invalid status!")
+            status = self.validate_cpty_status(status)
+            if status is None:
+                raise TypeError("Failed creating Counterparty! Invalid status")
+            if not isinstance(type_, str):
+                raise TypeError("Failed creating Counterparty! Invalid type!")
+            type_ = self.validate_cpty_type(type_)
+            if type_ is None:
+                raise TypeError("Failed creating Counterparty! Invalid type!")
+            if type_ == "Supplier":
+                if len(descr) == 0:
+                    raise Exception("Failed creating Counterparty! Suppliers must have at least one product for sell!")
+                descr = self.validate_supplier_products(descr)
+                if isinstance(descr, Exception):
+                    raise descr
+
+            # endregion
+
+            entity.name = name
+            entity.phone = phone
+            entity.payment_nr = payment_nr
+            entity.status = status
+            entity.type = type_
+            entity.description = descr
+            return entity
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            msg = "Something went wrong!"
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            return ex
 
     def _del_cpty_by_id(self, id_: int) -> Counterparty | Exception:
         """
@@ -249,6 +293,34 @@ class SalesModule:
 
     # endregion
 
+    # region CRUD FROM VIEW
+    def create_cpty_from_view(self, name, phone, payment_nr, status, type_, description):
+        if type_.lower() == "supplier":
+            description = description.split(" | ")
+            new_descr = []
+            for product in description:
+                new_descr.append(product.split(", "))
+            description = new_descr
+
+        return self.create_cpty(name, phone, payment_nr, status, type_, description)
+
+    def update_cpty_from_view(self, name, phone, payment_nr, status, type_, description, id_):
+        if type_.lower() == "supplier":
+            description = description.split(" | ")
+            new_descr = []
+            for product in description:
+                new_descr.append(product.split(", "))
+            description = new_descr
+
+        counterparty = self.find_counterparty_by_id(id_)
+
+        return self.update_cpty(counterparty, name, phone, payment_nr, status, type_, description)
+
+    def del_cpty_from_view(self, id_):
+
+        return self._del_cpty_by_id(id_)
+    # endregion
+
     # region Validations
     @staticmethod
     def validate_cpty_status(status) -> str | None:
@@ -281,6 +353,35 @@ class SalesModule:
         for tp in valid:
             if tp.lower() == type_.lower():
                 return tp
+
+    @staticmethod
+    def validate_supplier_products(products: list):
+        for product in products:
+            # Valid length
+            if len(product) != 4:
+                raise Exception(f"Invalid Supplier Product {product}!")
+            # Valid product name
+            if len(product[0]) < 3:
+                raise Exception(f"Supplier Product name {product[0]} is too short!")
+
+            # Valid product type
+            if product[1].lower() == "raw materials":
+                product[1] = "Raw Materials"
+            elif product[1].lower() == "finished goods":
+                product[1] = "Finished Goods"
+            else:
+                raise Exception(f"Supplier Product type {product[1]} is not valid!")
+
+            # Valid buy price
+            product[2] = float(product[2])
+
+            # Valid sell price
+            product[3] = float(product[3])
+            if product[3] < product[2]:
+                raise Exception(
+                    f"Supplier Product sell price {product[3]} can't be lower than the buy price {product[2]}!")
+
+        return products
 
     # endregion
 

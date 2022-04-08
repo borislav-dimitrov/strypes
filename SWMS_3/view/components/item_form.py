@@ -4,6 +4,7 @@ from tkinter import messagebox
 from typing import Iterable
 
 import view.utils.tkinter_utils as tkutil
+from model.entities.counterparty import Counterparty
 from model.entities.product import Product
 from model.entities.user import User
 from model.entities.warehouse import Warehouse
@@ -42,6 +43,21 @@ class ItemForm(tk.Toplevel):
                     model.set(attr.name)
                     self.types.append("str")
                     self.models.append(model)
+                elif isinstance(item, Counterparty) and item.type == "Supplier" and col == "description":
+                    # Counterparty {Supplier} description case
+                    if len(attr) > 0:
+                        if len(attr) == 4:
+                            value = ", ".join([i if isinstance(i, str) else str(i) for i in attr])
+                        else:
+                            value = []
+                            for product in attr:
+                                new_product = ", ".join([i if isinstance(i, str) else str(i) for i in product])
+                                value.append(new_product)
+                            value = " | ".join(value)
+                        self.types.append("str")
+                        model = tk.StringVar()
+                        model.set(value)
+                        self.models.append(model)
                 else:
                     if isinstance(attr, int):
                         self.types.append("int")
@@ -62,7 +78,7 @@ class ItemForm(tk.Toplevel):
                 if col == "password":
                     entry = ttk.Entry(self.frame, textvariable=model, show="*")
                     if self.edit:
-                        plain_pwd = self.controller.service._pwd_mgr.decrypt_pwd(getattr(item, col))
+                        plain_pwd = self.controller.module._pwd_mgr.decrypt_pwd(getattr(item, col))
                         entry.delete(0, "end")
                         entry.insert(0, plain_pwd)
                 else:
@@ -151,6 +167,8 @@ class ItemForm(tk.Toplevel):
             result = self.controller.create_warehouse(*attributes)
         elif isinstance(self.item, Product):
             result = self.controller.create_product(*attributes)
+        elif isinstance(self.item, Counterparty):
+            result = self.controller.create_counterparty(*attributes)
         return result
 
     def call_controller_update(self, attributes):
@@ -160,4 +178,6 @@ class ItemForm(tk.Toplevel):
             result = self.controller.update_warehouse(*attributes)
         elif isinstance(self.item, Product):
             result = self.controller.update_product(*attributes)
+        elif isinstance(self.item, Counterparty):
+            result = self.controller.update_counterparty(*attributes)
         return result

@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4ee086f1-c539-457d-b31d-f6642290db7f" name="Changes" comment="Implemented basic product management">
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    <list default="true" id="4ee086f1-c539-457d-b31d-f6642290db7f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/view/commands/counterparty_commands/close_counterparty_mgmt_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/commands/counterparty_commands/del_counterparty_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/commands/counterparty_commands/show_create_counterparty_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/commands/counterparty_commands/show_update_counterparty_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/commands/home_view_commands/open_counterparty_management_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/counterparty_management_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controler/main_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/main_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controler/sales_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/sales_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controler/user_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/user_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controler/warehousing_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/warehousing_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/data/counterparties.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/counterparties.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/data/invoices.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/invoices.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/data/transactions.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/transactions.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/service/modules/sales_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/sales_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/service/modules/users_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/users_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/components/item_form.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/item_form.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/components/item_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/item_list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/home_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/home_view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,13 +299,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/view/components/item_form.py</url>
-          <line>114</line>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

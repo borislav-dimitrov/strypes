@@ -5,6 +5,7 @@ from view.base_view import BaseView
 # Commands
 from view.commands.exit_command import ExitCommand
 from view.commands.home_view_commands.logout_command import LogoutCommand
+from view.commands.home_view_commands.open_counterparty_management_command import OpenCounterpartyMgmtCommand
 from view.commands.home_view_commands.open_product_management_commands import OpenProductMgmtCommand
 from view.commands.home_view_commands.open_user_management_commands import OpenUserManagementCommand
 from view.commands.home_view_commands.open_wh_management_commands import OpenWhMgmtCommand
@@ -20,7 +21,7 @@ class HomeView(BaseView):
         # Create GUI
         self.welcome = ttk.Label(self.parent, text=f"Welcome, {self.controller.logged_user.name}.",
                                  font=self.text_bold)
-        self.welcome.grid(row=0, column=0, columnspan=2, sticky="we")
+        self.welcome.grid(row=0, column=1, columnspan=2, sticky="we")
 
         # region Buttons
         # Logout Button
@@ -39,24 +40,22 @@ class HomeView(BaseView):
 
         if self.controller.logged_user.type == "Administrator":
             # Create Admin Buttons
-            self.umgmt_btn = ttk.Button(self.parent, text="User\nManagement",
-                                        command=OpenUserManagementCommand(self.controller))
-            self.umgmt_btn.grid(row=17, column=4, rowspan=2, columnspan=2, sticky="nsew")
-            self.whmgmt_btn = ttk.Button(self.parent, text="Warehouse\nManagement",
-                                         command=OpenWhMgmtCommand(self.controller))
-            self.whmgmt_btn.grid(row=17, column=10, rowspan=2, columnspan=2, sticky="nsew")
-            self.prmgmt_btn = ttk.Button(self.parent, text="Product\nManagement",
-                                         command=OpenProductMgmtCommand(self.controller))
-            self.prmgmt_btn.grid(row=17, column=16, rowspan=2, columnspan=2, sticky="nsew")
-            self.spmgmt_btn = ttk.Button(self.parent, text="Supplier\nManagement",
-                                         command=lambda: print())
-            self.spmgmt_btn.grid(row=17, column=22, rowspan=2, columnspan=2, sticky="nsew")
-            self.clmgmt_btn = ttk.Button(self.parent, text="Client\nManagement",
-                                         command=lambda: print())
-            self.clmgmt_btn.grid(row=21, column=4, rowspan=2, columnspan=2, sticky="nsew")
-            self.invmgmt_btn = ttk.Button(self.parent, text="Transaction\nManagement",
+            self.usr_mgmt_btn = ttk.Button(self.parent, text="User\nManagement",
+                                           command=OpenUserManagementCommand(self.controller))
+            self.usr_mgmt_btn.grid(row=17, column=4, rowspan=2, columnspan=2, sticky="nsew")
+            self.wh_mgmt_btn = ttk.Button(self.parent, text="Warehouse\nManagement",
+                                          command=OpenWhMgmtCommand(self.controller))
+            self.wh_mgmt_btn.grid(row=17, column=10, rowspan=2, columnspan=2, sticky="nsew")
+            self.pr_mgmt_btn = ttk.Button(self.parent, text="Product\nManagement",
+                                          command=OpenProductMgmtCommand(self.controller))
+            self.pr_mgmt_btn.grid(row=17, column=16, rowspan=2, columnspan=2, sticky="nsew")
+            self.cpty_mgmt_btn = ttk.Button(self.parent, text="Counterparty\nManagement",
+                                            command=OpenCounterpartyMgmtCommand(self.controller))
+            self.cpty_mgmt_btn.grid(row=17, column=22, rowspan=2, columnspan=2, sticky="nsew")
+
+            self.tr_mgmt_btn = ttk.Button(self.parent, text="Transaction\nManagement",
                                           command=lambda: print())
-            self.invmgmt_btn.grid(row=21, column=10, rowspan=2, columnspan=2, sticky="nsew")
+            self.tr_mgmt_btn.grid(row=21, column=4, rowspan=2, columnspan=2, sticky="nsew")
         # endregion
 
         # Exit protocol override

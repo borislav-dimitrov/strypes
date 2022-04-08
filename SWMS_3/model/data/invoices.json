@@ -4,21 +4,26 @@
         "number": 1,
         "from": {
             "id": 7,
+            "name": "Firm6",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Supplier",
+            "description": [
+                "material7",
+                "Raw Materials",
+                6.5,
+                9.5
+            ]
+        },
+        "to": {
+            "id": 1,
             "name": "My Company",
             "phone": "+35988215743",
             "payment_nr": "BG222222",
             "status": "Enabled",
             "type": "MyCo",
-            "description": ""
-        },
-        "to": {
-            "id": 1,
-            "name": "Firm1",
-            "phone": "+35988215743",
-            "payment_nr": "BG123456",
-            "status": "Enabled",
-            "type": "Client",
-            "description": ""
+            "description": "current user company"
         },
         "date": "30/03/2022 09:23:32",
         "due_to": "10/04/2022 23:59:59",
@@ -46,16 +51,21 @@
         "number": 2,
         "from": {
             "id": 7,
-            "name": "My Company",
+            "name": "Firm6",
             "phone": "+35988215743",
-            "payment_nr": "BG222222",
+            "payment_nr": "BG123456",
             "status": "Enabled",
-            "type": "MyCo",
-            "description": ""
+            "type": "Supplier",
+            "description": [
+                "material7",
+                "Raw Materials",
+                6.5,
+                9.5
+            ]
         },
         "to": {
             "id": 3,
-            "name": "Firm3",
+            "name": "Firm2",
             "phone": "+35988215743",
             "payment_nr": "BG123456",
             "status": "Enabled",

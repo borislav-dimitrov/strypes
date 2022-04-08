@@ -1,16 +1,16 @@
 {
     "1": {
         "id": 1,
-        "name": "Firm1",
+        "name": "My Company",
         "phone": "+35988215743",
-        "payment_nr": "BG123456",
+        "payment_nr": "BG222222",
         "status": "Enabled",
-        "type": "Client",
-        "description": ""
+        "type": "MyCo",
+        "description": "current user company"
     },
     "2": {
         "id": 2,
-        "name": "Firm2",
+        "name": "Firm1",
         "phone": "+35988215743",
         "payment_nr": "BG123456",
         "status": "Enabled",
@@ -19,7 +19,7 @@
     },
     "3": {
         "id": 3,
-        "name": "Firm3",
+        "name": "Firm2",
         "phone": "+35988215743",
         "payment_nr": "BG123456",
         "status": "Enabled",
@@ -28,6 +28,15 @@
     },
     "4": {
         "id": 4,
+        "name": "Firm3",
+        "phone": "+35988215743",
+        "payment_nr": "BG123456",
+        "status": "Enabled",
+        "type": "Client",
+        "description": ""
+    },
+    "5": {
+        "id": 5,
         "name": "Firm4",
         "phone": "+35988215743",
         "payment_nr": "BG123456",
@@ -37,27 +46,33 @@
             "material5",
             "Finished Goods",
             10.0,
-            11.0,
-            null
+            11.0
         ]
     },
-    "5": {
-        "id": 5,
+    "6": {
+        "id": 6,
         "name": "Firm5",
         "phone": "+35988215743",
         "payment_nr": "BG123456",
         "status": "Enabled",
         "type": "Supplier",
         "description": [
-            "material6",
-            "Raw Materials",
-            8.0,
-            10.0,
-            null
+            [
+                "material6",
+                "Raw Materials",
+                8.0,
+                10.0
+            ],
+            [
+                "material6",
+                "Raw Materials",
+                8.0,
+                10.0
+            ]
         ]
     },
-    "6": {
-        "id": 6,
+    "7": {
+        "id": 7,
         "name": "Firm6",
         "phone": "+35988215743",
         "payment_nr": "BG123456",
@@ -67,17 +82,7 @@
             "material7",
             "Raw Materials",
             6.5,
-            9.5,
-            null
+            9.5
         ]
-    },
-    "7": {
-        "id": 7,
-        "name": "My Company",
-        "phone": "+35988215743",
-        "payment_nr": "BG222222",
-        "status": "Enabled",
-        "type": "MyCo",
-        "description": ""
     }
 }

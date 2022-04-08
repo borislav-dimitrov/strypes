@@ -1,12 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
 
+from model.entities.counterparty import Counterparty
 from model.entities.dto.tmp_product import TempProduct
 from model.entities.invoices import Invoice
 from model.entities.product import Product
 from model.entities.warehouse import Warehouse
 
-DEFAULT_COLUMN_WIDTH_PX = 40
+DEFAULT_COLUMN_WIDTH_PX = 140
 
 
 class ItemList:
@@ -55,6 +56,15 @@ class ItemList:
                         for product in val:
                             total += product.quantity
                         values[i] = total
+                    elif len(val) > 0 and isinstance(item, Counterparty):  # Counterparty {Supplier} description case
+                        if len(val) == 4:
+                            values[i] = ", ".join([i if isinstance(i, str) else str(i) for i in val])
+                        else:
+                            values[i] = []
+                            for product in val:
+                                new_product = ", ".join([i if isinstance(i, str) else str(i) for i in product])
+                                values[i].append(new_product)
+                            values[i] = " | ".join(values[i])
                     else:
                         values[i] = ', '.join(val)
                 if isinstance(item, Product) and isinstance(val, Warehouse):  # Product assigned warehouse case

@@ -62,7 +62,7 @@ class UserModule:
             self._logger.log(__file__, msg, "ERROR", type(ex), tb)
             return ex
 
-    def update(self, user, uname, pwd, role, status, last_login)-> User | Exception:
+    def update(self, user, uname, pwd, role, status, last_login) -> User | Exception:
         """Update existing User in the Repository with new one"""
         try:
             # region Validations
@@ -165,4 +165,11 @@ class UserModule:
                 new = User(name, pwd.encode("utf-8"), type_, status, last_login, id_)
                 self._usr_repo.create(new)
 
+    # endregion
+
+    # region VIEW
+    def del_from_view(self, usr_id, curr_user):
+        user_to_del = self.find_by_id(usr_id)
+        if curr_user is user_to_del:
+            return Exception(f"You can't delete the current user!")
     # endregion

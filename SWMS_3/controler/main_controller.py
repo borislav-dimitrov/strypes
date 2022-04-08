@@ -1,28 +1,36 @@
 import tkinter as tk
 from tkinter import messagebox
 
+# Config file
 import resources.config as cfg
 
+# Controllers
 from controler.sales_controller import SalesController
 from controler.user_controller import UserController
 from controler.warehousing_controller import WarehousingController
 
-from model.dao.id_generator_int import IdGeneratorInt
-from model.dao.password_manager import PasswordManager
-
+# Repositories
 from model.dao.repositories.generic_repo import GenericRepository
 from model.dao.repositories.invoice_repo import InvoiceRepository
 
+# Other DAO's
+from model.dao.id_generator_int import IdGeneratorInt
+from model.dao.password_manager import PasswordManager
+
+# Entities
 from model.entities.user import User
 from model.service.logger import MyLogger
 
+# Modules / Services
 from model.service.modules.sales_module import SalesModule
 from model.service.modules.users_module import UserModule
 from model.service.modules.warehousing_module import WarehousingModule
 
+# Views
 from view.user_management_view import UserManagementView
 from view.warehouse_management_view import WarehouseManagementView
 from view.product_management_view import ProductManagementView
+from view.counterparty_management_view import CounterpartyManagementView
 
 
 class MainController:
@@ -31,9 +39,9 @@ class MainController:
         self.logger = None
         self.logged_user: User = None
         self.logging_out = False
-        self.user_controller = None
-        self.warehousing_controller = None
-        self.sales_controller = None
+        self.user_controller: UserController = None
+        self.warehousing_controller: WarehousingController = None
+        self.sales_controller: SalesController = None
         self.opened_views = []
 
     def startup(self):
@@ -155,11 +163,18 @@ class MainController:
         self.warehousing_controller.pr_management_view = product_mgmt_view
         root.mainloop()
 
-    def supplier_mgmt(self):
-        pass
+    def counterparty_mgmt(self):
+        """Initialize Counterparty Management View"""
+        page_name = "Counterparty Management"
+        if page_name in self.opened_views:
+            messagebox.showerror("Warning!", f"Page {page_name} is already opened!")
+            return
 
-    def client_mgmt(self):
-        pass
+        self.opened_views.append(page_name)
+        root = tk.Toplevel()
+        cpty_mgmt_view = CounterpartyManagementView(root, page_name, self.sales_controller, self.opened_views)
+        self.sales_controller.counterparty_view = cpty_mgmt_view
+        root.mainloop()
 
     def transaction_mgmt(self):
         pass

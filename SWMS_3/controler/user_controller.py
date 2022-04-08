@@ -10,16 +10,16 @@ from view.user_management_view import UserManagementView
 class UserController:
     def __init__(self, user_module: UserModule, logger: MyLogger):
         self.view: UserManagementView = None
-        self.service = user_module
+        self.module = user_module
         self._logger = logger
 
     # region Save/Load/Reload
 
     def load(self):
-        self.service.load()
+        self.module.load()
 
     def save(self):
-        self.service.save()
+        self.module.save()
 
     def reload(self):
         self.save()
@@ -30,9 +30,9 @@ class UserController:
     # region Login/Auth
 
     def login(self, username, password):
-        user = self.service.find_by_attribute("name", username.lower())
+        user = self.module.find_by_attribute("name", username.lower())
         if user is not None:
-            valid_pwd = self.service._pwd_mgr.compare(password, user[0].password)
+            valid_pwd = self.module._pwd_mgr.compare(password, user[0].password)
             if valid_pwd:
                 return True, "Login successful!", user[0]
             else:
@@ -44,13 +44,13 @@ class UserController:
     # region FIND
     @property
     def users(self):
-        return self.service.users
+        return self.module.users
 
     # endregion
 
     # region CRUD
     def create_user(self, uname, pwd, role, status, last_login=""):
-        result = self.service.create(uname, pwd, role, status, last_login)
+        result = self.module.create(uname, pwd, role, status, last_login)
         if isinstance(result, User):
             self.reload()
             self.view.refresh()
@@ -60,8 +60,8 @@ class UserController:
         return result
 
     def update_user(self, uname, pwd, role, status, last_login, id_):
-        user = self.service.find_by_id(int(id_))
-        result = self.service.update(user, uname, pwd, role, status, last_login)
+        user = self.module.find_by_id(int(id_))
+        result = self.module.update(user, uname, pwd, role, status, last_login)
         if isinstance(result, User):
             self.reload()
             self.view.refresh()
@@ -72,16 +72,12 @@ class UserController:
 
     def del_user(self):
         selected = self.view.item_list.get_selected_items()
-
         if len(selected) < 1:
-            messagebox.showwarning("Warning!", "Please make a selection first!", parent=self.view.parent)
+            messagebox.showerror("Warning!", "Please make a selection first!", parent=self.view.parent)
             return
 
         user_id = int(selected[0][0])
-        user_to_del = self.service.find_by_id(user_id)
-        if self.view.curr_user is user_to_del:
-            return Exception(f"You can't delete the current user!")
-        result = self.service.delete_by_id(user_id)
+        result = self.module.del_from_view(user_id, self.view.curr_user)
 
         if isinstance(result, User):
             self.reload()
@@ -89,13 +85,15 @@ class UserController:
             messagebox.showinfo("Info!", f"User {result.name} successfully deleted!", parent=self.view.parent)
         else:
             messagebox.showerror("Error!", result, parent=self.view.parent)
+        return result
 
-        # endregion
+    # endregion
 
-        # region VIEW
+    # region VIEW
 
     def show_create_user(self):
-        form = ItemForm(self.view.parent, User("", "", "", "", ""), self, height=250)
+        form = ItemForm(self.view.parent,
+                        User("", "", "", "", ""), self, "Create User", height=250)
 
     def show_edit_user(self):
         selected = self.view.item_list.get_selected_items()
@@ -105,8 +103,8 @@ class UserController:
             return
 
         user_id = int(selected[0][0])
-        user = self.service.find_by_id(user_id)
-        form = ItemForm(self.view.parent, user, self, height=250, edit=True)
+        user = self.module.find_by_id(user_id)
+        form = ItemForm(self.view.parent, user, self, "Update User", height=250, edit=True)
 
     # endregion
 

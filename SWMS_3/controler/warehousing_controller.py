@@ -64,8 +64,7 @@ class WarehousingController:
         return result
 
     def update_warehouse(self, name, type_, capacity, products, status, id_):
-        old = self.module.find_wh_by_id(id_)
-        result = self.module.update_warehouse(old, name, type_, capacity, products, status)
+        result = self.module.update_warehouse(self.module.find_wh_by_id(id_), name, type_, capacity, products, status)
         if isinstance(result, Warehouse):
             self.reload()
             self.wh_management_view.refresh()
@@ -78,7 +77,7 @@ class WarehousingController:
     def del_warehouse(self):
         selected = self.wh_management_view.item_list.get_selected_items()
         if len(selected) < 1:
-            messagebox.showwarning("Warning!", "Please make a selection first!", parent=self.wh_management_view.parent)
+            messagebox.showerror("Warning!", "Please make a selection first!", parent=self.wh_management_view.parent)
             return
 
         wh_id = int(selected[0][0])
@@ -96,16 +95,8 @@ class WarehousingController:
 
     # region Product Management
     def create_product(self, name, type_, b_price, s_price, qty, warehouse):
-        if warehouse != "None":
-            warehouse = self.module.find_wh_by_attribute("name", warehouse, exact_val=False)
-            if warehouse is None:
-                messagebox.showerror("Error!", "Warehouse not found!", parent=self.pr_management_view.parent)
-                return "Warehouse not found!"
-            warehouse = warehouse[0]
-        else:
-            warehouse = None
 
-        result = self.module.create_product(name, type_, b_price, s_price, qty, warehouse)
+        result = self.module.create_product_from_view(name, type_, b_price, s_price, qty, warehouse)
 
         if isinstance(result, Product):
             self.reload()
@@ -114,20 +105,11 @@ class WarehousingController:
                                 parent=self.pr_management_view.parent)
         else:
             messagebox.showerror("Error!", result, parent=self.pr_management_view.parent)
+
         return result
 
     def update_product(self, name, type_, b_price, s_price, qty, warehouse, id_):
-        if warehouse != "None":
-            warehouse = self.module.find_wh_by_attribute("name", warehouse, exact_val=False)
-            if warehouse is None:
-                messagebox.showerror("Error!", "Warehouse not found!", parent=self.pr_management_view.parent)
-                return "Warehouse not found!"
-            warehouse = warehouse[0]
-        else:
-            warehouse = None
-
-        product = self.module.find_product_by_id(id_)
-        result = self.module.update_product(product, name, type_, b_price, s_price, qty, warehouse)
+        result = self.module.update_product_from_view(name, type_, b_price, s_price, qty, warehouse, id_)
 
         if isinstance(result, Product):
             self.reload()
@@ -136,6 +118,7 @@ class WarehousingController:
                                 parent=self.pr_management_view.parent)
         else:
             messagebox.showerror("Info!", result, parent=self.pr_management_view.parent)
+
         return result
 
     def del_product(self):
@@ -153,6 +136,7 @@ class WarehousingController:
                                 parent=self.pr_management_view.parent)
         else:
             messagebox.showerror("Warning", result, parent=self.pr_management_view.parent)
+
         return result
 
     # endregion
@@ -160,6 +144,8 @@ class WarehousingController:
     # endregion
 
     # region GUI
+
+    # region Warehouse Management
     def show_create_warehouse(self):
         form = ItemForm(self.wh_management_view.parent, Warehouse("", "", 0, [], ""), self, "Create Warehouse",
                         height=250)
@@ -172,8 +158,11 @@ class WarehousingController:
 
         wh_id = int(selected[0][0])
         warehouse = self.module.find_wh_by_id(wh_id)
-        form = ItemForm(self.wh_management_view.parent, warehouse, self, "Edit Warehouse", height=250, edit=True)
+        form = ItemForm(self.wh_management_view.parent, warehouse, self, "Update Warehouse", height=250, edit=True)
 
+    # endregion
+
+    # region Product Management
     def show_create_product(self):
         form = ItemForm(self.pr_management_view.parent, Product("", "", 0.0, 0.0, 0, ""), self, "Create Product")
 
@@ -186,6 +175,8 @@ class WarehousingController:
         pr_id = int(selected[0][0])
         product = self.module.find_product_by_id(pr_id)
         form = ItemForm(self.pr_management_view.parent, product, self, "Edit Product", edit=True)
+
+    # endregion
 
     # endregion
 
