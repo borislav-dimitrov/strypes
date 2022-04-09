@@ -6,9 +6,10 @@ from view.base_view import BaseView
 from view.commands.exit_command import ExitCommand
 from view.commands.home_view_commands.logout_command import LogoutCommand
 from view.commands.home_view_commands.open_counterparty_management_command import OpenCounterpartyMgmtCommand
-from view.commands.home_view_commands.open_product_management_commands import OpenProductMgmtCommand
-from view.commands.home_view_commands.open_user_management_commands import OpenUserManagementCommand
-from view.commands.home_view_commands.open_wh_management_commands import OpenWhMgmtCommand
+from view.commands.home_view_commands.open_product_management_command import OpenProductMgmtCommand
+from view.commands.home_view_commands.open_user_management_command import OpenUserManagementCommand
+from view.commands.home_view_commands.open_warehouses_command import OpenWarehousesCommand
+from view.commands.home_view_commands.open_wh_management_command import OpenWhMgmtCommand
 
 
 class HomeView(BaseView):
@@ -29,7 +30,7 @@ class HomeView(BaseView):
         self.logout_btn.grid(row=0, column=self.cols - 4, columnspan=3, sticky="e", padx=(0, 5))
 
         # Create Buttons
-        self.wh_btn = ttk.Button(self.parent, text="Warehouses", command=lambda: print())
+        self.wh_btn = ttk.Button(self.parent, text="Warehouses", command=OpenWarehousesCommand(self.controller))
         self.wh_btn.grid(row=9, column=4, rowspan=2, columnspan=2, sticky="nsew")
         self.pur_btn = ttk.Button(self.parent, text="Purchases", command=lambda: print())
         self.pur_btn.grid(row=9, column=10, rowspan=2, columnspan=2, sticky="nsew")
@@ -52,10 +53,6 @@ class HomeView(BaseView):
             self.cpty_mgmt_btn = ttk.Button(self.parent, text="Counterparty\nManagement",
                                             command=OpenCounterpartyMgmtCommand(self.controller))
             self.cpty_mgmt_btn.grid(row=17, column=22, rowspan=2, columnspan=2, sticky="nsew")
-
-            self.tr_mgmt_btn = ttk.Button(self.parent, text="Transaction\nManagement",
-                                          command=lambda: print())
-            self.tr_mgmt_btn.grid(row=21, column=4, rowspan=2, columnspan=2, sticky="nsew")
         # endregion
 
         # Exit protocol override

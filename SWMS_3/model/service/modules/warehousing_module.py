@@ -32,6 +32,21 @@ class WarehousingModule:
         except Exception as ex:
             return ex
 
+    def find_all_products_in_warehouse(self, warehouse_id: int | None):
+        try:
+            if warehouse_id is None:
+                warehouse = None
+            else:
+                warehouse = self.find_wh_by_id(warehouse_id)
+
+            products = self.find_product_by_attribute("assigned_wh", warehouse)
+            return products
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            msg = "Something went wrong!"
+            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            return ex
+
     # Warehouses
     def _find_all_warehouses(self) -> dict:
         """Get all Warehouses"""
@@ -47,6 +62,23 @@ class WarehousingModule:
             return self._wh_repo.find_by_attribute(attr_name, attr_val, exact_val)
         except Exception as ex:
             return ex
+
+    def get_warehouses_data_for_dropdown(self):
+        all_warehouses = self.warehouses
+        result = []
+        for warehouse in all_warehouses:
+            result.append((warehouse.id, warehouse.name))
+        return result
+
+    def get_filtered_warehouses(self, warehouse: Warehouse):
+        all_whs = self.warehouses
+        result = []
+        for whs in all_whs:
+            if whs is warehouse:
+                continue
+            else:
+                result.append((whs.id, whs.name))
+        return result
 
     # endregion
 
@@ -234,16 +266,19 @@ class WarehousingModule:
     def product_change_wh(self, product: Product, wh: Warehouse | None):
         """Change Product assigned Warehouse"""
         if wh is None:
-            self.wh_remove_product(product.assigned_wh, product)
+            return self.wh_remove_product(product.assigned_wh, product)
         else:
-            self.wh_add_product(wh, product)
+            return self.wh_add_product(wh, product)
 
     def wh_add_product(self, warehouse: Warehouse, product: Product):
         """Add Product to Warehouse"""
         try:
             if product.assigned_wh is None:
-                warehouse.products.append(product)
-                product.assigned_wh = warehouse
+                if self.wh_free_space(warehouse) >= product.quantity:
+                    warehouse.products.append(product)
+                    product.assigned_wh = warehouse
+                else:
+                    raise Exception(f"Not enough space in warehouse {warehouse.name}")
             elif product.assigned_wh is warehouse:
                 raise EntityIsAlreadyInWarehouseException(
                     f"Product {product.name} is already in warehouse {warehouse.name}!")
@@ -252,9 +287,14 @@ class WarehousingModule:
                     old_wh = self.find_wh_by_id(product.assigned_wh["id"])
                 else:
                     old_wh = product.assigned_wh
-                self.wh_remove_product(old_wh, product)
-                warehouse.products.append(product)
-                product.assigned_wh = warehouse
+
+                if self.wh_free_space(warehouse) >= product.quantity:
+                    self.wh_remove_product(old_wh, product)
+                    warehouse.products.append(product)
+                    product.assigned_wh = warehouse
+                else:
+                    raise Exception(f"Not enough space in warehouse {warehouse.name}")
+            return "Ok"
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
@@ -265,10 +305,11 @@ class WarehousingModule:
         """Remove Product from Warehouse"""
         try:
             if product.assigned_wh is None:
-                return
+                return "Ok"
             product.assigned_wh = None
             if product in warehouse.products:
                 warehouse.products.remove(product)
+            return "Ok"
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             msg = "Something went wrong!"
@@ -411,6 +452,8 @@ class WarehousingModule:
             if warehouse is None:
                 return Exception("Warehouse not found!")
             warehouse = warehouse[0]
+        elif warehouse == "":
+            warehouse = None
         else:
             warehouse = None
 

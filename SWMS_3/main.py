@@ -5,6 +5,10 @@ from controler.main_controller import MainController
 from view.home_view import HomeView
 from view.login import Login
 
+# TODO
+#   Counterparty and Warehouse names must be unique
+#   Implement warehouse <-> product type
+
 
 def main():
     main_controller = MainController()
@@ -22,6 +26,7 @@ def main():
         root.mainloop()
 
     main_controller.before_exit()
+
     if main_controller.logging_out:
         main_controller.logging_out = False
         main()

@@ -1,6 +1,7 @@
 from tkinter import messagebox
 
 from model.entities.counterparty import Counterparty
+from model.entities.transaction import Transaction
 from model.service.logger import MyLogger
 from model.service.modules.sales_module import SalesModule
 from view.components.item_form import ItemForm

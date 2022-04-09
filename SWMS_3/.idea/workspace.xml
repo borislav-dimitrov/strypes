@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4ee086f1-c539-457d-b31d-f6642290db7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/view/commands/counterparty_commands/close_counterparty_mgmt_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/commands/counterparty_commands/del_counterparty_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/commands/counterparty_commands/show_create_counterparty_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/commands/counterparty_commands/show_update_counterparty_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/commands/home_view_commands/open_counterparty_management_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/counterparty_management_view.py" afterDir="false" />
+    <list default="true" id="42b02065-b6df-4a51-8ec7-4c45e1c23614" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/view/commands/home_view_commands/open_warehouses_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/commands/home_view_commands/open_wh_management_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/commands/product_commands/move_product_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/commands/warehouse_commands/close_warehouses_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/commands/warehouse_commands/generate_wh_treeview_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/components/move_product_form.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/warehouses_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controler/main_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/main_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controler/sales_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/sales_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controler/user_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/user_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controler/warehousing_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/warehousing_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/data/counterparties.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/counterparties.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/data/invoices.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/invoices.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/data/transactions.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/transactions.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/sales_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/sales_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/users_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/users_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/data/products.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/products.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/data/warehouses.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/warehouses.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/commands/home_view_commands/open_product_management_commands.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/commands/home_view_commands/open_product_management_command.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/commands/home_view_commands/open_user_management_commands.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/commands/home_view_commands/open_user_management_command.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/commands/home_view_commands/open_wh_management_commands.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/commands/home_view_commands/open_transaction_management_command.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/commands/warehouse_commands/close_warehouse_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/commands/warehouse_commands/close_warehouse_management_command.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/components/item_form.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/item_form.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/components/item_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/item_list.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/home_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/home_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/warehouse_management_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/warehouse_management_view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,23 +68,23 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/view/commands/home_view_commands" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/view/commands/transaction_commands" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\view\commands\transaction_commands" />
+      <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\view\utils" />
       <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\view\commands\home_view_commands" />
       <recent name="D:\Strypes_Project\strypes\SWMS_3\view" />
       <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\resources\icons" />
-      <recent name="D:\Strypes_Project\strypes\SWMS_3\view\components" />
-      <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\model" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\view" />
       <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\view\commands\home_view_commands" />
       <recent name="D:\Strypes_Project\strypes\SWMS_3\view\components\user" />
       <recent name="D:\Strypes_Project\strypes\SWMS_3\view\components" />
       <recent name="D:\Strypes_Project\strypes\SWMS_3\model" />
-      <recent name="D:\Strypes_Project\strypes\SWMS_3\model\service" />
     </key>
   </component>
   <component name="RunManager">
@@ -116,7 +118,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4ee086f1-c539-457d-b31d-f6642290db7f" name="Changes" comment="Working on User Management View" />
+      <changelist id="42b02065-b6df-4a51-8ec7-4c45e1c23614" name="Changes" comment="" />
       <created>1648529844581</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

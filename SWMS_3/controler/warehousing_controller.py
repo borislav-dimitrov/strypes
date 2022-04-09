@@ -5,6 +5,7 @@ from model.entities.warehouse import Warehouse
 from model.service.logger import MyLogger
 from model.service.modules.warehousing_module import WarehousingModule
 from view.components.item_form import ItemForm
+from view.components.move_product_form import MoveProductForm
 
 
 class WarehousingController:
@@ -13,7 +14,7 @@ class WarehousingController:
         self.logger = logger
         self.wh_management_view = None
         self.pr_management_view = None
-        self.warehousing_view = None
+        self.warehouses_view = None
 
     @property
     def warehouses(self):
@@ -22,6 +23,10 @@ class WarehousingController:
     @property
     def products(self):
         return self.module.products
+
+    @property
+    def warehouses_for_dropdown(self):
+        return self.module.get_warehouses_data_for_dropdown()
 
     # region Load/Save/Reload
     def load_all(self):
@@ -117,7 +122,7 @@ class WarehousingController:
             messagebox.showinfo("Info!", f"Product {result.name} has been updated successfully!",
                                 parent=self.pr_management_view.parent)
         else:
-            messagebox.showerror("Info!", result, parent=self.pr_management_view.parent)
+            messagebox.showerror("Warning!", result, parent=self.pr_management_view.parent)
 
         return result
 
@@ -136,6 +141,23 @@ class WarehousingController:
                                 parent=self.pr_management_view.parent)
         else:
             messagebox.showerror("Warning", result, parent=self.pr_management_view.parent)
+
+        return result
+
+    def move_product(self, product, move_to):
+        if move_to.get() == "None":
+            warehouse = None
+        else:
+            warehouse = self.module.find_wh_by_id(int(move_to.get().split(",")[0][1:].strip()))
+
+        result = self.module.product_change_wh(product, warehouse)
+
+        if result == "Ok":
+            messagebox.showinfo("Info!", f"Product {product.name} moved successfully!", parent=self.warehouses_view.parent)
+            self.reload()
+            self.warehouses_view.refresh()
+        else:
+            messagebox.showerror("Error!", result, parent=self.warehouses_view.parent)
 
         return result
 
@@ -160,6 +182,23 @@ class WarehousingController:
         warehouse = self.module.find_wh_by_id(wh_id)
         form = ItemForm(self.wh_management_view.parent, warehouse, self, "Update Warehouse", height=250, edit=True)
 
+    def generate_treeview_for_wh(self):
+        warehouse = self.warehouses_view.warehouses_var.get().split(",")[0]
+        if warehouse == "None":
+            warehouse = None
+        else:
+            warehouse = int(warehouse[1:])
+
+        products = self.module.find_all_products_in_warehouse(warehouse)
+        if isinstance(products, Exception):
+            messagebox.showerror("Error!", products)
+        if products is not None:
+            self.warehouses_view.treeview_var = products
+            self.warehouses_view.refresh()
+
+    def filtered_warehouses(self, warehouse: Warehouse):
+        return self.module.get_filtered_warehouses(warehouse)
+
     # endregion
 
     # region Product Management
@@ -176,6 +215,21 @@ class WarehousingController:
         product = self.module.find_product_by_id(pr_id)
         form = ItemForm(self.pr_management_view.parent, product, self, "Edit Product", edit=True)
 
+    def show_move_product(self):
+        selected = self.warehouses_view.treeview.get_selected_items()
+        selected_wh = self.warehouses_view.warehouses_var.get().split(",")[0]
+        if selected_wh == "None":
+            selected_wh = None
+        else:
+            selected_wh = self.module.find_wh_by_id(int(selected_wh[1:]))
+
+        if len(selected) < 1:
+            messagebox.showerror("Warning!", "Please make a selection first!", parent=self.warehouses_view.parent)
+            return
+
+        MoveProductForm(self.warehouses_view.parent, self,
+                        self.module.find_product_by_id(int(selected[0][0])), selected_wh)
+
     # endregion
 
     # endregion
@@ -187,3 +241,7 @@ class WarehousingController:
     def close_product_mgmt(self):
         self.pr_management_view.open_views.remove(self.pr_management_view.page_name)
         self.pr_management_view.parent.destroy()
+
+    def close_warehouses(self):
+        self.warehouses_view.open_views.remove(self.warehouses_view.page_name)
+        self.warehouses_view.parent.destroy()

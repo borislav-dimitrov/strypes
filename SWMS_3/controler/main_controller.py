@@ -27,6 +27,7 @@ from model.service.modules.users_module import UserModule
 from model.service.modules.warehousing_module import WarehousingModule
 
 # Views
+from view.warehouses_view import WarehousesView
 from view.user_management_view import UserManagementView
 from view.warehouse_management_view import WarehouseManagementView
 from view.product_management_view import ProductManagementView
@@ -113,7 +114,17 @@ class MainController:
 
     # region Manage Views
     def warehouses(self):
-        pass
+        """Initialize Warehouses View"""
+        page_name = "Warehouses"
+        if page_name in self.opened_views:
+            messagebox.showerror("Warning!", f"Page {page_name} is already opened!")
+            return
+
+        self.opened_views.append(page_name)
+        root = tk.Toplevel()
+        warehouses_view = WarehousesView(root, page_name, self.warehousing_controller, self.opened_views)
+        self.warehousing_controller.warehouses_view = warehouses_view
+        root.mainloop()
 
     def purchases(self):
         pass
@@ -176,6 +187,4 @@ class MainController:
         self.sales_controller.counterparty_view = cpty_mgmt_view
         root.mainloop()
 
-    def transaction_mgmt(self):
-        pass
     # endregion

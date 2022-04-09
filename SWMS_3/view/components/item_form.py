@@ -37,7 +37,7 @@ class ItemForm(tk.Toplevel):
             else:
                 # Add view models
                 attr = getattr(self.item, col)
-                if self.edit and isinstance(self.item, Product) and col == "assigned_wh":
+                if self.edit and isinstance(self.item, Product) and col == "assigned_wh" and attr is not None:
                     # Product assigned warehouse case when editing
                     model = tk.StringVar()
                     model.set(attr.name)

@@ -7,7 +7,7 @@ from controler.warehousing_controller import WarehousingController
 from model.entities.user import User
 from model.entities.warehouse import Warehouse
 from view.base_view import BaseView
-from view.commands.warehouse_commands.close_warehouse_management import CloseWarehouseMgmtCommand
+from view.commands.warehouse_commands.close_warehouse_management_command import CloseWarehouseMgmtCommand
 from view.commands.warehouse_commands.del_warehouse_command import DelWhCommand
 from view.commands.warehouse_commands.show_create_warehouse_command import ShowCreateWhCommand
 from view.commands.warehouse_commands.show_edit_warehouse_command import ShowEditWhCommand
