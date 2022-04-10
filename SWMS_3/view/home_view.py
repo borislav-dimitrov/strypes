@@ -9,6 +9,7 @@ from view.commands.home_view_commands.open_counterparty_management_command impor
 from view.commands.home_view_commands.open_product_management_command import OpenProductMgmtCommand
 from view.commands.home_view_commands.open_purchases_command import OpenPurchasesCommand
 from view.commands.home_view_commands.open_sales_command import OpenSalesCommand
+from view.commands.home_view_commands.open_transactions_command import OpenTransactionsCommand
 from view.commands.home_view_commands.open_user_management_command import OpenUserManagementCommand
 from view.commands.home_view_commands.open_warehouses_command import OpenWarehousesCommand
 from view.commands.home_view_commands.open_wh_management_command import OpenWhMgmtCommand
@@ -38,7 +39,7 @@ class HomeView(BaseView):
         self.pur_btn.grid(row=9, column=10, rowspan=2, columnspan=2, sticky="nsew")
         self.sls_btn = ttk.Button(self.parent, text="Sales", command=OpenSalesCommand(self.controller))
         self.sls_btn.grid(row=9, column=16, rowspan=2, columnspan=2, sticky="nsew")
-        self.tr_btn = ttk.Button(self.parent, text="Transactions", command=lambda: print())
+        self.tr_btn = ttk.Button(self.parent, text="Transactions", command=OpenTransactionsCommand(self.controller))
         self.tr_btn.grid(row=9, column=22, rowspan=2, columnspan=2, sticky="nsew")
 
         if self.controller.logged_user.type == "Administrator":

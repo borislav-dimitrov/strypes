@@ -14,7 +14,7 @@ from view.commands.sales_commands.close_sales_command import CloseSalesCommand
 from view.commands.sales_commands.rem_item_from_cart_command import RemItemFromCartCommand
 from view.commands.sales_commands.sell_command import SellCommand
 from view.commands.warehouse_commands.generate_wh_treeview_command import GenWhProductsTreeViewCommand
-from view.components.transactions_item_list import TransactionItemList
+from view.components.trade_item_list import TradeItemList
 
 
 class SalesView(BaseView):
@@ -38,7 +38,7 @@ class SalesView(BaseView):
 
         # Sellable Products Treeview
         self.treeview_var = self.controller.find_all_products_in_warehouse(None)
-        self.treeview = TransactionItemList(self.parent, self.treeview_var, 10, 5, colspan=10)
+        self.treeview = TradeItemList(self.parent, self.treeview_var, 10, 5, colspan=10)
 
         # Add to cart
         self.amount_lbl = ttk.Label(self.parent, text="Amount", font=self.text_bold)
@@ -66,7 +66,7 @@ class SalesView(BaseView):
 
         # Shopping Cart
         self.shopping_cart_var = []
-        self.shopping_cart = TransactionItemList(self.parent, self.shopping_cart_var, 10, 16, colspan=10)
+        self.shopping_cart = TradeItemList(self.parent, self.shopping_cart_var, 10, 16, colspan=10)
 
         # Total Price Label
         self.total_price_var = tk.StringVar()

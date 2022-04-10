@@ -12,7 +12,7 @@ from view.commands.purchase_commands.add_to_cart_command import AddToCartCommand
 from view.commands.purchase_commands.close_pur_command import ClosePurCommand
 from view.commands.purchase_commands.on_supplier_change_command import OnSupplierChange
 from view.commands.purchase_commands.rem_from_cart_command import RemFromCartCommand
-from view.components.transactions_item_list import TransactionItemList
+from view.components.trade_item_list import TradeItemList
 
 
 class PurchasesView(BaseView):
@@ -36,7 +36,7 @@ class PurchasesView(BaseView):
 
         # Available Products Treeview
         self.treeview_var = self.controller.get_supplier_products()
-        self.treeview = TransactionItemList(self.parent, self.treeview_var, 10, 5, colspan=10, purchase=True)
+        self.treeview = TradeItemList(self.parent, self.treeview_var, 10, 5, colspan=10, purchase=True)
 
         # Add to cart
         self.amount_lbl = ttk.Label(self.parent, text="Amount", font=self.text_bold)
@@ -54,7 +54,7 @@ class PurchasesView(BaseView):
 
         # Shopping Cart
         self.shopping_cart_var = []
-        self.shopping_cart = TransactionItemList(self.parent, self.shopping_cart_var, 10, 16, colspan=10)
+        self.shopping_cart = TradeItemList(self.parent, self.shopping_cart_var, 10, 16, colspan=10)
 
         # Total Price Label
         self.total_price_var = tk.StringVar()

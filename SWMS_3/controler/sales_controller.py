@@ -3,6 +3,7 @@ from tkinter import messagebox
 import view.utils.tkinter_utils as tkutil
 from controler.warehousing_controller import WarehousingController
 from model.entities.counterparty import Counterparty
+from model.entities.invoices import Invoice
 from model.entities.product import Product
 from model.entities.transaction import Transaction
 from model.service.logger import MyLogger
@@ -18,6 +19,7 @@ class SalesController:
         self.counterparty_view = None
         self.sales_view = None
         self.pur_view = None
+        self.tr_view = None
 
     @property
     def counterparties(self):
@@ -268,6 +270,53 @@ class SalesController:
 
     # endregion
 
+    # region INVOICES
+    def gen_invoice(self):
+        selection = self.tr_view.item_list.get_selected_items()
+        if len(selection) == 0:
+            messagebox.showerror("Error!", "Make a selection first!", parent=self.tr_view.parent)
+            return
+        transaction = self.module.find_transaction_by_id(int(selection[0][0]))
+        inv = self.module.gen_inv_from_tr(transaction)
+        if isinstance(inv, Invoice):
+            messagebox.showinfo("Info!", f"Invoice #{inv.number} generated successfully!", parent=self.tr_view.parent)
+            self.preview_invoice(inv)
+            self.reload()
+            self.tr_view.refresh()
+        else:
+            messagebox.showerror("Error!", inv, parent=self.tr_view.parent)
+
+    def del_invoice(self):
+        selection = self.tr_view.item_list.get_selected_items()
+        if len(selection) == 0:
+            messagebox.showerror("Error!", "Make a selection first!", parent=self.tr_view.parent)
+            return
+        transaction = self.module.find_transaction_by_id(int(selection[0][0]))
+        result = self.module.del_inv_by_transaction(transaction)
+        if isinstance(result, Invoice):
+            messagebox.showinfo("Info!", f"Invoice #{result.number} deleted successfully!", parent=self.tr_view.parent)
+            self.reload()
+            self.tr_view.refresh()
+        else:
+            messagebox.showerror("Error!", result, parent=self.tr_view.parent)
+
+    def preview_invoice(self):
+        selection = self.tr_view.item_list.get_selected_items()
+        if len(selection) == 0:
+            messagebox.showerror("Error!", "Make a selection first!", parent=self.tr_view.parent)
+            return
+        transaction = self.module.find_transaction_by_id(int(selection[0][0]))
+        invoice = transaction.invoice
+        if invoice is None:
+            messagebox.showerror("Error!", "This transaction has no Invoice!", parent=self.tr_view.parent)
+            return
+
+        state, msg = self.module.generate_invoice_pdf(invoice)
+        if not state:
+            messagebox.showerror("Error!", msg, parent=self.tr_view.parent)
+
+    # endregion
+
     # endregion
 
     def close_counterparty(self):
@@ -282,3 +331,7 @@ class SalesController:
     def close_pur(self):
         self.pur_view.open_views.remove(self.pur_view.page_name)
         self.pur_view.parent.destroy()
+
+    def close_tr(self):
+        self.tr_view.open_views.remove(self.tr_view.page_name)
+        self.tr_view.parent.destroy()

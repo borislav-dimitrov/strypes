@@ -1,5 +1,7 @@
+import os
 import sys
 
+from model.dao.pdf_maker import PdfMaker
 from model.entities.product import Product
 from model.service.logger import MyLogger
 
@@ -13,11 +15,13 @@ from datetime import datetime
 class SalesModule:
     """Module that handles all the business logic for sales operations"""
 
-    def __init__(self, counterparties_repository, transactions_repository, invoices_repository, logger: MyLogger):
+    def __init__(self, counterparties_repository, transactions_repository, invoices_repository, logger: MyLogger,
+                 pdf_maker: PdfMaker):
         self._cpty_repo = counterparties_repository
         self._tr_repo = transactions_repository
         self._inv_repo = invoices_repository
         self._logger = logger
+        self._pdf_maker = pdf_maker
 
     @property
     def counterparties(self) -> dict:
@@ -276,6 +280,9 @@ class SalesModule:
             if transaction.type == "Purchase":
                 raise TypeError(f"Generating invoice failed! You can generate invoices only for Sales!")
 
+            if transaction.invoice is not None:
+                raise Exception("Transaction already have invoice!")
+
             invoicer = self.find_counterparty_by_attr("type", "MyCo")[0]
             now = datetime.now()
             now = now.strftime("%m/%d/%Y %H:%M:%S")
@@ -294,12 +301,16 @@ class SalesModule:
             self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
-    def del_inv_by_id(self, id_: int) -> Invoice:
+    def del_inv_by_transaction(self, transaction: Transaction) -> Invoice | Exception:
         """Delete Invoice by ID"""
-        inv = self.find_invoice_by_id(id_)
-        tr = self.find_transaction_by_attr("invoice", inv)[0]
-        tr.invoice = None
-        return self._inv_repo.delete_by_id(inv.id)
+        try:
+            inv = self.find_invoice_by_id(transaction.invoice.id)
+            transaction.invoice = None
+            return self._inv_repo.delete_by_id(inv.id)
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
+            return ex
 
     # endregion
 
@@ -503,6 +514,17 @@ class SalesModule:
     def invoices_count(self) -> int:
         """Get the count of all Invoices in the InvoiceRepository"""
         return self._inv_repo.count()
+
+    def generate_invoice_pdf(self, invoice):
+        curr_dir = os.getcwd()
+        path = os.path.join(curr_dir, f"resources\\invoices\\invoice_{invoice.number}.pdf")
+        status = self._pdf_maker.gen_pdf(invoice, path=path)
+
+        if status:
+            os.startfile(path)
+            return True, "Ok"
+        else:
+            return False, "Failed to generate invoice!"
 
     # endregion
 

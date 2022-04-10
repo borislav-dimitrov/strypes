@@ -10,6 +10,7 @@ from controler.user_controller import UserController
 from controler.warehousing_controller import WarehousingController
 
 # Repositories
+from model.dao.pdf_maker import PdfMaker
 from model.dao.repositories.generic_repo import GenericRepository
 from model.dao.repositories.invoice_repo import InvoiceRepository
 
@@ -29,6 +30,7 @@ from model.service.modules.warehousing_module import WarehousingModule
 # Views
 from view.purchases_view import PurchasesView
 from view.sales_view import SalesView
+from view.transactions_view import TransactionsView
 from view.warehouses_view import WarehousesView
 from view.user_management_view import UserManagementView
 from view.warehouse_management_view import WarehouseManagementView
@@ -40,6 +42,7 @@ class MainController:
     def __init__(self):
         self.view = None
         self.logger = None
+        self.pdf_maker = None
         self.logged_user: User = None
         self.logging_out = False
         self.user_controller: UserController = None
@@ -52,7 +55,7 @@ class MainController:
         # OTHER
         logger = MyLogger(cfg.LOG_ENABLED, cfg.DEFAULT_LOG_FILE, cfg.LOG_LEVEL, cfg.REWRITE_LOG_ON_STARTUP)
         self.logger = logger
-
+        self.pdf_maker = PdfMaker()
         # REPOSITORIES
         usr_id_seq = IdGeneratorInt()
         usr_repo = GenericRepository(usr_id_seq, logger)
@@ -75,7 +78,7 @@ class MainController:
         # MODULES
         user_module = UserModule(usr_repo, PasswordManager(), logger)
         warehousing_module = WarehousingModule(pr_repo, wh_repo, logger)
-        sales_module = SalesModule(cpty_repo, tr_repo, inv_repo, logger)
+        sales_module = SalesModule(cpty_repo, tr_repo, inv_repo, logger, self.pdf_maker)
 
         # CONTROLLERS
         self.user_controller = UserController(user_module, logger)
@@ -155,7 +158,17 @@ class MainController:
         root.mainloop()
 
     def transactions(self):
-        pass
+        """Initialize Transactions View"""
+        page_name = "Transactions"
+        if page_name in self.opened_views:
+            messagebox.showerror("Warning!", f"Page {page_name} is already opened!")
+            return
+
+        self.opened_views.append(page_name)
+        root = tk.Toplevel()
+        tr_view = TransactionsView(root, page_name, self.sales_controller, self.opened_views)
+        self.sales_controller.tr_view = tr_view
+        root.mainloop()
 
     def user_mgmt(self) -> None:
         """Initialize User Management View"""
