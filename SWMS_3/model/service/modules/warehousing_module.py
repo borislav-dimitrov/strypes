@@ -43,8 +43,7 @@ class WarehousingModule:
             return products
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     # Warehouses
@@ -117,8 +116,7 @@ class WarehousingModule:
             return pr
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     def create_wh(self, name: str, type_: str, capacity: int, products_: list, status: str,
@@ -150,8 +148,7 @@ class WarehousingModule:
             return self._wh_repo.create(wh)
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     def update_product(self, product: Product, name: str, type_: str, b_price: float, s_price: float, qty: int,
@@ -193,8 +190,8 @@ class WarehousingModule:
             return product
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     def update_warehouse(self, wh: Warehouse, name: str, type_: str, capacity: int, products_: list, status: str,
@@ -228,8 +225,7 @@ class WarehousingModule:
             return wh
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     def delete_product_by_id(self, id_: int) -> Product | str:
@@ -243,9 +239,8 @@ class WarehousingModule:
             return self._pr_repo.delete_by_id(id_)
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
-            return msg
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
+            return ex
 
     def delete_wh_by_id(self, id_: int) -> Warehouse | str:
         """Delete Warehouse by ID"""
@@ -259,9 +254,8 @@ class WarehousingModule:
             return self._wh_repo.delete_by_id(id_)
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
-            return msg
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
+            return ex
 
     def product_change_wh(self, product: Product, wh: Warehouse | None):
         """Change Product assigned Warehouse"""
@@ -297,8 +291,7 @@ class WarehousingModule:
             return "Ok"
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     def wh_remove_product(self, warehouse: Warehouse, product: Product):
@@ -312,8 +305,7 @@ class WarehousingModule:
             return "Ok"
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     def cleanup_products_after_sale(self):
@@ -496,7 +488,7 @@ class WarehousingModule:
 
         cart_vars.clear()
 
-    def rem_item_from_cart(self, cart_vars, item_params: tuple):
+    def sale_rem_item_from_cart(self, cart_vars, item_params: tuple):
         for product in cart_vars:
             if product.id == int(item_params[0]) and product.name == item_params[1]:
                 product_in_repo = self.find_product_by_id(product.id)

@@ -1,36 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="42b02065-b6df-4a51-8ec7-4c45e1c23614" name="Changes" comment="Working on warehousing view">
-      <change afterPath="$PROJECT_DIR$/view/commands/home_view_commands/open_sales_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/commands/sales_commands/add_item_to_cart_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/commands/sales_commands/clear_cart_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/commands/sales_commands/close_sales_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/commands/sales_commands/get_clients_treeview_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/commands/sales_commands/rem_item_from_cart_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/commands/sales_commands/sell_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/components/transactions_item_list.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/sales_view.py" afterDir="false" />
+    <list default="true" id="42b02065-b6df-4a51-8ec7-4c45e1c23614" name="Changes" comment="done basic sales">
+      <change afterPath="$PROJECT_DIR$/view/commands/home_view_commands/open_purchases_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/commands/purchase_commands/add_to_cart_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/commands/purchase_commands/buy_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/commands/purchase_commands/clear_cart_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/commands/purchase_commands/close_pur_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/commands/purchase_commands/on_supplier_change_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/commands/purchase_commands/rem_from_cart_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/purchases_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controler/main_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/main_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controler/sales_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/sales_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controler/warehousing_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/warehousing_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/data/counterparties.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/counterparties.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/data/invoices.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/invoices.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data/products.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/products.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data/transactions.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/transactions.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data/warehouses.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/warehouses.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/service/modules/sales_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/sales_module.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/icons/i.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/icons/login_ico.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/icons/main_ico.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/icons/sett_ico.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/icons/w.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/commands/warehouse_commands/generate_wh_treeview_command.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/commands/warehouse_commands/generate_wh_treeview_command.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/components/transactions_item_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/transactions_item_list.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/home_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/home_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/utils/tkinter_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/utils/tkinter_utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/warehouses_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/warehouses_view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,16 +67,16 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/view/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/view" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\view" />
       <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\view\components" />
       <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\view\commands\transaction_commands" />
       <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\view\utils" />
       <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\view\commands\home_view_commands" />
-      <recent name="D:\Strypes_Project\strypes\SWMS_3\view" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\view" />
@@ -278,7 +270,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649533333408</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="done basic sales">
+      <created>1649604939935</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1649604939935</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -312,10 +311,23 @@
     <MESSAGE value="Reworked project controllers / implementing Command Pattern" />
     <MESSAGE value="Implemented basic product management" />
     <MESSAGE value="Working on warehousing view" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on warehousing view" />
+    <MESSAGE value="done basic sales" />
+    <option name="LAST_COMMIT_MESSAGE" value="done basic sales" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/controler/sales_controller.py</url>
+          <line>282</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/service/modules/sales_module.py</url>
+          <line>379</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

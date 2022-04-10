@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 
-from model.entities.counterparty import Counterparty
 from model.entities.product import Product
 from model.entities.warehouse import Warehouse
 
@@ -9,11 +8,12 @@ DEFAULT_COLUMN_WIDTH_PX = 140
 
 
 class TransactionItemList:
-    def __init__(self, parent, items, row, col, rowspan=None, colspan=None, sticky="nsew"):
+    def __init__(self, parent, items, row, col, rowspan=None, colspan=None, sticky="nsew", purchase=False):
         super().__init__()
         self.parent = parent
         self.items = items
         self.item_pos_ids = None
+        self.purchase = purchase
 
         self.frame = ttk.Frame(self.parent)
         self.frame.grid(row=row, column=col, rowspan=rowspan, columnspan=colspan, sticky=sticky)
@@ -21,6 +21,9 @@ class TransactionItemList:
         if items:
             columns = [key for key in self.items[0].__dict__.keys()]
             columns.remove("assigned_wh")
+            if self.purchase:
+                columns.remove("quantity")
+
         else:
             columns = ["id", "name", "type", "buy_price", "sell_price", "quantity"]
 

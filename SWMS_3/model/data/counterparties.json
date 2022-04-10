@@ -43,10 +43,12 @@
         "status": "Enabled",
         "type": "Supplier",
         "description": [
-            "material5",
-            "Finished Goods",
-            10.0,
-            11.0
+            [
+                "material5",
+                "Finished Goods",
+                10.0,
+                11.0
+            ]
         ]
     },
     "6": {
@@ -79,10 +81,12 @@
         "status": "Enabled",
         "type": "Supplier",
         "description": [
-            "material7",
-            "Raw Materials",
-            6.5,
-            9.5
+            [
+                "material7",
+                "Raw Materials",
+                6.5,
+                9.5
+            ]
         ]
     }
 }

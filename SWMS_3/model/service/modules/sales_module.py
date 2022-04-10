@@ -306,6 +306,27 @@ class SalesModule:
     # endregion
 
     # region VIEW
+
+    def get_suppliers_for_dropdown(self):
+        all_sp = self.find_counterparty_by_attr("type", "Supplier")
+        result = []
+        for supplier in all_sp:
+            result.append((supplier.id, supplier.name, supplier.payment_nr))
+
+        return result
+
+    def get_supplier_products(self, supp_id: int | None):
+        if supp_id is None:
+            supplier = self.find_counterparty_by_attr("type", "Supplier")[0]
+        else:
+            supplier = self.find_counterparty_by_id(supp_id)
+
+        result = []
+        for product in supplier.description:
+            result.append(Product(product[0], product[1], float(product[2]), float(product[3]), 0, None))
+
+        return result
+
     def create_cpty_from_view(self, name, phone, payment_nr, status, type_, description):
         if type_.lower() == "supplier":
             description = description.split(" | ")
@@ -329,24 +350,36 @@ class SalesModule:
         return self.update_cpty(counterparty, name, phone, payment_nr, status, type_, description)
 
     def del_cpty_from_view(self, id_):
-
         return self._del_cpty_by_id(id_)
 
-    def make_a_sale(self, cart_vars, client, find_product_by_id) -> Transaction | Exception:
+    def make_a_sale(self, cart_vars, client) -> Transaction | Exception:
         try:
             client = self.find_counterparty_by_id(int(client.split(", ")[0][1:]))
-            transaction = self.create_tr("sale", client, cart_vars)
-
-            # Correct the quantities of sold products
-            for product in cart_vars:
-                original_product = find_product_by_id(product.id)
-                original_product.quantity -= product.quantity
-
-            return transaction
+            return self.create_tr("sale", client, cart_vars)
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
             self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
+
+    @staticmethod
+    def pur_add_item_to_cart(cart_vars, item):
+        found = False
+
+        for product in cart_vars:
+            if product.id == item.id and product.name == item.name:
+                product.quantity += item.quantity
+                found = True
+                break
+
+        if not found:
+            cart_vars.append(item)
+
+    @staticmethod
+    def pur_rem_item_from_cart(cart_vars, item_params: tuple):
+        for product in cart_vars:
+            if product.name == item_params[1]:
+                cart_vars.remove(product)
+                break
 
     # endregion
 

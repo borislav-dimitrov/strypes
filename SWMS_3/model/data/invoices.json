@@ -10,10 +10,12 @@
             "status": "Enabled",
             "type": "Supplier",
             "description": [
-                "material7",
-                "Raw Materials",
-                6.5,
-                9.5
+                [
+                    "material7",
+                    "Raw Materials",
+                    6.5,
+                    9.5
+                ]
             ]
         },
         "to": {
@@ -57,10 +59,12 @@
             "status": "Enabled",
             "type": "Supplier",
             "description": [
-                "material7",
-                "Raw Materials",
-                6.5,
-                9.5
+                [
+                    "material7",
+                    "Raw Materials",
+                    6.5,
+                    9.5
+                ]
             ]
         },
         "to": {

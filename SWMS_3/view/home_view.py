@@ -7,6 +7,7 @@ from view.commands.exit_command import ExitCommand
 from view.commands.home_view_commands.logout_command import LogoutCommand
 from view.commands.home_view_commands.open_counterparty_management_command import OpenCounterpartyMgmtCommand
 from view.commands.home_view_commands.open_product_management_command import OpenProductMgmtCommand
+from view.commands.home_view_commands.open_purchases_command import OpenPurchasesCommand
 from view.commands.home_view_commands.open_sales_command import OpenSalesCommand
 from view.commands.home_view_commands.open_user_management_command import OpenUserManagementCommand
 from view.commands.home_view_commands.open_warehouses_command import OpenWarehousesCommand
@@ -33,7 +34,7 @@ class HomeView(BaseView):
         # Create Buttons
         self.wh_btn = ttk.Button(self.parent, text="Warehouses", command=OpenWarehousesCommand(self.controller))
         self.wh_btn.grid(row=9, column=4, rowspan=2, columnspan=2, sticky="nsew")
-        self.pur_btn = ttk.Button(self.parent, text="Purchases", command=OpenSalesCommand(self.controller))
+        self.pur_btn = ttk.Button(self.parent, text="Purchases", command=OpenPurchasesCommand(self.controller))
         self.pur_btn.grid(row=9, column=10, rowspan=2, columnspan=2, sticky="nsew")
         self.sls_btn = ttk.Button(self.parent, text="Sales", command=OpenSalesCommand(self.controller))
         self.sls_btn.grid(row=9, column=16, rowspan=2, columnspan=2, sticky="nsew")

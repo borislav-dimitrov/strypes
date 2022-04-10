@@ -27,6 +27,7 @@ from model.service.modules.users_module import UserModule
 from model.service.modules.warehousing_module import WarehousingModule
 
 # Views
+from view.purchases_view import PurchasesView
 from view.sales_view import SalesView
 from view.warehouses_view import WarehousesView
 from view.user_management_view import UserManagementView
@@ -128,7 +129,17 @@ class MainController:
         root.mainloop()
 
     def purchases(self):
-        pass
+        """Initialize Purchases View"""
+        page_name = "Purchases"
+        if page_name in self.opened_views:
+            messagebox.showerror("Warning!", f"Page {page_name} is already opened!")
+            return
+
+        self.opened_views.append(page_name)
+        root = tk.Toplevel()
+        pur_view = PurchasesView(root, page_name, self.sales_controller, self.opened_views)
+        self.sales_controller.pur_view = pur_view
+        root.mainloop()
 
     def sales(self):
         """Initialize Sales View"""

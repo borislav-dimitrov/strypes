@@ -60,8 +60,7 @@ class GenericRepository(JsonOperations):
                 return None
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
 
     # endregion
 
