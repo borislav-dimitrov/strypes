@@ -10,7 +10,7 @@ from view.components.item_list import ItemList
 # Commands
 from view.commands.warehouse_commands.close_warehouses_command import CloseWarehousesCommand
 from view.commands.product_commands.move_product_command import MoveProductCommand
-from view.commands.warehouse_commands.generate_wh_treeview_command import GenWhTreeViewCommand
+from view.commands.warehouse_commands.generate_wh_treeview_command import GenWhProductsTreeViewCommand
 
 
 class WarehousesView(BaseView):
@@ -26,7 +26,7 @@ class WarehousesView(BaseView):
         self.warehouses_var = tk.StringVar()
         self.warehouses_var.set(self.warehouses_list[0])
         self.warehouses_dropdown = tk.OptionMenu(self.parent, self.warehouses_var, *self.warehouses_list,
-                                                 command=GenWhTreeViewCommand(self.controller))
+                                                 command=GenWhProductsTreeViewCommand(self.controller, self))
         self.warehouses_dropdown.grid(row=5, column=self.cols // 2 - 3, columnspan=5, sticky="we")
 
         # ItemList
@@ -41,5 +41,5 @@ class WarehousesView(BaseView):
         self.parent.protocol("WM_DELETE_WINDOW", CloseWarehousesCommand(self.controller))
 
     def refresh(self):
-        GenWhTreeViewCommand(self.controller)
+        GenWhProductsTreeViewCommand(self.controller, self)
         self.treeview.set_items(self.treeview_var)

@@ -1,6 +1,9 @@
 from tkinter import messagebox
 
+import view.utils.tkinter_utils as tkutil
+from controler.warehousing_controller import WarehousingController
 from model.entities.counterparty import Counterparty
+from model.entities.product import Product
 from model.entities.transaction import Transaction
 from model.service.logger import MyLogger
 from model.service.modules.sales_module import SalesModule
@@ -8,10 +11,12 @@ from view.components.item_form import ItemForm
 
 
 class SalesController:
-    def __init__(self, sales_module: SalesModule, logger: MyLogger):
+    def __init__(self, sales_module: SalesModule, wh_module: WarehousingController, logger: MyLogger):
         self.module = sales_module
+        self.wh_controller = wh_module
         self.logger = logger
         self.counterparty_view = None
+        self.sales_view = None
 
     @property
     def counterparties(self):
@@ -36,6 +41,13 @@ class SalesController:
     def reload(self):
         self.save_all()
         self.load_all()
+
+    # endregion
+
+    # region FIND
+
+    def gen_clients_for_treeview(self):
+        return self.module.find_all_clients_for_dropdown()
 
     # endregion
 
@@ -94,6 +106,17 @@ class SalesController:
     # endregion
 
     # region VIEW
+
+    # region SALES
+    def generate_treeview_for_wh_products(self, view):
+        return self.wh_controller.generate_treeview_for_wh_products(view)
+
+    def warehouses_for_dropdown(self):
+        return self.wh_controller.warehouses_for_dropdown
+
+    def find_all_products_in_warehouse(self, id_: int | None):
+        return self.wh_controller.module.find_all_products_in_warehouse(id_)
+
     def show_create_counterparty(self):
         form = ItemForm(self.counterparty_view.parent,
                         Counterparty("", "", "", "", "", ""), self, "Create Counterparty", height=250)
@@ -109,8 +132,68 @@ class SalesController:
 
         form = ItemForm(self.counterparty_view.parent, counterparty, self, "Update Counterparty", height=250, edit=True)
 
+    def sell_add_item_to_cart(self):
+        selection = self.sales_view.treeview.get_selected_items()
+        if len(selection) == 0:
+            messagebox.showerror("Error!", "First make a selection!", parent=self.sales_view.parent)
+            return
+
+        selected_product = self.wh_controller.module.find_product_by_id(int(selection[0][0]))
+        amount = self.sales_view.amount_entry.get()
+        if not amount.isnumeric() or int(amount) <= 0:
+            messagebox.showerror("Error!", "Amount must be positive Number", parent=self.sales_view.parent)
+            return
+        result, product = self.wh_controller.module.sale_reduce_quantity_or_sell_all(selected_product, int(amount))
+
+        if result != "Not enough to sell!":
+            self.wh_controller.module.sell_add_item_to_cart(self.sales_view.shopping_cart_var, product)
+        else:
+            messagebox.showerror("Error!", result, parent=self.sales_view.parent)
+            return
+        self.sales_view.total_price_var.set(f"Total Price: "
+                                            f"{self.wh_controller.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
+        self.sales_view.refresh()
+
+    def sell_rem_item_from_cart(self):
+        selection = self.sales_view.shopping_cart.get_selected_items()[0]
+        if len(selection) == 0:
+            messagebox.showerror("Error!", "First make a selection!", parent=self.sales_view.parent)
+            return
+
+        self.wh_controller.module.rem_item_from_cart(self.sales_view.shopping_cart_var, selection)
+
+        self.sales_view.total_price_var.set(f"Total Price: "
+                                            f"{self.wh_controller.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
+        self.sales_view.refresh()
+
+    def sell_clear_cart(self):
+        self.wh_controller.module.sell_clear_cart(self.sales_view.shopping_cart_var)
+        self.sales_view.total_price_var.set(f"Total Price: "
+                                            f"{self.wh_controller.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
+        self.sales_view.refresh()
+
+    def sell(self):
+        result = self.module.make_a_sale(self.sales_view.shopping_cart_var, self.sales_view.clients_var.get(),
+                                         self.wh_controller.find_product_by_id)
+        if isinstance(result, Transaction):
+            self.wh_controller.cleanup_after_sale()
+            self.reload()
+            self.sales_view.total_price_var.set(f"Total Price: "
+                                                f"{self.wh_controller.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
+            messagebox.showinfo("Info!", "Transaction successful!", parent=self.sales_view.parent)
+            self.sales_view.refresh()
+        else:
+            messagebox.showerror("Error!", result, parent=self.sales_view.parent)
+
+    # endregion
+
     # endregion
 
     def close_counterparty(self):
         self.counterparty_view.open_views.remove(self.counterparty_view.page_name)
         self.counterparty_view.parent.destroy()
+
+    def close_sales(self):
+        self.wh_controller.module.rollback_unfinished_sales(self.sales_view.shopping_cart_var)
+        self.sales_view.open_views.remove(self.sales_view.page_name)
+        self.sales_view.parent.destroy()

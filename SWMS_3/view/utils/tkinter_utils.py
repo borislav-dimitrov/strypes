@@ -21,11 +21,3 @@ def setup_grid(parent, rows, cols):
     # set columns
     for col in range(cols):
         tk.Grid.columnconfigure(parent, col, weight=1)
-
-
-def close_all_(root, systems):
-    systems["user_controller"].save()
-    systems["warehousing_controller"].save_all()
-    systems["sales_controller"].save_all()
-    root.destroy()
-    exit(0)

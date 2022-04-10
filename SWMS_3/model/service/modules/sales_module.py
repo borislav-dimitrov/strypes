@@ -1,4 +1,6 @@
 import sys
+
+from model.entities.product import Product
 from model.service.logger import MyLogger
 
 from model.entities.counterparty import Counterparty
@@ -33,6 +35,7 @@ class SalesModule:
         return self._find_all_invoices()
 
     # region FIND
+
     # Counterparties
     def _find_all_counterparties(self):
         return self._cpty_repo.find_all()
@@ -50,6 +53,13 @@ class SalesModule:
             return self._cpty_repo.find_by_attribute(attr_name, attr_val, exact_val)
         except Exception as ex:
             return ex
+
+    def find_all_clients_for_dropdown(self):
+        all_clients = self.find_counterparty_by_attr("type", "Client")
+        result = []
+        for client in all_clients:
+            result.append((client.id, client.name, client.payment_nr))
+        return result
 
     # Transactions
     def _find_all_transactions(self):
@@ -126,8 +136,7 @@ class SalesModule:
             return self._cpty_repo.create(new_cpty)
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     def update_cpty(self, entity: Counterparty, name, phone, payment_nr, status, type_, descr):
@@ -168,8 +177,8 @@ class SalesModule:
             return entity
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     def _del_cpty_by_id(self, id_: int) -> Counterparty | Exception:
@@ -195,8 +204,7 @@ class SalesModule:
             return self._cpty_repo.delete_by_id(id_)
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     # endregion
@@ -224,17 +232,22 @@ class SalesModule:
                 raise TypeError("Transaction creation failed! Invalid assets!")
             new_assets = []
             for product in assets:
-                if not isinstance(product, list):
+                if isinstance(product, Product):
+                    if type_ == "Sale":
+                        new_assets.append(TempProduct(product.name, product.type, product.sell_price, product.quantity))
+                    if type_ == "Purchase":
+                        new_assets.append(TempProduct(product.name, product.type, product.buy_price, product.quantity))
+                elif isinstance(product, list):
+                    new_assets.append(TempProduct(product[0], product[1], product[2], product[3]))
+                else:
                     raise TypeError("Transaction creation failed! Invalid assets!")
-                new_assets.append(TempProduct(product[0], product[1], product[2], product[3]))
 
             # endregion
             new_tr = Transaction(type_, date, counterparty, new_assets, None, id_)
             return self._tr_repo.create(new_tr)
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     def del_tr_by_id(self, id_: int) -> Transaction:
@@ -278,8 +291,7 @@ class SalesModule:
             return new_inv
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     def del_inv_by_id(self, id_: int) -> Invoice:
@@ -293,7 +305,7 @@ class SalesModule:
 
     # endregion
 
-    # region CRUD FROM VIEW
+    # region VIEW
     def create_cpty_from_view(self, name, phone, payment_nr, status, type_, description):
         if type_.lower() == "supplier":
             description = description.split(" | ")
@@ -319,6 +331,23 @@ class SalesModule:
     def del_cpty_from_view(self, id_):
 
         return self._del_cpty_by_id(id_)
+
+    def make_a_sale(self, cart_vars, client, find_product_by_id) -> Transaction | Exception:
+        try:
+            client = self.find_counterparty_by_id(int(client.split(", ")[0][1:]))
+            transaction = self.create_tr("sale", client, cart_vars)
+
+            # Correct the quantities of sold products
+            for product in cart_vars:
+                original_product = find_product_by_id(product.id)
+                original_product.quantity -= product.quantity
+
+            return transaction
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
+            return ex
+
     # endregion
 
     # region Validations

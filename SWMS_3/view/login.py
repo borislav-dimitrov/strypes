@@ -29,8 +29,6 @@ class Login:
         # Set Title
         self.parent.title(self.page_name)
 
-        # Set Icon
-        self.parent.iconbitmap("resources/icons/login_ico.ico")
 
         # Setup Grid
         tkutil.setup_grid(self.parent, self.rows, self.cols)

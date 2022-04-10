@@ -236,5 +236,137 @@
         ],
         "price": 126.6,
         "invoice": null
+    },
+    "5": {
+        "id": 5,
+        "type": "Sale",
+        "date": "04/10/2022 18:27:10",
+        "counterparty": {
+            "id": 4,
+            "name": "Firm3",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Client",
+            "description": ""
+        },
+        "assets": [
+            {
+                "name": "material3",
+                "type": "Finished Goods",
+                "price": 12.0,
+                "quantity": 2
+            },
+            {
+                "name": "Turpentine",
+                "type": "Raw Materials",
+                "price": 7.0,
+                "quantity": 2
+            },
+            {
+                "name": "Thinner",
+                "type": "Raw Materials",
+                "price": 7.0,
+                "quantity": 2
+            },
+            {
+                "name": "Purple Paint",
+                "type": "Raw Materials",
+                "price": 12.0,
+                "quantity": 2
+            }
+        ],
+        "price": 76.0,
+        "invoice": null
+    },
+    "6": {
+        "id": 6,
+        "type": "Sale",
+        "date": "04/10/2022 18:31:40",
+        "counterparty": {
+            "id": 2,
+            "name": "Firm1",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Client",
+            "description": ""
+        },
+        "assets": [
+            {
+                "name": "material3",
+                "type": "Finished Goods",
+                "price": 12.0,
+                "quantity": 2
+            },
+            {
+                "name": "Turpentine",
+                "type": "Raw Materials",
+                "price": 7.0,
+                "quantity": 2
+            },
+            {
+                "name": "Thinner",
+                "type": "Raw Materials",
+                "price": 7.0,
+                "quantity": 2
+            }
+        ],
+        "price": 52.0,
+        "invoice": null
+    },
+    "7": {
+        "id": 7,
+        "type": "Sale",
+        "date": "04/10/2022 18:32:08",
+        "counterparty": {
+            "id": 2,
+            "name": "Firm1",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Client",
+            "description": ""
+        },
+        "assets": [
+            {
+                "name": "Thinner",
+                "type": "Raw Materials",
+                "price": 7.0,
+                "quantity": 3
+            },
+            {
+                "name": "Turpentine",
+                "type": "Raw Materials",
+                "price": 7.0,
+                "quantity": 3
+            }
+        ],
+        "price": 42.0,
+        "invoice": null
+    },
+    "8": {
+        "id": 8,
+        "type": "Sale",
+        "date": "04/10/2022 18:33:29",
+        "counterparty": {
+            "id": 2,
+            "name": "Firm1",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Client",
+            "description": ""
+        },
+        "assets": [
+            {
+                "name": "material3",
+                "type": "Finished Goods",
+                "price": 12.0,
+                "quantity": 2
+            }
+        ],
+        "price": 24.0,
+        "invoice": null
     }
 }

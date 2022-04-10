@@ -21,7 +21,7 @@ def main():
 
     if main_controller.logged_user is not None:
         root = tk.Tk()
-        home_view = HomeView(root, "Home", main_controller, icon="resources/icons/main_ico.ico")
+        home_view = HomeView(root, "Home", main_controller)
         main_controller.view = home_view
         root.mainloop()
 

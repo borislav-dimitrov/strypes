@@ -27,6 +27,7 @@ from model.service.modules.users_module import UserModule
 from model.service.modules.warehousing_module import WarehousingModule
 
 # Views
+from view.sales_view import SalesView
 from view.warehouses_view import WarehousesView
 from view.user_management_view import UserManagementView
 from view.warehouse_management_view import WarehouseManagementView
@@ -78,7 +79,7 @@ class MainController:
         # CONTROLLERS
         self.user_controller = UserController(user_module, logger)
         self.warehousing_controller = WarehousingController(warehousing_module, logger)
-        self.sales_controller = SalesController(sales_module, logger)
+        self.sales_controller = SalesController(sales_module, self.warehousing_controller, logger)
 
         # Load data from json files
         self.user_controller.load()
@@ -130,7 +131,17 @@ class MainController:
         pass
 
     def sales(self):
-        pass
+        """Initialize Sales View"""
+        page_name = "Sales"
+        if page_name in self.opened_views:
+            messagebox.showerror("Warning!", f"Page {page_name} is already opened!")
+            return
+
+        self.opened_views.append(page_name)
+        root = tk.Toplevel()
+        sales_view = SalesView(root, page_name, self.sales_controller, self.opened_views)
+        self.sales_controller.sales_view = sales_view
+        root.mainloop()
 
     def transactions(self):
         pass

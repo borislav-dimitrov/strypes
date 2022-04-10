@@ -45,6 +45,9 @@ class WarehousingController:
     def find_wh_by_id(self, id_):
         return self.module.find_wh_by_id(id_)
 
+    def find_product_by_id(self, id_):
+        return self.module.find_product_by_id(id_)
+
     def products_in_wh_count(self, wh_id) -> int:
         warehouse = self.find_wh_by_id(wh_id)
         total = 0
@@ -153,13 +156,18 @@ class WarehousingController:
         result = self.module.product_change_wh(product, warehouse)
 
         if result == "Ok":
-            messagebox.showinfo("Info!", f"Product {product.name} moved successfully!", parent=self.warehouses_view.parent)
+            messagebox.showinfo("Info!", f"Product {product.name} moved successfully!",
+                                parent=self.warehouses_view.parent)
             self.reload()
             self.warehouses_view.refresh()
         else:
             messagebox.showerror("Error!", result, parent=self.warehouses_view.parent)
 
         return result
+
+    def cleanup_after_sale(self):
+        self.module.cleanup_products_after_sale()
+        self.reload()
 
     # endregion
 
@@ -182,8 +190,8 @@ class WarehousingController:
         warehouse = self.module.find_wh_by_id(wh_id)
         form = ItemForm(self.wh_management_view.parent, warehouse, self, "Update Warehouse", height=250, edit=True)
 
-    def generate_treeview_for_wh(self):
-        warehouse = self.warehouses_view.warehouses_var.get().split(",")[0]
+    def generate_treeview_for_wh_products(self, view):
+        warehouse = view.warehouses_var.get().split(",")[0]
         if warehouse == "None":
             warehouse = None
         else:
@@ -193,8 +201,8 @@ class WarehousingController:
         if isinstance(products, Exception):
             messagebox.showerror("Error!", products)
         if products is not None:
-            self.warehouses_view.treeview_var = products
-            self.warehouses_view.refresh()
+            view.treeview_var = products
+            view.refresh()
 
     def filtered_warehouses(self, warehouse: Warehouse):
         return self.module.get_filtered_warehouses(warehouse)
