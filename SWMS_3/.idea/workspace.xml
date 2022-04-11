@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca4e9214-02ca-4314-bd6f-59362601f1bb" name="Changes" comment="Documentation">
-      <change afterPath="$PROJECT_DIR$/resources/invoices/invoice_1.pdf" afterDir="false" />
+    <list default="true" id="ca4e9214-02ca-4314-bd6f-59362601f1bb" name="Changes" comment="Fixed some invoices bugs">
+      <change afterPath="$PROJECT_DIR$/SWMS_3.7z" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/invoices/invoice_3.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controler/sales_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/sales_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/data/invoices.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/invoices.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/data/products.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/products.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/data/transactions.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/transactions.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/sales_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/sales_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/invoices/invoice_2.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/resources/invoices/invoice_2.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Documentation.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/components/top_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/top_menu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,7 +283,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649659826157</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Fixed some invoices bugs">
+      <created>1649664785875</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1649664785876</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -323,7 +327,8 @@
     <MESSAGE value="done basic purchases" />
     <MESSAGE value="Done top menu" />
     <MESSAGE value="Documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Documentation" />
+    <MESSAGE value="Fixed some invoices bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed some invoices bugs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -332,16 +337,6 @@
           <url>file://$PROJECT_DIR$/model/service/modules/sales_module.py</url>
           <line>450</line>
           <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/controler/sales_controller.py</url>
-          <line>252</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model/service/modules/sales_module.py</url>
-          <line>253</line>
-          <option name="timeStamp" value="43" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

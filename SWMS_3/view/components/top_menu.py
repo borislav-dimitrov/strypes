@@ -156,7 +156,7 @@ DEFAULT_LOG_FILE = "{log_file}" """
         root.geometry(f"{ww}x{wh}")
         root.attributes("-topmost", True)
         root.title("About..")
-        with open("./Documentation.txt", "rt", encoding="utf-8") as file:
+        with open("./docs/Documentation.txt", "rt", encoding="utf-8") as file:
             info_text = file.readlines()
 
         y_scroll = tk.Scrollbar(root, orient="vertical")
