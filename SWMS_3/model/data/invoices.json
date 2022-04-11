@@ -20,59 +20,23 @@
             "type": "Client",
             "description": ""
         },
-        "date": "04/11/2022 11:56:33",
-        "due_to": "04/26/2022 11:56:33",
+        "date": "04/11/2022 16:57:25",
+        "due_to": "04/26/2022 16:57:25",
         "assets": [
             {
-                "name": "material5",
-                "type": "Finished Goods",
+                "name": "material62",
+                "type": "Raw Materials",
                 "price": 10.0,
-                "quantity": 33
-            }
-        ],
-        "price": 330.0,
-        "description": "",
-        "terms": "",
-        "status": "Pending"
-    },
-    "2": {
-        "id": 2,
-        "number": 2,
-        "from": {
-            "id": 1,
-            "name": "My Company",
-            "phone": "+35988215743",
-            "payment_nr": "BG222222",
-            "status": "Enabled",
-            "type": "MyCo",
-            "description": "current user company"
-        },
-        "to": {
-            "id": 4,
-            "name": "Firm3",
-            "phone": "+35988215743",
-            "payment_nr": "BG123456",
-            "status": "Enabled",
-            "type": "Client",
-            "description": ""
-        },
-        "date": "04/11/2022 16:24:55",
-        "due_to": "04/26/2022 16:24:55",
-        "assets": [
-            {
-                "name": "material3",
-                "type": "Finished Goods",
-                "price": 12.0,
-                "quantity": 33
+                "quantity": 14
             },
             {
-                "name": "bqla boq",
-                "type": "Finished Goods",
-                "price": 7.5,
-                "quantity": 21
+                "name": "material6",
+                "type": "Raw Materials",
+                "price": 11.3,
+                "quantity": 23
             }
         ],
-        "price": 553.5,
+        "price": 399.9,
         "description": "",
         "terms": "",
         "status": "Pending"

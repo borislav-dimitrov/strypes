@@ -86,7 +86,6 @@ class SalesView(BaseView):
         self.parent.protocol("WM_DELETE_WINDOW", CloseSalesCommand(self.controller))
 
     def refresh(self):
-        GenWhProductsTreeViewCommand(self.controller, self)
+        self.controller.wh_controller.refresh_products_treeview_vars(self)
         self.treeview.set_items(self.treeview_var)
-
         self.shopping_cart.set_items(self.shopping_cart_var)

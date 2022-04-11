@@ -159,7 +159,7 @@ class SalesController:
             messagebox.showerror("Error!", result, parent=self.sales_view.parent)
             return
         self.sales_view.total_price_var.set(f"Total Price: "
-                                            f"{self.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
+                                            f"{self.module.sell_calc_total_price(self.sales_view.shopping_cart_var):2n} BGN")
         self.sales_view.refresh()
 
     def sell_rem_item_from_cart(self):
@@ -172,13 +172,13 @@ class SalesController:
                                             self.sales_view.shopping_cart_var, selection[0])
 
         self.sales_view.total_price_var.set(f"Total Price: "
-                                            f"{self.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
+                                            f"{self.module.sell_calc_total_price(self.sales_view.shopping_cart_var):2n} BGN")
         self.sales_view.refresh()
 
     def sell_clear_cart(self):
         self.module.sell_clear_cart(self.wh_controller.find_product_by_id, self.sales_view.shopping_cart_var)
         self.sales_view.total_price_var.set(f"Total Price: "
-                                            f"{self.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
+                                            f"{self.module.sell_calc_total_price(self.sales_view.shopping_cart_var):2n} BGN")
         self.sales_view.refresh()
 
     def sell(self):
@@ -189,7 +189,7 @@ class SalesController:
             self.wh_controller.cleanup_after_sale()
             self.reload()
             self.sales_view.total_price_var.set(f"Total Price: "
-                                                f"{self.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
+                                                f"{self.module.sell_calc_total_price(self.sales_view.shopping_cart_var):2n} BGN")
             self.sales_view.refresh()
             self.logger.log(__file__, f"Created transaction - {result.id}.", "INFO")
 

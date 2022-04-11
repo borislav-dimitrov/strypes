@@ -5,8 +5,11 @@ from controler.main_controller import MainController
 from view.home_view import HomeView
 from view.login import Login
 
+
 # TODO
 #   Implement warehouse <-> product type ?
+#   remove last login from user creation/update
+#   set last login on login
 
 
 def main():

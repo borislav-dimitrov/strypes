@@ -122,8 +122,8 @@ class ItemForm(tk.Toplevel):
         cls = type(self.item)
         info = list(self.item.__dict__.values())
         id_ = info.pop(0)
-        info = cls(*info)
         i = 0
+        info = cls(*info)
         for col in self.columns:
             if isinstance(self.item, Warehouse) and col == "products":  # Skip warehouse products
                 continue

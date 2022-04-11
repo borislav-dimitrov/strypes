@@ -5,6 +5,14 @@
         "password": "gAAAAABiRwOyk5V_XtlBvgEI7JLCir6gIMaWcA-r9AAb-xHEDPfj4zEzer59Mwis9AsxSIYxrTmGdHvkp2_aoT1ToS8G2vRwXA==",
         "type": "Administrator",
         "status": "Enabled",
+        "last_login": "04/11/2022 17:09:26"
+    },
+    "2": {
+        "id": 2,
+        "name": "operator2",
+        "password": "gAAAAABiVCz6rRK0G3wZED_EQuu6CMCHqrWlGK_bpSjgZ9jwJP-BCJ17yX4o3inyh2zQyBWpmVMMR2yEEVqe45z9xft343sHNA==",
+        "type": "Operator",
+        "status": "Enabled",
         "last_login": ""
     }
 }

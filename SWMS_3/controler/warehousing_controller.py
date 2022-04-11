@@ -215,7 +215,7 @@ class WarehousingController:
             messagebox.showerror("Error!", products, parent=view.parent)
         if products is not None:
             view.treeview_var = products
-            view.treeview.set_items(self.warehouses_view.treeview_var)
+            view.treeview.set_items(view.treeview_var)
 
     # endregion
 

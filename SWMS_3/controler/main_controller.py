@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+from datetime import datetime
 
 # Config file
 import resources.config as cfg
@@ -110,6 +111,7 @@ class MainController:
 
         if login_state:
             self.logged_user = user
+            self.logged_user.last_login = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
             self.logger.log(__file__, f"User {self.logged_user.name} has logged in.", "INFO")
             self.view.parent.destroy()
         else:
