@@ -2,7 +2,7 @@ import resources.config as cfg
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog as fd
-
+from tkinter import messagebox
 
 class MyMenu:
     def __init__(self, parent):
@@ -26,21 +26,21 @@ class MyMenu:
 
     # region OPTIONS
     def _options_menu(self):
-        root = tk.Toplevel(self.parent)
+        self.options_root = tk.Toplevel(self.parent)
         ww = 640
         wh = 640
         items_padding = 10
-        root.geometry(f"{ww}x{wh}")
-        root.attributes("-topmost", True)
-        root.title("Options")
+        self.options_root.geometry(f"{ww}x{wh}")
+        self.options_root.attributes("-topmost", True)
+        self.options_root.title("Options")
 
-        frame1 = tk.Frame(root, borderwidth=3, height=wh / 5)
+        frame1 = tk.Frame(self.options_root, borderwidth=3, height=wh / 5)
         frame1.pack(side="top", fill="both", padx=5, pady=20)
-        frame2 = ttk.Frame(root, borderwidth=3, height=wh / 5)
+        frame2 = ttk.Frame(self.options_root, borderwidth=3, height=wh / 5)
         frame2.pack(side="top", fill="both", padx=5, pady=20)
-        frame3 = ttk.Frame(root, borderwidth=3, height=wh / 5)
+        frame3 = ttk.Frame(self.options_root, borderwidth=3, height=wh / 5)
         frame3.pack(side="top", fill="both", padx=5, pady=20)
-        frame4 = ttk.Frame(root, borderwidth=3, height=wh / 5)
+        frame4 = ttk.Frame(self.options_root, borderwidth=3, height=wh / 5)
         frame4.pack(side="top", fill="both", padx=5, pady=20)
 
         # Enabled/Disabled State
@@ -97,15 +97,13 @@ class MyMenu:
                                      anchor="center")
         chosen_file_path.pack(side="right", fill="x", expand=True, padx=20, pady=items_padding)
 
-        root.update()
+        self.options_root.update()
         # endregion
 
-        self.info_lbl = ttk.Label(root, text="", font=self.heading, background="lightgray", anchor="center")
-        self.info_lbl.pack(side="top", fill="both", padx=20, pady=items_padding)
-        save_btn = ttk.Button(root, text="Save", command=lambda: self._save())
+        save_btn = ttk.Button(self.options_root, text="Save", command=lambda: self._save())
         save_btn.pack(side="top", fill="none", expand=True)
 
-        root.mainloop()
+        self.options_root.mainloop()
 
     def _select_file(self):
         dialog_types = (("text files", "*.txt"), ('All files', '*.*'))
@@ -116,7 +114,7 @@ class MyMenu:
         if self.file_var.get() != "":
             self._rewrite_theme_cfg(self.log_level_var.get(), self.log_rewrite_var.get(), self.log_status_var.get(),
                                     self.file_var.get())
-            self.info_lbl.config(text="Settings changed! Restart the program!")
+            messagebox.showinfo("Info..", "Settings changed! Restart the program!", parent=self.options_root)
 
     @staticmethod
     def _rewrite_theme_cfg(level, rewrite, enabled, log_file):
