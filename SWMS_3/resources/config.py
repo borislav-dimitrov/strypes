@@ -8,6 +8,6 @@
 #          ERROR -> Due to a more serious problem, the software has not been able to perform some function
 #          CRITICAL -> Highest level. Blockers which fails your whole program. 
 LOG_ENABLED = True
-REWRITE_LOG_ON_STARTUP = True
-LOG_LEVEL = "DEBUG"
-DEFAULT_LOG_FILE = "log.txt"
+REWRITE_LOG_ON_STARTUP = False
+LOG_LEVEL = "INFO"
+DEFAULT_LOG_FILE = "log.txt" 

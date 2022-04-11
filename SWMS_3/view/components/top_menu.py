@@ -43,44 +43,44 @@ class MyMenu:
         frame4 = ttk.Frame(root, borderwidth=3, height=wh / 5)
         frame4.pack(side="top", fill="both", padx=5, pady=20)
 
-        # Logging Level
-        section_lbl = ttk.Label(frame1, text="Logging level", font=self.text_bold)
-        section_lbl.pack(side="top", padx=20, pady=items_padding)
-
-        self.log_level_var = tk.StringVar()
-        self.log_level_var.set(cfg.LOG_LEVEL)
-        debug_rb = ttk.Radiobutton(frame1, text="Debug", variable=self.log_level_var, value="DEBUG")
-        debug_rb.pack(side="left", fill="none", expand=True, padx=20, pady=items_padding)
-        info_rb = tk.Radiobutton(frame1, text="Info", variable=self.log_level_var, value="INFO")
-        info_rb.pack(side="left", fill="none", expand=True, padx=20, pady=items_padding)
-        warning_rb = tk.Radiobutton(frame1, text="Warning", variable=self.log_level_var, value="WARNING")
-        warning_rb.pack(side="left", fill="none", expand=True, padx=20, pady=items_padding)
-        error_rb = tk.Radiobutton(frame1, text="Error", variable=self.log_level_var, value="ERROR")
-        error_rb.pack(side="left", fill="none", expand=True, padx=20, pady=items_padding)
-        critical_rb = tk.Radiobutton(frame1, text="Critical", variable=self.log_level_var, value="CRITICAL")
-        critical_rb.pack(side="left", fill="none", expand=True, padx=20, pady=items_padding)
-
         # Enabled/Disabled State
-        section_lbl = ttk.Label(frame2, text="Enabled/Disabled Logging", font=self.text_bold)
+        section_lbl = ttk.Label(frame1, text="Enabled/Disabled Logging", font=self.text_bold)
         section_lbl.pack(side="top", padx=20, pady=items_padding)
 
         self.log_status_var = tk.StringVar()
         self.log_status_var.set(cfg.LOG_ENABLED)
-        enabled_rb = ttk.Radiobutton(frame2, text="Enabled", variable=self.log_status_var, value=True)
+        enabled_rb = ttk.Radiobutton(frame1, text="Enabled", variable=self.log_status_var, value=True)
         enabled_rb.pack(side="left", fill="none", expand=True, padx=20, pady=items_padding)
-        disabled_rb = tk.Radiobutton(frame2, text="Disabled", variable=self.log_status_var, value=False)
+        disabled_rb = tk.Radiobutton(frame1, text="Disabled", variable=self.log_status_var, value=False)
         disabled_rb.pack(side="left", fill="none", expand=True, padx=20, pady=items_padding)
 
         # Rewrite on startup
-        section_lbl = ttk.Label(frame3, text="Rewrite on startup", font=self.text_bold)
+        section_lbl = ttk.Label(frame2, text="Rewrite on startup", font=self.text_bold)
         section_lbl.pack(side="top", padx=20, pady=items_padding)
 
         self.log_rewrite_var = tk.StringVar()
         self.log_rewrite_var.set(cfg.REWRITE_LOG_ON_STARTUP)
-        enabled_rb = ttk.Radiobutton(frame3, text="Enabled", variable=self.log_rewrite_var, value=True)
+        enabled_rb = ttk.Radiobutton(frame2, text="Enabled", variable=self.log_rewrite_var, value=True)
         enabled_rb.pack(side="left", fill="none", expand=True, padx=20, pady=items_padding)
-        disabled_rb = tk.Radiobutton(frame3, text="Disabled", variable=self.log_rewrite_var, value=False)
+        disabled_rb = tk.Radiobutton(frame2, text="Disabled", variable=self.log_rewrite_var, value=False)
         disabled_rb.pack(side="left", fill="none", expand=True, padx=20, pady=items_padding)
+
+        # Logging Level
+        section_lbl = ttk.Label(frame3, text="Logging level", font=self.text_bold)
+        section_lbl.pack(side="top", padx=20, pady=items_padding)
+
+        self.log_level_var = tk.StringVar()
+        self.log_level_var.set(cfg.LOG_LEVEL)
+        debug_rb = ttk.Radiobutton(frame3, text="Debug", variable=self.log_level_var, value="DEBUG")
+        debug_rb.pack(side="left", fill="none", expand=True, padx=20, pady=items_padding)
+        info_rb = tk.Radiobutton(frame3, text="Info", variable=self.log_level_var, value="INFO")
+        info_rb.pack(side="left", fill="none", expand=True, padx=20, pady=items_padding)
+        warning_rb = tk.Radiobutton(frame3, text="Warning", variable=self.log_level_var, value="WARNING")
+        warning_rb.pack(side="left", fill="none", expand=True, padx=20, pady=items_padding)
+        error_rb = tk.Radiobutton(frame3, text="Error", variable=self.log_level_var, value="ERROR")
+        error_rb.pack(side="left", fill="none", expand=True, padx=20, pady=items_padding)
+        critical_rb = tk.Radiobutton(frame3, text="Critical", variable=self.log_level_var, value="CRITICAL")
+        critical_rb.pack(side="left", fill="none", expand=True, padx=20, pady=items_padding)
 
         # Default file
         section_lbl = ttk.Label(frame4, text="Default log file", font=self.text_bold)
@@ -123,11 +123,11 @@ class MyMenu:
         if rewrite == "1":
             rewrite = True
         elif rewrite == "0":
-            rewrite = True
+            rewrite = False
         if enabled == "1":
             enabled = True
         elif enabled == "0":
-            enabled = True
+            enabled = False
 
         new = f"""# Configuration file
 

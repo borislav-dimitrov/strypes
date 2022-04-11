@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca4e9214-02ca-4314-bd6f-59362601f1bb" name="Changes" comment="Fixed some invoices bugs">
-      <change afterPath="$PROJECT_DIR$/SWMS_3.7z" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/invoices/invoice_3.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Documentation.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/components/top_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/top_menu.py" afterDir="false" />
-    </list>
+    <list default="true" id="ca4e9214-02ca-4314-bd6f-59362601f1bb" name="Changes" comment="Fixed some invoices bugs" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -64,11 +57,11 @@
       <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\view\commands\home_view_commands" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Strypes_Project\strypes\SWMS_3\docs" />
       <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\view" />
       <recent name="D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\view\commands\home_view_commands" />
       <recent name="D:\Strypes_Project\strypes\SWMS_3\view\components\user" />
       <recent name="D:\Strypes_Project\strypes\SWMS_3\view\components" />
-      <recent name="D:\Strypes_Project\strypes\SWMS_3\model" />
     </key>
   </component>
   <component name="RunManager">
@@ -290,7 +283,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649664785876</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Fixed some invoices bugs">
+      <created>1649665170794</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1649665170794</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
