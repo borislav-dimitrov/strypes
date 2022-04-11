@@ -74,7 +74,7 @@ class GenericRepository(JsonOperations):
         if entity.id is None:
             new_id = self._id_generator.get_next_id()
             highest_id = self.highest_id()
-            if highest_id < new_id:
+            if highest_id > new_id:
                 entity.id = highest_id
                 self._id_generator._nextId = highest_id
             else:

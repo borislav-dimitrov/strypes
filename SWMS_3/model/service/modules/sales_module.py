@@ -376,6 +376,63 @@ class SalesModule:
             return ex
 
     @staticmethod
+    def sale_reduce_quantity_or_sell_all(product, amount_to_sell):
+        if product.quantity > amount_to_sell:
+            product.quantity -= amount_to_sell
+            return "reduce", Product(product.name, product.type, product.buy_price, product.sell_price, amount_to_sell,
+                                     product.assigned_wh, product.id)
+        elif product.quantity == amount_to_sell:
+            new_prod = Product(product.name, product.type, product.sell_price,
+                               product.buy_price, product.quantity, product.assigned_wh, product.id)
+            product.quantity = 0
+            return "sell all", new_prod
+        else:
+            return "Not enough to sell!", None
+
+    @staticmethod
+    def rollback_unfinished_sales(find_product_by_id, shopping_cart_vars):
+        for item in shopping_cart_vars:
+            product_in_repo = find_product_by_id(item.id)
+            product_in_repo.quantity += item.quantity
+
+    @staticmethod
+    def sell_clear_cart(find_product_by_id, cart_vars):
+        for item in cart_vars:
+            product_in_repo = find_product_by_id(item.id)
+            product_in_repo.quantity += item.quantity
+
+        cart_vars.clear()
+
+    @staticmethod
+    def sale_rem_item_from_cart(find_product_by_id, cart_vars, item_params: tuple):
+        for product in cart_vars:
+            if product.id == int(item_params[0]) and product.name == item_params[1]:
+                product_in_repo = find_product_by_id(product.id)
+                product_in_repo.quantity += int(item_params[5])
+                cart_vars.remove(product)
+                break
+
+    @staticmethod
+    def sell_add_item_to_cart(shopping_cart_vars, item):
+        found = False
+
+        for product in shopping_cart_vars:
+            if product.id == item.id and product.name == item.name:
+                product.quantity += item.quantity
+                found = True
+                break
+
+        if not found:
+            shopping_cart_vars.append(item)
+
+    @staticmethod
+    def sell_calc_total_price(cart_vars) -> float:
+        total = 0.0
+        for product in cart_vars:
+            total += product.quantity * product.sell_price
+        return total
+
+    @staticmethod
     def pur_add_item_to_cart(cart_vars, item):
         found = False
 

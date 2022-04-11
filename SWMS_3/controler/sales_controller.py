@@ -147,33 +147,34 @@ class SalesController:
         if not amount.isnumeric() or int(amount) <= 0:
             messagebox.showerror("Error!", "Amount must be positive Number", parent=self.sales_view.parent)
             return
-        result, product = self.wh_controller.module.sale_reduce_quantity_or_sell_all(selected_product, int(amount))
+        result, product = self.module.sale_reduce_quantity_or_sell_all(selected_product, int(amount))
 
         if result != "Not enough to sell!":
-            self.wh_controller.module.sell_add_item_to_cart(self.sales_view.shopping_cart_var, product)
+            self.module.sell_add_item_to_cart(self.sales_view.shopping_cart_var, product)
         else:
             messagebox.showerror("Error!", result, parent=self.sales_view.parent)
             return
         self.sales_view.total_price_var.set(f"Total Price: "
-                                            f"{self.wh_controller.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
+                                            f"{self.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
         self.sales_view.refresh()
 
     def sell_rem_item_from_cart(self):
-        selection = self.sales_view.shopping_cart.get_selected_items()[0]
+        selection = self.sales_view.shopping_cart.get_selected_items()
         if len(selection) == 0:
             messagebox.showerror("Error!", "First make a selection!", parent=self.sales_view.parent)
             return
 
-        self.wh_controller.module.sale_rem_item_from_cart(self.sales_view.shopping_cart_var, selection)
+        self.module.sale_rem_item_from_cart(self.wh_controller.find_product_by_id,
+                                            self.sales_view.shopping_cart_var, selection[0])
 
         self.sales_view.total_price_var.set(f"Total Price: "
-                                            f"{self.wh_controller.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
+                                            f"{self.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
         self.sales_view.refresh()
 
     def sell_clear_cart(self):
-        self.wh_controller.module.sell_clear_cart(self.sales_view.shopping_cart_var)
+        self.module.sell_clear_cart(self.wh_controller.find_product_by_id, self.sales_view.shopping_cart_var)
         self.sales_view.total_price_var.set(f"Total Price: "
-                                            f"{self.wh_controller.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
+                                            f"{self.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
         self.sales_view.refresh()
 
     def sell(self):
@@ -184,7 +185,7 @@ class SalesController:
             self.wh_controller.cleanup_after_sale()
             self.reload()
             self.sales_view.total_price_var.set(f"Total Price: "
-                                                f"{self.wh_controller.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
+                                                f"{self.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
             self.sales_view.refresh()
         else:
             messagebox.showerror("Error!", result, parent=self.sales_view.parent)
@@ -211,7 +212,7 @@ class SalesController:
         self.module.pur_add_item_to_cart(self.pur_view.shopping_cart_var, selected_product)
 
         self.pur_view.total_price_var.set(f"Total Price: "
-                                          f"{self.wh_controller.module.sell_calc_total_price(self.pur_view.shopping_cart_var)} BGN")
+                                          f"{self.module.sell_calc_total_price(self.pur_view.shopping_cart_var)} BGN")
         self.pur_view.refresh()
 
     def pur_rem_from_cart(self):
@@ -223,13 +224,13 @@ class SalesController:
         self.module.pur_rem_item_from_cart(self.pur_view.shopping_cart_var, selection)
 
         self.pur_view.total_price_var.set(f"Total Price: "
-                                          f"{self.wh_controller.module.sell_calc_total_price(self.pur_view.shopping_cart_var)} BGN")
+                                          f"{self.module.sell_calc_total_price(self.pur_view.shopping_cart_var)} BGN")
         self.pur_view.refresh()
 
     def pur_clear_cart(self):
         self.pur_view.shopping_cart_var.clear()
         self.pur_view.total_price_var.set(f"Total Price: "
-                                          f"{self.wh_controller.module.sell_calc_total_price(self.pur_view.shopping_cart_var)} BGN")
+                                          f"{self.module.sell_calc_total_price(self.pur_view.shopping_cart_var)} BGN")
         self.pur_view.refresh()
 
     def buy(self):
@@ -241,6 +242,8 @@ class SalesController:
                                                               item.quantity, None)
             if isinstance(result, Exception):
                 messagebox.showerror("Error!")
+            else:
+                tr_items.append(result)
 
         tr = self.module.create_tr("Purchase", supplier, tr_items)
         if isinstance(tr, Transaction):
@@ -249,7 +252,7 @@ class SalesController:
             self.wh_controller.cleanup_after_sale()
             self.reload()
             self.pur_view.total_price_var.set(f"Total Price: "
-                                              f"{self.wh_controller.module.sell_calc_total_price(self.pur_view.shopping_cart_var)} BGN")
+                                              f"{self.module.sell_calc_total_price(self.pur_view.shopping_cart_var)} BGN")
             self.pur_view.refresh()
         else:
             messagebox.showerror("Error!", "Transaction Failed!", parent=self.pur_view.parent)
@@ -265,7 +268,7 @@ class SalesController:
         self.pur_view.treeview_var = self.get_supplier_products(selected_supplier_id)
         self.pur_view.shopping_cart_var.clear()
         self.pur_view.total_price_var.set(f"Total Price: "
-                                          f"{self.wh_controller.module.sell_calc_total_price(self.pur_view.shopping_cart_var)} BGN")
+                                          f"{self.module.sell_calc_total_price(self.pur_view.shopping_cart_var)} BGN")
         self.pur_view.refresh()
 
     # endregion
@@ -280,7 +283,7 @@ class SalesController:
         inv = self.module.gen_inv_from_tr(transaction)
         if isinstance(inv, Invoice):
             messagebox.showinfo("Info!", f"Invoice #{inv.number} generated successfully!", parent=self.tr_view.parent)
-            self.preview_invoice(inv)
+            self.preview_invoice()
             self.reload()
             self.tr_view.refresh()
         else:
@@ -324,7 +327,7 @@ class SalesController:
         self.counterparty_view.parent.destroy()
 
     def close_sales(self):
-        self.wh_controller.module.rollback_unfinished_sales(self.sales_view.shopping_cart_var)
+        self.module.rollback_unfinished_sales(self.wh_controller.find_product_by_id, self.sales_view.shopping_cart_var)
         self.sales_view.open_views.remove(self.sales_view.page_name)
         self.sales_view.parent.destroy()
 

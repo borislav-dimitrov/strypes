@@ -1,64 +1,4 @@
 {
-    "1": {
-        "id": 1,
-        "type": "Sale",
-        "date": "29/03/2022 08:40:32",
-        "counterparty": {
-            "id": 1,
-            "name": "My Company",
-            "phone": "+35988215743",
-            "payment_nr": "BG222222",
-            "status": "Enabled",
-            "type": "MyCo",
-            "description": "current user company"
-        },
-        "assets": [
-            {
-                "name": "material4",
-                "type": "Finished Goods",
-                "price": 12.3,
-                "quantity": 5
-            },
-            {
-                "name": "material5",
-                "type": "Finished Goods",
-                "price": 12.65,
-                "quantity": 7
-            }
-        ],
-        "price": 150.05,
-        "invoice": null
-    },
-    "2": {
-        "id": 2,
-        "type": "Sale",
-        "date": "30/03/2022 10:40:32",
-        "counterparty": {
-            "id": 1,
-            "name": "My Company",
-            "phone": "+35988215743",
-            "payment_nr": "BG222222",
-            "status": "Enabled",
-            "type": "MyCo",
-            "description": "current user company"
-        },
-        "assets": [
-            {
-                "name": "material4",
-                "type": "Finished Goods",
-                "price": 12.2,
-                "quantity": 5
-            },
-            {
-                "name": "material5",
-                "type": "Finished Goods",
-                "price": 12.15,
-                "quantity": 7
-            }
-        ],
-        "price": 146.05,
-        "invoice": null
-    },
     "3": {
         "id": 3,
         "type": "Purchase",
@@ -264,5 +204,257 @@
         "assets": [],
         "price": 0,
         "invoice": null
+    },
+    "10": {
+        "id": 10,
+        "type": "Purchase",
+        "date": "04/11/2022 10:50:21",
+        "counterparty": {
+            "id": 5,
+            "name": "Firm4",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Supplier",
+            "description": [
+                [
+                    "material5",
+                    "Finished Goods",
+                    10.0,
+                    11.0
+                ]
+            ]
+        },
+        "assets": [],
+        "price": 0,
+        "invoice": null
+    },
+    "11": {
+        "id": 11,
+        "type": "Purchase",
+        "date": "04/11/2022 11:02:03",
+        "counterparty": {
+            "id": 5,
+            "name": "Firm4",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Supplier",
+            "description": [
+                [
+                    "material5",
+                    "Finished Goods",
+                    10.0,
+                    11.0
+                ]
+            ]
+        },
+        "assets": [
+            {
+                "name": "material5",
+                "type": "Finished Goods",
+                "price": 10.0,
+                "quantity": 33
+            }
+        ],
+        "price": 330.0,
+        "invoice": null
+    },
+    "12": {
+        "id": 12,
+        "type": "Sale",
+        "date": "04/11/2022 10:52:36",
+        "counterparty": {
+            "id": 2,
+            "name": "Firm1",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Client",
+            "description": ""
+        },
+        "assets": [
+            {
+                "name": "material5",
+                "type": "Finished Goods",
+                "price": 10.0,
+                "quantity": 3
+            },
+            {
+                "name": "material3",
+                "type": "Finished Goods",
+                "price": 12.0,
+                "quantity": 3
+            }
+        ],
+        "price": 66.0,
+        "invoice": {
+            "id": 2,
+            "number": 2,
+            "from": {
+                "id": 1,
+                "name": "My Company",
+                "phone": "+35988215743",
+                "payment_nr": "BG222222",
+                "status": "Enabled",
+                "type": "MyCo",
+                "description": "current user company"
+            },
+            "to": {
+                "id": 2,
+                "name": "Firm1",
+                "phone": "+35988215743",
+                "payment_nr": "BG123456",
+                "status": "Enabled",
+                "type": "Client",
+                "description": ""
+            },
+            "date": "04/11/2022 10:54:05",
+            "due_to": "",
+            "assets": [
+                {
+                    "name": "material5",
+                    "type": "Finished Goods",
+                    "price": 10.0,
+                    "quantity": 3
+                },
+                {
+                    "name": "material3",
+                    "type": "Finished Goods",
+                    "price": 12.0,
+                    "quantity": 3
+                }
+            ],
+            "price": 66.0,
+            "description": "",
+            "terms": "",
+            "status": "Pending"
+        }
+    },
+    "13": {
+        "id": 13,
+        "type": "Purchase",
+        "date": "04/11/2022 11:12:09",
+        "counterparty": {
+            "id": 5,
+            "name": "Firm4",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Supplier",
+            "description": [
+                [
+                    "material5",
+                    "Finished Goods",
+                    10.0,
+                    11.0
+                ]
+            ]
+        },
+        "assets": [
+            {
+                "name": "material5",
+                "type": "Finished Goods",
+                "price": 10.0,
+                "quantity": 333
+            }
+        ],
+        "price": 3330.0,
+        "invoice": null
+    },
+    "25": {
+        "id": 25,
+        "type": "Sale",
+        "date": "04/11/2022 11:12:27",
+        "counterparty": {
+            "id": 2,
+            "name": "Firm1",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Client",
+            "description": ""
+        },
+        "assets": [
+            {
+                "name": "material5",
+                "type": "Finished Goods",
+                "price": 10.0,
+                "quantity": 333
+            },
+            {
+                "name": "material5",
+                "type": "Finished Goods",
+                "price": 10.0,
+                "quantity": 44
+            },
+            {
+                "name": "material5",
+                "type": "Finished Goods",
+                "price": 10.0,
+                "quantity": 33
+            },
+            {
+                "name": "material5",
+                "type": "Finished Goods",
+                "price": 10.0,
+                "quantity": 13
+            }
+        ],
+        "price": 4230.0,
+        "invoice": {
+            "id": 4,
+            "number": 3,
+            "from": {
+                "id": 1,
+                "name": "My Company",
+                "phone": "+35988215743",
+                "payment_nr": "BG222222",
+                "status": "Enabled",
+                "type": "MyCo",
+                "description": "current user company"
+            },
+            "to": {
+                "id": 2,
+                "name": "Firm1",
+                "phone": "+35988215743",
+                "payment_nr": "BG123456",
+                "status": "Enabled",
+                "type": "Client",
+                "description": ""
+            },
+            "date": "04/11/2022 11:12:36",
+            "due_to": "",
+            "assets": [
+                {
+                    "name": "material5",
+                    "type": "Finished Goods",
+                    "price": 10.0,
+                    "quantity": 333
+                },
+                {
+                    "name": "material5",
+                    "type": "Finished Goods",
+                    "price": 10.0,
+                    "quantity": 44
+                },
+                {
+                    "name": "material5",
+                    "type": "Finished Goods",
+                    "price": 10.0,
+                    "quantity": 33
+                },
+                {
+                    "name": "material5",
+                    "type": "Finished Goods",
+                    "price": 10.0,
+                    "quantity": 13
+                }
+            ],
+            "price": 4230.0,
+            "description": "",
+            "terms": "",
+            "status": "Pending"
+        }
     }
 }
