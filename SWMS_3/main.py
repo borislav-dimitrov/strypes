@@ -7,9 +7,9 @@ from view.login import Login
 
 
 # TODO
-#   Implement warehouse <-> product type ?
+#   transaction preview!
 #   remove last login from user creation/update
-#   set last login on login
+#   move multiple products to wh
 
 
 def main():

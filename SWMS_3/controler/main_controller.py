@@ -101,6 +101,7 @@ class MainController:
 
     def exit(self):
         self.before_exit()
+        self.view.parent.destroy()
         exit(0)
 
     def login(self):

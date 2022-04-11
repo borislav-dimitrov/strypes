@@ -5,6 +5,7 @@ from view.base_view import BaseView
 from view.commands.transaction_commands.del_invoice_command import DelInvCommand
 from view.commands.transaction_commands.generate_invoice_command import GenInvCommand
 from view.commands.transaction_commands.preview_invoice_command import PreviewInvCommand
+from view.commands.transaction_commands.preview_transaction_command import PreviewTrCommand
 from view.components.item_list import ItemList
 
 from view.commands.transaction_commands.close_transactions_command import CloseTransactionsCommand
@@ -24,15 +25,17 @@ class TransactionsView(BaseView):
         self.item_list = TransactionItemList(self.parent, self.transactions_var, 7, 4, colspan=self.cols - 9, rowspan=8)
 
         # Buttons
+        self.create_btn = ttk.Button(self.parent, text="Preview Transaction", command=PreviewTrCommand(self.controller))
+        self.create_btn.grid(row=20, column=5, columnspan=3, sticky="nsew")
+
         self.create_btn = ttk.Button(self.parent, text="Generate Invoice", command=GenInvCommand(self.controller))
-        self.create_btn.grid(row=20, column=6, columnspan=3, sticky="nsew")
+        self.create_btn.grid(row=20, column=10, columnspan=3, sticky="nsew")
 
         self.edit_btn = ttk.Button(self.parent, text="Preview Invoice", command=PreviewInvCommand(self.controller))
-        self.edit_btn.grid(row=20, column=13, columnspan=3, sticky="nsew")
+        self.edit_btn.grid(row=20, column=15, columnspan=3, sticky="nsew")
 
         self.edit_btn = ttk.Button(self.parent, text="Delete Invoice", command=DelInvCommand(self.controller))
         self.edit_btn.grid(row=20, column=20, columnspan=3, sticky="nsew")
-
 
         # Exit protocol override
         self.parent.protocol("WM_DELETE_WINDOW", CloseTransactionsCommand(self.controller))

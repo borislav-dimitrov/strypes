@@ -123,3 +123,73 @@ Timestamp: 11/04/22 17:08:41    -    INFO    -    Logged from: D:\Pitonq\Strypes
 Timestamp: 11/04/22 17:08:52    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
 Timestamp: 11/04/22 17:09:26    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
 Timestamp: 11/04/22 17:09:38    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 17:33:14    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 17:34:00    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 17:43:04    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 17:43:10    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 17:44:19    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 17:44:34    -    ERROR    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\model\service\modules\users_module.py    -    ErrType: <class 'model.exceptions.WeakPasswordException'>    -    ErrTraceback: <frame at 0x000001E9EAE82C00, file 'D:\\Pitonq\\Strypes_Project_GIT\\strypes\\SWMS_3\\model\\service\\modules\\users_module.py', line 61, code create>    -    Failed creating user!
+Password too weak!
+Password should have at least one uppercase letter!
+Password should have at least one lowercase letter!
+Password should contain at least one special character!
+Timestamp: 11/04/22 17:44:59    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\user_controller.py   -   Created user - operator3.
+Timestamp: 11/04/22 17:45:07    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\user_controller.py   -   Updated user - operator34.
+Timestamp: 11/04/22 17:45:11    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\user_controller.py   -   Deleted user - operator34.
+Timestamp: 11/04/22 17:54:33    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\warehousing_controller.py   -   Moved Product - material62 to sklad03.
+Timestamp: 11/04/22 17:56:24    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\sales_controller.py   -   Created purchase - 5.
+Timestamp: 11/04/22 17:56:48    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\sales_controller.py   -   Created transaction - 6.
+Timestamp: 11/04/22 17:57:00    -    ERROR    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\model\service\modules\sales_module.py    -    ErrType: <class 'TypeError'>    -    ErrTraceback: <frame at 0x000001E9EDD02410, file 'D:\\Pitonq\\Strypes_Project_GIT\\strypes\\SWMS_3\\model\\service\\modules\\sales_module.py', line 308, code gen_inv_from_tr>    -    Generating invoice failed! You can generate invoices only for Sales!
+Timestamp: 11/04/22 17:57:13    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\sales_controller.py   -   Generated invoice - Invoice #2.
+Timestamp: 11/04/22 18:02:09    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\sales_controller.py   -   Created purchase - 7.
+Timestamp: 11/04/22 18:03:58    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\sales_controller.py   -   Deleted invoice - Invoice #2.
+Timestamp: 11/04/22 18:04:26    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 18:05:15    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 18:05:19    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 18:07:00    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 18:07:02    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 18:07:22    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 18:07:28    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 18:07:29    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 18:09:27    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 18:09:49    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 18:21:53    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 18:22:03    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 18:38:59    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 18:40:17    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 18:40:22    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 18:40:28    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 18:40:34    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 18:40:58    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 18:41:02    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 18:41:11    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 18:41:16    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 18:41:26    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 18:41:35    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 18:41:39    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 18:48:02    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 18:53:13    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 18:55:59    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 19:06:35    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 19:06:44    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 19:06:52    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 19:07:09    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 19:09:55    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 19:10:12    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 19:10:25    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 19:10:38    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 19:10:58    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 19:11:25    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 19:12:00    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 19:12:14    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 19:12:33    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 19:12:44    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 19:13:42    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 19:13:50    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 19:13:58    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 19:14:06    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 19:16:06    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 19:16:24    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 19:21:19    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 21:21:01    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 21:21:10    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.

@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca4e9214-02ca-4314-bd6f-59362601f1bb" name="Changes" comment="fixed bugs">
+    <list default="true" id="ca4e9214-02ca-4314-bd6f-59362601f1bb" name="Changes" comment="fix bugs">
+      <change afterPath="$PROJECT_DIR$/view/commands/transaction_commands/preview_transaction_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/components/transaction_preview.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controler/main_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/main_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controler/sales_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/sales_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controler/warehousing_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/warehousing_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/dao/repositories/generic_repo.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/dao/repositories/generic_repo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/data/counterparties.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/counterparties.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/data/invoices.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/invoices.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data/products.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/products.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data/transactions.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/transactions.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/users.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data/warehouses.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/warehouses.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/invoices/invoice_1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/resources/invoices/invoice_1.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/invoices/invoice_3.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/resources/invoices/invoice_3.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/components/item_form.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/item_form.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/sales_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/sales_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/invoices/invoice_2.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/resources/invoices/invoice_2.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/transactions_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/transactions_view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +60,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/view" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -336,7 +332,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649683531558</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="fix bugs">
+      <created>1649686200726</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1649686200726</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -352,7 +355,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="hw objects and generic repo { added todo }" />
     <MESSAGE value="project objects and generic repo { added some docstring }" />
     <MESSAGE value="updated warehouses/projects repositories" />
     <MESSAGE value="hw 9 done" />
@@ -377,7 +379,8 @@
     <MESSAGE value="Default invoice due_to date" />
     <MESSAGE value="Done some info logging" />
     <MESSAGE value="fixed bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bugs" />
+    <MESSAGE value="fix bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bugs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

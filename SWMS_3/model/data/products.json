@@ -84,6 +84,27 @@
         "buy_price": 8.0,
         "sell_price": 10.0,
         "quantity": 17,
+        "assigned_wh": {
+            "id": 3,
+            "name": "sklad03"
+        }
+    },
+    "11": {
+        "id": 11,
+        "name": "material6",
+        "type": "Raw Materials",
+        "buy_price": 8.5,
+        "sell_price": 11.3,
+        "quantity": 2,
+        "assigned_wh": null
+    },
+    "12": {
+        "id": 12,
+        "name": "material62",
+        "type": "Raw Materials",
+        "buy_price": 8.0,
+        "sell_price": 10.0,
+        "quantity": 2,
         "assigned_wh": null
     }
 }

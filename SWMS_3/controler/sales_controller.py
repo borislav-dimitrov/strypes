@@ -9,6 +9,7 @@ from model.entities.transaction import Transaction
 from model.service.logger import MyLogger
 from model.service.modules.sales_module import SalesModule
 from view.components.item_form import ItemForm
+from view.components.transaction_preview import TransactionPreview
 
 
 class SalesController:
@@ -332,6 +333,14 @@ class SalesController:
             messagebox.showerror("Error!", msg, parent=self.tr_view.parent)
 
     # endregion
+
+    def preview_transaction(self):
+        selection = self.tr_view.item_list.get_selected_items()
+        if len(selection) == 0:
+            messagebox.showerror("Warning!", "Please make a selection first!", parent=self.tr_view.parent)
+            return
+        transaction = self.module.find_transaction_by_id(int(selection[0][0]))
+        preview = TransactionPreview(self.tr_view.parent, transaction, self)
 
     # endregion
 
