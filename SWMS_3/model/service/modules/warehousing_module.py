@@ -89,18 +89,18 @@ class WarehousingModule:
             # region validate
             type_ = self.validate_type(type_)
             if type_ is None:
-                raise TypeError(f"Creating Product Failed! Invalid Product type!")
+                raise TypeError("Creating Product Failed! Invalid Product type!")
 
             if not isinstance(b_price, float) or b_price == 0.0:
-                raise TypeError(f"Creating Product Failed! Invalid Product buy price!")
+                raise TypeError("Creating Product Failed! Invalid Product buy price!")
 
             if not isinstance(s_price, float) or s_price == 0.0:
-                raise TypeError(f"Creating Product Failed! Invalid Product sell price!")
+                raise TypeError("Creating Product Failed! Invalid Product sell price!")
             if s_price < b_price:
-                raise TypeError(f"Creating Product Failed! Sell Price can't be lower than Buy Price!")
+                raise TypeError("Creating Product Failed! Sell Price can't be lower than Buy Price!")
 
             if not isinstance(qty, int) or qty == 0:
-                raise TypeError(f"Creating Product Failed! Invalid Product quantity!")
+                raise TypeError("Creating Product Failed! Invalid Product quantity!")
 
             if wh is not None:
                 if not isinstance(wh, Warehouse):
@@ -125,23 +125,25 @@ class WarehousingModule:
         try:
             # region validations
             if len(name) < 2:
-                raise Exception(f"Creating Warehouse Failed! Name is too short!")
+                raise Exception("Creating Warehouse Failed! Name is too short!")
+            if not self.valid_uniq_name(name):
+                raise Exception("Creating Warehouse Failed! Warehouse name already exist!")
 
             type_ = self.validate_type(type_)
             if type_ is None:
-                raise TypeError(f"Creating Warehouse Failed! Invalid Warehouse type!")
+                raise TypeError("Creating Warehouse Failed! Invalid Warehouse type!")
 
             if not isinstance(capacity, int):
-                raise TypeError(f"Creating Warehouse Failed! Invalid Warehouse capacity!")
+                raise TypeError("Creating Warehouse Failed! Invalid Warehouse capacity!")
 
             if not isinstance(products_, list):
-                raise TypeError(f"Creating Warehouse Failed! Invalid products type!")
+                raise TypeError("Creating Warehouse Failed! Invalid products type!")
             if len(products_) != 0:
-                raise TypeError(f"Creating Warehouse Failed! Only empty warehouses can be created!")
+                raise TypeError("Creating Warehouse Failed! Only empty warehouses can be created!")
 
             status = self.validate_wh_status(status)
             if status is None:
-                raise TypeError(f"Creating Warehouse Failed! Invalid Warehouse status!")
+                raise TypeError("Creating Warehouse Failed! Invalid Warehouse status!")
 
             # endregion
             wh = Warehouse(name, type_, capacity, products_, status, id_)
@@ -344,6 +346,19 @@ class WarehousingModule:
             if warehouse is wh:
                 return True
         return False
+
+    def valid_uniq_name(self, name, entity="warehouse") -> bool:
+        if entity.lower() == "warehouse":
+            all_entity = self._find_all_warehouses()
+        elif entity.lower() == "product":
+            all_entity = self._find_all_products()
+        else:
+            return False
+
+        for entity in all_entity:
+            if entity.name.lower() == name.lower():
+                return False
+        return True
 
     # endregion
 

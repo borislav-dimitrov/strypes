@@ -113,6 +113,9 @@ class SalesModule:
             # region Validations
             if not isinstance(name, str) or len(name) < 3:
                 raise TypeError("Failed creating Counterparty! Invalid name!")
+            if not self.valid_uniq_cpty_name(name):
+                raise Exception("Failed creating Counterparty! Counterparty name already exist!")
+
             if not isinstance(phone, str) or len(phone) <= 5:
                 raise TypeError("Failed creating Counterparty! Invalid phone number!")
             if not isinstance(payment_nr, str) or len(payment_nr) <= 5:
@@ -455,6 +458,14 @@ class SalesModule:
                     f"Supplier Product sell price {product[3]} can't be lower than the buy price {product[2]}!")
 
         return products
+
+    def valid_uniq_cpty_name(self, name) -> bool:
+        all_entity = self._find_all_counterparties()
+
+        for entity in all_entity:
+            if entity.name.lower() == name.lower():
+                return False
+        return True
 
     # endregion
 

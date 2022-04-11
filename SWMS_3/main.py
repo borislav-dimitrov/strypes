@@ -6,8 +6,7 @@ from view.home_view import HomeView
 from view.login import Login
 
 # TODO
-#   Counterparty and Warehouse names must be unique
-#   Implement warehouse <-> product type
+#   Implement warehouse <-> product type ?
 
 
 def main():

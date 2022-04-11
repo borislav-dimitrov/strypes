@@ -2,6 +2,8 @@ import view.utils.tkinter_utils as tkutil
 import tkinter as tk
 from tkinter import ttk
 
+from view.components.top_menu import MyMenu
+
 
 class BaseView:
     def __init__(self, m_screen, page_name, resolution: tuple, grid_rows=30, grid_cols=30, icon=None):
@@ -29,6 +31,9 @@ class BaseView:
 
         # Setup Grid
         tkutil.setup_grid(self.parent, self.cols, self.rows)
+
+        # Setup Top Menu
+        MyMenu(self.parent)
 
         # Header
         self.header = ttk.Label(self.parent, text=self.page_name, font=self.heading, anchor="center")
