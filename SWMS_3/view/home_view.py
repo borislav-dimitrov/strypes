@@ -17,8 +17,7 @@ from view.commands.home_view_commands.open_wh_management_command import OpenWhMg
 
 class HomeView(BaseView):
     def __init__(self, m_screen, page_name, controller, resolution: tuple = (1280, 728), grid_rows=30,
-                 grid_cols=30,
-                 icon=None):
+                 grid_cols=30, icon=None):
         super().__init__(m_screen, page_name, resolution, grid_rows, grid_cols, icon)
         self.controller = controller
 

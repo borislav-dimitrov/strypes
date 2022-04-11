@@ -63,6 +63,7 @@ class SalesController:
             self.counterparty_view.refresh()
             messagebox.showinfo("Info!", f"Counterparty {result.name} created successfully!",
                                 parent=self.counterparty_view.parent)
+            self.logger.log(__file__, f"Created counterparty - {result.name}.", "INFO")
         else:
             messagebox.showerror("Error!", result, parent=self.counterparty_view.parent)
 
@@ -76,6 +77,7 @@ class SalesController:
             self.counterparty_view.refresh()
             messagebox.showinfo("Info!", f"Counterparty {result.name} updated successfully!",
                                 parent=self.counterparty_view.parent)
+            self.logger.log(__file__, f"Updated counterparty - {result.name}.", "INFO")
         else:
             messagebox.showerror("Error!", result, parent=self.counterparty_view.parent)
         return result
@@ -103,6 +105,8 @@ class SalesController:
             self.counterparty_view.refresh()
             messagebox.showinfo("Info!", f"Counterparty {result.name} successfully deleted!",
                                 parent=self.counterparty_view.parent)
+            self.logger.log(__file__, f"Deleted counterparty - {result.name} and linked transactions/invoices.", "INFO")
+
         else:
             messagebox.showerror("Error!", result, parent=self.counterparty_view.parent)
 
@@ -187,6 +191,8 @@ class SalesController:
             self.sales_view.total_price_var.set(f"Total Price: "
                                                 f"{self.module.sell_calc_total_price(self.sales_view.shopping_cart_var)} BGN")
             self.sales_view.refresh()
+            self.logger.log(__file__, f"Created transaction - {result.id}.", "INFO")
+
         else:
             messagebox.showerror("Error!", result, parent=self.sales_view.parent)
 
@@ -254,6 +260,7 @@ class SalesController:
             self.pur_view.total_price_var.set(f"Total Price: "
                                               f"{self.module.sell_calc_total_price(self.pur_view.shopping_cart_var)} BGN")
             self.pur_view.refresh()
+            self.logger.log(__file__, f"Created purchase - {tr.id}.", "INFO")
         else:
             messagebox.showerror("Error!", "Transaction Failed!", parent=self.pur_view.parent)
 
@@ -286,6 +293,7 @@ class SalesController:
             self.preview_invoice()
             self.reload()
             self.tr_view.refresh()
+            self.logger.log(__file__, f"Generated invoice - Invoice #{inv.number}.", "INFO")
         else:
             messagebox.showerror("Error!", inv, parent=self.tr_view.parent)
 
@@ -300,6 +308,7 @@ class SalesController:
             messagebox.showinfo("Info!", f"Invoice #{result.number} deleted successfully!", parent=self.tr_view.parent)
             self.reload()
             self.tr_view.refresh()
+            self.logger.log(__file__, f"Deleted invoice - Invoice #{result.number}.", "INFO")
         else:
             messagebox.showerror("Error!", result, parent=self.tr_view.parent)
 

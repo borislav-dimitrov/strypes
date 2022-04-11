@@ -67,6 +67,7 @@ class WarehousingController:
             self.wh_management_view.refresh()
             messagebox.showinfo("Info!", f"Warehouse {result.name} has been created successfully!",
                                 parent=self.wh_management_view.parent)
+            self.logger.log(__file__, f"Created Warehouse - {result.name}.", "INFO")
         else:
             messagebox.showerror("Error!", result, parent=self.wh_management_view.parent)
         return result
@@ -78,6 +79,7 @@ class WarehousingController:
             self.wh_management_view.refresh()
             messagebox.showinfo("Info!", f"Warehouse {result.name} successfully updated!",
                                 parent=self.wh_management_view.parent)
+            self.logger.log(__file__, f"Updated Warehouse - {result.name}.", "INFO")
         else:
             messagebox.showerror("Error!", result, parent=self.wh_management_view.parent)
         return result
@@ -95,6 +97,7 @@ class WarehousingController:
             self.wh_management_view.refresh()
             messagebox.showinfo("Info!", f"Warehouse {result.name} successfully deleted!",
                                 parent=self.wh_management_view.parent)
+            self.logger.log(__file__, f"Deleted Warehouse - {result.name}.", "INFO")
         else:
             messagebox.showerror("Error!", result, parent=self.wh_management_view.parent)
         return result
@@ -111,6 +114,7 @@ class WarehousingController:
             self.pr_management_view.refresh()
             messagebox.showinfo("Info!", f"Product {result.name} has been created successfully!",
                                 parent=self.pr_management_view.parent)
+            self.logger.log(__file__, f"Created Product - {result.name}.", "INFO")
         else:
             messagebox.showerror("Error!", result, parent=self.pr_management_view.parent)
 
@@ -124,6 +128,7 @@ class WarehousingController:
             self.pr_management_view.refresh()
             messagebox.showinfo("Info!", f"Product {result.name} has been updated successfully!",
                                 parent=self.pr_management_view.parent)
+            self.logger.log(__file__, f"Updated Product - {result.name}.", "INFO")
         else:
             messagebox.showerror("Warning!", result, parent=self.pr_management_view.parent)
 
@@ -142,6 +147,7 @@ class WarehousingController:
             self.pr_management_view.refresh()
             messagebox.showinfo("Info!", f"Product {result.name} successfully deleted!",
                                 parent=self.pr_management_view.parent)
+            self.logger.log(__file__, f"Deleted Product - {result.name}.", "INFO")
         else:
             messagebox.showerror("Warning", result, parent=self.pr_management_view.parent)
 
@@ -160,6 +166,7 @@ class WarehousingController:
                                 parent=self.warehouses_view.parent)
             self.reload()
             self.warehouses_view.refresh()
+            self.logger.log(__file__, f"Moved Product - {result.name} to {warehouse.name}.", "INFO")
         else:
             messagebox.showerror("Error!", result, parent=self.warehouses_view.parent)
 

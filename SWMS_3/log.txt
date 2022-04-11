@@ -1,1 +1,9 @@
 Timestamp: 11/04/22 11:37:39    -    ERROR    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\model\service\modules\sales_module.py    -    ErrType: <class 'TypeError'>    -    ErrTraceback: <frame at 0x0000016461C2A8D0, file 'D:\\Strypes_Project\\strypes\\SWMS_3\\model\\service\\modules\\sales_module.py', line 304, code gen_inv_from_tr>    -    Generating invoice failed! You can generate invoices only for Sales!
+Timestamp: 11/04/22 13:28:10    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 13:29:14    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 13:29:23    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 13:29:36    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 13:29:54    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 11/04/22 14:00:40    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 11/04/22 14:00:44    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\warehousing_controller.py   -   Deleted Product - test productt.
+Timestamp: 11/04/22 14:00:47    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.

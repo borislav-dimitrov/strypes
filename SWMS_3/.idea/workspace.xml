@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca4e9214-02ca-4314-bd6f-59362601f1bb" name="Changes" comment="Changed top menu layout">
+    <list default="true" id="ca4e9214-02ca-4314-bd6f-59362601f1bb" name="Changes" comment="Default invoice due_to date">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controler/main_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/main_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controler/sales_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/sales_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controler/user_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/user_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controler/warehousing_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/warehousing_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/data/invoices.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/invoices.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/data/transactions.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/transactions.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/sales_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/sales_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/users_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/users_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/invoices/invoice_1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/resources/invoices/invoice_1.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/home_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/home_view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -306,7 +305,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649665797113</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Default invoice due_to date">
+      <created>1649667442923</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1649667442923</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -345,14 +351,15 @@
     <MESSAGE value="Documentation" />
     <MESSAGE value="Fixed some invoices bugs" />
     <MESSAGE value="Changed top menu layout" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed top menu layout" />
+    <MESSAGE value="Default invoice due_to date" />
+    <option name="LAST_COMMIT_MESSAGE" value="Default invoice due_to date" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model/service/modules/sales_module.py</url>
-          <line>452</line>
+          <line>454</line>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>

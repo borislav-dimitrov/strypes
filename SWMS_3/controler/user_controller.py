@@ -11,7 +11,7 @@ class UserController:
     def __init__(self, user_module: UserModule, logger: MyLogger):
         self.view: UserManagementView = None
         self.module = user_module
-        self._logger = logger
+        self.logger = logger
 
     # region Save/Load/Reload
 
@@ -55,6 +55,7 @@ class UserController:
             self.reload()
             self.view.refresh()
             messagebox.showinfo("Info!", f"User {result.name} has been created successfully!", parent=self.view.parent)
+            self.logger.log(__file__, f"Created user - {result.name}.", "INFO")
         else:
             messagebox.showerror("Error!", result, parent=self.view.parent)
         return result
@@ -66,6 +67,7 @@ class UserController:
             self.reload()
             self.view.refresh()
             messagebox.showinfo("Info!", f"User {result.name} has been updated successfully!", parent=self.view.parent)
+            self.logger.log(__file__, f"Updated user - {result.name}.", "INFO")
         else:
             messagebox.showerror("Error!", result, parent=self.view.parent)
         return result
@@ -83,6 +85,7 @@ class UserController:
             self.reload()
             self.view.refresh()
             messagebox.showinfo("Info!", f"User {result.name} successfully deleted!", parent=self.view.parent)
+            self.logger.log(__file__, f"Deleted user - {result.name}.", "INFO")
         else:
             messagebox.showerror("Error!", result, parent=self.view.parent)
         return result

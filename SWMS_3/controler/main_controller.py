@@ -92,6 +92,8 @@ class MainController:
 
     def before_exit(self):
         """Execute before exit"""
+        if self.logged_user is not None:
+            self.logger.log(__file__, f"User {self.logged_user.name} has logged out.", "INFO")
         self.user_controller.save()
         self.warehousing_controller.save_all()
         self.sales_controller.save_all()
@@ -108,11 +110,13 @@ class MainController:
 
         if login_state:
             self.logged_user = user
+            self.logger.log(__file__, f"User {self.logged_user.name} has logged in.", "INFO")
             self.view.parent.destroy()
         else:
             messagebox.showerror("Warning!", msg)
 
     def logout(self):
+        self.logger.log(__file__, f"User {self.logged_user.name} has logged out.", "INFO")
         self.logging_out = True
         self.logged_user = None
         self.view.parent.destroy()
