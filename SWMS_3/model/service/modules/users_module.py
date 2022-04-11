@@ -158,12 +158,17 @@ class UserModule:
 
     def load(self):
         """Load and create User Objects from file"""
-        loaded = self._usr_repo.load("./model/data/users.json")
-        if loaded is not None:
-            for item in loaded:
-                id_, name, pwd, type_, status, last_login = loaded[item].values()
-                new = User(name, pwd.encode("utf-8"), type_, status, last_login, id_)
-                self._usr_repo.create(new)
+        try:
+            loaded = self._usr_repo.load("./model/data/users.json")
+            if loaded is not None:
+                for item in loaded:
+                    id_, name, pwd, type_, status, last_login = loaded[item].values()
+                    new = User(name, pwd.encode("utf-8"), type_, status, last_login, id_)
+                    self._usr_repo.create(new)
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            self._logger.log(__file__, str(ex), "Critical", type(ex), tb)
+            raise ex
 
     # endregion
 

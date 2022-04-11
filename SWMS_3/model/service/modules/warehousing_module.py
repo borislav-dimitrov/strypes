@@ -422,21 +422,31 @@ class WarehousingModule:
 
     def load_products(self):
         """Load and create the Product Objects from file"""
-        loaded = self._pr_repo.load("./model/data/products.json")
-        if loaded is not None:
-            for item in loaded:
-                id_, name, type_, b_price, s_price, qty, wh = loaded[item].values()
-                new = Product(name, type_, b_price, s_price, qty, wh, id_)
-                self._pr_repo.create(new)
+        try:
+            loaded = self._pr_repo.load("./model/data/products.json")
+            if loaded is not None:
+                for item in loaded:
+                    id_, name, type_, b_price, s_price, qty, wh = loaded[item].values()
+                    new = Product(name, type_, b_price, s_price, qty, wh, id_)
+                    self._pr_repo.create(new)
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            self._logger.log(__file__, str(ex), "Critical", type(ex), tb)
+            raise ex
 
     def load_warehouses(self):
         """Load and create the Warehouse Objects from file"""
-        loaded = self._pr_repo.load("./model/data/warehouses.json")
-        if loaded is not None:
-            for item in loaded:
-                id_, name, type_, capacity, products, status = loaded[item].values()
-                new = Warehouse(name, type_, capacity, [], status, id_)
-                self._wh_repo.create(new)
+        try:
+            loaded = self._pr_repo.load("./model/data/warehouses.json")
+            if loaded is not None:
+                for item in loaded:
+                    id_, name, type_, capacity, products, status = loaded[item].values()
+                    new = Warehouse(name, type_, capacity, [], status, id_)
+                    self._wh_repo.create(new)
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            self._logger.log(__file__, str(ex), "Critical", type(ex), tb)
+            raise ex
 
     def load_all(self):
         """Load all Entities in the Warehousing Module and create the relations between them"""

@@ -10,6 +10,7 @@ from model.entities.invoices import Invoice
 from model.entities.dto.tmp_product import TempProduct
 from model.entities.transaction import Transaction
 from datetime import datetime
+import datetime as dt
 
 
 class SalesModule:
@@ -288,14 +289,17 @@ class SalesModule:
 
             invoicer = self.find_counterparty_by_attr("type", "MyCo")[0]
             now = datetime.now()
-            now = now.strftime("%m/%d/%Y %H:%M:%S")
-            # TODO default due_to date
-            due_to_date = ""
+            now_str = now.strftime("%m/%d/%Y %H:%M:%S")
+
+            # Default due to date
+            due_to_date = now + dt.timedelta(days=15)
+            due_to_date = due_to_date.strftime("%m/%d/%Y %H:%M:%S")
+
             descr = ""
             terms = ""
             status = "Pending"
             new_inv = Invoice(self._inv_repo.gen_inv_num(), invoicer, transaction.counterparty,
-                              now, due_to_date, transaction.assets, transaction.price, descr, terms, status)
+                              now_str, due_to_date, transaction.assets, transaction.price, descr, terms, status)
             new_inv = self._inv_repo.create(new_inv)
             transaction.invoice = new_inv
             return new_inv
@@ -599,34 +603,49 @@ class SalesModule:
     # region Save/Load
     def load_counterparties(self):
         """Load and create all Counterparties from the file"""
-        loaded = self._cpty_repo.load("./model/data/counterparties.json")
-        if loaded is not None:
-            for item in loaded:
-                id_, name, phone, payment_nr, status, type_, descr = loaded[item].values()
-                new = Counterparty(name, phone, payment_nr, status, type_, descr, id_)
-                self._cpty_repo.create(new)
+        try:
+            loaded = self._cpty_repo.load("./model/data/counterparties.json")
+            if loaded is not None:
+                for item in loaded:
+                    id_, name, phone, payment_nr, status, type_, descr = loaded[item].values()
+                    new = Counterparty(name, phone, payment_nr, status, type_, descr, id_)
+                    self._cpty_repo.create(new)
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            self._logger.log(__file__, str(ex), "Critical", type(ex), tb)
+            raise ex
 
     def load_transactions(self):
         """Load and create all Transactions from the file"""
-        loaded = self._tr_repo.load("./model/data/transactions.json")
-        if loaded is not None:
-            for item in loaded:
-                id_, type_, date, cpty, assets, price, invoice = loaded[item].values()
-                new_assets = []
-                for product in assets:
-                    tmp = TempProduct(product["name"], product["type"], product["price"], product["quantity"])
-                    new_assets.append(tmp)
-                new = Transaction(type_, date, cpty, new_assets, invoice, id_)
-                self._tr_repo.create(new)
+        try:
+            loaded = self._tr_repo.load("./model/data/transactions.json")
+            if loaded is not None:
+                for item in loaded:
+                    id_, type_, date, cpty, assets, price, invoice = loaded[item].values()
+                    new_assets = []
+                    for product in assets:
+                        tmp = TempProduct(product["name"], product["type"], product["price"], product["quantity"])
+                        new_assets.append(tmp)
+                    new = Transaction(type_, date, cpty, new_assets, invoice, id_)
+                    self._tr_repo.create(new)
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            self._logger.log(__file__, str(ex), "Critical", type(ex), tb)
+            raise ex
 
     def load_invoices(self):
         """Load and create all Invoices from the file"""
-        loaded = self._inv_repo.load("./model/data/invoices.json")
-        if loaded is not None:
-            for item in loaded:
-                id_, num, from_, to, date, due_to, assets, price, descr, terms, status = loaded[item].values()
-                new = Invoice(num, from_, to, date, due_to, assets, price, descr, terms, status, id_)
-                self._inv_repo.create(new)
+        try:
+            loaded = self._inv_repo.load("./model/data/invoices.json")
+            if loaded is not None:
+                for item in loaded:
+                    id_, num, from_, to, date, due_to, assets, price, descr, terms, status = loaded[item].values()
+                    new = Invoice(num, from_, to, date, due_to, assets, price, descr, terms, status, id_)
+                    self._inv_repo.create(new)
+        except Exception as ex:
+            tb = sys.exc_info()[2].tb_frame
+            self._logger.log(__file__, str(ex), "Critical", type(ex), tb)
+            raise ex
 
     def load_all(self):
         """Load all Entities for the SalesModule from the files and make the relations between them"""
