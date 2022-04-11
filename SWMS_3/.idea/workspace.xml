@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca4e9214-02ca-4314-bd6f-59362601f1bb" name="Changes" comment="Implemented basic counterparty management / refactoring controllers">
-      <change afterPath="$PROJECT_DIR$/view/components/top_menu.py" afterDir="false" />
+    <list default="true" id="ca4e9214-02ca-4314-bd6f-59362601f1bb" name="Changes" comment="Done top menu">
+      <change afterPath="$PROJECT_DIR$/Documentation.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/sales_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/sales_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/warehousing_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/base_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/base_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/components/top_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/top_menu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -270,7 +266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649613799722</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Done top menu">
+      <created>1649658994282</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1649658994282</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -306,7 +309,8 @@
     <MESSAGE value="Working on warehousing view" />
     <MESSAGE value="done basic sales" />
     <MESSAGE value="done basic purchases" />
-    <option name="LAST_COMMIT_MESSAGE" value="done basic purchases" />
+    <MESSAGE value="Done top menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Done top menu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

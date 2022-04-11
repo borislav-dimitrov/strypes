@@ -156,30 +156,8 @@ DEFAULT_LOG_FILE = "{log_file}" """
         root.geometry(f"{ww}x{wh}")
         root.attributes("-topmost", True)
         root.title("About..")
-        info_text = """
-        Simple Warehouse Management System (SWMS) is a software application 
-        to support and optimize warehouse functionality. 
-        The system will be developed as a MVC using Tkinter as front-end, 
-        and JSON file persistence technologies. 
-
-        Menus:
-        1.1.	 Home 
-                    Presents some information about the program and buttons to access
-                    the other views.
-        1.2.	 Manage Users, Warehouses, Products, Suppliers, Clients
-                    Provides ability to create/modify/delete users, warehouses, products,
-                    suppliers, clients.
-        1.3.	 View and Manage Warehouse
-                    Presents warehouses stocks and give the ability to manage them.
-        1.4.	 Purchases
-                    Provides ability to purchase new products from suppliers.
-        1.5.	 Sales
-                    Provides ability to sell products to clients.
-        1.6.	 Transactions
-                    Presents existing transactions (purchases & sales) history.
-                    Generate Invoice for desired transaction.
-
-        """
+        with open("./Documentation.txt", "rt", encoding="utf-8") as file:
+            info_text = file.readlines()
 
         y_scroll = tk.Scrollbar(root, orient="vertical")
         y_scroll.pack(side="right", fill="y")
@@ -193,7 +171,7 @@ DEFAULT_LOG_FILE = "{log_file}" """
         textarea = tk.Text(frame, background="lightgray", font=self.heading, height=wh, wrap="none",
                            yscrollcommand=y_scroll.set, xscrollcommand=x_scroll.set)
         textarea.pack(side="top", fill="both")
-        textarea.insert("end", info_text)
+        textarea.insert("end", "".join(info_text))
         textarea.config(state="disabled")
 
         y_scroll.config(command=textarea.yview)

@@ -1,0 +1,25 @@
+Simple Warehouse Management System (SWMS) is a software application to support and optimize warehouse functionality.
+The system will be developed as an MVC using Tkinter as front-end, and JSON file persistence technologies.
+
+    Packages used:
+        1. Cryptography:
+            Used for user's encryption
+
+        2. FPDF:
+            Used for generating Invoice previews
+
+    Menus:
+        1.	 Home:
+                Presents some information about the program and buttons to access
+                the other views.
+        2.	 Manage Users, Warehouses, Products, Counterparties:
+                Provides ability to create/modify/delete users, warehouses, products and counterparties.
+        3.	 Warehouses View:
+                Presents warehouses stocks and give the ability to manage them.
+        4.	 Purchases:
+                Provides ability to purchase new products from suppliers.
+        5.	 Sales:
+                Provides ability to sell products to clients.
+        6.	 Transactions:
+                Presents existing transactions (purchases & sales) history.
+                Generate/Preview/Delete Invoice for desired transaction.
