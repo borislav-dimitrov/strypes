@@ -4,4 +4,4 @@ class GenWhProductsTreeViewCommand:
         self.view = view
 
     def __call__(self, *args, **kwargs):
-        self.controller.generate_treeview_for_wh_products(self.view)
+        self.controller.refresh_products_treeview_vars(self.view)

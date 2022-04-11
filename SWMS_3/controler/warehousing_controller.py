@@ -166,7 +166,10 @@ class WarehousingController:
                                 parent=self.warehouses_view.parent)
             self.reload()
             self.warehouses_view.refresh()
-            self.logger.log(__file__, f"Moved Product - {result.name} to {warehouse.name}.", "INFO")
+            if warehouse is None:
+                self.logger.log(__file__, f"Moved Product - {product.name} to None.", "INFO")
+            else:
+                self.logger.log(__file__, f"Moved Product - {product.name} to {warehouse.name}.", "INFO")
         else:
             messagebox.showerror("Error!", result, parent=self.warehouses_view.parent)
 
@@ -197,7 +200,10 @@ class WarehousingController:
         warehouse = self.module.find_wh_by_id(wh_id)
         form = ItemForm(self.wh_management_view.parent, warehouse, self, "Update Warehouse", height=250, edit=True)
 
-    def generate_treeview_for_wh_products(self, view):
+    def filtered_warehouses(self, warehouse: Warehouse):
+        return self.module.get_filtered_warehouses(warehouse)
+
+    def refresh_products_treeview_vars(self, view):
         warehouse = view.warehouses_var.get().split(",")[0]
         if warehouse == "None":
             warehouse = None
@@ -206,13 +212,10 @@ class WarehousingController:
 
         products = self.module.find_all_products_in_warehouse(warehouse)
         if isinstance(products, Exception):
-            messagebox.showerror("Error!", products)
+            messagebox.showerror("Error!", products, parent=view.parent)
         if products is not None:
             view.treeview_var = products
-            view.refresh()
-
-    def filtered_warehouses(self, warehouse: Warehouse):
-        return self.module.get_filtered_warehouses(warehouse)
+            view.treeview.set_items(self.warehouses_view.treeview_var)
 
     # endregion
 

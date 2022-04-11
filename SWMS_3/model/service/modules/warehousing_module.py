@@ -474,13 +474,13 @@ class WarehousingModule:
         return self.create_product(name, type_, b_price, s_price, qty, warehouse)
 
     def update_product_from_view(self, name, type_, b_price, s_price, qty, warehouse, id_):
-        if warehouse != "None":
+        if warehouse == "":
+            warehouse = None
+        elif warehouse != "None":
             warehouse = self.find_wh_by_attribute("name", warehouse, exact_val=False)
             if warehouse is None:
                 return Exception("Warehouse not found!")
             warehouse = warehouse[0]
-        elif warehouse == "":
-            warehouse = None
         else:
             warehouse = None
 

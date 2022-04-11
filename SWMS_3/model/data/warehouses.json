@@ -61,42 +61,6 @@
                     "id": 2,
                     "name": "sklad02"
                 }
-            },
-            {
-                "id": 5,
-                "name": "Purple Paint",
-                "type": "Raw Materials",
-                "buy_price": 10.0,
-                "sell_price": 12.0,
-                "quantity": 100,
-                "assigned_wh": {
-                    "id": 2,
-                    "name": "sklad02"
-                }
-            },
-            {
-                "id": 6,
-                "name": "material2",
-                "type": "Raw Materials",
-                "buy_price": 10.0,
-                "sell_price": 12.0,
-                "quantity": 300,
-                "assigned_wh": {
-                    "id": 2,
-                    "name": "sklad02"
-                }
-            },
-            {
-                "id": 9,
-                "name": "bqla boq",
-                "type": "Finished Goods",
-                "buy_price": 5.0,
-                "sell_price": 7.5,
-                "quantity": 25,
-                "assigned_wh": {
-                    "id": 2,
-                    "name": "sklad02"
-                }
             }
         ],
         "status": "Enabled"
@@ -108,12 +72,48 @@
         "capacity": 10000,
         "products": [
             {
+                "id": 5,
+                "name": "Purple Paint",
+                "type": "Raw Materials",
+                "buy_price": 10.0,
+                "sell_price": 12.0,
+                "quantity": 100,
+                "assigned_wh": {
+                    "id": 3,
+                    "name": "sklad03"
+                }
+            },
+            {
+                "id": 6,
+                "name": "material2",
+                "type": "Raw Materials",
+                "buy_price": 10.0,
+                "sell_price": 12.0,
+                "quantity": 300,
+                "assigned_wh": {
+                    "id": 3,
+                    "name": "sklad03"
+                }
+            },
+            {
                 "id": 8,
                 "name": "material4",
                 "type": "Finished Goods",
                 "buy_price": 10.0,
                 "sell_price": 12.0,
                 "quantity": 300,
+                "assigned_wh": {
+                    "id": 3,
+                    "name": "sklad03"
+                }
+            },
+            {
+                "id": 10,
+                "name": "material6",
+                "type": "Raw Materials",
+                "buy_price": 8.0,
+                "sell_price": 10.0,
+                "quantity": 3,
                 "assigned_wh": {
                     "id": 3,
                     "name": "sklad03"

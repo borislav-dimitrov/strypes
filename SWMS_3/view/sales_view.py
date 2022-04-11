@@ -33,7 +33,7 @@ class SalesView(BaseView):
         self.warehouses_var = tk.StringVar()
         self.warehouses_var.set(self.warehouses_list[0])
         self.warehouses_dropdown = tk.OptionMenu(self.parent, self.warehouses_var, *self.warehouses_list,
-                                                 command=GenWhProductsTreeViewCommand(self.controller, self))
+                                                 command=GenWhProductsTreeViewCommand(self.controller.wh_controller, self))
         self.warehouses_dropdown.grid(row=9, column=5, columnspan=3, sticky="we")
 
         # Sellable Products Treeview

@@ -58,8 +58,7 @@ class UserModule:
             return self._usr_repo.create(user)
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     def update(self, user, uname, pwd, role, status, last_login) -> User | Exception:
@@ -101,8 +100,7 @@ class UserModule:
             return user
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     def delete_by_id(self, id_) -> User | Exception:
@@ -110,8 +108,7 @@ class UserModule:
             return self._usr_repo.delete_by_id(id_)
         except Exception as ex:
             tb = sys.exc_info()[2].tb_frame
-            msg = "Something went wrong!"
-            self._logger.log(__file__, msg, "ERROR", type(ex), tb)
+            self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
     # endregion
@@ -177,4 +174,6 @@ class UserModule:
         user_to_del = self.find_by_id(usr_id)
         if curr_user is user_to_del:
             return Exception(f"You can't delete the current user!")
+
+        return self.delete_by_id(usr_id)
     # endregion

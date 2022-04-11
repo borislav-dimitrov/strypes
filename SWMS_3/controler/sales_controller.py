@@ -115,7 +115,7 @@ class SalesController:
     # region VIEW
 
     def generate_treeview_for_wh_products(self, view):
-        return self.wh_controller.generate_treeview_for_wh_products(view)
+        return self.wh_controller.gen_products_treeview_vars(view)
 
     def warehouses_for_dropdown(self):
         return self.wh_controller.warehouses_for_dropdown
@@ -303,6 +303,10 @@ class SalesController:
             messagebox.showerror("Error!", "Make a selection first!", parent=self.tr_view.parent)
             return
         transaction = self.module.find_transaction_by_id(int(selection[0][0]))
+        if transaction.invoice is None:
+            messagebox.showerror("Error!", f"Transaction has no invoice!", parent=self.tr_view.parent)
+            return
+
         result = self.module.del_inv_by_transaction(transaction)
         if isinstance(result, Invoice):
             messagebox.showinfo("Info!", f"Invoice #{result.number} deleted successfully!", parent=self.tr_view.parent)

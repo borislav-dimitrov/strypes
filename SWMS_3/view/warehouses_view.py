@@ -41,5 +41,4 @@ class WarehousesView(BaseView):
         self.parent.protocol("WM_DELETE_WINDOW", CloseWarehousesCommand(self.controller))
 
     def refresh(self):
-        GenWhProductsTreeViewCommand(self.controller, self)
-        self.treeview.set_items(self.treeview_var)
+        self.controller.refresh_products_treeview_vars(self)

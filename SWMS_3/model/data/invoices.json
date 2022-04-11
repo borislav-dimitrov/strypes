@@ -34,5 +34,47 @@
         "description": "",
         "terms": "",
         "status": "Pending"
+    },
+    "2": {
+        "id": 2,
+        "number": 2,
+        "from": {
+            "id": 1,
+            "name": "My Company",
+            "phone": "+35988215743",
+            "payment_nr": "BG222222",
+            "status": "Enabled",
+            "type": "MyCo",
+            "description": "current user company"
+        },
+        "to": {
+            "id": 4,
+            "name": "Firm3",
+            "phone": "+35988215743",
+            "payment_nr": "BG123456",
+            "status": "Enabled",
+            "type": "Client",
+            "description": ""
+        },
+        "date": "04/11/2022 16:24:55",
+        "due_to": "04/26/2022 16:24:55",
+        "assets": [
+            {
+                "name": "material3",
+                "type": "Finished Goods",
+                "price": 12.0,
+                "quantity": 33
+            },
+            {
+                "name": "bqla boq",
+                "type": "Finished Goods",
+                "price": 7.5,
+                "quantity": 21
+            }
+        ],
+        "price": 553.5,
+        "description": "",
+        "terms": "",
+        "status": "Pending"
     }
 }
