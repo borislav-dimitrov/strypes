@@ -49,8 +49,9 @@ class UserController:
     # endregion
 
     # region CRUD
-    def create_user(self, uname, pwd, role, status, last_login=""):
-        result = self.module.create(uname, pwd, role, status, last_login)
+    def create_user(self, uname, pwd, role, status, last_login):
+        # We don't modify login history manually from view
+        result = self.module.create(uname, pwd, role, status, "")
         if isinstance(result, User):
             self.reload()
             self.view.refresh()
@@ -62,7 +63,7 @@ class UserController:
 
     def update_user(self, uname, pwd, role, status, last_login, id_):
         user = self.module.find_by_id(int(id_))
-        result = self.module.update(user, uname, pwd, role, status, last_login)
+        result = self.module.update(user, uname, pwd, role, status, None)
         if isinstance(result, User):
             self.reload()
             self.view.refresh()

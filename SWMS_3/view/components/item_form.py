@@ -30,6 +30,8 @@ class ItemForm(tk.Toplevel):
         self.entries = []
 
         self.columns = tuple(self.item.__dict__.keys())
+        if isinstance(self.item, User):
+            self.columns = self.columns[:-1]
 
         for i, col in enumerate(self.columns):
             if isinstance(self.item, Warehouse) and col == "products":  # Don't include products field for warehouses
@@ -97,9 +99,14 @@ class ItemForm(tk.Toplevel):
         self.frame.columnconfigure(0, weight=1, minsize=DEFAULT_ENTRY_WIDTH_PX)
         self.frame.columnconfigure(1, weight=1, minsize=DEFAULT_ENTRY_WIDTH_PX)
 
+        if isinstance(self.item, Counterparty):
+            lbl = ttk.Label(self.frame, anchor="center",
+                            text="\nIf Counterparty is Supplier, description must be:\n"
+                                 "product_name, product_type, b_price, s_price (products separator ' | ' )")
+            lbl.grid(column=0, row=len(self.columns), columnspan=2, sticky="swe")
         # add buttons
         buttons_frame = ttk.Frame(self.frame, padding="20 10 20 10")
-        buttons_frame.grid(column=0, row=len(self.columns), columnspan=2, sticky="nsew")
+        buttons_frame.grid(column=0, row=len(self.columns) + 1, columnspan=2, sticky="nsew")
 
         self.add_button = ttk.Button(buttons_frame, text="Submit", padding=10, command=self.submit)
         self.add_button.grid(column=1, row=0, sticky="ne", padx=40, pady=20)

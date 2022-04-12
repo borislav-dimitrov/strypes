@@ -4,15 +4,15 @@ import view.utils.tkinter_utils as tkutil
 
 
 class MoveProductForm(tk.Toplevel):
-    def __init__(self, parent, controller, chosen_product, current_warehouse, width=600, height=400):
+    def __init__(self, parent, controller, chosen_products: list, current_warehouse, width=600, height=400):
         super().__init__(parent)
         self.parent = parent
         self.controller = controller
-        self.chosen_product = chosen_product
+        self.chosen_products = chosen_products
         self.current_wh = current_warehouse
 
         self.frame = ttk.Frame(self, padding="30 30 30 30")
-        self.title(f"Move Product {self.chosen_product.name}")
+        self.title(f"Move Products")
         self.frame.grid(row=0, column=0, sticky="nsew")
         tkutil.center_window(self, width, height)
         tkutil.setup_grid(self, 6, 3)
@@ -45,6 +45,8 @@ class MoveProductForm(tk.Toplevel):
         self.destroy()
 
     def move(self):
-        result = self.controller.move_product(self.chosen_product, self.move_to_var)
-        if result == "Ok":
-            self.dismiss()
+        if len(self.chosen_products) > 0:
+            result = self.controller.move_product(self.chosen_products, self.move_to_var)
+
+            if result == "Ok":
+                self.dismiss()

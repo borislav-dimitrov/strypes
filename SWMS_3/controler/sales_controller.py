@@ -137,7 +137,7 @@ class SalesController:
         counterparty_id = int(selected[0][0])
         counterparty = self.module.find_counterparty_by_id(counterparty_id)
 
-        form = ItemForm(self.counterparty_view.parent, counterparty, self, "Update Counterparty", height=250, edit=True)
+        form = ItemForm(self.counterparty_view.parent, counterparty, self, "Update Counterparty", height=350, edit=True)
 
     # region SALES
 

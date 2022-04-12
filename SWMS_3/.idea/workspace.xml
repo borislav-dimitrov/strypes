@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca4e9214-02ca-4314-bd6f-59362601f1bb" name="Changes" comment="fix bugs">
-      <change afterPath="$PROJECT_DIR$/view/commands/transaction_commands/preview_transaction_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/components/transaction_preview.py" afterDir="false" />
+    <list default="true" id="2501d1a3-f0ed-4ef8-949f-02cb49c9dc05" name="Changes" comment="Changes on top menu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controler/main_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/main_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controler/sales_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/sales_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controler/user_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/user_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controler/warehousing_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controler/warehousing_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data/products.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/products.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/data/transactions.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/transactions.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/users.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data/warehouses.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/warehouses.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/invoices/invoice_2.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/resources/invoices/invoice_2.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/transactions_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/transactions_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/service/modules/users_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/service/modules/users_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/components/item_form.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/item_form.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/components/move_product_form.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/move_product_form.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -392,7 +391,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/controler/user_controller.py</url>
-          <line>81</line>
+          <line>82</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -407,13 +406,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/controler/warehousing_controller.py</url>
-          <line>216</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/controler/warehousing_controller.py</url>
-          <line>212</line>
-          <option name="timeStamp" value="46" />
+          <line>268</line>
+          <option name="timeStamp" value="48" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

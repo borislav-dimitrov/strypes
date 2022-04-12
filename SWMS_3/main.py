@@ -7,9 +7,7 @@ from view.login import Login
 
 
 # TODO
-#   transaction preview!
-#   remove last login from user creation/update
-#   move multiple products to wh
+#   ?
 
 
 def main():

@@ -153,23 +153,34 @@ class WarehousingController:
 
         return result
 
-    def move_product(self, product, move_to):
+    def move_product(self, products: list, move_to):
         if move_to.get() == "None":
             warehouse = None
         else:
             warehouse = self.module.find_wh_by_id(int(move_to.get().split(",")[0][1:].strip()))
 
-        result = self.module.product_change_wh(product, warehouse)
+        if len(products) == 1:
+            result = self.module.product_change_wh(products[0], warehouse)
+            if warehouse is None:
+                self.logger.log(__file__, f"Moved Product - {products[0].name} to None.", "INFO")
+            else:
+                self.logger.log(__file__, f"Moved Product - {products[0].name} to {warehouse.name}.", "INFO")
+        else:
+            results = []
+            for product in products:
+                result = self.module.product_change_wh(product, warehouse)
+                if warehouse is None:
+                    self.logger.log(__file__, f"Moved Product - {product.name} to None.", "INFO")
+                else:
+                    self.logger.log(__file__, f"Moved Product - {product.name} to {warehouse.name}.", "INFO")
+            if all(results) == "Ok":
+                result = "Ok"
 
         if result == "Ok":
-            messagebox.showinfo("Info!", f"Product {product.name} moved successfully!",
+            messagebox.showinfo("Info!", f"Products moved successfully!",
                                 parent=self.warehouses_view.parent)
             self.reload()
             self.warehouses_view.refresh()
-            if warehouse is None:
-                self.logger.log(__file__, f"Moved Product - {product.name} to None.", "INFO")
-            else:
-                self.logger.log(__file__, f"Moved Product - {product.name} to {warehouse.name}.", "INFO")
         else:
             messagebox.showerror("Error!", result, parent=self.warehouses_view.parent)
 
@@ -216,6 +227,9 @@ class WarehousingController:
         if products is not None:
             view.treeview_var = products
             view.treeview.set_items(view.treeview_var)
+        else:
+            view.treeview_var = [Product("None", "None", 0.0, 0.0, 0, None)]
+            view.treeview.set_items(view.treeview_var)
 
     # endregion
 
@@ -244,9 +258,15 @@ class WarehousingController:
         if len(selected) < 1:
             messagebox.showerror("Warning!", "Please make a selection first!", parent=self.warehouses_view.parent)
             return
+        elif len(selected) == 1:
+            MoveProductForm(self.warehouses_view.parent, self,
+                            [self.module.find_product_by_id(int(selected[0][0]))], selected_wh)
+        elif len(selected) > 1:
+            products = []
+            for item in selected:
+                products.append(self.module.find_product_by_id(int(item[0])))
 
-        MoveProductForm(self.warehouses_view.parent, self,
-                        self.module.find_product_by_id(int(selected[0][0])), selected_wh)
+            MoveProductForm(self.warehouses_view.parent, self, products, selected_wh)
 
     # endregion
 

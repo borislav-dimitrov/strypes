@@ -61,7 +61,7 @@ class UserModule:
             self._logger.log(__file__, str(ex), "ERROR", type(ex), tb)
             return ex
 
-    def update(self, user, uname, pwd, role, status, last_login) -> User | Exception:
+    def update(self, user, uname, pwd, role, status, last_login=None) -> User | Exception:
         """Update existing User in the Repository with new one"""
         try:
             # region Validations
@@ -95,7 +95,8 @@ class UserModule:
             user.password = pwd
             user.type = role_
             user.status = status_
-            user.last_login = last_login
+            if last_login is not None:
+                user.last_login = last_login
 
             return user
         except Exception as ex:
