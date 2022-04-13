@@ -3,6 +3,8 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog as fd
 from tkinter import messagebox
+import view.utils.tkinter_utils as tkutil
+
 
 class MyMenu:
     def __init__(self, parent):
@@ -30,8 +32,8 @@ class MyMenu:
         ww = 640
         wh = 640
         items_padding = 10
-        self.options_root.geometry(f"{ww}x{wh}")
-        self.options_root.attributes("-topmost", True)
+        tkutil.center_window(self.options_root, ww, wh)
+
         self.options_root.title("Options")
 
         frame1 = tk.Frame(self.options_root, borderwidth=3, height=wh / 5)
@@ -98,10 +100,16 @@ class MyMenu:
         chosen_file_path.pack(side="right", fill="x", expand=True, padx=20, pady=items_padding)
 
         self.options_root.update()
-        # endregion
 
         save_btn = ttk.Button(self.options_root, text="Save", command=lambda: self._save())
         save_btn.pack(side="top", fill="none", expand=True)
+
+        # modal - capture visibility
+        self.options_root.protocol("WM_DELETE_WINDOW", self.dismiss_options)
+        self.options_root.transient(self.parent)
+        self.options_root.wait_visibility()
+        self.options_root.grab_set()
+        self.options_root.wait_window()
 
         self.options_root.mainloop()
 
@@ -148,21 +156,20 @@ DEFAULT_LOG_FILE = "{log_file}" """
 
     # region HELP
     def _help(self):
-        root = tk.Toplevel(self.parent)
+        self.help_root = tk.Toplevel(self.parent)
         ww = 840
         wh = 640
-        root.geometry(f"{ww}x{wh}")
-        root.attributes("-topmost", True)
-        root.title("About..")
+        tkutil.center_window(self.help_root, ww, wh)
+        self.help_root.title("About..")
         with open("./docs/Documentation.txt", "rt", encoding="utf-8") as file:
             info_text = file.readlines()
 
-        y_scroll = tk.Scrollbar(root, orient="vertical")
+        y_scroll = tk.Scrollbar(self.help_root, orient="vertical")
         y_scroll.pack(side="right", fill="y")
-        x_scroll = tk.Scrollbar(root, orient="horizontal")
+        x_scroll = tk.Scrollbar(self.help_root, orient="horizontal")
         x_scroll.pack(side="bottom", fill="x")
 
-        frame = ttk.Frame(root, height=wh)
+        frame = ttk.Frame(self.help_root, height=wh)
         frame.pack(side="top", fill="both")
 
         # label = ctk.CTkEntry(frame, text=info_text, text_color=self.MAIN_COLOR, text_font=self.text_bold)
@@ -175,6 +182,21 @@ DEFAULT_LOG_FILE = "{log_file}" """
         y_scroll.config(command=textarea.yview)
         x_scroll.config(command=textarea.xview)
 
-        root.mainloop()
+        # # modal - capture visibility
+        self.help_root.protocol("WM_DELETE_WINDOW", self.dismiss_help)
+        self.help_root.transient(self.parent)
+        self.help_root.wait_visibility()
+        self.help_root.grab_set()
+        self.help_root.wait_window()
+
+        self.help_root.mainloop()
 
     # endregion
+
+    def dismiss_options(self):
+        self.options_root.grab_release()
+        self.options_root.destroy()
+
+    def dismiss_help(self):
+        self.help_root.grab_release()
+        self.help_root.destroy()

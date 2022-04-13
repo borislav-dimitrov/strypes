@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2501d1a3-f0ed-4ef8-949f-02cb49c9dc05" name="Changes" comment="testing out logger settings">
+    <list default="true" id="2501d1a3-f0ed-4ef8-949f-02cb49c9dc05" name="Changes" comment="Changed logout logic from recursive to loop">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/users.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/components/top_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/top_menu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -337,7 +337,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649848407145</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Changed logout logic from recursive to loop">
+      <created>1649848614715</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1649848614715</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -353,7 +360,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="updated warehouses/projects repositories" />
     <MESSAGE value="hw 9 done" />
     <MESSAGE value="dao/entities reworked" />
     <MESSAGE value="done users module in service layer" />
@@ -378,7 +384,8 @@
     <MESSAGE value="fixed bugs" />
     <MESSAGE value="fix bugs" />
     <MESSAGE value="testing out logger settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="testing out logger settings" />
+    <MESSAGE value="Changed logout logic from recursive to loop" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed logout logic from recursive to loop" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
