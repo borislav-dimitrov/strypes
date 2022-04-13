@@ -254,3 +254,11 @@ Timestamp: 12/04/22 08:23:06    -    INFO    -    Logged from: D:\Strypes_Projec
 Timestamp: 12/04/22 08:23:16    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
 Timestamp: 12/04/22 08:23:25    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
 Timestamp: 12/04/22 08:23:52    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 13/04/22 14:08:20    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 13/04/22 14:09:22    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\warehousing_controller.py   -   Moved Product - material4 to None.
+Timestamp: 13/04/22 14:09:22    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\warehousing_controller.py   -   Moved Product - material62 to None.
+Timestamp: 13/04/22 14:10:24    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 13/04/22 14:10:42    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 13/04/22 14:10:49    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 13/04/22 14:11:42    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 13/04/22 14:11:55    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.

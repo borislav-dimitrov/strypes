@@ -63,10 +63,7 @@
         "buy_price": 10.0,
         "sell_price": 12.0,
         "quantity": 290,
-        "assigned_wh": {
-            "id": 3,
-            "name": "sklad03"
-        }
+        "assigned_wh": null
     },
     "9": {
         "id": 9,
@@ -87,10 +84,7 @@
         "buy_price": 8.0,
         "sell_price": 10.0,
         "quantity": 17,
-        "assigned_wh": {
-            "id": 3,
-            "name": "sklad03"
-        }
+        "assigned_wh": null
     },
     "11": {
         "id": 11,

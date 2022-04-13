@@ -9,5 +9,5 @@
 #          CRITICAL -> Highest level. Blockers which fails your whole program. 
 LOG_ENABLED = True
 REWRITE_LOG_ON_STARTUP = False
-LOG_LEVEL = "INFO"
+LOG_LEVEL = "DEBUG"
 DEFAULT_LOG_FILE = "log.txt" 

@@ -6,10 +6,6 @@ from view.home_view import HomeView
 from view.login import Login
 
 
-# TODO
-#   ?
-
-
 def main():
     main_controller = MainController()
     main_controller.startup()
