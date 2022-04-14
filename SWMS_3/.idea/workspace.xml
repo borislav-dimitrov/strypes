@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2501d1a3-f0ed-4ef8-949f-02cb49c9dc05" name="Changes" comment="Changed logout logic from recursive to loop">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/data/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/data/users.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/components/top_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/components/top_menu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

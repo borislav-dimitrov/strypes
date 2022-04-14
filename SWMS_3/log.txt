@@ -287,3 +287,12 @@ Timestamp: 13/04/22 14:27:11    -    INFO    -    Logged from: D:\Pitonq\Strypes
 Timestamp: 13/04/22 14:27:16    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
 Timestamp: 13/04/22 14:27:59    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
 Timestamp: 13/04/22 14:28:05    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 14/04/22 08:35:29    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 14/04/22 08:35:39    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 14/04/22 09:53:01    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 14/04/22 09:53:19    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\user_controller.py   -   Created user - administrator.
+Timestamp: 14/04/22 09:53:22    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 14/04/22 09:53:27    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User administrator has logged in.
+Timestamp: 14/04/22 09:53:29    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User administrator has logged out.
+Timestamp: 14/04/22 09:53:40    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User operator01 has logged in.
+Timestamp: 14/04/22 09:53:56    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User operator01 has logged out.
