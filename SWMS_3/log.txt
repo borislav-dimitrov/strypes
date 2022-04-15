@@ -296,3 +296,59 @@ Timestamp: 14/04/22 09:53:27    -    INFO    -    Logged from: D:\Strypes_Projec
 Timestamp: 14/04/22 09:53:29    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User administrator has logged out.
 Timestamp: 14/04/22 09:53:40    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User operator01 has logged in.
 Timestamp: 14/04/22 09:53:56    -    INFO    -    Logged from: D:\Strypes_Project\strypes\SWMS_3\controler\main_controller.py   -   User operator01 has logged out.
+Timestamp: 14/04/22 16:07:19    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User administrator has logged in.
+Timestamp: 14/04/22 16:07:32    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User administrator has logged out.
+Timestamp: 14/04/22 17:10:06    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 14/04/22 17:10:07    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 14/04/22 17:10:12    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 14/04/22 17:10:13    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 14/04/22 17:10:15    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 14/04/22 17:10:16    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 14/04/22 17:29:51    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 14/04/22 17:29:55    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 14/04/22 17:52:51    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 14/04/22 17:52:52    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 14/04/22 18:02:19    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User administrator has logged in.
+Timestamp: 14/04/22 18:02:49    -    ERROR    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\model\service\modules\users_module.py    -    ErrType: <class 'model.exceptions.WeakPasswordException'>    -    ErrTraceback: <frame at 0x000001CEE74C05A0, file 'D:\\Pitonq\\Strypes_Project_GIT\\strypes\\SWMS_3\\model\\service\\modules\\users_module.py', line 61, code create>    -    Failed creating user!
+Password too weak!
+Password must be at least 8 characters long!
+Password should have at least one uppercase letter!
+Password should have at least one lowercase letter!
+Password should contain at least one special character!
+Timestamp: 14/04/22 18:03:05    -    ERROR    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\model\service\modules\users_module.py    -    ErrType: <class 'model.exceptions.InvalidUserRoleException'>    -    ErrTraceback: <frame at 0x000001CEE74C0A20, file 'D:\\Pitonq\\Strypes_Project_GIT\\strypes\\SWMS_3\\model\\service\\modules\\users_module.py', line 61, code create>    -    Failed creating user!
+Role operatorr is not valid!
+Timestamp: 14/04/22 18:03:13    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\user_controller.py   -   Created user - operator02.
+Timestamp: 14/04/22 18:03:21    -    ERROR    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\model\service\modules\users_module.py    -    ErrType: <class 'Exception'>    -    ErrTraceback: <frame at 0x000001CEE7467730, file 'D:\\Pitonq\\Strypes_Project_GIT\\strypes\\SWMS_3\\model\\service\\modules\\users_module.py', line 104, code update>    -    Failed updating user!
+Username too short!
+Timestamp: 14/04/22 18:03:26    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\user_controller.py   -   Updated user - operator03.
+Timestamp: 14/04/22 18:03:46    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\warehousing_controller.py   -   Created Warehouse - sklad04.
+Timestamp: 14/04/22 18:03:51    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\warehousing_controller.py   -   Updated Warehouse - sklad04.
+Timestamp: 14/04/22 18:03:55    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\warehousing_controller.py   -   Deleted Warehouse - sklad04.
+Timestamp: 14/04/22 18:04:31    -    ERROR    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\model\service\modules\warehousing_module.py    -    ErrType: <class 'TypeError'>    -    ErrTraceback: <frame at 0x000001CEE7464710, file 'D:\\Pitonq\\Strypes_Project_GIT\\strypes\\SWMS_3\\model\\service\\modules\\warehousing_module.py', line 119, code create_product>    -    Creating Product Failed! Sell Price can't be lower than Buy Price!
+Timestamp: 14/04/22 18:04:36    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\warehousing_controller.py   -   Created Product - test_material.
+Timestamp: 14/04/22 18:04:45    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\warehousing_controller.py   -   Updated Product - test_material.
+Timestamp: 14/04/22 18:04:49    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\warehousing_controller.py   -   Deleted Product - test_material.
+Timestamp: 14/04/22 18:06:06    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User administrator has logged out.
+Timestamp: 14/04/22 18:06:40    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User administrator has logged in.
+Timestamp: 14/04/22 18:07:20    -    ERROR    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\model\service\modules\sales_module.py    -    ErrType: <class 'TypeError'>    -    ErrTraceback: <frame at 0x0000021CE1C60C40, file 'D:\\Pitonq\\Strypes_Project_GIT\\strypes\\SWMS_3\\model\\service\\modules\\sales_module.py', line 147, code create_cpty>    -    Failed creating Counterparty! Invalid phone number!
+Timestamp: 14/04/22 18:07:25    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\sales_controller.py   -   Created counterparty - firm7.
+Timestamp: 14/04/22 18:07:55    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\sales_controller.py   -   Updated counterparty - firm7.
+Timestamp: 14/04/22 18:08:59    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User administrator has logged out.
+Timestamp: 14/04/22 18:09:10    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User operator01 has logged in.
+Timestamp: 14/04/22 18:09:23    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\warehousing_controller.py   -   Moved Product - material4 to sklad02.
+Timestamp: 14/04/22 18:09:23    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\warehousing_controller.py   -   Moved Product - material62 to sklad02.
+Timestamp: 14/04/22 18:09:48    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\sales_controller.py   -   Created purchase - 8.
+Timestamp: 14/04/22 18:10:36    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\sales_controller.py   -   Created transaction - 9.
+Timestamp: 14/04/22 18:11:01    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\sales_controller.py   -   Generated invoice - Invoice #2.
+Timestamp: 14/04/22 18:11:29    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\sales_controller.py   -   Deleted invoice - Invoice #2.
+Timestamp: 14/04/22 18:11:33    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\sales_controller.py   -   Generated invoice - Invoice #2.
+Timestamp: 14/04/22 18:11:55    -    ERROR    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\model\service\modules\sales_module.py    -    ErrType: <class 'TypeError'>    -    ErrTraceback: <frame at 0x0000021CE35A4190, file 'D:\\Pitonq\\Strypes_Project_GIT\\strypes\\SWMS_3\\model\\service\\modules\\sales_module.py', line 308, code gen_inv_from_tr>    -    Generating invoice failed! You can generate invoices only for Sales!
+Timestamp: 14/04/22 18:13:32    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User operator01 has logged out.
+Timestamp: 14/04/22 18:14:03    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User administrator has logged in.
+Timestamp: 14/04/22 18:14:14    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User administrator has logged out.
+Timestamp: 14/04/22 18:30:12    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 14/04/22 18:30:26    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 14/04/22 18:33:14    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 14/04/22 18:33:31    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.
+Timestamp: 14/04/22 18:33:38    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged in.
+Timestamp: 14/04/22 18:34:10    -    INFO    -    Logged from: D:\Pitonq\Strypes_Project_GIT\strypes\SWMS_3\controler\main_controller.py   -   User asd has logged out.

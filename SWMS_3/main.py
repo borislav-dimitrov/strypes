@@ -9,7 +9,6 @@ from view.login import Login
 def main():
     main_controller = MainController()
     main_controller.startup()
-    main_controller.logging_out = True
 
     while main_controller.logging_out:
         main_controller.logging_out = False

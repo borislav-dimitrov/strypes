@@ -29,7 +29,7 @@
         "type": "Raw Materials",
         "buy_price": 10.0,
         "sell_price": 12.0,
-        "quantity": 100,
+        "quantity": 56,
         "assigned_wh": {
             "id": 3,
             "name": "sklad03"
@@ -41,7 +41,7 @@
         "type": "Raw Materials",
         "buy_price": 10.0,
         "sell_price": 12.0,
-        "quantity": 300,
+        "quantity": 256,
         "assigned_wh": {
             "id": 3,
             "name": "sklad03"
@@ -63,7 +63,10 @@
         "buy_price": 10.0,
         "sell_price": 12.0,
         "quantity": 290,
-        "assigned_wh": null
+        "assigned_wh": {
+            "id": 2,
+            "name": "sklad02"
+        }
     },
     "9": {
         "id": 9,
@@ -84,7 +87,10 @@
         "buy_price": 8.0,
         "sell_price": 10.0,
         "quantity": 17,
-        "assigned_wh": null
+        "assigned_wh": {
+            "id": 2,
+            "name": "sklad02"
+        }
     },
     "11": {
         "id": 11,
@@ -109,5 +115,23 @@
             "id": 1,
             "name": "sklad01"
         }
+    },
+    "13": {
+        "id": 13,
+        "name": "material4",
+        "type": "Raw Materials",
+        "buy_price": 2.0,
+        "sell_price": 5.0,
+        "quantity": 5,
+        "assigned_wh": null
+    },
+    "14": {
+        "id": 14,
+        "name": "material1",
+        "type": "Raw Materials",
+        "buy_price": 2.0,
+        "sell_price": 5.0,
+        "quantity": 8,
+        "assigned_wh": null
     }
 }

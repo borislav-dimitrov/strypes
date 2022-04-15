@@ -3,7 +3,7 @@ from cryptography.fernet import Fernet
 
 class PasswordManager:
     """
-    PasswordManager class, which manages all the operations with the users password.\n
+    PasswordManager class, which manages all the operations with the user's password.\n
     It is using cryptography for the encryption.
     """
 

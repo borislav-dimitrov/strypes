@@ -88,5 +88,27 @@
                 9.5
             ]
         ]
+    },
+    "8": {
+        "id": 8,
+        "name": "firm7",
+        "phone": "22223333",
+        "payment_nr": "bg9999",
+        "status": "Enabled",
+        "type": "Supplier",
+        "description": [
+            [
+                "material1",
+                "Raw Materials",
+                2.0,
+                5.0
+            ],
+            [
+                "material4",
+                "Raw Materials",
+                2.0,
+                5.0
+            ]
+        ]
     }
 }

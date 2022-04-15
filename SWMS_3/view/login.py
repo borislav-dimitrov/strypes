@@ -19,7 +19,6 @@ class Login:
         self.text = ("Arial", 12)
         self.text_bold = ("Arial", 12, "bold")
         self.heading = ("Arial", 15, "bold")
-        self.colors = {"BLUE": "#1C94CF", "RED": "#871313", "LRED": "#823030", "DRED": "#731616"}
 
         # Set Geometry
         self.w = resolution[0]
@@ -28,7 +27,6 @@ class Login:
 
         # Set Title
         self.parent.title(self.page_name)
-
 
         # Setup Grid
         tkutil.setup_grid(self.parent, self.rows, self.cols)

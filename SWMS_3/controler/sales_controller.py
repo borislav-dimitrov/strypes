@@ -126,7 +126,7 @@ class SalesController:
 
     def show_create_counterparty(self):
         form = ItemForm(self.counterparty_view.parent,
-                        Counterparty("", "", "", "", "", ""), self, "Create Counterparty", height=250)
+                        Counterparty("", "", "", "", "", ""), self, "Create Counterparty")
 
     def show_update_counterparty(self):
         selected = self.counterparty_view.item_list.get_selected_items()

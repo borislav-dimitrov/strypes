@@ -73,6 +73,30 @@
                     "id": 2,
                     "name": "sklad02"
                 }
+            },
+            {
+                "id": 8,
+                "name": "material4",
+                "type": "Finished Goods",
+                "buy_price": 10.0,
+                "sell_price": 12.0,
+                "quantity": 290,
+                "assigned_wh": {
+                    "id": 2,
+                    "name": "sklad02"
+                }
+            },
+            {
+                "id": 10,
+                "name": "material62",
+                "type": "Raw Materials",
+                "buy_price": 8.0,
+                "sell_price": 10.0,
+                "quantity": 17,
+                "assigned_wh": {
+                    "id": 2,
+                    "name": "sklad02"
+                }
             }
         ],
         "status": "Enabled"
@@ -89,7 +113,7 @@
                 "type": "Raw Materials",
                 "buy_price": 10.0,
                 "sell_price": 12.0,
-                "quantity": 100,
+                "quantity": 56,
                 "assigned_wh": {
                     "id": 3,
                     "name": "sklad03"
@@ -101,7 +125,7 @@
                 "type": "Raw Materials",
                 "buy_price": 10.0,
                 "sell_price": 12.0,
-                "quantity": 300,
+                "quantity": 256,
                 "assigned_wh": {
                     "id": 3,
                     "name": "sklad03"

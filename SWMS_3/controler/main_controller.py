@@ -45,7 +45,7 @@ class MainController:
         self.logger = None
         self.pdf_maker = None
         self.logged_user: User = None
-        self.logging_out = False
+        self.logging_out = True
         self.user_controller: UserController = None
         self.warehousing_controller: WarehousingController = None
         self.sales_controller: SalesController = None
